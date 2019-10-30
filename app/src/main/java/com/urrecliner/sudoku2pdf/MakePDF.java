@@ -16,23 +16,22 @@ import java.util.Locale;
 
 class MakePDF {
 
-    void createPDF(String [] suTables, String [] ansTables) {
+    void createPDF(String [] blankTables, String [] ansTables) {
 
-        int [][] xyTable = new int[9][9];
+//        int [][] xyTable = new int[9][9];
 
-        String directory_path = Environment.getExternalStorageDirectory().getPath() + "/sudoku2PDF";
+        String directory_path = Environment.getExternalStorageDirectory().getPath() + "/download";
 
         File file = new File(directory_path);
-        Log.w("file", file.toString());
         if (!file.exists()) {
             Log.w("file", file.toString()+" created");
             file.mkdirs();
         }
-        final SimpleDateFormat sdfDate = new SimpleDateFormat("MM-dd HH.mm.ss", Locale.US);
+        final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
         String fileDate = "sudoku_" + sdfDate.format(System.currentTimeMillis());
 
         int pgWidth = 200*5, pgHeight = 290*5;
-        int boxWidth = pgWidth / 18;
+        int boxWidth = pgWidth / 17;
         int space = pgWidth / 44;
         int pageNbr = 0;
         Canvas canvas = null;
@@ -42,8 +41,8 @@ class MakePDF {
         Paint paint = new Paint();
         paint.setColor(Color.DKGRAY);
         paint.setStyle(Paint.Style.STROKE);
-        for (int idx = 0; idx < suTables.length; idx++) {
-            xyTable = str2suArray(suTables[idx]);
+        for (int idx = 0; idx < blankTables.length; idx++) {
+            int [][] xyTable = str2suArray(blankTables[idx]);
             if (idx % 2 == 0) {
                 if (idx != 0) {
                    document.finishPage(page);
@@ -65,12 +64,12 @@ class MakePDF {
                 for (int col = 0; col < 9; col++) {
                     int xPos = xBase + col * boxWidth;
                     int yPos = yBase + row * boxWidth;
-                    paint.setStrokeWidth(0);
+                    paint.setStrokeWidth(1);
                     paint.setPathEffect(new DashPathEffect(new float[] {1,2}, 0));
                     paint.setStyle(Paint.Style.STROKE);
                     canvas.drawRect(xPos, yPos, xPos + boxWidth, yPos + boxWidth, paint);
                     if (xyTable[row][col] > 0) {
-                        paint.setStrokeWidth(1);
+                        paint.setStrokeWidth(2);
                         paint.setStyle(Paint.Style.FILL_AND_STROKE);
                         canvas.drawText("" + xyTable[row][col], xPos + space , yPos + space + 16, paint);
                     }
@@ -93,10 +92,22 @@ class MakePDF {
 
         document.finishPage(page);
 
-        pageNbr++;
+        String targetPdf = directory_path + "/"+fileDate+".pdf";
+        File filePath = new File(targetPdf);
+        try {
+            document.writeTo(new FileOutputStream(filePath));
+        } catch (IOException e) {
+            Log.e("main", "error " + e.toString());
+        }
+        // close the document
+        document.close();
+
+
 //         Create Answer Page ------------
-//        pageInfo = new PdfDocument.PageInfo.Builder(pgWidth, pgHeight, 2).create();
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(pgWidth, pgHeight, pageNbr).create();
+
+        document = new PdfDocument();
+
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(pgWidth, pgHeight, 1).create();
         // start a page
         page = document.startPage(pageInfo);
         canvas = page.getCanvas();
@@ -106,11 +117,11 @@ class MakePDF {
         canvas.drawText(fileDate, pgWidth/3, space + 16, paint);
         boxWidth = boxWidth * 7 / 16;
         for (int nbrInPage = 0; nbrInPage < 20; nbrInPage++) {
-            xyTable = str2suArray(ansTables[nbrInPage]);
+            int [][] xyTable = str2suArray(ansTables[nbrInPage]);
             paint.setTextSize(14);
             paint.setStrokeWidth(0);
             paint.setPathEffect(new DashPathEffect(new float[] {1,2}, 0));
-            int xBase = space + (nbrInPage % 4) * boxWidth * 10 + 10;
+            int xBase = space + (nbrInPage % 4) * boxWidth * 95 / 10;
             int yBase = space + (nbrInPage / 4) * boxWidth * 10 + boxWidth + 40;
             for (int row = 0; row < 9; row++) {
                 for (int col = 0; col < 9; col++) {
@@ -135,11 +146,11 @@ class MakePDF {
                     canvas.drawRect(xBase, yBase, xPos + boxWidth*3, yPos + boxWidth*3, paint);
                 }
         }
-
         document.finishPage(page);
+
         // write the document content
-        String targetPdf = directory_path + "/"+ fileDate+".pdf";
-        File filePath = new File(targetPdf);
+        targetPdf = directory_path + "/"+ fileDate+"ans.pdf";
+        filePath = new File(targetPdf);
         try {
             document.writeTo(new FileOutputStream(filePath));
         } catch (IOException e) {
