@@ -11,24 +11,20 @@ import android.util.Log;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
+
+import static com.urrecliner.sudoku2pdf.MainActivity.fileDate;
 
 class MakePDF {
 
     void createPDF(String [] blankTables, String [] ansTables) {
 
 //        int [][] xyTable = new int[9][9];
-
         String directory_path = Environment.getExternalStorageDirectory().getPath() + "/download";
-
         File file = new File(directory_path);
         if (!file.exists()) {
             Log.w("file", file.toString()+" created");
             file.mkdirs();
         }
-        final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
-        String fileDate = "sudoku_" + sdfDate.format(System.currentTimeMillis());
 
         int pgWidth = 200*5, pgHeight = 290*5;
         int boxWidth = pgWidth / 17;
@@ -116,7 +112,7 @@ class MakePDF {
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         canvas.drawText(fileDate, pgWidth/3, space + 16, paint);
         boxWidth = boxWidth * 7 / 16;
-        for (int nbrInPage = 0; nbrInPage < 20; nbrInPage++) {
+        for (int nbrInPage = 0; nbrInPage < ansTables.length; nbrInPage++) {
             int [][] xyTable = str2suArray(ansTables[nbrInPage]);
             paint.setTextSize(14);
             paint.setStrokeWidth(0);
@@ -149,7 +145,7 @@ class MakePDF {
         document.finishPage(page);
 
         // write the document content
-        targetPdf = directory_path + "/"+ fileDate+"ans.pdf";
+        targetPdf = directory_path + "/"+ fileDate+" ans.pdf";
         filePath = new File(targetPdf);
         try {
             document.writeTo(new FileOutputStream(filePath));

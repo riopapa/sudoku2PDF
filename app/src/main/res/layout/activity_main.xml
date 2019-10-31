@@ -1,43 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <TextView
+            android:id="@+id/appName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Generate Sudoku"
+            />
+
+    </android.support.v7.widget.Toolbar>
+
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+<!--    Left for level -->
+    <TextView
+        android:id="@+id/levelLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:backgroundTint="#00000000"
-        app:borderWidth="0dp"
-        android:elevation="-6dp"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:text="Difficulty\nLevel"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/countLabel"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/run"
+    <TextView
+        android:id="@+id/levelText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="lvl"
+        android:textColor="@color/colorAccent"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/countText"
+        app:layout_constraintTop_toBottomOf="@id/levelLabel"
+        />
+
+    <com.urrecliner.sudoku2pdf.WheelView
+        android:id="@+id/wheel_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="#f0f4c3"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+
+        app:wv_dividerColor="#699f38"
+        app:wv_normalItemTextColor="#00796b"
+        app:wv_selectedItemTextColor="#004d40"
+        app:wv_showDivider="true"
+        app:wv_textSize="32sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/wheel_count"
+        app:layout_constraintTop_toBottomOf="@id/levelText"
+        />
+
+<!--    Right for count -->
+
+    <TextView
+        android:id="@+id/countLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:text="number of\nPuzzles"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@id/levelLabel"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <TextView
+        android:id="@+id/countText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:text="cnt"
+        android:textColor="@color/colorAccent"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@id/levelText"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/countLabel" />
+
+
+
+    <com.urrecliner.sudoku2pdf.WheelView
+        android:id="@+id/wheel_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="#f0f4c3"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+
+        app:wv_dividerColor="#699f38"
+        app:wv_normalItemTextColor="#00796b"
+        app:wv_selectedItemTextColor="#004d40"
+        app:wv_showDivider="true"
+        app:wv_textSize="32sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/wheel_level"
+        app:layout_constraintTop_toBottomOf="@id/countText"
+        />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:text="status"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/colorPrimary"
+        android:background="@color/background"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wheel_count" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/start"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
         android:layout_gravity="bottom|start"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@mipmap/ic_playstart" />
-</android.support.design.widget.CoordinatorLayout>
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@mipmap/icon_sudoku2pdf" />
+
+</android.support.constraint.ConstraintLayout>
