@@ -2,10 +2,12 @@ package com.urrecliner.sudoku2pdf;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+import static com.urrecliner.sudoku2pdf.MainActivity.progressBar;
 import static com.urrecliner.sudoku2pdf.MainActivity.statusTV;
 
 class MakeSudoku {
@@ -20,75 +22,77 @@ class MakeSudoku {
     private int solved = 0;     // solved cell count (should be same with blanked
     private int retrySum = 0;
     private int looped = 0;
-    private int countPage, levelDegree;
+    private int puzzleCount, levelDegree;
     private Random random;
 
     void run(int count, int level) {
-        countPage = count;
+        puzzleCount = count;
         levelDegree = level;
         try {
-            new MergeFileTask().execute("");
+            new make_blank_solve().execute("");
         } catch (Exception e) {
             Log.e("Err",e.toString());
         }
     }
 
-    private class MergeFileTask extends AsyncTask< String, String, String> {
+    private class make_blank_solve extends AsyncTask< String, String, String> {
 
         Long duration;
         @Override
         protected void onPreExecute() {
 
             random = new Random(System.currentTimeMillis());
-            blankTables = new String[countPage];
-            answerTables = new String[countPage];
+            blankTables = new String[puzzleCount];
+            answerTables = new String[puzzleCount];
             duration = System.currentTimeMillis();
+            progressBar.setMax(0);
+            progressBar.setVisibility(View.VISIBLE);
+            statusTV.setVisibility(View.VISIBLE);
         }
 
         @Override
         protected String doInBackground(String... inputParams) {
-            int sudokuCount = 0;
+            int madeCount = 0;
 
-            while (sudokuCount < countPage) {
+            while (madeCount < puzzleCount) {
                 looped++;
-                publishProgress("Generating "+sudokuCount+" with "+looped+" loops!");
-//                Log.w("loop","sudokuCount "+sudokuCount+" loop "+looped);
-//                Log.w("process", "Proccessing Loop:" + sudokuCount);
+                publishProgress("c", " "+madeCount+" Made, "+looped+" loops! ");
                 make_answerTable(); // result in [] answerTable
-//            dumpTable("GENERATED LOOP "+ sudokuCount, answerTable);
+//            dumpTable("GENERATED LOOP "+ puzzleCount, answerTable);
                 int retryCount = 0;
-                blanked = 1234;
-                solved = 5678;
-                while (blanked != solved) {
-//                Log.w("blanked","blanked:"+blanked+", solved="+solved+" so reBLANKING err:"+retryCount);
-                    blank_Table();
-//                dumpTable("BLANKED LOOP "+ sudokuCount +" blank="+blanked, blankTable);
-                    solve_Table();
-//                dumpTable("SOLVED "+ sudokuCount+" solved="+solved+" err="+retryCount, solveTable);
+                do {
+                    blanked = blank_Table();
+                    solved = solve_Table();
+//                  Log.w("verify","blanked:"+blanked+", solved="+solved+((blanked-solved == 0) ? " GOOD":(" not Yet, retry: "+retryCount)));
                     retryCount++;
-                    if (retryCount > 10)
+                    if (retryCount > 20)
                         break;
-                }
+                } while (blanked != solved && solved == 0);
+
                 retrySum += retryCount;
                 if (blanked == solved) {
-                    int diffCount = 0;
-                    for (int x = 0; x < 9; x++)
-                        for (int y = 0; y < 9; y++)
-                            if (answerTable[x][y] != solveTable[x][y]) diffCount++;
-
-                    if (diffCount > 0) {
-                        dumpTable("DIFFERENT ....... ans " + diffCount, answerTable);
-                        dumpTable("DIFFERENT ....... sol " + diffCount, solveTable);
-                        dumpTable("DIFFERENT ....... blk " + diffCount, blankTable);
-                    }
-                    Log.w("MAKE LOOP", "@@@@@ GOOD @@@@@@@@@@@  " + blanked + " vs " + solved + " sudokuCount " + sudokuCount + " retry:" + retryCount);
+//                    int diffCount = 0;
+//                    for (int x = 0; x < 9; x++)
+//                        for (int y = 0; y < 9; y++)
+//                            if (answerTable[x][y] != solveTable[x][y]) diffCount++;
+//
+//                    if (diffCount > 0) {
+//                        dumpTable("DIFFERENT ....... ans " + diffCount, answerTable);
+//                        dumpTable("DIFFERENT ....... sol " + diffCount, solveTable);
+//                        dumpTable("DIFFERENT ....... blk " + diffCount, blankTable);
+//                    }
                     String ans = suArray2Str(answerTable);
                     String blk = suArray2Str(blankTable);
-                    if (ans.equals(blk))
-                        Log.e("Err", "same blank table");
-                    answerTables[sudokuCount] = suArray2Str(answerTable);
-                    blankTables[sudokuCount] = suArray2Str(blankTable);
-                    sudokuCount++;
+//                    if (ans.equals(blk))
+//                        Log.e("Err", "same blank table");
+                    answerTables[madeCount] = suArray2Str(answerTable);
+                    blankTables[madeCount] = suArray2Str(blankTable);
+                    madeCount++;
+                    publishProgress("p", ""+(madeCount * 100 / puzzleCount));
+
+                    Log.w("MADE", madeCount+" generated");
+//                    dumpTable( "@@ M A D E @@@  " + blanked + " vs " + solved + " madeCount " + madeCount + " retry:" + retryCount, blankTable);
+//                    dumpTable( "@@ M A D E @@@  " + blanked + " vs " + solved + " madeCount " + madeCount + " retry:" + retryCount, blankTable);
                 }
             }
             duration = System.currentTimeMillis() - duration;
@@ -216,20 +220,22 @@ class MakeSudoku {
             return result;
         }
 
-        void blank_Table() {
+        int blank_Table() {
             blankTable = new int[9][9];
             blankTable = copy_Table(answerTable);
-            blanked = 0;
-            int target = levelDegree * 3 - nextRanged(4);
-            while (target > 0) {
+            int blanked = 0;
+            // difficulty calcuation
+            int target = 10 + levelDegree + levelDegree - nextRanged(4);
+            while (blanked < target) {
                 int x = nextRanged(9);
                 int y = nextRanged(9);
                 nextThree();
                 if (blankTable[x][y] > 0) {
                     blankTable[x][y] = 0;
-                    target--;
+                    blanked++;
                 }
             }
+            return blanked;
         }
 
         int [][] copy_Table(int [][] srcTable) {
@@ -240,10 +246,10 @@ class MakeSudoku {
             return tgtTable;
         }
 
-        void solve_Table() {
+        int solve_Table() {
             solveTable = copy_Table(blankTable);
             int [][][] workTable = new int [9][9][9];
-            solved = 0;
+            int solved = 0;
             // fill workTable with impossible number verification code
             for (int y = 0; y < 9; y++) {
                 for (int x = 0; x < 9; x++) {
@@ -268,11 +274,14 @@ class MakeSudoku {
                     }
                 }
             }
+            int pos = 99;
             while (hasSolTableZero(solveTable)) {
 
-                int pos = nextUniqueCell(solveTable, workTable);
-                if (pos == 0)
-                    break;
+                pos = nextUniqueCell(solveTable, workTable);
+                if (pos == 0) {
+//                    Log.w("not unique","solved="+solved);
+                    return solved;
+                }
                 int x = pos % 9; int y = pos / 9;
                 int nbr = 100;
                 for (int z = 0; z < 9; z++) {
@@ -294,6 +303,7 @@ class MakeSudoku {
                     for (int xp = 0; xp < 3; xp++)
                         workTable[xb+xp][yb+yp][nbr-1] = 1;
             }
+            return solved;
         }
 
         boolean hasSolTableZero(int [][] solTable) {
@@ -322,9 +332,18 @@ class MakeSudoku {
 
         @Override
         protected void onProgressUpdate(String... values) {
-            String debugText = values[0];
-            statusTV.setText(debugText);
-            statusTV.invalidate();
+            String which = values[0];
+            switch (which) {
+                case "c":
+                    String debugText = values[1];
+                    statusTV.setText(debugText);
+                    statusTV.invalidate();
+                    break;
+                case "p":
+                    int progress = Integer.parseInt(values[1]);
+                    progressBar.setProgress(progress);
+                    break;
+            }
         }
         @Override
         protected void onCancelled(String result) {
@@ -335,6 +354,7 @@ class MakeSudoku {
 
 //            Toast.makeText(MainActivity.,statistics, Toast.LENGTH_LONG).show();
             Log.w("DONE", statistics);
+            progressBar.setVisibility(View.INVISIBLE);
             statusTV.setText(statistics);
             statusTV.invalidate();
 

@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.os.Environment;
 import android.util.Log;
@@ -16,7 +17,7 @@ import static com.urrecliner.sudoku2pdf.MainActivity.fileDate;
 
 class MakePDF {
 
-    void createPDF(String [] blankTables, String [] ansTables) {
+    void createPDF(String [] blankTables, String [] answerTables) {
 
 //        int [][] xyTable = new int[9][9];
         String directory_path = Environment.getExternalStorageDirectory().getPath() + "/download";
@@ -48,7 +49,7 @@ class MakePDF {
                 // start a page
                 page = document.startPage(pageInfo);
                 canvas = page.getCanvas();
-                paint.setTextSize(14);
+                paint.setTextSize(20);
                 paint.setStrokeWidth(0);
                 paint.setStyle(Paint.Style.FILL_AND_STROKE);
                 canvas.drawText(fileDate, pgWidth/3, space + 16, paint);
@@ -107,14 +108,15 @@ class MakePDF {
         // start a page
         page = document.startPage(pageInfo);
         canvas = page.getCanvas();
-        paint.setTextSize(14);
+        paint.setTextSize(24);
         paint.setStrokeWidth(0);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         canvas.drawText(fileDate, pgWidth/3, space + 16, paint);
         boxWidth = boxWidth * 7 / 16;
-        for (int nbrInPage = 0; nbrInPage < ansTables.length; nbrInPage++) {
-            int [][] xyTable = str2suArray(ansTables[nbrInPage]);
-            paint.setTextSize(14);
+        for (int nbrInPage = 0; nbrInPage < answerTables.length; nbrInPage++) {
+            int [][] ansTable = str2suArray(answerTables[nbrInPage]);
+            int [][] blankTable = str2suArray(blankTables[nbrInPage]);
+            int answerSize = 13;
             paint.setStrokeWidth(0);
             paint.setPathEffect(new DashPathEffect(new float[] {1,2}, 0));
             int xBase = space + (nbrInPage % 4) * boxWidth * 95 / 10;
@@ -123,10 +125,19 @@ class MakePDF {
                 for (int col = 0; col < 9; col++) {
                     int xPos = xBase + col * boxWidth;
                     int yPos = yBase + row * boxWidth;
+                    answerSize = 13;
                     paint.setStyle(Paint.Style.STROKE);
                     canvas.drawRect(xPos, yPos, xPos + boxWidth, yPos + boxWidth, paint);
+                    if (blankTable[row][col] == 0) {
+                        answerSize = 15;
+                        paint.setColor(Color.BLUE);
+                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD_ITALIC));
+                    }
+                    paint.setTextSize(answerSize);
                     paint.setStyle(Paint.Style.FILL_AND_STROKE);
-                    canvas.drawText("" + xyTable[row][col], xPos + 8, yPos + 16, paint);
+                    canvas.drawText("" + ansTable[row][col], xPos + 8, yPos + 16, paint);
+                    paint.setColor(Color.BLACK);
+                    paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
                 }
             }
             paint.setStrokeWidth(1);

@@ -38,11 +38,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * @author zyyoona7
- * @version v1.0.1
- * @since 2018/8/7.
- */
 public class WheelView<T> extends View implements Runnable {
 
     private static final String TAG = "WheelView";
@@ -57,15 +52,15 @@ public class WheelView<T> extends View implements Runnable {
     private static final int DEFAULT_SCROLL_DURATION = 250;
     private static final long DEFAULT_CLICK_CONFIRM = 120;
     private static final String DEFAULT_INTEGER_FORMAT = "%02d";
-    //默认折射比值，通过字体大小来实现折射视觉差
+    //Default refraction ratio, through the font size to achieve refraction visual difference
     private static final float DEFAULT_REFRACT_RATIO = 1f;
 
-    //文字对齐方式
+    //Text alignment
     public static final int TEXT_ALIGN_LEFT = 0;
     public static final int TEXT_ALIGN_CENTER = 1;
     public static final int TEXT_ALIGN_RIGHT = 2;
 
-    //滚动状态
+    //Scrolling state
     public static final int SCROLL_STATE_IDLE = 0;
     public static final int SCROLL_STATE_DRAGGING = 1;
     public static final int SCROLL_STATE_SCROLLING = 2;
@@ -77,17 +72,17 @@ public class WheelView<T> extends View implements Runnable {
 
     public static final float DEFAULT_CURVED_FACTOR = 0.75f;
 
-    //分割线填充类型
+    //Bending effect alignment
     public static final int DIVIDER_TYPE_FILL = 0;
     public static final int DIVIDER_TYPE_WRAP = 1;
 
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    //字体大小
+    //font size
     private float mTextSize;
-    //是否自动调整字体大小以显示完全
+    //Whether to automatically adjust the font size to display completely
     private boolean isAutoFitTextSize;
     private Paint.FontMetrics mFontMetrics;
-    //每个item的高度
+    //Height of each item
     private int mItemHeight;
     //文字的最大宽度
     private int mMaxTextWidth;
@@ -116,7 +111,7 @@ public class WheelView<T> extends View implements Runnable {
     //分割线填充类型
     @DividerType
     private int mDividerType;
-    //分割线类型为DIVIDER_TYPE_WRAP时 分割线左右两端距离文字的间距
+    //When the split line type is DIVIDER_TYPE_WRAP, the distance between the left and right ends of the split line is from the text.
     private float mDividerPaddingForWrap;
     //分割线两端形状，默认圆头
     private Paint.Cap mDividerCap = Paint.Cap.ROUND;
@@ -146,7 +141,7 @@ public class WheelView<T> extends View implements Runnable {
     private Rect mDrawRect;
     //字体外边距，目的是留有边距
     private float mTextBoundaryMargin;
-    //数据为Integer类型时，是否需要格式转换
+    //Whether format conversion is required when the data is of type Integer
     private boolean isIntegerNeedFormat;
     //数据为Integer类型时，转换格式，默认转换为两位数
     private String mIntegerFormat;
@@ -229,7 +224,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 初始化自定义属性及默认值
+     * Initialize custom properties and default values
      *
      * @param context 上下文
      * @param attrs   attrs
@@ -298,10 +293,12 @@ public class WheelView<T> extends View implements Runnable {
         mDrawRect = new Rect();
         mCamera = new Camera();
         mMatrix = new Matrix();
-        if (!isInEditMode()) {
-            mSoundHelper = SoundHelper.obtain();
-            initDefaultVolume(context);
-        }
+        mSoundHelper = SoundHelper.obtain();    // @ha
+//
+//        if (!isInEditMode()) {
+//            mSoundHelper = SoundHelper.obtain();
+//            initDefaultVolume(context);
+//        }
         calculateTextSize();
         updateTextAlign();
     }
@@ -334,7 +331,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 测量文字最大所占空间
+     * Measure the maximum space occupied by text
      */
     private void calculateTextSize() {
         mPaint.setTextSize(mTextSize);
@@ -410,7 +407,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 起算起始位置
+     * Starting position
      */
     private void calculateDrawStart() {
         switch (mTextAlign) {
@@ -426,7 +423,7 @@ public class WheelView<T> extends View implements Runnable {
                 break;
         }
 
-        //文字中心距离baseline的距离
+        //The distance from the text center to the baseline
         mCenterToBaselineY = (int) (mFontMetrics.ascent + (mFontMetrics.descent - mFontMetrics.ascent) / 2);
     }
 
@@ -887,7 +884,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 获取item text
+     * obtain item text
      *
      * @param item item数据
      * @return 文本内容
@@ -1034,7 +1031,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 当Y轴的偏移值改变时再重绘，减少重回次数
+     * Redraw when the offset value of the Y axis changes, reduce the number of times of return
      */
     private void invalidateIfYChanged() {
         if (mScrollOffsetY != mScrolledY) {
@@ -1080,7 +1077,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 强制滚动完成，直接停止
+     * Forced scrolling completed, stop directly
      */
     public void forceFinishScroll() {
         if (!mScroller.isFinished()) {
@@ -1089,7 +1086,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 强制滚动完成，并且直接滚动到最终位置
+     * Force scrolling to complete and scroll directly to the final position
      */
     public void abortFinishScroll() {
         if (!mScroller.isFinished()) {
@@ -1098,7 +1095,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 计算距离终点的偏移，修正选中条目
+     * Calculate the offset of the distance end point and correct the selected item
      *
      * @param remainder 余数
      * @return 偏移量
@@ -1116,7 +1113,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 使用run方法而不是computeScroll是因为，invalidate也会执行computeScroll导致回调执行不准确
+     * Use the run method instead of computeScroll because invalidate also executes computeScroll causing callback execution to be inaccurate
      */
     @Override
     public void run() {
@@ -1320,7 +1317,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 当数据变化时，是否重置选中下标到第一个
+     * Whether to reset the selected subscript to the first one when the data changes
      *
      * @return 是否重置选中下标到第一个
      */
@@ -1329,7 +1326,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 设置当数据变化时，是否重置选中下标到第一个
+     * Set whether to reset the selected subscript to the first one when the data changes
      *
      * @param isResetSelectedPosition 当数据变化时,是否重置选中下标到第一个
      */
@@ -1944,7 +1941,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 获取自适应分割线类型时的分割线内边距
+     * Split line padding when getting adaptive split line type
      *
      * @return 分割线内边距
      */
@@ -1962,7 +1959,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 设置自适应分割线类型时的分割线内边距
+     * Split line padding when setting the adaptive split line type
      *
      * @param dividerPaddingForWrap 分割线内边距
      * @param isDp                  单位是否是 dp
@@ -2141,7 +2138,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 设置选中条目折射偏移比例
+     * Set the selected item refraction offset ratio
      *
      * @param refractRatio 折射偏移比例 range 0.0-1.0
      */
