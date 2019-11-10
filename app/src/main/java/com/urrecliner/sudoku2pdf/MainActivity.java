@@ -2,12 +2,12 @@ package com.urrecliner.sudoku2pdf;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     final static int MINIMUM_COUNT = 4, MAXIMUM_COUNT = 20;
     static ProgressBar progressBar;
 
-    String TAG = "WHEEL";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -47,10 +46,13 @@ public class MainActivity extends AppCompatActivity {
         statusTV = findViewById(R.id.status);
         statusTV.setVisibility(View.INVISIBLE);
 
-        Resources res = getResources();
-        Drawable drawable = res.getDrawable(R.drawable.circle);
-        progressBar = findViewById(R.id.progress_circle);
+        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.circle, null);
+        progressBar = (ProgressBar) findViewById(R.id.progress_circle);
         progressBar.setVisibility(View.INVISIBLE);
+
+        progressBar.setProgress(0);   // Main Progress
+        progressBar.setSecondaryProgress(100); // Secondary Progress
+        progressBar.setMax(100); // Maximum Progress
         progressBar.setProgressDrawable(drawable);
 
         mContext = getApplicationContext();

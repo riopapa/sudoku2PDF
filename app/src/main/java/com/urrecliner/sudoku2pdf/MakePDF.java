@@ -130,7 +130,7 @@ class MakePDF {
                     canvas.drawRect(xPos, yPos, xPos + boxWidth, yPos + boxWidth, paint);
                     if (blankTable[row][col] == 0) {
                         answerSize = 15;
-                        paint.setColor(Color.BLUE);
+                        paint.setColor(Color.GRAY);
                         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD_ITALIC));
                     }
                     paint.setTextSize(answerSize);

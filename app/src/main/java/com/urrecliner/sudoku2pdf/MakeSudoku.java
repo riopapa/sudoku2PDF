@@ -12,18 +12,13 @@ import static com.urrecliner.sudoku2pdf.MainActivity.statusTV;
 
 class MakeSudoku {
 
-    private int [][] answerTable;
-    private int [][] blankTable;
-    private int [][] solveTable;
+    private static int [][] answerTable;
+    private static int [][] blankTable;
+    private static int [][] solveTable;
 
     private String [] blankTables;
     private String [] answerTables;
-    private int blanked = 0;    // blanked cell count
-    private int solved = 0;     // solved cell count (should be same with blanked
-    private int retrySum = 0;
-    private int looped = 0;
     private int puzzleCount, levelDegree;
-    private Random random;
 
     void run(int count, int level) {
         puzzleCount = count;
@@ -35,9 +30,13 @@ class MakeSudoku {
         }
     }
 
-    private class make_blank_solve extends AsyncTask< String, String, String> {
+    class make_blank_solve extends AsyncTask< String, String, String> {
 
         Long duration;
+        private Random random;
+        private int retrySum = 0;
+        private int looped = 0;
+
         @Override
         protected void onPreExecute() {
 
@@ -45,7 +44,8 @@ class MakeSudoku {
             blankTables = new String[puzzleCount];
             answerTables = new String[puzzleCount];
             duration = System.currentTimeMillis();
-            progressBar.setMax(0);
+            progressBar.setMax(100);
+            progressBar.setProgress(0);
             progressBar.setVisibility(View.VISIBLE);
             statusTV.setVisibility(View.VISIBLE);
         }
@@ -56,14 +56,16 @@ class MakeSudoku {
 
             while (madeCount < puzzleCount) {
                 looped++;
-                publishProgress("c", " "+madeCount+" Made, "+looped+" loops! ");
+                publishProgress(PROGRESS_COUNT, " "+madeCount+"/"+puzzleCount+" Made\n"+looped+" loops! ");
                 make_answerTable(); // result in [] answerTable
 //            dumpTable("GENERATED LOOP "+ puzzleCount, answerTable);
                 int retryCount = 0;
+                // blanked cell count
+                int blanked, solved;
                 do {
                     blanked = blank_Table();
                     solved = solve_Table();
-//                  Log.w("verify","blanked:"+blanked+", solved="+solved+((blanked-solved == 0) ? " GOOD":(" not Yet, retry: "+retryCount)));
+                  Log.w("verify","blanked:"+ blanked +", solved="+solved+((blanked -solved == 0) ? " GOOD":(" not Yet, retry: "+retryCount)));
                     retryCount++;
                     if (retryCount > 20)
                         break;
@@ -81,14 +83,10 @@ class MakeSudoku {
 //                        dumpTable("DIFFERENT ....... sol " + diffCount, solveTable);
 //                        dumpTable("DIFFERENT ....... blk " + diffCount, blankTable);
 //                    }
-                    String ans = suArray2Str(answerTable);
-                    String blk = suArray2Str(blankTable);
-//                    if (ans.equals(blk))
-//                        Log.e("Err", "same blank table");
                     answerTables[madeCount] = suArray2Str(answerTable);
                     blankTables[madeCount] = suArray2Str(blankTable);
                     madeCount++;
-                    publishProgress("p", ""+(madeCount * 100 / puzzleCount));
+                    publishProgress(PROGRESS_PERCENT, ""+(madeCount * 100 / puzzleCount));
 
                     Log.w("MADE", madeCount+" generated");
 //                    dumpTable( "@@ M A D E @@@  " + blanked + " vs " + solved + " madeCount " + madeCount + " retry:" + retryCount, blankTable);
@@ -246,11 +244,55 @@ class MakeSudoku {
             return tgtTable;
         }
 
+        class XYPos {
+            int x;
+            int y;
+        }
+
         int solve_Table() {
+            // initialize solveTable from blankTable
             solveTable = copy_Table(blankTable);
-            int [][][] workTable = new int [9][9][9];
-            int solved = 0;
             // fill workTable with impossible number verification code
+            int [][][] workTable = makeWorkTable();
+            int solved = 0;
+            while (true) {
+                if (solTableHaveZero()) {
+                    XYPos xyPos = nextUniqueCell(workTable);
+                    if (xyPos != null) {
+                        int x = xyPos.x;
+                        int y = xyPos.y;
+                        int nbr = 100;
+                        for (int z = 0; z < 9; z++) {
+                            if (workTable[x][y][z] == 0) {
+                                nbr = z + 1;
+                                break;
+                            }
+                        }
+                        solveTable[x][y] = nbr;
+                        solved++;
+                        // notify other workTable cells to remove this nbr
+                        for (int yp = 0; yp < 9; yp++)
+                            workTable[x][yp][nbr - 1] = 1;
+                        for (int xp = 0; xp < 9; xp++)
+                            workTable[xp][y][nbr - 1] = 1;
+                        int xb = (x / 3) * 3;
+                        int yb = (y / 3) * 3;
+                        for (int yp = 0; yp < 3; yp++)
+                            for (int xp = 0; xp < 3; xp++)
+                                workTable[xb + xp][yb + yp][nbr - 1] = 1;
+                    }
+                    else {
+                        return solved;  // TODO next logic here
+                    }
+                }
+                else
+                    return solved;
+            }
+        }
+
+        int [][][] makeWorkTable() {
+            int [][][] workTable = new int [9][9][9];
+
             for (int y = 0; y < 9; y++) {
                 for (int x = 0; x < 9; x++) {
                     if (solveTable[x][y] == 0) {
@@ -274,77 +316,54 @@ class MakeSudoku {
                     }
                 }
             }
-            int pos = 99;
-            while (hasSolTableZero(solveTable)) {
-
-                pos = nextUniqueCell(solveTable, workTable);
-                if (pos == 0) {
-//                    Log.w("not unique","solved="+solved);
-                    return solved;
-                }
-                int x = pos % 9; int y = pos / 9;
-                int nbr = 100;
-                for (int z = 0; z < 9; z++) {
-                    if (workTable[x][y][z] == 0) {
-                        nbr = z + 1;
-                        break;
-                    }
-                }
-                solveTable[x][y] = nbr;
-                solved++;
-                // notify other workTable cells to remove this nbr
-                for (int yp = 0; yp < 9; yp++)
-                    workTable[x][yp][nbr-1] = 1;
-                for (int xp = 0; xp < 9; xp++)
-                    workTable[xp][y][nbr-1] = 1;
-                int xb = (x / 3) * 3;
-                int yb = (y / 3) * 3;
-                for (int yp = 0; yp < 3; yp++)
-                    for (int xp = 0; xp < 3; xp++)
-                        workTable[xb+xp][yb+yp][nbr-1] = 1;
-            }
-            return solved;
+            return workTable;
         }
 
-        boolean hasSolTableZero(int [][] solTable) {
+        boolean solTableHaveZero() {
             for (int y = 0; y < 9; y++)
                 for (int x = 0; x < 9; x++)
-                    if (solTable[x][y] == 0)
+                    if (solveTable[x][y] == 0) {
                         return true;
+                    }
             return false;
         }
 
-        int nextUniqueCell(int [][] solTable, int [][][] workTable) {
+        XYPos nextUniqueCell(int [][][] workTable) {
             for (int y = 0; y < 9; y++) {
                 for (int x = 0; x < 9; x++) {
-                    if (solTable[x][y] == 0) {
+                    if (solveTable[x][y] == 0) {
                         int cnt = 0;
                         for (int z = 0; z < 9; z++) {
                             cnt += workTable[x][y][z];
                         }
-                        if (cnt == 8)
-                            return y * 9 + x;
+                        if (cnt == 8) {
+                            XYPos xyPos = new XYPos();
+                            xyPos.x = x; xyPos.y = y;
+                            return xyPos;
+                        }
                     }
                 }
             }
-            return 0;
+            return null;
         }
 
+        final static String PROGRESS_COUNT = "c";
+        final static String PROGRESS_PERCENT = "p";
         @Override
         protected void onProgressUpdate(String... values) {
             String which = values[0];
             switch (which) {
-                case "c":
-                    String debugText = values[1];
-                    statusTV.setText(debugText);
-                    statusTV.invalidate();
+                case PROGRESS_COUNT:
+                    String statusText = values[1];
+                    statusTV.setText(statusText);
                     break;
-                case "p":
+                case PROGRESS_PERCENT:
                     int progress = Integer.parseInt(values[1]);
                     progressBar.setProgress(progress);
                     break;
             }
         }
+
         @Override
         protected void onCancelled(String result) {
         }
