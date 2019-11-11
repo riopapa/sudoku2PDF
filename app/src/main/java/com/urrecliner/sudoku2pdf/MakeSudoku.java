@@ -15,7 +15,7 @@ class MakeSudoku {
     private static int [][] answerTable;
     private static int [][] blankTable;
     private static int [][] solveTable;
-
+    private static int [][][] usedTable;    // set '1' if used within that col, row, block
     private String [] blankTables;
     private String [] answerTables;
     private int puzzleCount, levelDegree;
@@ -58,39 +58,27 @@ class MakeSudoku {
                 looped++;
                 publishProgress(PROGRESS_COUNT, " "+madeCount+"/"+puzzleCount+" Made\n"+looped+" loops! ");
                 make_answerTable(); // result in [] answerTable
-//            dumpTable("GENERATED LOOP "+ puzzleCount, answerTable);
+//                dumpTable("Answer Table "+ puzzleCount, answerTable);
                 int retryCount = 0;
                 // blanked cell count
                 int blanked, solved;
                 do {
                     blanked = blank_Table();
                     solved = solve_Table();
-                  Log.w("verify","blanked:"+ blanked +", solved="+solved+((blanked -solved == 0) ? " GOOD":(" not Yet, retry: "+retryCount)));
                     retryCount++;
                     if (retryCount > 20)
                         break;
-                } while (blanked != solved && solved == 0);
+                } while (blanked != solved);
+//                Log.w("verify","blanked:"+ blanked +", solved="+solved+((blanked -solved == 0) ? " GOOD "+madeCount:(" not Yet, retry: "+retryCount+" for "+madeCount)));
 
                 retrySum += retryCount;
                 if (blanked == solved) {
-//                    int diffCount = 0;
-//                    for (int x = 0; x < 9; x++)
-//                        for (int y = 0; y < 9; y++)
-//                            if (answerTable[x][y] != solveTable[x][y]) diffCount++;
-//
-//                    if (diffCount > 0) {
-//                        dumpTable("DIFFERENT ....... ans " + diffCount, answerTable);
-//                        dumpTable("DIFFERENT ....... sol " + diffCount, solveTable);
-//                        dumpTable("DIFFERENT ....... blk " + diffCount, blankTable);
-//                    }
                     answerTables[madeCount] = suArray2Str(answerTable);
                     blankTables[madeCount] = suArray2Str(blankTable);
                     madeCount++;
                     publishProgress(PROGRESS_PERCENT, ""+(madeCount * 100 / puzzleCount));
 
-                    Log.w("MADE", madeCount+" generated");
-//                    dumpTable( "@@ M A D E @@@  " + blanked + " vs " + solved + " madeCount " + madeCount + " retry:" + retryCount, blankTable);
-//                    dumpTable( "@@ M A D E @@@  " + blanked + " vs " + solved + " madeCount " + madeCount + " retry:" + retryCount, blankTable);
+//                    Log.w("MADE", madeCount+" generated");
                 }
             }
             duration = System.currentTimeMillis() - duration;
@@ -187,35 +175,65 @@ class MakeSudoku {
         }
 
         private void dumpTable(String s, int [][] tbl) {
-            String suTableResult;
             Log.w("r",s);
             String bar0  = "\n   0  1  2 | 3  4  5 | 6  7  8";
             String bar   = "\n   -  -  - | -  -  - | -  -  -";
-            suTableResult = "  "+bar0+bar;
+            StringBuilder suTableResult = new StringBuilder("  "+bar0+bar);
             for (int y = 0; y < 9; y++) {
-                String str = "\n"+y+" ";
+                StringBuilder str = new StringBuilder("\n"+y+" ");
                 for (int x = 0; x < 9; x++) {
-                    str += " "+tbl[x][y] + " ";
+                    String sx = " "+tbl[x][y] + " ";
+                    str.append(sx);
                     if (x ==2 || x == 5)
-                        str += "|";
+                        str.append("|");
                 }
-                suTableResult += str;
+                suTableResult.append(str);
                 if (y ==2 || y == 5)
-                    suTableResult += bar;
+                    suTableResult.append(bar);
             }
-            suTableResult += bar + bar0;
-            Log.w("r",suTableResult);
+            suTableResult.append(bar);
+            suTableResult.append(bar0);
+            Log.w("r",suTableResult.toString());
+        }
+
+
+        private void dumpUsed(String memo) {
+            Log.w("d",memo);
+            String s = " .";
+            for (int x = 0; x < 9; x++) {
+                s += "~" + x + "~|";
+            }
+            Log.w("s",s);
+            for (int y = 0; y < 9; y++) {
+                String [] garo = new String [3];
+                garo[0] = " |";garo[1] = y+"|";garo[2] = " |";
+                for (int x = 0; x < 9; x++) {
+                    for (int z = 0; z < 9; z++) {
+                        if (usedTable[x][y][z] == 0)
+                            garo[z/3] += "o";
+                        else
+                            garo[z/3] += (z+1);
+                        if (z == 2 || z == 5) {
+                        }
+                    }
+                    garo[0] += "|";garo[1] += "|";garo[2] += "|";
+                }
+                Log.w("u",garo[0]);
+                Log.w("u",garo[1]);
+                Log.w("u",garo[2]);
+                Log.w("u"," ");
+            }
         }
 
         String suArray2Str (int [][] tbl) {
-            String result = "";
+            StringBuilder result = new StringBuilder();
             for (int row = 0; row < 9; row++) {
-                String s = "";
+                StringBuilder s = new StringBuilder();
                 for (int col = 0; col < 9; col++)
-                    s += tbl[row][col]+";";
-                result += s +":";
+                    s.append(tbl[row][col]+";");
+                result.append(s +":");
             }
-            return result;
+            return result.toString();
         }
 
         int blank_Table() {
@@ -247,79 +265,41 @@ class MakeSudoku {
         class XYPos {
             int x;
             int y;
+            int nbr0;
         }
 
         int solve_Table() {
             // initialize solveTable from blankTable
             solveTable = copy_Table(blankTable);
-            // fill workTable with impossible number verification code
-            int [][][] workTable = makeWorkTable();
+//            dumpTable("solve Table", solveTable);
+            // fill usedTable with impossible number verification code
+            usedTable = makeUsedTable();
+//            dumpUsed("initial");
             int solved = 0;
             while (true) {
                 if (solTableHaveZero()) {
-                    XYPos xyPos = nextUniqueCell(workTable);
+                    XYPos xyPos = findUniqueCell();
+                    if (xyPos == null)
+                        xyPos = findUniqueWithinBlock();
                     if (xyPos != null) {
                         int x = xyPos.x;
                         int y = xyPos.y;
-                        int nbr = 100;
-                        for (int z = 0; z < 9; z++) {
-                            if (workTable[x][y][z] == 0) {
-                                nbr = z + 1;
-                                break;
-                            }
-                        }
-                        solveTable[x][y] = nbr;
+                        solveTable[x][y] = xyPos.nbr0 + 1;
                         solved++;
-                        // notify other workTable cells to remove this nbr
-                        for (int yp = 0; yp < 9; yp++)
-                            workTable[x][yp][nbr - 1] = 1;
-                        for (int xp = 0; xp < 9; xp++)
-                            workTable[xp][y][nbr - 1] = 1;
-                        int xb = (x / 3) * 3;
-                        int yb = (y / 3) * 3;
-                        for (int yp = 0; yp < 3; yp++)
-                            for (int xp = 0; xp < 3; xp++)
-                                workTable[xb + xp][yb + yp][nbr - 1] = 1;
+//                        dumpUsed("x:"+x+" y:"+y+" = "+(xyPos.nbr0+1));
+                        applySolved2WorkTable(x, y, xyPos.nbr0);
+//                        Log.w("solved","x:"+x+" y:"+y+" = "+(xyPos.nbr0+1));
+
                     }
-                    else {
-                        return solved;  // TODO next logic here
-                    }
+                    if (xyPos == null)
+                        return solved;
                 }
                 else
                     return solved;
             }
         }
 
-        int [][][] makeWorkTable() {
-            int [][][] workTable = new int [9][9][9];
-
-            for (int y = 0; y < 9; y++) {
-                for (int x = 0; x < 9; x++) {
-                    if (solveTable[x][y] == 0) {
-                        // fill x based
-                        for (int xPos = 0; xPos < 9; xPos++) {
-                            if (solveTable[xPos][y] != 0)
-                                workTable[x][y][solveTable[xPos][y]-1] = 1;
-                        }
-                        for (int yPos = 0; yPos < 9; yPos++) {
-                            if (solveTable[x][yPos] != 0)
-                                workTable[x][y][solveTable[x][yPos]-1] = 1;
-                        }
-                        int xb = (x / 3) * 3;
-                        int yb = (y / 3) * 3;
-                        for (int yp = 0; yp < 3; yp++) {
-                            for (int xp = 0; xp < 3; xp++) {
-                                if (solveTable[xb+xp][yb+yp] != 0)
-                                    workTable[x][y][solveTable[xb+xp][yb+yp]-1] = 1;
-                            }
-                        }
-                    }
-                }
-            }
-            return workTable;
-        }
-
-        boolean solTableHaveZero() {
+        private boolean solTableHaveZero() {
             for (int y = 0; y < 9; y++)
                 for (int x = 0; x < 9; x++)
                     if (solveTable[x][y] == 0) {
@@ -328,17 +308,101 @@ class MakeSudoku {
             return false;
         }
 
-        XYPos nextUniqueCell(int [][][] workTable) {
+        private void applySolved2WorkTable(int x, int y, int nbr0) {
+            // notify other usedTable cells to remove this nbr
+            for (int yp = 0; yp < 9; yp++)
+                usedTable[x][yp][nbr0] = 1;
+            for (int xp = 0; xp < 9; xp++)
+                usedTable[xp][y][nbr0] = 1;
+            int xb = (x / 3) * 3;
+            int yb = (y / 3) * 3;
+            for (int yp = 0; yp < 3; yp++)
+                for (int xp = 0; xp < 3; xp++)
+                    usedTable[xb + xp][yb + yp][nbr0] = 1;
+        }
+
+        XYPos findUniqueWithinBlock() {
+            // find out whether nSave is only number possible within one block, then nSave is the solution
+            for (int xb = 0; xb < 9; xb+=3) {
+                for (int yb = 0; yb < 9; yb+=3) {
+                    int xSave = 0, ySave = 0, nSave = 0;
+                    for (int z = 0; z < 9; z++) {
+                        int onlyOne = 0;
+                        for (int x = 0; x < 3; x++) {
+                            for (int y = 0; y < 3; y++) {
+                                if (solveTable[xb+x][yb+y] == 0 && usedTable[xb+x][yb+y][z] == 0) {
+                                    onlyOne++;
+                                    xSave = xb+x; ySave = yb+y; nSave = z;
+                                }
+                            }
+                            if (onlyOne > 1)
+                                break;
+                        }
+                        if (onlyOne == 1) { // then this number
+//                            Log.w("ok","findUniqueWithinBlock **");
+                            XYPos xyPos = new XYPos();
+                            xyPos.x = xSave; xyPos.y = ySave; xyPos.nbr0 = nSave;
+                            return xyPos;
+                        }
+                    }
+
+                }
+            }
+            return null;
+        }
+
+        int [][][] makeUsedTable() {
+            // build used table for each cell represented with [][][z]
+            int [][][] tempTable = new int [9][9][9];
+
+            for (int y = 0; y < 9; y++) {
+                for (int x = 0; x < 9; x++) {
+                    if (solveTable[x][y] != 0) {    // if already solved fill all '1'
+                        for (int z = 0; z < 9; z++)
+                            tempTable[x][y][z] = 1;
+                    }
+                    else {
+                        for (int xPos = 0; xPos < 9; xPos++) {
+                            if (solveTable[xPos][y] != 0)
+                                tempTable[x][y][solveTable[xPos][y] - 1] = 1;
+                        }
+                        for (int yPos = 0; yPos < 9; yPos++) {
+                            if (solveTable[x][yPos] != 0)
+                                tempTable[x][y][solveTable[x][yPos] - 1] = 1;
+                        }
+                        int xb = (x / 3) * 3;
+                        int yb = (y / 3) * 3;
+                        for (int yp = 0; yp < 3; yp++) {
+                            for (int xp = 0; xp < 3; xp++) {
+                                if (solveTable[xb + xp][yb + yp] != 0)
+                                    tempTable[x][y][solveTable[xb + xp][yb + yp] - 1] = 1;
+                            }
+                        }
+                    }
+                }
+            }
+            return tempTable;
+        }
+
+        XYPos findUniqueCell() {
+            // find out whether only one number is possible on that cell
             for (int y = 0; y < 9; y++) {
                 for (int x = 0; x < 9; x++) {
                     if (solveTable[x][y] == 0) {
-                        int cnt = 0;
+                        int cnt = 0, nbr0 = -1;
                         for (int z = 0; z < 9; z++) {
-                            cnt += workTable[x][y][z];
+                            cnt += usedTable[x][y][z];
                         }
-                        if (cnt == 8) {
+                        if (cnt == 8) { // only remain one possible answer
+                            for (int z = 0; z < 9; z++) {
+                                if (usedTable[x][y][z] == 0) {
+                                    nbr0 = z;
+                                    break;
+                                }
+                            }
+//                            Log.w("ok","findUniqueCell --");
                             XYPos xyPos = new XYPos();
-                            xyPos.x = x; xyPos.y = y;
+                            xyPos.x = x; xyPos.y = y; xyPos.nbr0 = nbr0;
                             return xyPos;
                         }
                     }
