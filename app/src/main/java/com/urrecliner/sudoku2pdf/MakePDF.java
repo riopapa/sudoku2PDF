@@ -17,7 +17,7 @@ import static com.urrecliner.sudoku2pdf.MainActivity.fileDate;
 
 class MakePDF {
 
-    void createPDF(String [] blankTables, String [] answerTables) {
+    static void createPDF(String [] blankTables, String [] answerTables) {
 
 //        int [][] xyTable = new int[9][9];
         String directory_path = Environment.getExternalStorageDirectory().getPath() + "/download";
@@ -167,7 +167,7 @@ class MakePDF {
         document.close();
     }
 
-    int [][] str2suArray (String str) {
+    static int [][] str2suArray(String str) {
         String [] sRow = str.split(":");
         int [][] sudoku = new int [9][9];
         for (int row = 0; row < 9; row++) {

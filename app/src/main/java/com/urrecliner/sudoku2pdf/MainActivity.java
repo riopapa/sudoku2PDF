@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     static TextView statusTV;
     static String fileDate;
     List<String> levelList, countList;
-    final static int MINIMUM_LEVEL = 6, MAXIMUM_LEVEL = 24;
+    final static int MINIMUM_LEVEL = 10, MAXIMUM_LEVEL = 70;
     final static int MINIMUM_COUNT = 4, MAXIMUM_COUNT = 20;
     static ProgressBar progressBar;
 
@@ -58,14 +58,19 @@ public class MainActivity extends AppCompatActivity {
         mContext = getApplicationContext();
         FloatingActionButton fab = findViewById(R.id.start);
         fab.setOnClickListener(new View.OnClickListener() {
+            boolean isRunning = false;
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Starting generation", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
-                fileDate = "sudoku_" + sdfDate.format(System.currentTimeMillis())+" Level_"+levelDegree ;
-                MakeSudoku makeSudoku = new MakeSudoku();
-                makeSudoku.run(puzzleCount, levelDegree);
+                if (!isRunning) {
+                    isRunning = true;
+                    Snackbar.make(view, "Starting generation", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
+                    fileDate = "sudoku_" + sdfDate.format(System.currentTimeMillis()) + " Level_" + levelDegree;
+                    MakeSudoku makeSudoku = new MakeSudoku();
+                    makeSudoku.run(puzzleCount, levelDegree);
+                    isRunning = false;
+                }
             }
         });
         levelList = new ArrayList<>();

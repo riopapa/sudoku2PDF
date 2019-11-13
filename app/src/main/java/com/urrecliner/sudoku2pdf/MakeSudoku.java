@@ -53,10 +53,19 @@ class MakeSudoku {
         @Override
         protected String doInBackground(String... inputParams) {
             int madeCount = 0;
+            int percentStart = madeCount * 100 / puzzleCount;
+            int percentFinish = (madeCount + 1) * 100 / puzzleCount;
 
             while (madeCount < puzzleCount) {
                 looped++;
-                publishProgress(PROGRESS_COUNT, " "+madeCount+"/"+puzzleCount+" Made\n"+looped+" loops! ");
+                // calculate degrees
+                if (looped % 100 == 0) {
+                    percentStart++;
+                    if (percentStart >= percentFinish)
+                        percentStart = madeCount * 100 / puzzleCount;
+                    publishProgress(PROGRESS_PERCENT, ""+percentStart);
+                    publishProgress(PROGRESS_COUNT, " " + madeCount + "/" + puzzleCount + " Made\n" + looped + " loops! ");
+                }
                 make_answerTable(); // result in [] answerTable
 //                dumpTable("Answer Table "+ puzzleCount, answerTable);
                 int retryCount = 0;
@@ -66,7 +75,7 @@ class MakeSudoku {
                     blanked = blank_Table();
                     solved = solve_Table();
                     retryCount++;
-                    if (retryCount > 20)
+                    if (retryCount > 50)
                         break;
                 } while (blanked != solved);
 //                Log.w("verify","blanked:"+ blanked +", solved="+solved+((blanked -solved == 0) ? " GOOD "+madeCount:(" not Yet, retry: "+retryCount+" for "+madeCount)));
@@ -76,13 +85,14 @@ class MakeSudoku {
                     answerTables[madeCount] = suArray2Str(answerTable);
                     blankTables[madeCount] = suArray2Str(blankTable);
                     madeCount++;
-                    publishProgress(PROGRESS_PERCENT, ""+(madeCount * 100 / puzzleCount));
+                    percentStart = madeCount * 100 / puzzleCount;
+                    publishProgress(PROGRESS_PERCENT, ""+percentStart);
 
 //                    Log.w("MADE", madeCount+" generated");
                 }
             }
             duration = System.currentTimeMillis() - duration;
-            return "\nloop: " + looped + "\nRetried: " + retrySum + "\nduration: " + (((float) duration) / 1000f) + " secs."+"\noutput: "+MainActivity.fileDate+".PDF\n";
+            return "\nloop: " + looped + "\nretried: " + retrySum + "\nduration: " + (((float) duration) / 1000f) + " secs."+"\noutput: "+MainActivity.fileDate+".PDF\n";
 
         }
 
@@ -240,9 +250,7 @@ class MakeSudoku {
             blankTable = new int[9][9];
             blankTable = copy_Table(answerTable);
             int blanked = 0;
-            // difficulty calcuation
-            int target = 10 + levelDegree + levelDegree - nextRanged(4);
-            while (blanked < target) {
+            while (blanked < levelDegree) {
                 int x = nextRanged(9);
                 int y = nextRanged(9);
                 nextThree();
@@ -441,8 +449,7 @@ class MakeSudoku {
             statusTV.setText(statistics);
             statusTV.invalidate();
 
-            MakePDF makePDF = new MakePDF();
-            makePDF.createPDF(blankTables, answerTables);
+            MakePDF.createPDF(blankTables, answerTables);
         }
     }
 }
