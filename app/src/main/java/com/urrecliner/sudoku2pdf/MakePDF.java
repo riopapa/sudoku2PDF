@@ -17,7 +17,7 @@ import static com.urrecliner.sudoku2pdf.MainActivity.fileDate;
 
 class MakePDF {
 
-    static void createPDF(String [] blankTables, String [] answerTables) {
+    static void createPDF(String [] blankTables, String [] answerTables, String [] commentTables) {
 
 //        int [][] xyTable = new int[9][9];
         String directory_path = Environment.getExternalStorageDirectory().getPath() + "/download";
@@ -72,6 +72,7 @@ class MakePDF {
                     }
                 }
             }
+
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeWidth(2);
             paint.setPathEffect(null);
@@ -84,7 +85,7 @@ class MakePDF {
             paint.setStrokeWidth(0);
             paint.setStyle(Paint.Style.FILL_AND_STROKE);
             paint.setTextSize(18);
-            canvas.drawText(""+idx, xBase + 24, yBase - 12, paint);
+            canvas.drawText("("+idx+") "+commentTables[idx], xBase + 12, yBase - 12, paint);
         }
 
         document.finishPage(page);

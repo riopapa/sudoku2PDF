@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
 
 import static com.urrecliner.sudoku2pdf.MainActivity.progressBar;
@@ -18,11 +19,12 @@ class MakeSudoku {
     private static int [][][] usedTable;    // set '1' if used within that col, row, block
     private String [] blankTables;
     private String [] answerTables;
-    private int puzzleCount, levelDegree;
+    private String [] commentTables;
+    private int puzzleCount, blankCount;
 
-    void run(int count, int level) {
-        puzzleCount = count;
-        levelDegree = level;
+    void run(int howMany, int blanks) {
+        puzzleCount = howMany;
+        blankCount = blanks;
         try {
             new make_blank_solve().execute("");
         } catch (Exception e) {
@@ -32,10 +34,10 @@ class MakeSudoku {
 
     class make_blank_solve extends AsyncTask< String, String, String> {
 
-        Long duration;
+        Long duration = 0L, durationSum = 0L;
         private Random random;
         private int retrySum = 0;
-        private int looped = 0;
+        private int tryCount = 0, loopSum = 0;
 
         @Override
         protected void onPreExecute() {
@@ -43,6 +45,7 @@ class MakeSudoku {
             random = new Random(System.currentTimeMillis());
             blankTables = new String[puzzleCount];
             answerTables = new String[puzzleCount];
+            commentTables = new String[puzzleCount];
             duration = System.currentTimeMillis();
             progressBar.setMax(100);
             progressBar.setProgress(0);
@@ -55,17 +58,18 @@ class MakeSudoku {
             int madeCount = 0;
             int percentStart = madeCount * 100 / puzzleCount;
             int percentFinish = (madeCount + 1) * 100 / puzzleCount;
+            int showProgressCount = blankCount - 20;     // 18 should be less than MINIMUM_BLANK
 
             while (madeCount < puzzleCount) {
-                looped++;
                 // calculate degrees
-                if (looped % 100 == 0) {
+                if (tryCount % showProgressCount == 0) {
                     percentStart++;
                     if (percentStart >= percentFinish)
                         percentStart = madeCount * 100 / puzzleCount;
                     publishProgress(PROGRESS_PERCENT, ""+percentStart);
-                    publishProgress(PROGRESS_COUNT, " " + madeCount + "/" + puzzleCount + " Made\n" + looped + " loops! ");
+                    publishProgress(PROGRESS_COUNT, " " + madeCount + "/" + puzzleCount + " Done\n" + tryCount + " tries! ");
                 }
+                tryCount++;
                 make_answerTable(); // result in [] answerTable
 //                dumpTable("Answer Table "+ puzzleCount, answerTable);
                 int retryCount = 0;
@@ -75,24 +79,27 @@ class MakeSudoku {
                     blanked = blank_Table();
                     solved = solve_Table();
                     retryCount++;
-                    if (retryCount > 50)
+                    if (retryCount > 30)
                         break;
                 } while (blanked != solved);
-//                Log.w("verify","blanked:"+ blanked +", solved="+solved+((blanked -solved == 0) ? " GOOD "+madeCount:(" not Yet, retry: "+retryCount+" for "+madeCount)));
-
-                retrySum += retryCount;
                 if (blanked == solved) {
                     answerTables[madeCount] = suArray2Str(answerTable);
                     blankTables[madeCount] = suArray2Str(blankTable);
+                    duration = System.currentTimeMillis() - duration;
+                    String s = tryCount + " tries; " + String.format(Locale.US,"%.3f",((float) duration) / 1000f) + " secs. to generate";
+                    commentTables[madeCount] = s;
+                    durationSum += duration;
+                    duration = System.currentTimeMillis();
+                    loopSum += tryCount;
+                    tryCount = 0;
                     madeCount++;
                     percentStart = madeCount * 100 / puzzleCount;
+                    percentFinish = (madeCount + 1) * 100 / puzzleCount;
                     publishProgress(PROGRESS_PERCENT, ""+percentStart);
-
-//                    Log.w("MADE", madeCount+" generated");
                 }
             }
-            duration = System.currentTimeMillis() - duration;
-            return "\nloop: " + looped + "\nretried: " + retrySum + "\nduration: " + (((float) duration) / 1000f) + " secs."+"\noutput: "+MainActivity.fileDate+".PDF\n";
+
+            return "\nTotal tries: " + loopSum + "\nTotal duration: " + String.format(Locale.US,"%.3f",(float) durationSum / 1000f) + " secs."+"\noutput: "+MainActivity.fileDate+".PDF\n";
 
         }
 
@@ -250,7 +257,7 @@ class MakeSudoku {
             blankTable = new int[9][9];
             blankTable = copy_Table(answerTable);
             int blanked = 0;
-            while (blanked < levelDegree) {
+            while (blanked < blankCount) {
                 int x = nextRanged(9);
                 int y = nextRanged(9);
                 nextThree();
@@ -277,34 +284,38 @@ class MakeSudoku {
         }
 
         int solve_Table() {
-            // initialize solveTable from blankTable
-            solveTable = copy_Table(blankTable);
-//            dumpTable("solve Table", solveTable);
-            // fill usedTable with impossible number verification code
-            usedTable = makeUsedTable();
-//            dumpUsed("initial");
+            int blankRetry = 5;
             int solved = 0;
-            while (true) {
-                if (solTableHaveZero()) {
-                    XYPos xyPos = findUniqueCell();
+            // initialize solveTable from blankTable
+            while (blankRetry < 8) {
+                solveTable = copy_Table(blankTable);
+//            dumpTable("solve Table", solveTable);
+                // fill usedTable with impossible number verification code
+                usedTable = makeUsedTable();
+//            dumpUsed("initial");
+                solved = 0;
+                XYPos xyPos = null;
+                while (solTableHaveZero()) {
+                    xyPos = findUniqueCell();
                     if (xyPos == null)
                         xyPos = findUniqueWithinBlock();
-                    if (xyPos != null) {
-                        int x = xyPos.x;
-                        int y = xyPos.y;
-                        solveTable[x][y] = xyPos.nbr0 + 1;
-                        solved++;
+                    if (xyPos == null)
+                        break;
+                    int x = xyPos.x;
+                    int y = xyPos.y;
+                    solveTable[x][y] = xyPos.nbr0 + 1;
+                    solved++;
 //                        dumpUsed("x:"+x+" y:"+y+" = "+(xyPos.nbr0+1));
-                        applySolved2WorkTable(x, y, xyPos.nbr0);
+                    applySolved2WorkTable(x, y, xyPos.nbr0);
 //                        Log.w("solved","x:"+x+" y:"+y+" = "+(xyPos.nbr0+1));
 
-                    }
-                    if (xyPos == null)
-                        return solved;
                 }
+                if (xyPos == null)
+                    redoBlankTable(++blankRetry);
                 else
-                    return solved;
+                    break;
             }
+            return solved;
         }
 
         private boolean solTableHaveZero() {
@@ -314,6 +325,27 @@ class MakeSudoku {
                         return true;
                     }
             return false;
+        }
+
+        private void redoBlankTable(int loop) {
+            // refill some blanks and generate blanks in other cells
+            int cnt = loop;
+            while (cnt > 0) {
+                int x = nextRanged(9); int y = nextRanged(9);
+                if (blankTable[x][y] == 0) {
+                    blankTable[x][y] = answerTable[x][y];
+                    cnt--;
+                }
+            }
+            cnt = loop;
+            while (cnt > 0) {
+                int x = nextRanged(9); int y = nextRanged(9);
+                if (blankTable[x][y] != 0) {
+                    blankTable[x][y] = 0;
+                    cnt--;
+                }
+            }
+            loop = nextThree();
         }
 
         private void applySolved2WorkTable(int x, int y, int nbr0) {
@@ -449,7 +481,7 @@ class MakeSudoku {
             statusTV.setText(statistics);
             statusTV.invalidate();
 
-            MakePDF.createPDF(blankTables, answerTables);
+            MakePDF.createPDF(blankTables, answerTables, commentTables);
         }
     }
 }
