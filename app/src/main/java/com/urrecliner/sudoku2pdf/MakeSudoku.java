@@ -1,6 +1,7 @@
 package com.urrecliner.sudoku2pdf;
 
 import android.os.AsyncTask;
+import android.support.constraint.ConstraintSet;
 import android.util.Log;
 import android.view.View;
 
@@ -8,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 
+import static com.urrecliner.sudoku2pdf.MainActivity.frameLayout;
+import static com.urrecliner.sudoku2pdf.MainActivity.horizontalLineView;
+import static com.urrecliner.sudoku2pdf.MainActivity.mainLayout;
 import static com.urrecliner.sudoku2pdf.MainActivity.progressBar;
 import static com.urrecliner.sudoku2pdf.MainActivity.statusTV;
 
@@ -36,7 +40,6 @@ class MakeSudoku {
 
         Long duration = 0L, durationSum = 0L;
         private Random random;
-        private int retrySum = 0;
         private int tryCount = 0, loopSum = 0;
 
         @Override
@@ -47,10 +50,24 @@ class MakeSudoku {
             answerTables = new String[puzzleCount];
             commentTables = new String[puzzleCount];
             duration = System.currentTimeMillis();
+
+//            ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(500 + puzzleCount * 80, 500 + puzzleCount * 80);
+//            frameLayout.setLayoutParams(layoutParams);
+
             progressBar.setMax(100);
             progressBar.setProgress(0);
             progressBar.setVisibility(View.VISIBLE);
             statusTV.setVisibility(View.VISIBLE);
+
+            ConstraintSet set = new ConstraintSet();
+            set.connect(frameLayout.getId(), ConstraintSet.TOP, horizontalLineView.getId(), ConstraintSet.BOTTOM);
+            set.constrainWidth(frameLayout.getId(), 500 + puzzleCount * 80);
+            set.constrainHeight(frameLayout.getId(), 500 + puzzleCount * 80);
+            set.connect(frameLayout.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
+            set.connect(frameLayout.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
+            set.connect(frameLayout.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 80);
+            set.applyTo(mainLayout);
+
         }
 
         @Override

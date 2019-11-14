@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.res.ResourcesCompat;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -33,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     final static int MINIMUM_BLANK = 27, MAXIMUM_BLANK = 64;
     final static int MINIMUM_COUNT = 4, MAXIMUM_COUNT = 20;
     static ProgressBar progressBar;
+    static FrameLayout frameLayout;
+    static ConstraintLayout mainLayout;
+    static TextView horizontalLineView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setSecondaryProgress(100); // Secondary Progress
         progressBar.setMax(100); // Maximum Progress
         progressBar.setProgressDrawable(drawable);
+
+        frameLayout = findViewById(R.id.progress_frame);
+
+        mainLayout = findViewById(R.id.mainLayout);
+        horizontalLineView = findViewById(R.id.horizontal_line);
 
         mContext = getApplicationContext();
         FloatingActionButton fab = findViewById(R.id.start);
