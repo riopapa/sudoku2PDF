@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 /**
@@ -27,29 +26,27 @@ public class CircleProgress extends View {
      * **********
      */
 
-    private boolean reDraw = false;
-    private int outerStart = 0;
-    private int outerFinish = 0;
-    private int outerProgressColor = Color.RED;
-    private int outerCirCleColor = Color.DKGRAY;
-    private int outerWidth = 150;
+    private static boolean reDraw = false;
+    private static int outerStart = 0;
+    private static int outerFinish = 0;
+    private static int outerProgressColor = Color.RED;
+    private static int outerCirCleColor = Color.DKGRAY;
+    private static int outerWidth = 150;
 
-    private int innerStart = 0;
-    private int innerFinish = 0;
-    private int innerProgressColor = Color.MAGENTA;
-    private int innerBackGroundColor = Color.GRAY;
+    private static int innerStart = 0;
+    private static int innerFinish = 0;
+    private static int innerProgressColor = Color.MAGENTA;
+    private static int innerBackGroundColor = Color.GRAY;
 
     //Paints
-    private Paint outerCirclePaint = new Paint();
-    private Paint outerProgressPaint = new Paint();
-    private Paint innerBackgroundPaint = new Paint();
-    private Paint innerProgressPaint = new Paint();
+    private static Paint outerCirclePaint = new Paint();
+    private static Paint outerProgressPaint = new Paint();
+    private static Paint innerBackgroundPaint = new Paint();
+    private static Paint innerProgressPaint = new Paint();
 
     //Rectangles
-    private RectF outerBounds = new RectF();
-    private RectF innerBounds = new RectF();
-
-//    private ProgressCallback callback;
+    private static RectF outerBounds = new RectF();
+    private static RectF innerBounds = new RectF();
 
     /**
      * The constructor for the ProgressWheel
@@ -138,18 +135,14 @@ public class CircleProgress extends View {
         int paddingLeft = getPaddingLeft();
         int paddingRight = getPaddingRight();
 
-        // Width should equal to Height, find the min value to setup the circle
         int minValue = Math.min(layout_width - paddingLeft - paddingRight,
                 layout_height - paddingBottom - paddingTop);
 
-//        int circleDiameter = Math.min(minValue, circleRadius * 2 - outerWidth * 2);
-        int circleDiameter = (layout_width - paddingLeft - paddingRight) / 2 - outerWidth - outerWidth - 5;
+        int circleDiameter = (minValue) / 2 - outerWidth - outerWidth - 5;
         // Calc the Offset if needed for centering the wheel in the available space
         int xCenter = (layout_width - paddingLeft - paddingRight) / 2;
         int yCenter = (layout_height - paddingTop - paddingBottom) / 2;
-//        int xOffset = (layout_width - paddingLeft - paddingRight - circleDiameter) / 2 + paddingLeft;
-//        int yOffset = (layout_height - paddingTop - paddingBottom - circleDiameter) / 2 + paddingTop;
-//        Log.w("outerBounds",xOffset+"x"+yOffset+" dia"+circleDiameter+" w"+outerWidth);
+        outerWidth = xCenter / 6;
         outerBounds =
                 new RectF(xCenter - circleDiameter, yCenter - circleDiameter, xCenter + circleDiameter,
                         yCenter + circleDiameter);
@@ -171,50 +164,16 @@ public class CircleProgress extends View {
         super.onDraw(canvas);
         int start = outerStart - 90;
         int angle = outerFinish - outerStart;
-        Log.w("onDraw", "out start=" + start + " angle " + angle+reDraw);
+//        Log.w("onDraw", "out start=" + start + " angle " + angle+reDraw);
         canvas.drawArc(outerBounds, 360, 360, false, outerCirclePaint);
         canvas.drawArc(outerBounds, start, angle, false, outerProgressPaint);
         canvas.drawArc(innerBounds, 360, 360, false, innerBackgroundPaint);
         start = innerStart - 90;
         angle = innerFinish - innerStart;
-        Log.w("onDraw in     ", "start=" + start + " angle " + angle);
+//        Log.w("onDraw in     ", "start=" + start + " angle " + angle);
         canvas.drawArc(innerBounds, start, angle, true, innerProgressPaint);
         invalidate();
     }
-
-//    public interface ProgressCallback {
-//        /**
-//         * Method to call when the progress reaches a value
-//         * in order to avoid float precision issues, the progress
-//         * is rounded to a float with two decimals.
-//         *
-//         * In indeterminate mode, the callback is called each time
-//         * the wheel completes an animation cycle, with, the progress value is -1.0f
-//         *
-//         * @param progress a double value between 0.00 and 1.00 both included
-//         */
-//        public void onProgressUpdate(float progress);
-//    }
-
-//    public void setOuterProgressColor(int outerProgressColor) {
-//        this.outerProgressColor = outerProgressColor;
-//    }
-//
-//    public void setOuterCirCleColor(int outerCirCleColor) {
-//        this.outerCirCleColor = outerCirCleColor;
-//    }
-//
-//    public void setOuterWidth(int outerWidth) {
-//        this.outerWidth = outerWidth;
-//    }
-//
-//    public void setInnerProgressColor(int innerProgressColor) {
-//        this.innerProgressColor = innerProgressColor;
-//    }
-//
-//    public void setInnerBackGroundColor(int innerBackGroundColor) {
-//        this.innerBackGroundColor = innerBackGroundColor;
-//    }
 
     public void reUpdate(int start, int finish, int inner) {
         outerStart = start % 360;

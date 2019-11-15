@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     static TextView statusTV;
     static String fileDate;
     List<String> levelList, countList;
-    final static int MINIMUM_BLANK = 27, MAXIMUM_BLANK = 64;
+    final static int MINIMUM_BLANK = 27, MAXIMUM_BLANK = 60;
     final static int MINIMUM_COUNT = 4, MAXIMUM_COUNT = 20;
     static FrameLayout frameLayout;
     static ConstraintLayout mainLayout;
@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+        @Override
     public void onBackPressed() {
         super.onBackPressed();
         finishAffinity();

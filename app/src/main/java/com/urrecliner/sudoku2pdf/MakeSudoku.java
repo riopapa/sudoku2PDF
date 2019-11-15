@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 
-import static com.urrecliner.sudoku2pdf.MainActivity.MINIMUM_BLANK;
 import static com.urrecliner.sudoku2pdf.MainActivity.circleProgress;
 import static com.urrecliner.sudoku2pdf.MainActivity.frameLayout;
 import static com.urrecliner.sudoku2pdf.MainActivity.horizontalLineView;
@@ -64,9 +63,12 @@ class MakeSudoku {
             statusTV.setVisibility(View.VISIBLE);
 
             ConstraintSet set = new ConstraintSet();
+            int width = horizontalLineView.getWidth();
+            int delta = (width - 888 - 88) / 20;
+            Log.w("Width","is "+width+" delta "+delta);
             set.connect(frameLayout.getId(), ConstraintSet.TOP, horizontalLineView.getId(), ConstraintSet.BOTTOM);
-            set.constrainWidth(frameLayout.getId(), 444 + puzzleCount * 44);
-            set.constrainHeight(frameLayout.getId(), 444 + puzzleCount * 44);
+            set.constrainWidth(frameLayout.getId(), 888 + puzzleCount * delta);
+            set.constrainHeight(frameLayout.getId(), 888 + puzzleCount * delta);
             set.connect(frameLayout.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
             set.connect(frameLayout.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
             set.connect(frameLayout.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 80);
@@ -79,14 +81,9 @@ class MakeSudoku {
             int madeCount = 0;
             int percentStart = 0;
             int percentFinish = madeCount * 360 / puzzleCount;
-            int showProgressCount = blankCount - MINIMUM_BLANK + 5;
 
             while (madeCount < puzzleCount) {
-                // calculate degrees
-//                if (tryCount % showProgressCount == 0) {
-                    publishProgress(PROGRESS_PERCENT, ""+percentStart, ""+percentFinish, ""+tryCount);
-//                    publishProgress(PROGRESS_COUNT, " " + madeCount + "/" + puzzleCount + " Done\n" + tryCount + " tries! ");
-//                }
+                publishProgress(PROGRESS_PERCENT, ""+percentStart, ""+percentFinish, ""+tryCount);
                 tryCount++;
                 make_answerTable(); // result in [] answerTable
 //                dumpTable("Answer Table "+ puzzleCount, answerTable);
@@ -144,6 +141,7 @@ class MakeSudoku {
                 }
             }
         }
+
 
         private boolean hasZeroBlock(int [][] tbl) {
             for (int x = 0;  x < 9; x +=3)
@@ -483,7 +481,7 @@ class MakeSudoku {
                     int start = Integer.parseInt(values[1]);
                     int finish = Integer.parseInt(values[2]);
                     int inner = Integer.parseInt(values[3]);
-                    Log.w("onProg",start+" , "+finish+" , "+inner);
+//                    Log.w("onProg",start+" , "+finish+" , "+inner);
                     circleProgress.reUpdate(start, finish, inner);
                     break;
             }
@@ -502,6 +500,7 @@ class MakeSudoku {
             statusTV.setText(statistics);
             statusTV.invalidate();
             circleProgress.stopUpdate();
+            circleProgress.setVisibility(View.INVISIBLE);
             MakePDF.createPDF(blankTables, answerTables, commentTables);
         }
     }
