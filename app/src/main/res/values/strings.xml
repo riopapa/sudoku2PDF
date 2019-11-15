@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">sudoku2PDF</string>
     <string name="action_settings">Settings</string>
+    <string name="generate_sudoku">Generate Sudoku.PDF</string>
+    <string name="how_many_blanks">How many\nBlanks ?</string>
+    <string name="how_many_sudokus">How many\nSudokus ?</string>
+    <string name="status">status</string>
+    <string name="count">count</string>
+    <string name="blanks">blanks</string>
 </resources>

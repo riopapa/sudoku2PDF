@@ -19,7 +19,7 @@
             android:id="@+id/appName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Generate Sudoku"
+            android:text="@string/generate_sudoku"
             />
 
     </android.support.v7.widget.Toolbar>
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:layout_gravity="center_horizontal"
-        android:text="How many\nBlanks ?"
+        android:text="@string/how_many_blanks"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -53,7 +53,7 @@
         android:id="@+id/levelText"
         android:layout_width="60sp"
         android:layout_height="wrap_content"
-        android:text="lvl"
+        android:text="@string/blanks"
         android:textColor="@color/colorAccent"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -96,7 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
-        android:text="How many\nSudokus ?"
+        android:text="@string/how_many_sudokus"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -110,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
-        android:text="cnt"
+        android:text="@string/count"
         android:textColor="@color/colorAccent"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -161,13 +161,12 @@
         app:layout_constraintStart_toStartOf="parent"
         >
 
-        <ProgressBar
+        <com.urrecliner.sudoku2pdf.CircleProgress
             android:id="@+id/progress_circle"
             style="?android:attr/progressBarStyleHorizontal"
             android:indeterminate="false"
             android:max="100"
             android:progress="40"
-            android:layout_centerInParent="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:progressDrawable="@drawable/circle"
@@ -182,10 +181,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="status"
+            android:text="@string/status"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
-            android:layout_centerVertical="true"
             app:layout_constraintTop_toBottomOf="@id/wheel_count"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -195,11 +193,11 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/start"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="bottom|start"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="40dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:srcCompat="@mipmap/icon_sudoku2pdf" />

@@ -9,10 +9,11 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 
+import static com.urrecliner.sudoku2pdf.MainActivity.MINIMUM_BLANK;
+import static com.urrecliner.sudoku2pdf.MainActivity.circleProgress;
 import static com.urrecliner.sudoku2pdf.MainActivity.frameLayout;
 import static com.urrecliner.sudoku2pdf.MainActivity.horizontalLineView;
 import static com.urrecliner.sudoku2pdf.MainActivity.mainLayout;
-import static com.urrecliner.sudoku2pdf.MainActivity.progressBar;
 import static com.urrecliner.sudoku2pdf.MainActivity.statusTV;
 
 class MakeSudoku {
@@ -29,6 +30,14 @@ class MakeSudoku {
     void run(int howMany, int blanks) {
         puzzleCount = howMany;
         blankCount = blanks;
+
+//        circleProgress.setCallback(new CircleProgress.ProgressCallback() {
+//            @Override
+//            public void onProgressUpdate(float progress) {
+////                interpolatedValue.setText(String.format("%.4f", progress*123));
+//            }
+//        });
+
         try {
             new make_blank_solve().execute("");
         } catch (Exception e) {
@@ -42,6 +51,7 @@ class MakeSudoku {
         private Random random;
         private int tryCount = 0, loopSum = 0;
 
+
         @Override
         protected void onPreExecute() {
 
@@ -50,19 +60,13 @@ class MakeSudoku {
             answerTables = new String[puzzleCount];
             commentTables = new String[puzzleCount];
             duration = System.currentTimeMillis();
-
-//            ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(500 + puzzleCount * 80, 500 + puzzleCount * 80);
-//            frameLayout.setLayoutParams(layoutParams);
-
-            progressBar.setMax(100);
-            progressBar.setProgress(0);
-            progressBar.setVisibility(View.VISIBLE);
+            circleProgress.setVisibility(View.VISIBLE);
             statusTV.setVisibility(View.VISIBLE);
 
             ConstraintSet set = new ConstraintSet();
             set.connect(frameLayout.getId(), ConstraintSet.TOP, horizontalLineView.getId(), ConstraintSet.BOTTOM);
-            set.constrainWidth(frameLayout.getId(), 500 + puzzleCount * 80);
-            set.constrainHeight(frameLayout.getId(), 500 + puzzleCount * 80);
+            set.constrainWidth(frameLayout.getId(), 444 + puzzleCount * 44);
+            set.constrainHeight(frameLayout.getId(), 444 + puzzleCount * 44);
             set.connect(frameLayout.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
             set.connect(frameLayout.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
             set.connect(frameLayout.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 80);
@@ -73,19 +77,16 @@ class MakeSudoku {
         @Override
         protected String doInBackground(String... inputParams) {
             int madeCount = 0;
-            int percentStart = madeCount * 100 / puzzleCount;
-            int percentFinish = (madeCount + 1) * 100 / puzzleCount;
-            int showProgressCount = blankCount - 20;     // 18 should be less than MINIMUM_BLANK
+            int percentStart = 0;
+            int percentFinish = madeCount * 360 / puzzleCount;
+            int showProgressCount = blankCount - MINIMUM_BLANK + 5;
 
             while (madeCount < puzzleCount) {
                 // calculate degrees
-                if (tryCount % showProgressCount == 0) {
-                    percentStart++;
-                    if (percentStart >= percentFinish)
-                        percentStart = madeCount * 100 / puzzleCount;
-                    publishProgress(PROGRESS_PERCENT, ""+percentStart);
-                    publishProgress(PROGRESS_COUNT, " " + madeCount + "/" + puzzleCount + " Done\n" + tryCount + " tries! ");
-                }
+//                if (tryCount % showProgressCount == 0) {
+                    publishProgress(PROGRESS_PERCENT, ""+percentStart, ""+percentFinish, ""+tryCount);
+//                    publishProgress(PROGRESS_COUNT, " " + madeCount + "/" + puzzleCount + " Done\n" + tryCount + " tries! ");
+//                }
                 tryCount++;
                 make_answerTable(); // result in [] answerTable
 //                dumpTable("Answer Table "+ puzzleCount, answerTable);
@@ -105,18 +106,18 @@ class MakeSudoku {
                     duration = System.currentTimeMillis() - duration;
                     String s = tryCount + " tries; " + String.format(Locale.US,"%.3f",((float) duration) / 1000f) + " secs. to generate";
                     commentTables[madeCount] = s;
+                    madeCount++;
+                    percentFinish = madeCount * 360 / puzzleCount;
+                    publishProgress(PROGRESS_PERCENT, ""+percentStart, ""+percentFinish, ""+tryCount);
+                    publishProgress(PROGRESS_COUNT, " " + madeCount + "/" + puzzleCount + " Done\nwith " + tryCount + " tries! ");
                     durationSum += duration;
                     duration = System.currentTimeMillis();
                     loopSum += tryCount;
                     tryCount = 0;
-                    madeCount++;
-                    percentStart = madeCount * 100 / puzzleCount;
-                    percentFinish = (madeCount + 1) * 100 / puzzleCount;
-                    publishProgress(PROGRESS_PERCENT, ""+percentStart);
                 }
             }
 
-            return "\nTotal tries: " + loopSum + "\nTotal duration: " + String.format(Locale.US,"%.3f",(float) durationSum / 1000f) + " secs."+"\noutput: "+MainActivity.fileDate+".PDF\n";
+            return "\nTotal tries: " + loopSum + "\nTotal duration: " + String.format(Locale.US,"%.3f",(float) durationSum / 1000f) + " secs."+"\n"+MainActivity.fileDate+".PDF\n";
 
         }
 
@@ -479,8 +480,11 @@ class MakeSudoku {
                     statusTV.setText(statusText);
                     break;
                 case PROGRESS_PERCENT:
-                    int progress = Integer.parseInt(values[1]);
-                    progressBar.setProgress(progress);
+                    int start = Integer.parseInt(values[1]);
+                    int finish = Integer.parseInt(values[2]);
+                    int inner = Integer.parseInt(values[3]);
+                    Log.w("onProg",start+" , "+finish+" , "+inner);
+                    circleProgress.reUpdate(start, finish, inner);
                     break;
             }
         }
@@ -494,10 +498,10 @@ class MakeSudoku {
 
 //            Toast.makeText(MainActivity.,statistics, Toast.LENGTH_LONG).show();
             Log.w("DONE", statistics);
-            progressBar.setVisibility(View.INVISIBLE);
+//            circleProgress.setVisibility(View.INVISIBLE);
             statusTV.setText(statistics);
             statusTV.invalidate();
-
+            circleProgress.stopUpdate();
             MakePDF.createPDF(blankTables, answerTables, commentTables);
         }
     }

@@ -440,23 +440,22 @@ public class WheelView<T> extends View implements Runnable {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        //绘制选中区域
+        // Draw selected area
         drawSelectedRect(canvas);
-        //绘制分割线
+        // Draw a dividing line
         drawDivider(canvas);
 
-        //滚动了多少个item，滚动的Y值高度除去每行Item的高度
+        // How many items are scrolled, the height of the scrolled Y value is removed from the height of each line of Item
         int scrolledItem = mScrollOffsetY / dividedItemHeight();
-        //没有滚动完一个item时的偏移值，平滑滑动
+        // Smooth offset without scrolling through an item
         int scrolledOffset = mScrollOffsetY % dividedItemHeight();
-        //向上取整
+        // Improvement adjustment
         int halfItem = (mVisibleItems + 1) / 2;
         //计算的最小index
         int minIndex;
         //计算的最大index
         int maxIndex;
         if (scrolledOffset < 0) {
-            //小于0
             minIndex = scrolledItem - halfItem - 1;
             maxIndex = scrolledItem + halfItem;
         } else if (scrolledOffset > 0) {
@@ -467,7 +466,7 @@ public class WheelView<T> extends View implements Runnable {
             maxIndex = scrolledItem + halfItem;
         }
 
-        //绘制item
+        // Drawing item
         for (int i = minIndex; i < maxIndex; i++) {
             if (isCurved) {
                 draw3DItem(canvas, i, scrolledOffset);
@@ -491,7 +490,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 绘制分割线
+     * Draw a dividing line
      *
      * @param canvas 画布
      */
@@ -506,7 +505,7 @@ public class WheelView<T> extends View implements Runnable {
                 canvas.drawLine(mClipLeft, mSelectedItemTopLimit, mClipRight, mSelectedItemTopLimit, mPaint);
                 canvas.drawLine(mClipLeft, mSelectedItemBottomLimit, mClipRight, mSelectedItemBottomLimit, mPaint);
             } else {
-                //边界处理 超过边界直接按照DIVIDER_TYPE_FILL类型处理
+                // Boundary processing exceeds the boundary and directly processes according to the DIVIDER_TYPE_FILL type
                 int startX = (int) (mCenterX - mMaxTextWidth / 2 - mDividerPaddingForWrap);
                 int stopX = (int) (mCenterX + mMaxTextWidth / 2 + mDividerPaddingForWrap);
 

@@ -2,13 +2,11 @@ package com.urrecliner.sudoku2pdf;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -34,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
     List<String> levelList, countList;
     final static int MINIMUM_BLANK = 27, MAXIMUM_BLANK = 64;
     final static int MINIMUM_COUNT = 4, MAXIMUM_COUNT = 20;
-    static ProgressBar progressBar;
     static FrameLayout frameLayout;
     static ConstraintLayout mainLayout;
     static TextView horizontalLineView;
+    static CircleProgress circleProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +48,8 @@ public class MainActivity extends AppCompatActivity {
         statusTV = findViewById(R.id.status);
         statusTV.setVisibility(View.INVISIBLE);
 
-        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.circle, null);
-        progressBar = findViewById(R.id.progress_circle);
-        progressBar.setVisibility(View.INVISIBLE);
-
-        progressBar.setProgress(0);   // Main Progress
-        progressBar.setSecondaryProgress(100); // Secondary Progress
-        progressBar.setMax(100); // Maximum Progress
-        progressBar.setProgressDrawable(drawable);
+        circleProgress = findViewById(R.id.progress_circle);
+        circleProgress.setVisibility(View.INVISIBLE);
 
         frameLayout = findViewById(R.id.progress_frame);
 
@@ -144,37 +135,7 @@ public class MainActivity extends AppCompatActivity {
         wheelView.setSelectedItemPosition(blankCount - MINIMUM_BLANK, true);
         wheelView.setSoundEffect(true);
         wheelView.setSoundEffectResource(R.raw.level_degree);
-        wheelView.setPlayVolume(0.1f);
-
-//        SwitchCompat soundSc = findViewById(R.id.sc_turn_on_sound);
-//        soundSc.setChecked(wheelView.isSoundEffect());
-//        soundSc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                wheelView.setSoundEffect(isChecked);
-//            }
-//        });
-//        final AppCompatSeekBar soundVolumeSb = findViewById(R.id.sb_sound_effect);
-//        soundVolumeSb.setMax(100);
-//        soundVolumeSb.setProgress((int) (wheelView.getPlayVolume() * 100));
-//        AppCompatButton setSoundVolumeBtn = findViewById(R.id.btn_set_sound_effect);
-//        setSoundVolumeBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                wheelView.setPlayVolume(soundVolumeSb.getProgress() * 1.0f / 100);
-//            }
-//        });
-//
-//        SwitchCompat cyclicSc = findViewById(R.id.sc_turn_on_cyclic);
-//        cyclicSc.setChecked(wheelView.isCyclic());
-//        cyclicSc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                wheelView.setCyclic(isChecked);
-//            }
-//        });
-//
-
+        wheelView.setPlayVolume(0.2f);
     }
 
     private void showLevelDegree(TextView tV, String s) {
