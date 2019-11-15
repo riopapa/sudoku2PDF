@@ -158,8 +158,7 @@
         app:layout_constraintTop_toBottomOf="@id/horizontal_line"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        >
+        app:layout_constraintStart_toStartOf="parent" >
 
         <com.urrecliner.sudoku2pdf.CircleProgress
             android:id="@+id/progress_circle"
