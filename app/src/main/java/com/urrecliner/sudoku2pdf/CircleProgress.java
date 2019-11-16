@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -19,25 +20,21 @@ import android.view.View;
  */
 public class CircleProgress extends View {
 
-    private static final String TAG = CircleProgress.class.getSimpleName();
-    /**
-     * *********
-     * DEFAULTS *
-     * **********
-     */
+//    private static final String TAG = CircleProgress.class.getSimpleName();
 
     private static boolean reDraw = false;
-    private static int outerStart = 0;
-    private static int outerFinish = 0;
-    private static int outerProgressColor = Color.RED;
     private static int outerCirCleColor = Color.DKGRAY;
     private static int outerWidth = 150;
+    private static int [] outerProgressColors = {0,0};
 
     private static int innerStart = 0;
     private static int innerFinish = 0;
     private static int innerProgressColor = Color.MAGENTA;
     private static int innerBackGroundColor = Color.GRAY;
 
+    private static int madeCount = 0;
+    private static int puzzleCount = 0;
+    private static int angle = 0;
     //Paints
     private static Paint outerCirclePaint = new Paint();
     private static Paint outerProgressPaint = new Paint();
@@ -112,10 +109,11 @@ public class CircleProgress extends View {
         outerCirclePaint.setStyle(Paint.Style.STROKE);
         outerCirclePaint.setStrokeWidth(outerWidth);
 
-        outerProgressPaint.setColor(outerProgressColor);
         outerProgressPaint.setAntiAlias(true);
         outerProgressPaint.setStyle(Paint.Style.STROKE);
         outerProgressPaint.setStrokeWidth(outerWidth);
+        outerProgressColors[0] = ContextCompat.getColor(getContext(),R.color.color_even);
+        outerProgressColors[1] = ContextCompat.getColor(getContext(),R.color.color_odd);
 
         innerBackgroundPaint.setColor(innerBackGroundColor);
         innerBackgroundPaint.setAntiAlias(true);
@@ -162,28 +160,34 @@ public class CircleProgress extends View {
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int start = outerStart - 90;
-        int angle = outerFinish - outerStart;
-//        Log.w("onDraw", "out start=" + start + " angle " + angle+reDraw);
         canvas.drawArc(outerBounds, 360, 360, false, outerCirclePaint);
-        canvas.drawArc(outerBounds, start, angle, false, outerProgressPaint);
+        for (int start = 0; start < madeCount; start++) {
+            outerProgressPaint.setColor(outerProgressColors[start%2]);
+            canvas.drawArc(outerBounds, (start*angle)-90, angle, false, outerProgressPaint);
+        }
+
         canvas.drawArc(innerBounds, 360, 360, false, innerBackgroundPaint);
-        start = innerStart - 90;
-        angle = innerFinish - innerStart;
+        int start = innerStart - 90;
+        int angle = innerFinish - innerStart;
 //        Log.w("onDraw in     ", "start=" + start + " angle " + angle);
         canvas.drawArc(innerBounds, start, angle, true, innerProgressPaint);
         invalidate();
     }
 
-    public void reUpdate(int start, int finish, int inner) {
-        outerStart = start % 360;
-        outerFinish = finish % 360;
-        innerFinish = inner % 360;
-        innerStart = innerFinish - 3;
-        reDraw = true;
+    public void updateMade(int made) {
+        madeCount = made;
     }
-    public void stopUpdate() {
-        reDraw = false;
+
+    public void updateTried(int inner) {
+        innerStart = inner % 360;
+        innerFinish = innerStart + 3;
+    }
+    public void initiate(int puzzle) {
+        puzzleCount = puzzle;
+        angle = 360 / puzzleCount;
+        madeCount = 0;
+        innerStart = 0;
+        setupPaints();
     }
 }
 

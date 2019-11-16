@@ -7,4 +7,9 @@
 
     <color name="WiseriaPurple">#C6AEC7</color>
 
+    <color name="color_even">@color/FireBrick</color>
+    <color name="color_odd">@color/Red</color>
+    <color name="FireBrick">#B22222</color>
+    <color name="Red">#FF0000</color>
+
 </resources>

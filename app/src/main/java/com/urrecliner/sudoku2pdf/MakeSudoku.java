@@ -60,6 +60,7 @@ class MakeSudoku {
             commentTables = new String[puzzleCount];
             duration = System.currentTimeMillis();
             circleProgress.setVisibility(View.VISIBLE);
+            circleProgress.initiate(puzzleCount);
             statusTV.setVisibility(View.VISIBLE);
 
             ConstraintSet set = new ConstraintSet();
@@ -83,7 +84,7 @@ class MakeSudoku {
             int percentFinish = madeCount * 360 / puzzleCount;
 
             while (madeCount < puzzleCount) {
-                publishProgress(PROGRESS_PERCENT, ""+percentStart, ""+percentFinish, ""+tryCount);
+                publishProgress(PROGRESS_TRIED, ""+tryCount);
                 tryCount++;
                 make_answerTable(); // result in [] answerTable
 //                dumpTable("Answer Table "+ puzzleCount, answerTable);
@@ -104,8 +105,7 @@ class MakeSudoku {
                     String s = tryCount + " tries; " + String.format(Locale.US,"%.3f",((float) duration) / 1000f) + " secs. to generate";
                     commentTables[madeCount] = s;
                     madeCount++;
-                    percentFinish = madeCount * 360 / puzzleCount;
-                    publishProgress(PROGRESS_PERCENT, ""+percentStart, ""+percentFinish, ""+tryCount);
+                    publishProgress(PROGRESS_MADE, ""+madeCount);
                     publishProgress(PROGRESS_COUNT, " " + madeCount + "/" + puzzleCount + " Done\nwith " + tryCount + " tries! ");
                     durationSum += duration;
                     duration = System.currentTimeMillis();
@@ -468,21 +468,26 @@ class MakeSudoku {
         }
 
         final static String PROGRESS_COUNT = "c";
-        final static String PROGRESS_PERCENT = "p";
+        final static String PROGRESS_MADE = "m";
+        final static String PROGRESS_TRIED = "t";
         @Override
         protected void onProgressUpdate(String... values) {
+            int val;
             String which = values[0];
             switch (which) {
                 case PROGRESS_COUNT:
                     String statusText = values[1];
                     statusTV.setText(statusText);
                     break;
-                case PROGRESS_PERCENT:
-                    int start = Integer.parseInt(values[1]);
-                    int finish = Integer.parseInt(values[2]);
-                    int inner = Integer.parseInt(values[3]);
+                case PROGRESS_MADE:
+                    val = Integer.parseInt(values[1]);
 //                    Log.w("onProg",start+" , "+finish+" , "+inner);
-                    circleProgress.reUpdate(start, finish, inner);
+                    circleProgress.updateMade(val);
+                    break;
+                case PROGRESS_TRIED:
+                    val = Integer.parseInt(values[1]);
+//                    Log.w("onProg",start+" , "+finish+" , "+inner);
+                    circleProgress.updateTried(val);
                     break;
             }
         }
@@ -499,8 +504,8 @@ class MakeSudoku {
 //            circleProgress.setVisibility(View.INVISIBLE);
             statusTV.setText(statistics);
             statusTV.invalidate();
-            circleProgress.stopUpdate();
             circleProgress.setVisibility(View.INVISIBLE);
+            circleProgress = null;
             MakePDF.createPDF(blankTables, answerTables, commentTables);
         }
     }

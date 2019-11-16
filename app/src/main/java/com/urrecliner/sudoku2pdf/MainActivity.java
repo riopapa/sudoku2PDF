@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     static TextView statusTV;
     static String fileDate;
     List<String> levelList, countList;
-    final static int MINIMUM_BLANK = 27, MAXIMUM_BLANK = 60;
+    final static int MINIMUM_BLANK = 30, MAXIMUM_BLANK = 60;
     final static int MINIMUM_COUNT = 4, MAXIMUM_COUNT = 20;
     static FrameLayout frameLayout;
     static ConstraintLayout mainLayout;
@@ -48,9 +48,6 @@ public class MainActivity extends AppCompatActivity {
         statusTV = findViewById(R.id.status);
         statusTV.setVisibility(View.INVISIBLE);
 
-        circleProgress = findViewById(R.id.progress_circle);
-        circleProgress.setVisibility(View.INVISIBLE);
-
         frameLayout = findViewById(R.id.progress_frame);
 
         mainLayout = findViewById(R.id.mainLayout);
@@ -64,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!isRunning) {
                     isRunning = true;
+                    circleProgress = findViewById(R.id.progress_circle);
+                    circleProgress.setVisibility(View.INVISIBLE);
                     Snackbar.make(view, "Starting generation", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
@@ -94,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         final SharedPreferences.Editor editor = mSettings.edit();
         final TextView tV = findViewById(R.id.levelText);
         blankCount = mSettings.getInt("blankCount", 40);
-        tV.setText(""+ blankCount);
+        String s = ""+blankCount; tV.setText(s);
 
         final WheelView<String> wheelView = findViewById(R.id.wheel_level);
         wheelView.setOnItemSelectedListener(new WheelView.OnItemSelectedListener<String>() {
@@ -148,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         final SharedPreferences.Editor editor = mSettings.edit();
         final TextView tV = findViewById(R.id.countText);
         puzzleCount = mSettings.getInt("puzzleCount", 16);
-        tV.setText(""+ puzzleCount);
+        String s = ""+ puzzleCount; tV.setText(s);
 
         final WheelView<String> wheelView = findViewById(R.id.wheel_count);
 //        List<String> list = new ArrayList<>(1);
