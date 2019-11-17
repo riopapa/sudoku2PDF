@@ -2,14 +2,18 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">@color/DarkCyan</color>
     <color name="background">@color/WiseriaPurple</color>
 
     <color name="WiseriaPurple">#C6AEC7</color>
 
-    <color name="color_even">@color/FireBrick</color>
-    <color name="color_odd">@color/Red</color>
-    <color name="FireBrick">#B22222</color>
-    <color name="Red">#FF0000</color>
+    <color name="color_even">@color/MediumTurquoise</color>
+    <color name="color_odd">@color/DarkCyan</color>
+    <color name="color_inner">@color/AquaMarine</color>
+
+    <color name="MediumTurquoise">#48D1CC</color>
+    <color name="DarkCyan">#008B8B</color>
+    <color name="AquaMarine">#7FFFD4</color>
+
 
 </resources>

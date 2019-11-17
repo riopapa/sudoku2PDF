@@ -63,7 +63,7 @@
 
         <!--是否绘制选中区域-->
         <attr name="wv_drawSelectedRect" format="boolean"/>
-        <!--选中区域颜色-->
+        <!--Selected area color-->
         <attr name="wv_selectedRectColor" format="color"/>
         <!--选中区域/分割线上下偏移，通过移动分割线上下限制的位置来实现扩大/缩小显示区域-->
         <attr name="wv_dividerOffset" format="dimension"/>

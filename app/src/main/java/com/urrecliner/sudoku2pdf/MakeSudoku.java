@@ -1,6 +1,7 @@
 package com.urrecliner.sudoku2pdf;
 
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.constraint.ConstraintSet;
 import android.util.Log;
 import android.view.View;
@@ -62,11 +63,9 @@ class MakeSudoku {
             circleProgress.setVisibility(View.VISIBLE);
             circleProgress.initiate(puzzleCount);
             statusTV.setVisibility(View.VISIBLE);
-
             ConstraintSet set = new ConstraintSet();
             int width = horizontalLineView.getWidth();
             int delta = (width - 888 - 88) / 20;
-            Log.w("Width","is "+width+" delta "+delta);
             set.connect(frameLayout.getId(), ConstraintSet.TOP, horizontalLineView.getId(), ConstraintSet.BOTTOM);
             set.constrainWidth(frameLayout.getId(), 888 + puzzleCount * delta);
             set.constrainHeight(frameLayout.getId(), 888 + puzzleCount * delta);
@@ -80,11 +79,12 @@ class MakeSudoku {
         @Override
         protected String doInBackground(String... inputParams) {
             int madeCount = 0;
-            int percentStart = 0;
-            int percentFinish = madeCount * 360 / puzzleCount;
+            int innerDegree = 0;
+            publishProgress(PROGRESS_COUNT, " ");
 
             while (madeCount < puzzleCount) {
-                publishProgress(PROGRESS_TRIED, ""+tryCount);
+                innerDegree++;
+                publishProgress(PROGRESS_TRIED, ""+innerDegree);
                 tryCount++;
                 make_answerTable(); // result in [] answerTable
 //                dumpTable("Answer Table "+ puzzleCount, answerTable);
@@ -105,14 +105,16 @@ class MakeSudoku {
                     String s = tryCount + " tries; " + String.format(Locale.US,"%.3f",((float) duration) / 1000f) + " secs. to generate";
                     commentTables[madeCount] = s;
                     madeCount++;
-                    publishProgress(PROGRESS_MADE, ""+madeCount);
-                    publishProgress(PROGRESS_COUNT, " " + madeCount + "/" + puzzleCount + " Done\nwith " + tryCount + " tries! ");
+                    publishProgress(PROGRESS_MADE, ""+madeCount, ""+(int) Math.sqrt(duration)*100);
                     durationSum += duration;
                     duration = System.currentTimeMillis();
                     loopSum += tryCount;
                     tryCount = 0;
+                    innerDegree = 360 * madeCount / puzzleCount;
                 }
             }
+            publishProgress(PROGRESS_MADE, ""+madeCount, "3000");
+            publishProgress(PROGRESS_COUNT, " " + madeCount + "/" + puzzleCount + " Done\nwith " + tryCount + " tries! ");
 
             return "\nTotal tries: " + loopSum + "\nTotal duration: " + String.format(Locale.US,"%.3f",(float) durationSum / 1000f) + " secs."+"\n"+MainActivity.fileDate+".PDF\n";
 
@@ -316,6 +318,8 @@ class MakeSudoku {
                     if (xyPos == null)
                         xyPos = findUniqueWithinBlock();
                     if (xyPos == null)
+                        xyPos = findUniqueWithinLine();
+                    if (xyPos == null)
                         break;
                     int x = xyPos.x;
                     int y = xyPos.y;
@@ -361,7 +365,7 @@ class MakeSudoku {
                     cnt--;
                 }
             }
-            loop = nextThree();
+            nextThree();
         }
 
         private void applySolved2WorkTable(int x, int y, int nbr0) {
@@ -407,6 +411,45 @@ class MakeSudoku {
             return null;
         }
 
+        XYPos findUniqueWithinLine() {
+            // find out whether nSave is only number possible within one vertical, horizontal line, then nSave is the solution
+            for (int x = 0; x < 9; x++) {
+                int xSave = 0, ySave = 0, nSave = 0;
+                for (int z = 0; z < 9; z++) {
+                    int onlyOne = 0;
+                    for (int y = 0; y < 9; y++) {
+                        if (solveTable[x][y] == 0 && usedTable[x][y][z] == 0) {
+                            onlyOne++;
+                            xSave = x; ySave = y; nSave = z;
+                        }
+                    }
+                    if (onlyOne == 1) { // then this number
+                        XYPos xyPos = new XYPos();
+                        xyPos.x = xSave; xyPos.y = ySave; xyPos.nbr0 = nSave;
+                        return xyPos;
+                    }
+                }
+            }
+
+            for (int y = 0; y < 9; y++) {
+                int xSave = 0, ySave = 0, nSave = 0;
+                for (int z = 0; z < 9; z++) {
+                    int onlyOne = 0;
+                    for (int x = 0; x < 9; x++) {
+                        if (solveTable[x][y] == 0 && usedTable[x][y][z] == 0) {
+                            onlyOne++;
+                            xSave = x; ySave = y; nSave = z;
+                        }
+                    }
+                    if (onlyOne == 1) { // then this number
+                        XYPos xyPos = new XYPos();
+                        xyPos.x = xSave; xyPos.y = ySave; xyPos.nbr0 = nSave;
+                        return xyPos;
+                    }
+                }
+            }
+            return null;
+        }
         int [][][] makeUsedTable() {
             // build used table for each cell represented with [][][z]
             int [][][] tempTable = new int [9][9][9];
@@ -472,7 +515,7 @@ class MakeSudoku {
         final static String PROGRESS_TRIED = "t";
         @Override
         protected void onProgressUpdate(String... values) {
-            int val;
+            int val1, val2;
             String which = values[0];
             switch (which) {
                 case PROGRESS_COUNT:
@@ -480,14 +523,15 @@ class MakeSudoku {
                     statusTV.setText(statusText);
                     break;
                 case PROGRESS_MADE:
-                    val = Integer.parseInt(values[1]);
+                    val1 = Integer.parseInt(values[1]); // made
+                    val2 = Integer.parseInt(values[2]); // rotate animation duration
 //                    Log.w("onProg",start+" , "+finish+" , "+inner);
-                    circleProgress.updateMade(val);
+                    circleProgress.updateMade(val1, val2);
                     break;
                 case PROGRESS_TRIED:
-                    val = Integer.parseInt(values[1]);
+                    val1 = Integer.parseInt(values[1]);
 //                    Log.w("onProg",start+" , "+finish+" , "+inner);
-                    circleProgress.updateTried(val);
+                    circleProgress.updateTried(val1);
                     break;
             }
         }
@@ -499,14 +543,18 @@ class MakeSudoku {
         @Override
         protected void onPostExecute(String statistics ) {
 
-//            Toast.makeText(MainActivity.,statistics, Toast.LENGTH_LONG).show();
             Log.w("DONE", statistics);
-//            circleProgress.setVisibility(View.INVISIBLE);
             statusTV.setText(statistics);
             statusTV.invalidate();
-            circleProgress.setVisibility(View.INVISIBLE);
-            circleProgress = null;
             MakePDF.createPDF(blankTables, answerTables, commentTables);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    circleProgress.setVisibility(View.INVISIBLE);
+                    circleProgress.invalidate();
+                }
+            }, 5000);
         }
     }
 }

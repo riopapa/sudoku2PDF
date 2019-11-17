@@ -8,6 +8,11 @@ import android.graphics.RectF;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.RotateAnimation;
+
+import static com.urrecliner.sudoku2pdf.MainActivity.circleProgress;
 
 /**
  * A Material style progress wheel, compatible up to 2.2.
@@ -23,14 +28,11 @@ public class CircleProgress extends View {
 //    private static final String TAG = CircleProgress.class.getSimpleName();
 
     private static boolean reDraw = false;
-    private static int outerCirCleColor = Color.DKGRAY;
     private static int outerWidth = 150;
     private static int [] outerProgressColors = {0,0};
 
     private static int innerStart = 0;
     private static int innerFinish = 0;
-    private static int innerProgressColor = Color.MAGENTA;
-    private static int innerBackGroundColor = Color.GRAY;
 
     private static int madeCount = 0;
     private static int puzzleCount = 0;
@@ -104,6 +106,7 @@ public class CircleProgress extends View {
      * draw the progress wheel
      */
     private void setupPaints() {
+        int outerCirCleColor = Color.DKGRAY;
         outerCirclePaint.setColor(outerCirCleColor);
         outerCirclePaint.setAntiAlias(true);
         outerCirclePaint.setStyle(Paint.Style.STROKE);
@@ -115,11 +118,12 @@ public class CircleProgress extends View {
         outerProgressColors[0] = ContextCompat.getColor(getContext(),R.color.color_even);
         outerProgressColors[1] = ContextCompat.getColor(getContext(),R.color.color_odd);
 
+        int innerBackGroundColor = Color.GRAY;
         innerBackgroundPaint.setColor(innerBackGroundColor);
         innerBackgroundPaint.setAntiAlias(true);
         innerBackgroundPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
-        innerProgressPaint.setColor(innerProgressColor);
+        innerProgressPaint.setColor(ContextCompat.getColor(getContext(),R.color.color_inner));
         innerProgressPaint.setAntiAlias(true);
         innerProgressPaint.setStyle(Paint.Style.FILL_AND_STROKE);
     }
@@ -163,7 +167,7 @@ public class CircleProgress extends View {
         canvas.drawArc(outerBounds, 360, 360, false, outerCirclePaint);
         for (int start = 0; start < madeCount; start++) {
             outerProgressPaint.setColor(outerProgressColors[start%2]);
-            canvas.drawArc(outerBounds, (start*angle)-90, angle, false, outerProgressPaint);
+            canvas.drawArc(outerBounds, ((madeCount+start)*angle)-90, angle, false, outerProgressPaint);
         }
 
         canvas.drawArc(innerBounds, 360, 360, false, innerBackgroundPaint);
@@ -174,8 +178,21 @@ public class CircleProgress extends View {
         invalidate();
     }
 
-    public void updateMade(int made) {
+    public void updateMade(int made, int duration) {
         madeCount = made;
+
+        AnimationSet animSet = new AnimationSet(true);
+        animSet.setInterpolator(new DecelerateInterpolator());
+        animSet.setFillAfter(true);
+        animSet.setFillEnabled(true);
+        final RotateAnimation animRotate = new RotateAnimation(0.0f, angle,
+                RotateAnimation.RELATIVE_TO_SELF, 0.5f,
+                RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+
+        animRotate.setDuration(duration);
+        animRotate.setFillAfter(true);
+        animSet.addAnimation(animRotate);
+        circleProgress.startAnimation(animSet);
     }
 
     public void updateTried(int inner) {
@@ -187,7 +204,7 @@ public class CircleProgress extends View {
         angle = 360 / puzzleCount;
         madeCount = 0;
         innerStart = 0;
-        setupPaints();
+//        setupPaints();
     }
 }
 

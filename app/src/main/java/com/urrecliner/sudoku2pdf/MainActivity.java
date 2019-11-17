@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!isRunning) {
                     isRunning = true;
                     circleProgress = findViewById(R.id.progress_circle);
-                    circleProgress.setVisibility(View.INVISIBLE);
+//                    circleProgress.setVisibility(View.INVISIBLE);
                     Snackbar.make(view, "Starting generation", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
