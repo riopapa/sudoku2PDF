@@ -2,18 +2,38 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">@color/DarkCyan</color>
-    <color name="background">@color/WiseriaPurple</color>
+    <color name="colorAccent">#33691E</color>
+    <color name="background">#C5E1A5</color>
 
-    <color name="WiseriaPurple">#C6AEC7</color>
+    <color name="color_even">@color/m_teal_900</color>
+    <color name="color_odd">@color/m_teal_800</color>
+    <color name="color_outCircle">@color/m_teal_200</color>
 
-    <color name="color_even">@color/MediumTurquoise</color>
-    <color name="color_odd">@color/DarkCyan</color>
-    <color name="color_inner">@color/AquaMarine</color>
+    <color name="color_inner">@color/m_teal_600</color>
+    <color name="color_innerBase">@color/m_teal_100</color>
 
-    <color name="MediumTurquoise">#48D1CC</color>
-    <color name="DarkCyan">#008B8B</color>
-    <color name="AquaMarine">#7FFFD4</color>
+    /* Wheel Color */
+    <color name="selectedRectColor">@color/m_teal_50</color>
+    <color name="dividerColor">@color/m_teal_900</color>
 
+    dividerColor
+
+    <color name="m_teal">#009688</color>
+    <color name="m_teal_50">#e0f2f1</color>
+    <color name="m_teal_100">#b2dfdb</color>
+    <color name="m_teal_200">#80cbc4</color>
+    <color name="m_teal_300">#4db6ac</color>
+    <color name="m_teal_400">#26a69a</color>
+    <color name="m_teal_500">#009688</color>
+    <color name="m_teal_600">#00897b</color>
+    <color name="m_teal_700">#00796b</color>
+    <color name="m_teal_800">#00695c</color>
+    <color name="m_teal_900">#004d40</color>
+    <color name="m_teal_a100">#a7ffeb</color>
+    <color name="m_teal_a200">#64ffda</color>
+    <color name="m_teal_a400">#1de9b6</color>
+    <color name="m_teal_a700">#00bfa5</color>
 
 </resources>
+
+<!-- https://materialuicolors.co for material colors-->

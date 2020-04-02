@@ -3,6 +3,7 @@ package com.urrecliner.sudoku2pdf;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.constraint.ConstraintSet;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 
@@ -24,7 +25,7 @@ class MakeSudoku {
     private static int [][][] usedTable;    // set '1' if used within that col, row, block
     private String [] blankTables;
     private String [] answerTables;
-    private String [] commentTables;
+//    private String [] commentTables;
     private int puzzleCount, blankCount;
 
     void run(int howMany, int blanks) {
@@ -49,7 +50,7 @@ class MakeSudoku {
 
         Long duration = 0L, durationSum = 0L;
         private Random random;
-        private int tryCount = 0, loopSum = 0;
+        private int tryCount = 0, trySum = 0;
 
 
         @Override
@@ -58,7 +59,7 @@ class MakeSudoku {
             random = new Random(System.currentTimeMillis());
             blankTables = new String[puzzleCount];
             answerTables = new String[puzzleCount];
-            commentTables = new String[puzzleCount];
+//            commentTables = new String[puzzleCount];
             duration = System.currentTimeMillis();
             circleProgress.setVisibility(View.VISIBLE);
             circleProgress.initiate(puzzleCount);
@@ -103,12 +104,12 @@ class MakeSudoku {
                     blankTables[madeCount] = suArray2Str(blankTable);
                     duration = System.currentTimeMillis() - duration;
                     String s = tryCount + " tries; " + String.format(Locale.US,"%.3f",((float) duration) / 1000f) + " secs. to generate";
-                    commentTables[madeCount] = s;
+//                    commentTables[madeCount] = s;
                     madeCount++;
-                    publishProgress(PROGRESS_MADE, ""+madeCount, ""+(int) Math.sqrt(duration)*100);
+                    publishProgress(PROGRESS_MADE, ""+madeCount, ""+((int) Math.sqrt(duration)*100+blankCount*10));
                     durationSum += duration;
                     duration = System.currentTimeMillis();
-                    loopSum += tryCount;
+                    trySum += tryCount;
                     tryCount = 0;
                     innerDegree = 360 * madeCount / puzzleCount;
                 }
@@ -116,7 +117,7 @@ class MakeSudoku {
             publishProgress(PROGRESS_MADE, ""+madeCount, "3000");
             publishProgress(PROGRESS_COUNT, " " + madeCount + "/" + puzzleCount + " Done\nwith " + tryCount + " tries! ");
 
-            return "\nTotal tries: " + loopSum + "\nTotal duration: " + String.format(Locale.US,"%.3f",(float) durationSum / 1000f) + " secs."+"\n"+MainActivity.fileDate+".PDF\n";
+            return "\nTotal tries:" + trySum + "\nTotal duration:" + String.format(Locale.US,"%.3f",(float) durationSum / 1000f) + " secs."+"\n"+MainActivity.fileDate+".PDF";
 
         }
 
@@ -541,20 +542,25 @@ class MakeSudoku {
         }
 
         @Override
-        protected void onPostExecute(String statistics ) {
+        protected void onPostExecute(final String statistics ) {
 
+            MakePDF.createPDF(blankTables, answerTables);
             Log.w("DONE", statistics);
             statusTV.setText(statistics);
             statusTV.invalidate();
-            MakePDF.createPDF(blankTables, answerTables, commentTables);
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    circleProgress.setVisibility(View.INVISIBLE);
-                    circleProgress.invalidate();
+//                    circleProgress.setVisibility(View.INVISIBLE);
+//                    circleProgress.invalidate();
+                    frameLayout.setVisibility(View.INVISIBLE);
+                    frameLayout.invalidate();
+                    String s = "Done" + statistics.replace("\n",", ");
+                    Snackbar.make(horizontalLineView.getRootView(), s, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 }
-            }, 5000);
+            }, 3000);
         }
     }
 }

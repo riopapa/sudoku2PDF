@@ -2,7 +2,6 @@ package com.urrecliner.sudoku2pdf;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.v4.content.ContextCompat;
@@ -27,7 +26,6 @@ public class CircleProgress extends View {
 
 //    private static final String TAG = CircleProgress.class.getSimpleName();
 
-    private static boolean reDraw = false;
     private static int outerWidth = 150;
     private static int [] outerProgressColors = {0,0};
 
@@ -106,7 +104,7 @@ public class CircleProgress extends View {
      * draw the progress wheel
      */
     private void setupPaints() {
-        int outerCirCleColor = Color.DKGRAY;
+        int outerCirCleColor = ContextCompat.getColor(getContext(),R.color.color_outCircle);;
         outerCirclePaint.setColor(outerCirCleColor);
         outerCirclePaint.setAntiAlias(true);
         outerCirclePaint.setStyle(Paint.Style.STROKE);
@@ -118,7 +116,7 @@ public class CircleProgress extends View {
         outerProgressColors[0] = ContextCompat.getColor(getContext(),R.color.color_even);
         outerProgressColors[1] = ContextCompat.getColor(getContext(),R.color.color_odd);
 
-        int innerBackGroundColor = Color.GRAY;
+        int innerBackGroundColor = ContextCompat.getColor(getContext(),R.color.color_innerBase);;
         innerBackgroundPaint.setColor(innerBackGroundColor);
         innerBackgroundPaint.setAntiAlias(true);
         innerBackgroundPaint.setStyle(Paint.Style.FILL_AND_STROKE);
