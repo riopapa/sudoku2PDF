@@ -211,7 +211,7 @@ class MakeSudoku {
         }
 
         private void dumpTable(String s, int [][] tbl) {
-            Log.w("r",s);
+//            Log.w("r",s);
             String bar0  = "\n   0  1  2 | 3  4  5 | 6  7  8";
             String bar   = "\n   -  -  - | -  -  - | -  -  -";
             StringBuilder suTableResult = new StringBuilder("  "+bar0+bar);
@@ -229,17 +229,17 @@ class MakeSudoku {
             }
             suTableResult.append(bar);
             suTableResult.append(bar0);
-            Log.w("r",suTableResult.toString());
+//            Log.w("r",suTableResult.toString());
         }
 
 
         private void dumpUsed(String memo) {
-            Log.w("d",memo);
+//            Log.w("d",memo);
             String s = " .";
             for (int x = 0; x < 9; x++) {
                 s += "~" + x + "~|";
             }
-            Log.w("s",s);
+//            Log.w("s",s);
             for (int y = 0; y < 9; y++) {
                 String [] garo = new String [3];
                 garo[0] = " |";garo[1] = y+"|";garo[2] = " |";
@@ -254,10 +254,10 @@ class MakeSudoku {
                     }
                     garo[0] += "|";garo[1] += "|";garo[2] += "|";
                 }
-                Log.w("u",garo[0]);
-                Log.w("u",garo[1]);
-                Log.w("u",garo[2]);
-                Log.w("u"," ");
+//                Log.w("u",garo[0]);
+//                Log.w("u",garo[1]);
+//                Log.w("u",garo[2]);
+//                Log.w("u"," ");
             }
         }
 
@@ -545,7 +545,7 @@ class MakeSudoku {
         protected void onPostExecute(final String statistics ) {
 
             MakePDF.createPDF(blankTables, answerTables);
-            Log.w("DONE", statistics);
+//            Log.w("DONE", statistics);
             statusTV.setText(statistics);
             statusTV.invalidate();
             Handler handler = new Handler();
@@ -556,11 +556,11 @@ class MakeSudoku {
 //                    circleProgress.invalidate();
                     frameLayout.setVisibility(View.INVISIBLE);
                     frameLayout.invalidate();
-                    String s = "Done" + statistics.replace("\n",", ");
+                    String s = "Sudoku PDF generated in Download Folder";
                     Snackbar.make(horizontalLineView.getRootView(), s, Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
-            }, 3000);
+            }, 300);
         }
     }
 }

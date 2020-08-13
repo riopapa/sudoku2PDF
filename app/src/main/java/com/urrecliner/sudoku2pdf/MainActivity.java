@@ -1,7 +1,10 @@
 package com.urrecliner.sudoku2pdf;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
@@ -13,8 +16,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,13 +48,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Log.w("start"," ------------------");
-
+        askPermission();
         statusTV = findViewById(R.id.status);
         statusTV.setVisibility(View.INVISIBLE);
-
         frameLayout = findViewById(R.id.progress_frame);
-
         mainLayout = findViewById(R.id.mainLayout);
         horizontalLineView = findViewById(R.id.horizontal_line);
 
@@ -64,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
                     circleProgress = findViewById(R.id.progress_circle);
                     Snackbar.make(view, "Starting generation", Snackbar.LENGTH_SHORT)
                             .setAction("Action", null).show();
-                    final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
-                    fileDate = "sudoku_" + sdfDate.format(System.currentTimeMillis()) + " with "+ blankCount +" Blanks";
+                    final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.getDefault());
+                    fileDate = "sudoku_" + sdfDate.format(System.currentTimeMillis()) + " ("+puzzleCount+" Puzzles, "+ blankCount +" Blanks)";
                     MakeSudoku makeSudoku = new MakeSudoku();
                     makeSudoku.run(puzzleCount, blankCount);
                     isRunning = false;
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         buildLevelWheel();
         buildCountWheel();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
     }
 
@@ -196,26 +199,26 @@ public class MainActivity extends AppCompatActivity {
         tV.setText(s);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
         @Override
     public void onBackPressed() {
@@ -224,4 +227,72 @@ public class MainActivity extends AppCompatActivity {
         System.exit(0);
         android.os.Process.killProcess(android.os.Process.myPid());
     }
+
+    // ↓ ↓ ↓ P E R M I S S I O N    RELATED /////// ↓ ↓ ↓ ↓
+    ArrayList<String> permissions = new ArrayList<>();
+    private final static int ALL_PERMISSIONS_RESULT = 101;
+    ArrayList<String> permissionsToRequest;
+    ArrayList<String> permissionsRejected = new ArrayList<>();
+
+    private void askPermission() {
+        permissions.add(Manifest.permission.READ_PHONE_STATE);
+        permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        permissions.add(Manifest.permission.VIBRATE);
+        permissions.add(Manifest.permission.ACCESS_NOTIFICATION_POLICY);
+        permissions.add(Manifest.permission.RECEIVE_BOOT_COMPLETED);
+        permissionsToRequest = findUnAskedPermissions(permissions);
+        if (permissionsToRequest.size() != 0) {
+            requestPermissions(permissionsToRequest.toArray(new String[0]),
+                    ALL_PERMISSIONS_RESULT);
+        }
+    }
+
+    private ArrayList findUnAskedPermissions( ArrayList<String> wanted) {
+        ArrayList <String> result = new ArrayList<>();
+        for (String perm : wanted) if (hasPermission(perm)) result.add(perm);
+        return result;
+    }
+    private boolean hasPermission(String permission) {
+        return (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED);
+    }
+
+    //    @TargetApi(Build.VERSION_CODES.M)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == ALL_PERMISSIONS_RESULT) {
+            for (String perms : permissionsToRequest) {
+                if (hasPermission(perms)) {
+                    permissionsRejected.add(perms);
+                }
+            }
+            if (permissionsRejected.size() > 0) {
+                if (shouldShowRequestPermissionRationale(permissionsRejected.get(0))) {
+                    String msg = "These permissions are mandatory for the application. Please allow access.";
+                    showDialog(msg);
+                }
+            }
+            else
+                Toast.makeText(mContext, "Permissions not granted.", Toast.LENGTH_LONG).show();
+        }
+    }
+    private void showDialog(String msg) {
+        showMessageOKCancel(msg,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MainActivity.this.requestPermissions(permissionsRejected.toArray(
+                                new String[0]), ALL_PERMISSIONS_RESULT);
+                    }
+                });
+    }
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new android.app.AlertDialog.Builder(this)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
+    }
+// ↑ ↑ ↑ ↑ P E R M I S S I O N    RELATED /////// ↑ ↑ ↑
+
 }

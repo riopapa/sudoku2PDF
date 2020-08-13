@@ -84,13 +84,13 @@ class MakePDF {
                 }
             paint.setStrokeWidth(0);
             paint.setStyle(Paint.Style.FILL_AND_STROKE);
-            paint.setTextSize(18);
-            canvas.drawText("("+idx+")", xBase + 12, yBase - 12, paint);
+            paint.setTextSize(24);
+            canvas.drawText("( "+(idx+1)+" )", xBase + 12, yBase - 12, paint);
         }
 
         document.finishPage(page);
 
-        String targetPdf = directory_path + "/"+fileDate+".pdf";
+        String targetPdf = directory_path + "/"+fileDate+" .pdf";
         File filePath = new File(targetPdf);
         try {
             document.writeTo(new FileOutputStream(filePath));
@@ -109,7 +109,7 @@ class MakePDF {
         // start a page
         page = document.startPage(pageInfo);
         canvas = page.getCanvas();
-        paint.setTextSize(24);
+        paint.setTextSize(16);
         paint.setStrokeWidth(0);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         canvas.drawText(fileDate, pgWidth/3, space + 16, paint);
@@ -117,36 +117,45 @@ class MakePDF {
         for (int nbrInPage = 0; nbrInPage < answerTables.length; nbrInPage++) {
             int [][] ansTable = str2suArray(answerTables[nbrInPage]);
             int [][] blankTable = str2suArray(blankTables[nbrInPage]);
-            int answerSize = 13;
             paint.setStrokeWidth(0);
             paint.setPathEffect(new DashPathEffect(new float[] {1,2}, 0));
             int xBase = space + (nbrInPage % 4) * boxWidth * 95 / 10;
             int yBase = space + (nbrInPage / 4) * boxWidth * 10 + boxWidth + 40;
+            paint.setStrokeWidth(1);
+            paint.setColor(Color.BLACK);
+            paint.setTextSize(10);
+            paint.setStyle(Paint.Style.FILL_AND_STROKE);
+            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+            canvas.drawText("( "+(nbrInPage+1)+" )", xBase + 16, yBase - 8, paint);
             for (int row = 0; row < 9; row++) {
                 for (int col = 0; col < 9; col++) {
                     int xPos = xBase + col * boxWidth;
                     int yPos = yBase + row * boxWidth;
-                    answerSize = 13;
                     paint.setStyle(Paint.Style.STROKE);
+                    paint.setStrokeWidth(0);
+                    int yposAdjusted = yPos + 16;
                     canvas.drawRect(xPos, yPos, xPos + boxWidth, yPos + boxWidth, paint);
                     if (blankTable[row][col] == 0) {
-                        answerSize = 15;
+                        yposAdjusted +=2;
+                        paint.setTextSize(15);
                         paint.setColor(Color.GRAY);
+                        paint.setStrokeWidth(2);
                         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD_ITALIC));
                     }
-                    paint.setTextSize(answerSize);
+                    else {
+                        paint.setTextSize(13);
+                        paint.setColor(Color.BLACK);
+                        paint.setStrokeWidth(0);
+                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+                    }
                     paint.setStyle(Paint.Style.FILL_AND_STROKE);
-                    canvas.drawText("" + ansTable[row][col], xPos + 8, yPos + 16, paint);
-                    paint.setColor(Color.BLACK);
-                    paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+                    canvas.drawText("" + ansTable[row][col], xPos + 8, yposAdjusted, paint);
                 }
             }
-            paint.setStrokeWidth(1);
-            paint.setTextSize(10);
-            canvas.drawText(""+nbrInPage, xBase + 16, yBase - 8, paint);
 
             paint.setStyle(Paint.Style.STROKE);
             paint.setPathEffect(null);
+            paint.setStrokeWidth(1);
             for (int row = 0; row < 9; row+=3)
                 for (int col = 0; col < 9; col+=3) {
                     int xPos = xBase + col * boxWidth;
@@ -157,7 +166,7 @@ class MakePDF {
         document.finishPage(page);
 
         // write the document content
-        targetPdf = directory_path + "/"+ fileDate+" ans.pdf";
+        targetPdf = directory_path + "/"+ fileDate+"Answer.pdf";
         filePath = new File(targetPdf);
         try {
             document.writeTo(new FileOutputStream(filePath));
@@ -178,6 +187,4 @@ class MakePDF {
         }
         return sudoku;
     }
-
-
 }
