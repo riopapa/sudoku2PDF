@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "com.urrecliner.sudoku2pdf.app-merged_res-29:/raw_puzzle_count.ogg.flat",
+        "source": "com.urrecliner.sudoku2pdf.app-main-31:/raw/puzzle_count.ogg"
+    },
+    {
+        "merged": "com.urrecliner.sudoku2pdf.app-merged_res-29:/raw_level_degree.ogg.flat",
+        "source": "com.urrecliner.sudoku2pdf.app-main-31:/raw/level_degree.ogg"
+    },
+    {
+        "merged": "com.urrecliner.sudoku2pdf.app-merged_res-29:/mipmap-xxhdpi_icon_sudoku2pdf.png.flat",
+        "source": "com.urrecliner.sudoku2pdf.app-main-31:/mipmap-xxhdpi/icon_sudoku2pdf.png"
+    },
+    {
+        "merged": "com.urrecliner.sudoku2pdf.app-merged_res-29:/drawable_circle.xml.flat",
+        "source": "com.urrecliner.sudoku2pdf.app-main-31:/drawable/circle.xml"
+    },
+    {
+        "merged": "com.urrecliner.sudoku2pdf.app-merged_res-29:/menu_menu_main.xml.flat",
+        "source": "com.urrecliner.sudoku2pdf.app-main-31:/menu/menu_main.xml"
+    },
+    {
+        "merged": "com.urrecliner.sudoku2pdf.app-merged_res-29:/layout_activity_main.xml.flat",
+        "source": "com.urrecliner.sudoku2pdf.app-main-31:/layout/activity_main.xml"
+    }
+]

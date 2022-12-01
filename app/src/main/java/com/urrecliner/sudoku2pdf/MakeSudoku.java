@@ -1,7 +1,6 @@
 package com.urrecliner.sudoku2pdf;
 
 import android.os.AsyncTask;
-import android.support.constraint.ConstraintSet;
 import android.util.Log;
 import android.view.View;
 
@@ -14,6 +13,8 @@ import static com.urrecliner.sudoku2pdf.MainActivity.horizontalLineView;
 import static com.urrecliner.sudoku2pdf.MainActivity.mainLayout;
 import static com.urrecliner.sudoku2pdf.MainActivity.progressBar;
 import static com.urrecliner.sudoku2pdf.MainActivity.statusTV;
+
+import androidx.constraintlayout.widget.ConstraintSet;
 
 class MakeSudoku {
 
@@ -502,4 +503,3 @@ class MakeSudoku {
         }
     }
 }
-
