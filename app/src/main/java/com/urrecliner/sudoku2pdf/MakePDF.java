@@ -27,16 +27,17 @@ class MakePDF {
             file.mkdirs();
         }
 
-        int pgWidth = 200*5, pgHeight = 290*5;
-        int boxWidth = pgWidth / 17;
-        int space = pgWidth / 44;
+        int pgWidth = 210*5, pgHeight = 297*5;  // A4 size
+        int boxWidth = pgWidth / 14;
+        int space = 10;
+        Log.w("space","space "+space+" boxWidth="+boxWidth);
         int pageNbr = 0;
         Canvas canvas = null;
         PdfDocument.Page page = null;
         PdfDocument document = new PdfDocument();
         // crate a page description
         Paint paint = new Paint();
-        paint.setColor(Color.DKGRAY);
+        paint.setColor(Color.BLUE);
         paint.setStyle(Paint.Style.STROKE);
         for (int idx = 0; idx < blankTables.length; idx++) {
             int [][] xyTable = str2suArray(blankTables[idx]);
@@ -55,8 +56,9 @@ class MakePDF {
                 canvas.drawText(fileDate, pgWidth/3, space + 16, paint);
             }
             paint.setTextSize(28);
-            int xBase = space + 40;
-            int yBase = space + (idx % 2) * boxWidth * 10 + boxWidth + 60;
+            int xBase = space + 10;
+            int yBase = space + (idx % 2) * boxWidth * 9 + (idx % 2) * boxWidth / 2 + 40;
+            Log.w("xy","base "+xBase+" x "+yBase);
             for (int row = 0; row < 9; row++) {
                 for (int col = 0; col < 9; col++) {
                     int xPos = xBase + col * boxWidth;
@@ -68,7 +70,7 @@ class MakePDF {
                     if (xyTable[row][col] > 0) {
                         paint.setStrokeWidth(2);
                         paint.setStyle(Paint.Style.FILL_AND_STROKE);
-                        canvas.drawText("" + xyTable[row][col], xPos + space , yPos + space + 16, paint);
+                        canvas.drawText("" + xyTable[row][col], xPos + boxWidth/2 , yPos + space + boxWidth/2, paint);
                     }
                 }
             }
@@ -84,13 +86,13 @@ class MakePDF {
                 }
             paint.setStrokeWidth(0);
             paint.setStyle(Paint.Style.FILL_AND_STROKE);
-            paint.setTextSize(18);
-            canvas.drawText("("+idx+") "+commentTables[idx], xBase + 12, yBase - 12, paint);
+            paint.setTextSize(24);
+            canvas.drawText("("+idx+") "+commentTables[idx], xBase + 12 + boxWidth*9, yBase + boxWidth/2, paint);
         }
 
         document.finishPage(page);
 
-        String targetPdf = directory_path + "/"+fileDate+".pdf";
+        String targetPdf = directory_path + "/"+fileDate+" Qz.pdf";
         File filePath = new File(targetPdf);
         try {
             document.writeTo(new FileOutputStream(filePath));
@@ -113,11 +115,12 @@ class MakePDF {
         paint.setStrokeWidth(0);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         canvas.drawText(fileDate, pgWidth/3, space + 16, paint);
-        boxWidth = boxWidth * 7 / 16;
+        boxWidth = pgWidth / 4 / 10;    // 4 answer for 1 line
+        int answerFont = boxWidth / 2;
+        int answerSolve = answerFont + 2;
         for (int nbrInPage = 0; nbrInPage < answerTables.length; nbrInPage++) {
             int [][] ansTable = str2suArray(answerTables[nbrInPage]);
             int [][] blankTable = str2suArray(blankTables[nbrInPage]);
-            int answerSize = 13;
             paint.setStrokeWidth(0);
             paint.setPathEffect(new DashPathEffect(new float[] {1,2}, 0));
             int xBase = space + (nbrInPage % 4) * boxWidth * 95 / 10;
@@ -126,17 +129,19 @@ class MakePDF {
                 for (int col = 0; col < 9; col++) {
                     int xPos = xBase + col * boxWidth;
                     int yPos = yBase + row * boxWidth;
-                    answerSize = 13;
                     paint.setStyle(Paint.Style.STROKE);
                     canvas.drawRect(xPos, yPos, xPos + boxWidth, yPos + boxWidth, paint);
+                    int answerSize;
                     if (blankTable[row][col] == 0) {
-                        answerSize = 15;
-                        paint.setColor(Color.GRAY);
-                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD_ITALIC));
+                        answerSize = answerSolve;
+                        paint.setColor(Color.BLUE);
+//                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD_ITALIC));
+                    } else {
+                        answerSize = answerFont;
                     }
                     paint.setTextSize(answerSize);
                     paint.setStyle(Paint.Style.FILL_AND_STROKE);
-                    canvas.drawText("" + ansTable[row][col], xPos + 8, yPos + 16, paint);
+                    canvas.drawText("" + ansTable[row][col], xPos + answerSize/2, yPos + answerSize+3, paint);
                     paint.setColor(Color.BLACK);
                     paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
                 }
@@ -157,7 +162,7 @@ class MakePDF {
         document.finishPage(page);
 
         // write the document content
-        targetPdf = directory_path + "/"+ fileDate+" ans.pdf";
+        targetPdf = directory_path + "/"+ fileDate+"Ans.pdf";
         filePath = new File(targetPdf);
         try {
             document.writeTo(new FileOutputStream(filePath));

@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     static TextView statusTV;
     static String fileDate;
     List<String> levelList, countList;
-    final static int MINIMUM_BLANK = 27, MAXIMUM_BLANK = 64;
+    final static int MINIMUM_BLANK = 20, MAXIMUM_BLANK = 64;
     final static int MINIMUM_COUNT = 4, MAXIMUM_COUNT = 20;
     static ProgressBar progressBar;
     static FrameLayout frameLayout;

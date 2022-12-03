@@ -104,8 +104,8 @@ class MakeSudoku {
                     answerTables[madeCount] = suArray2Str(answerTable);
                     blankTables[madeCount] = suArray2Str(blankTable);
                     duration = System.currentTimeMillis() - duration;
-                    String s = tryCount + " tries; " + String.format(Locale.US,"%.3f",((float) duration) / 1000f) + " secs. to generate";
-                    commentTables[madeCount] = s;
+//                    String s = "  "+tryCount + " tries; \n" + String.format(Locale.US,"%.3f",((float) duration) / 1000f) + " secs. to generate";
+                    commentTables[madeCount] = ""; // s;
                     durationSum += duration;
                     duration = System.currentTimeMillis();
                     loopSum += tryCount;
