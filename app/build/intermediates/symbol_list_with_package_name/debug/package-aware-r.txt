@@ -2662,6 +2662,7 @@ drawable notify_panel_notification_icon_bg
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
+font hj_hanseo_a
 id ALT
 id BOTTOM_END
 id BOTTOM_START
@@ -3352,6 +3353,7 @@ layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
 menu menu_main
 mipmap icon_sudoku2pdf
+mipmap my_sign_yellow
 plurals mtrl_badge_content_description
 raw level_degree
 raw puzzle_count

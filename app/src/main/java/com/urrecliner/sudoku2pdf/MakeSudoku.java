@@ -76,8 +76,7 @@ class MakeSudoku {
             int madeCount = 0;
             int percentStart = madeCount * 100 / puzzleCount;
             int percentFinish = (madeCount + 1) * 100 / puzzleCount;
-            int showProgressCount = blankCount - 20;     // 18 should be less than MINIMUM_BLANK
-
+            int showProgressCount = blankCount - 18;     // 18 should be less than MINIMUM_BLANK
             while (madeCount < puzzleCount) {
                 // calculate degrees
                 if (tryCount % showProgressCount == 0) {
@@ -117,7 +116,7 @@ class MakeSudoku {
                 }
             }
 
-            return "\nTotal tries: " + loopSum + "\nTotal duration: " + String.format(Locale.US,"%.3f",(float) durationSum / 1000f) + " secs."+"\noutput: "+MainActivity.fileDate+".PDF\n";
+            return "\nTotal tries: " + loopSum + " with duration: " + String.format(Locale.US,"%.3f",(float) durationSum / 1000f) + " secs."+"\noutput: "+MainActivity.fileDate+".PDF\n";
 
         }
 
@@ -253,10 +252,6 @@ class MakeSudoku {
                     }
                     garo[0] += "|";garo[1] += "|";garo[2] += "|";
                 }
-                Log.w("u",garo[0]);
-                Log.w("u",garo[1]);
-                Log.w("u",garo[2]);
-                Log.w("u"," ");
             }
         }
 
