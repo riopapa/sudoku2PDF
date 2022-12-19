@@ -20,8 +20,8 @@
         "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.4\\com.urrecliner.sudoku2pdf.app-main-31:\\layout\\activity_main.xml"
     },
     {
-        "merged": "com.urrecliner.sudoku2pdf.app-merged_res-29:/font_hj_hanseo_a.ttf.flat",
-        "source": "com.urrecliner.sudoku2pdf.app-main-31:/font/hj_hanseo_a.ttf"
+        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.4\\com.urrecliner.sudoku2pdf.app-merged_res-29:\\font_hj_hanseo_a.ttf.flat",
+        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.4\\com.urrecliner.sudoku2pdf.app-main-31:\\font\\hj_hanseo_a.ttf"
     },
     {
         "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.4\\com.urrecliner.sudoku2pdf.app-merged_res-29:\\raw_level_degree.ogg.flat",
@@ -30,6 +30,10 @@
     {
         "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.4\\com.urrecliner.sudoku2pdf.app-merged_res-29:\\font_san_serif_collection.ttf.flat",
         "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.4\\com.urrecliner.sudoku2pdf.app-main-31:\\font\\san_serif_collection.ttf"
+    },
+    {
+        "merged": "com.urrecliner.sudoku2pdf.app-merged_res-29:/font_radioland_regular.ttf.flat",
+        "source": "com.urrecliner.sudoku2pdf.app-main-31:/font/radioland_regular.ttf"
     },
     {
         "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.4\\com.urrecliner.sudoku2pdf.app-merged_res-29:\\raw_puzzle_count.ogg.flat",
