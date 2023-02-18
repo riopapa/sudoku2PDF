@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             levelList.add(level + "");
         }
         countList = new ArrayList<>();
-        for (int page = MINIMUM_COUNT; page <= MAXIMUM_COUNT; page++) {
+        for (int page = MINIMUM_COUNT; page <= MAXIMUM_COUNT; page += 2) {
             countList.add(page + "");
         }
 
