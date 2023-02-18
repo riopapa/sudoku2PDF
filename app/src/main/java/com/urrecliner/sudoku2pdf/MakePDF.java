@@ -1,12 +1,12 @@
 package com.urrecliner.sudoku2pdf;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.os.Environment;
 import android.util.Log;
@@ -16,17 +16,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import static com.urrecliner.sudoku2pdf.MainActivity.fileDate;
-import static com.urrecliner.sudoku2pdf.MainActivity.mContext;
 
 import androidx.core.content.res.ResourcesCompat;
 
 class MakePDF {
 
-    static void createPDF(String [] blankTables, String [] answerTables, String [] commentTables) {
+    static void createPDF(String [] blankTables, String [] answerTables, String [] commentTables, Context context) {
 
         String downLoadFolder = Environment.getExternalStorageDirectory().getPath();
 
-        Bitmap sigMap = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.my_sign_yellow);
+        Bitmap sigMap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.my_sign_yellow);
         int xSig = sigMap.getWidth() / 5;
         int ySig = sigMap.getHeight() / 5;
         sigMap = Bitmap.createScaledBitmap(sigMap, xSig, ySig, false);
@@ -43,22 +42,25 @@ class MakePDF {
         pRect.setColor(Color.BLUE);
         pRect.setStyle(Paint.Style.STROKE);
         pRect.setStrokeWidth(1);
+        pRect.setAlpha(200);
         pRect.setPathEffect(new DashPathEffect(new float[] {1,2}, 0));
 
         Paint pRectO = new Paint();     // outer box
-        pRectO.setColor(Color.BLACK);
+        pRectO.setColor(Color.DKGRAY);
         pRectO.setStyle(Paint.Style.STROKE);
         pRectO.setStrokeWidth(2);
 
         Paint pDotted = new Paint();        // inner dotted box (answer)
-        pDotted.setPathEffect(new DashPathEffect(new float[] {2,4}, 0));
+        pDotted.setPathEffect(new DashPathEffect(new float[] {6, 3}, 0));
         pDotted.setColor(Color.BLUE);
+        pDotted.setAlpha(120);
         pDotted.setStrokeWidth(1);
 
         Paint pNumb = new Paint();
         pNumb.setColor(Color.BLUE);
+        pNumb.setAlpha(200);
         pNumb.setStrokeWidth(1);
-        pNumb.setTypeface(ResourcesCompat.getFont(mContext, R.font.radioland_regular));
+        pNumb.setTypeface(ResourcesCompat.getFont(context, R.font.radioland_regular));
         pNumb.setTextSize(36);
         pNumb.setTextAlign(Paint.Align.CENTER);
         pNumb.setStyle(Paint.Style.FILL_AND_STROKE);
@@ -75,7 +77,7 @@ class MakePDF {
         pSig.setColor(Color.GREEN);
         pSig.setStyle(Paint.Style.STROKE);
         pSig.setStrokeWidth(0);
-        pSig.setAlpha(128);
+        pSig.setAlpha(120);
         pSig.setStyle(Paint.Style.FILL_AND_STROKE);
         pSig.setTextSize(16);
 
@@ -156,8 +158,10 @@ class MakePDF {
         boxWidth = pgWidth / 4 / 10;    // 4 answer for 1 line, maybe 26
 
         pNumb.setTextSize(boxWidth/2f); // pNumb : answer number
+        pNumb.setAlpha(180);
         pMemo.setTextSize(boxWidth/2f);  // pMemo : given number
-        pMemo.setColor(Color.BLACK);
+        pMemo.setColor(Color.DKGRAY);
+        pMemo.setAlpha(200);
         for (int nbrInPage = 0; nbrInPage < answerTables.length; nbrInPage++) {
             int [][] ansTable = str2suArray(answerTables[nbrInPage]);
             int [][] blankTable = str2suArray(blankTables[nbrInPage]);

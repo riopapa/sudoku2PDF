@@ -192,14 +192,16 @@
 
     </FrameLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageButton
         android:id="@+id/start"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_gravity="bottom|start"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="50dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@mipmap/icon_sudoku2pdf"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:srcCompat="@mipmap/icon_sudoku2pdf" />
+        android:background="@android:color/transparent"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="64dp"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

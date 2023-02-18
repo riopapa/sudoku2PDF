@@ -2729,7 +2729,6 @@ int id action_menu_presenter 0x7f08003c
 int id action_mode_bar 0x7f08003d
 int id action_mode_bar_stub 0x7f08003e
 int id action_mode_close_button 0x7f08003f
-int id action_settings 0x7f080040
 int id action_text 0x7f080041
 int id actions 0x7f080042
 int id activity_chooser_view_content 0x7f080043
@@ -3350,7 +3349,6 @@ int layout select_dialog_item_material 0x7f0b0063
 int layout select_dialog_multichoice_material 0x7f0b0064
 int layout select_dialog_singlechoice_material 0x7f0b0065
 int layout support_simple_spinner_dropdown_item 0x7f0b0066
-int menu menu_main 0x7f0d0000
 int mipmap icon_sudoku2pdf 0x7f0e0000
 int mipmap my_sign_yellow 0x7f0e0001
 int plurals mtrl_badge_content_description 0x7f0f0000

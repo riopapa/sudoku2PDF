@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -34,13 +35,13 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    static Context mContext;
+    private Context context;
     static int blankCount = 5;
     static int puzzleCount = 0;
     static TextView statusTV;
     static String fileDate;
     List<String> levelList, countList;
-    final static int MINIMUM_BLANK = 20, MAXIMUM_BLANK = 64;
+    final static int MINIMUM_BLANK = 16, MAXIMUM_BLANK = 60;
     final static int MINIMUM_COUNT = 4, MAXIMUM_COUNT = 20;
     static ProgressBar progressBar;
     static FrameLayout frameLayout;
@@ -54,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Log.w("start"," ------------------");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (!Environment.isExternalStorageManager()){
                 Intent intent = new Intent();
@@ -82,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
         mainLayout = findViewById(R.id.mainLayout);
         horizontalLineView = findViewById(R.id.horizontal_line);
 
-        mContext = getApplicationContext();
-        FloatingActionButton fab = findViewById(R.id.start);
+        context = getApplicationContext();
+        ImageButton fab = findViewById(R.id.start);
         fab.setOnClickListener(new View.OnClickListener() {
             boolean isRunning = false;
             @Override
@@ -94,8 +94,7 @@ public class MainActivity extends AppCompatActivity {
                             .setAction("Action", null).show();
                     final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
                     fileDate = "sudoku_" + sdfDate.format(System.currentTimeMillis()) + " with "+ blankCount +" Blanks";
-                    MakeSudoku makeSudoku = new MakeSudoku();
-                    makeSudoku.run(puzzleCount, blankCount);
+                    new MakeSudoku().make(puzzleCount, blankCount, context);
                     isRunning = false;
                 }
             }
@@ -163,35 +162,6 @@ public class MainActivity extends AppCompatActivity {
         wheelView.setSoundEffectResource(R.raw.level_degree);
         wheelView.setPlayVolume(0.1f);
 
-//        SwitchCompat soundSc = findViewById(R.id.sc_turn_on_sound);
-//        soundSc.setChecked(wheelView.isSoundEffect());
-//        soundSc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                wheelView.setSoundEffect(isChecked);
-//            }
-//        });
-//        final AppCompatSeekBar soundVolumeSb = findViewById(R.id.sb_sound_effect);
-//        soundVolumeSb.setMax(100);
-//        soundVolumeSb.setProgress((int) (wheelView.getPlayVolume() * 100));
-//        AppCompatButton setSoundVolumeBtn = findViewById(R.id.btn_set_sound_effect);
-//        setSoundVolumeBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                wheelView.setPlayVolume(soundVolumeSb.getProgress() * 1.0f / 100);
-//            }
-//        });
-//
-//        SwitchCompat cyclicSc = findViewById(R.id.sc_turn_on_cyclic);
-//        cyclicSc.setChecked(wheelView.isCyclic());
-//        cyclicSc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                wheelView.setCyclic(isChecked);
-//            }
-//        });
-//
-
     }
 
     private void showLevelDegree(TextView tV, String s) {
@@ -254,26 +224,26 @@ public class MainActivity extends AppCompatActivity {
         tV.setText(s);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public void onBackPressed() {

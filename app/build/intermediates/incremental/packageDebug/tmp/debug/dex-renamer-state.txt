@@ -1,4 +1,4 @@
-#Mon Dec 19 09:41:21 KST 2022
+#Sat Feb 18 10:35:26 KST 2023
 base.2=D\:\\@ANDROID\\sudoku2PDF\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\8\\classes.dex
 path.2=8/classes.dex
 base.1=D\:\\@ANDROID\\sudoku2PDF\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex

@@ -1,8 +1,10 @@
 package com.urrecliner.sudoku2pdf;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -26,10 +28,12 @@ class MakeSudoku {
     private String [] answerTables;
     private String [] commentTables;
     private int puzzleCount, blankCount;
+    private Context context;
 
-    void run(int howMany, int blanks) {
+    public void make(int howMany, int blanks, Context context) {
         puzzleCount = howMany;
         blankCount = blanks;
+        this.context = context;
         try {
             new make_blank_solve().execute("");
         } catch (Exception e) {
@@ -494,7 +498,7 @@ class MakeSudoku {
             statusTV.setText(statistics);
             statusTV.invalidate();
 
-            MakePDF.createPDF(blankTables, answerTables, commentTables);
+            MakePDF.createPDF(blankTables, answerTables, commentTables, context);
         }
     }
 }

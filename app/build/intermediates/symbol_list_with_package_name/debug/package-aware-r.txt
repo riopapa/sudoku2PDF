@@ -2730,7 +2730,6 @@ id action_menu_presenter
 id action_mode_bar
 id action_mode_bar_stub
 id action_mode_close_button
-id action_settings
 id action_text
 id actions
 id activity_chooser_view_content
@@ -3351,7 +3350,6 @@ layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
-menu menu_main
 mipmap icon_sudoku2pdf
 mipmap my_sign_yellow
 plurals mtrl_badge_content_description
