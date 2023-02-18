@@ -11,9 +11,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -25,7 +22,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
@@ -36,8 +32,8 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     private Context context;
-    static int blankCount = 5;
-    static int puzzleCount = 0;
+    int blankCount = 5;
+    int puzzleCount = 0;
     static TextView statusTV;
     static String fileDate;
     List<String> levelList, countList;
@@ -83,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
         horizontalLineView = findViewById(R.id.horizontal_line);
 
         context = getApplicationContext();
-        ImageButton fab = findViewById(R.id.start);
-        fab.setOnClickListener(new View.OnClickListener() {
+        ImageButton make = findViewById(R.id.start);
+        make.setOnClickListener(new View.OnClickListener() {
             boolean isRunning = false;
             @Override
             public void onClick(View view) {
@@ -94,7 +90,12 @@ public class MainActivity extends AppCompatActivity {
                             .setAction("Action", null).show();
                     final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
                     fileDate = "sudoku_" + sdfDate.format(System.currentTimeMillis()) + " with "+ blankCount +" Blanks";
-                    new MakeSudoku().make(puzzleCount, blankCount, context);
+                    SudokuInfo sudokuInfo = new SudokuInfo();
+                    sudokuInfo.dateTime = sdfDate.format(System.currentTimeMillis());
+                    sudokuInfo.blankCount = blankCount;
+                    sudokuInfo.puzzleCount = puzzleCount;
+                    sudokuInfo.context = context;
+                    new MakeSudoku().make(sudokuInfo);
                     isRunning = false;
                 }
             }

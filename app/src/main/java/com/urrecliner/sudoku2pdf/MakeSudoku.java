@@ -28,12 +28,12 @@ class MakeSudoku {
     private String [] answerTables;
     private String [] commentTables;
     private int puzzleCount, blankCount;
-    private Context context;
+    private SudokuInfo sudokuInfo;
 
-    public void make(int howMany, int blanks, Context context) {
-        puzzleCount = howMany;
-        blankCount = blanks;
-        this.context = context;
+    public void make(SudokuInfo sudokuInfo) {
+        this.sudokuInfo = sudokuInfo;
+        puzzleCount = sudokuInfo.puzzleCount;
+        blankCount = sudokuInfo.blankCount;
         try {
             new make_blank_solve().execute("");
         } catch (Exception e) {
@@ -498,7 +498,7 @@ class MakeSudoku {
             statusTV.setText(statistics);
             statusTV.invalidate();
 
-            MakePDF.createPDF(blankTables, answerTables, commentTables, context);
+            MakePDF.createPDF(blankTables, answerTables, sudokuInfo);
         }
     }
 }
