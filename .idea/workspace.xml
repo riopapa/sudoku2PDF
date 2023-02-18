@@ -31,12 +31,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="31a9b3a0-f0b1-4508-b69f-e7bec934765f" name="Default Changelist" comment="Change fab button to image button">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/urrecliner/sudoku2pdf/SudokuInfo.java" afterDir="false" />
+    <list default="true" id="31a9b3a0-f0b1-4508-b69f-e7bec934765f" name="Default Changelist" comment="Refine Signature info">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/urrecliner/sudoku2pdf/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/urrecliner/sudoku2pdf/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/urrecliner/sudoku2pdf/MakePDF.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/urrecliner/sudoku2pdf/MakePDF.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/urrecliner/sudoku2pdf/MakeSudoku.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/urrecliner/sudoku2pdf/MakeSudoku.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/urrecliner/sudoku2pdf/WheelView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/urrecliner/sudoku2pdf/WheelView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +125,7 @@
     <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -419,7 +416,28 @@
       <option name="project" value="LOCAL" />
       <updated>1676684229594</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Refine Signature info">
+      <created>1676699096551</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1676699096551</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Refine Signature info">
+      <created>1676699283046</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1676699283046</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Refine Signature info">
+      <created>1676699300086</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1676699300086</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TodoView">
@@ -457,7 +475,8 @@
     <MESSAGE value="Make Quiz box size bigger with blue and black color" />
     <MESSAGE value="Change number font, align formats" />
     <MESSAGE value="Change fab button to image button" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change fab button to image button" />
+    <MESSAGE value="Refine Signature info" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refine Signature info" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

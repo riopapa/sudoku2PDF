@@ -41,8 +41,6 @@ import java.util.Locale;
 
 public class WheelView<T> extends View implements Runnable {
 
-    private static final String TAG = "WheelView";
-
     private static final float DEFAULT_LINE_SPACING = dp2px(2f);
     private static final float DEFAULT_TEXT_SIZE = sp2px(15f);
     private static final float DEFAULT_TEXT_BOUNDARY_MARGIN = dp2px(2);
@@ -66,7 +64,7 @@ public class WheelView<T> extends View implements Runnable {
     public static final int SCROLL_STATE_DRAGGING = 1;
     public static final int SCROLL_STATE_SCROLLING = 2;
 
-    //弯曲效果对齐方式
+    //벤드 효과 정렬
     public static final int CURVED_ARC_DIRECTION_LEFT = 0;
     public static final int CURVED_ARC_DIRECTION_CENTER = 1;
     public static final int CURVED_ARC_DIRECTION_RIGHT = 2;
@@ -85,86 +83,86 @@ public class WheelView<T> extends View implements Runnable {
     private Paint.FontMetrics mFontMetrics;
     //Height of each item
     private int mItemHeight;
-    //文字的最大宽度
+   //텍스트의 최대 너비
     private int mMaxTextWidth;
-    //文字中心距离baseline的距离
+    //텍스트 중심에서 기준선까지의 거리
     private int mCenterToBaselineY;
-    //可见的item条数
+    //표시되는 항목 수
     private int mVisibleItems;
-    //每个item之间的空间，行间距
+    //각 항목 사이의 간격, 줄 간격
     private float mLineSpacing;
-    //是否循环滚动
+    //루프에서 스크롤할지 여부
     private boolean isCyclic;
-    //文字对齐方式
+    //텍스트 정렬
     @TextAlign
     private int mTextAlign;
-    //文字颜色
+    //글자 색
     private int mTextColor;
-    //选中item文字颜色
+    //항목 텍스트 색상 선택
     private int mSelectedItemTextColor;
 
-    //是否显示分割线
+    //구분선을 표시할지 여부
     private boolean isShowDivider;
-    //分割线的颜色
+    //구분선의 색
     private int mDividerColor;
-    //分割线高度
+    //디바이더 높이
     private float mDividerSize;
-    //分割线填充类型
+    //구분선 채우기 유형
     @DividerType
     private int mDividerType;
     //When the split line type is DIVIDER_TYPE_WRAP, the distance between the left and right ends of the split line is from the text.
     private float mDividerPaddingForWrap;
-    //分割线两端形状，默认圆头
+    //기본 둥근 머리가 있는 구분선의 두 끝 모양
     private Paint.Cap mDividerCap = Paint.Cap.ROUND;
-    //分割线和选中区域偏移，实现扩大选中区域
+    //선과 선택 오프셋을 분할하여 선택 영역 확대
     private float mDividerOffset;
 
-    //是否绘制选中区域
+    //선택한 영역을 그릴지 여부
     private boolean isDrawSelectedRect;
-    //选中区域颜色
+    //선택한 영역 색상
     private int mSelectedRectColor;
 
-    //文字起始X
+    //텍스트 시작 X
     private int mStartX;
-    //X轴中心点
+    //X축 중심점
     private int mCenterX;
-    //Y轴中心点
+    //Y축 중심점
     private int mCenterY;
-    //选中边界的上下限制
+    //경계의 상한과 하한 확인
     private int mSelectedItemTopLimit;
     private int mSelectedItemBottomLimit;
-    //裁剪边界
+    //경계 자르기
     private int mClipLeft;
     private int mClipTop;
     private int mClipRight;
     private int mClipBottom;
-    //绘制区域
+    //영역 그리기
     private Rect mDrawRect;
-    //字体外边距，目的是留有边距
+    //여백을 사용하기 위한 글꼴 여백
     private float mTextBoundaryMargin;
     //Whether format conversion is required when the data is of type Integer
     private boolean isIntegerNeedFormat;
-    //数据为Integer类型时，转换格式，默认转换为两位数
+    //데이터가 정수 형식이면 형식은 기본적으로 두 자리 숫자로 변환됩니다.
     private String mIntegerFormat;
 
-    //3D效果
+    //3D 효과
     private Camera mCamera;
     private Matrix mMatrix;
-    //是否是弯曲（3D）效果
+    //굽힘(3D) 효과인지 여부
     private boolean isCurved;
-    //弯曲（3D）效果左右圆弧偏移效果方向 center 不偏移
+    //벤드(3D) 효과는 좌우, 호 오프셋 효과, 효과 중심의 방향은 오프셋되지 않습니다.
     @CurvedArcDirection
     private int mCurvedArcDirection;
-    //弯曲（3D）效果左右圆弧偏移效果系数 0-1之间 越大越明显
+    //굽힘(3D) 효과 좌우 호 오프셋 효과 계수 0-1 사이 클수록 두드러집니다.
     private float mCurvedArcDirectionFactor;
-    //选中后折射的偏移 与字体大小的比值，1为不偏移 越小偏移越明显
-    //(普通效果和3d效果都适用)
+    //선택하면 굴절 오프셋은 글꼴 크기의 비율이고 1은 오프셋 없음입니다. 오프셋이 작을수록 더 뚜렷합니다.
+    //(일반 및 3D 효과 모두에 적합)
     private float mRefractRatio;
 
-    //数据列表
+    //데이터 목록
     @NonNull
     private List<T> mDataList = new ArrayList<>(1);
-    //数据变化时，是否重置选中下标到第一个位置
+    //데이터가 변경될 때 선택한 첨자를 첫 번째 위치로 재설정할지 여부
     private boolean isResetSelectedPosition = false;
 
     private VelocityTracker mVelocityTracker;
@@ -172,42 +170,42 @@ public class WheelView<T> extends View implements Runnable {
     private int mMinFlingVelocity;
     private Scroller mScroller;
 
-    //最小滚动距离，上边界
+    //최소 스크롤 거리, 상한
     private int mMinScrollY;
-    //最大滚动距离，下边界
+    //최대 스크롤 거리, 하한
     private int mMaxScrollY;
 
-    //Y轴滚动偏移
+    //Y축 롤링 오프셋
     private int mScrollOffsetY;
-    //Y轴已滚动偏移，控制重绘次数
+    //Y축은 스크롤 오프셋되어 다시 그리기 횟수를 제어합니다.
     private int mScrolledY = 0;
-    //手指最后触摸的位置
+    //손가락의 마지막 터치 위치
     private float mLastTouchY;
-    //手指按下时间，根据按下抬起时间差处理点击滚动
+    //손가락 누름 시간, 클릭 스크롤은 프레스 리프트 시간의 차이에 따라 처리됩니다.
     private long mDownStartTime;
-    //是否强制停止滚动
+    //스크롤을 강제로 중지할지 여부
     private boolean isForceFinishScroll = false;
-    //是否是快速滚动，快速滚动结束后跳转位置
+    //빠른 스크롤인지 여부, 빠른 스크롤이 끝난 후 점프 위치
     private boolean isFlingScroll;
-    //当前选中的下标
+    //현재 선택된 아래 첨자
     private int mSelectedItemPosition;
-    //当前滚动经过的下标
+    //현재 스크롤 중인 아래 첨자
     private int mCurrentScrollPosition;
 
-    //字体
+    //글꼴
     private boolean mIsBoldForSelectedItem = false;
-    //如果 mIsBoldForSelectedItem==true 则这个字体为未选中条目的字体
+    //mIsBoldForSelectedItem==true인 경우 이 글꼴은 선택되지 않은 항목의 글꼴입니다.
     private Typeface mNormalTypeface = null;
-    //如果 mIsBoldForSelectedItem==true 则这个字体为选中条目的字体
+    //mIsBoldForSelectedItem==true인 경우 이 글꼴은 선택한 항목의 글꼴입니다.
     private Typeface mBoldTypeface = null;
 
-    //监听器
+    //경청자
     private OnItemSelectedListener<T> mOnItemSelectedListener;
     private OnWheelChangedListener mOnWheelChangedListener;
 
-    //音频
+    //오디오
     private SoundHelper mSoundHelper;
-    //是否开启音频效果
+    //오디오 효과가 켜져 있는지 여부
     private boolean isSoundEffect = false;
 
     public WheelView(Context context) {
@@ -247,10 +245,10 @@ public class WheelView<T> extends View implements Runnable {
         }
 
         mVisibleItems = typedArray.getInt(R.styleable.WheelView_wv_visibleItems, DEFAULT_VISIBLE_ITEM);
-        //跳转可见item为奇数
+        //항목이 이상한지 확인하기 위해 이동
         mVisibleItems = adjustVisibleItems(mVisibleItems);
         mSelectedItemPosition = typedArray.getInt(R.styleable.WheelView_wv_selectedItemPosition, 0);
-        //初始化滚动下标
+        //스크롤 첨자 초기화
         mCurrentScrollPosition = mSelectedItemPosition;
         isCyclic = typedArray.getBoolean(R.styleable.WheelView_wv_cyclic, false);
 
@@ -268,8 +266,8 @@ public class WheelView<T> extends View implements Runnable {
         isCurved = typedArray.getBoolean(R.styleable.WheelView_wv_curved, true);
         mCurvedArcDirection = typedArray.getInt(R.styleable.WheelView_wv_curvedArcDirection, CURVED_ARC_DIRECTION_CENTER);
         mCurvedArcDirectionFactor = typedArray.getFloat(R.styleable.WheelView_wv_curvedArcDirectionFactor, DEFAULT_CURVED_FACTOR);
-        //折射偏移默认值
-        //Deprecated 将在新版中移除
+        //굴절 오프셋 기본값
+        //Deprecated 새 버전에서 제거됩니다.
         float curvedRefractRatio = typedArray.getFloat(R.styleable.WheelView_wv_curvedRefractRatio, 0.9f);
         mRefractRatio = typedArray.getFloat(R.styleable.WheelView_wv_refractRatio, DEFAULT_REFRACT_RATIO);
         mRefractRatio = isCurved ? Math.min(curvedRefractRatio, mRefractRatio) : mRefractRatio;
@@ -282,7 +280,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 初始化并设置默认值
+     * 기본값 초기화 및 설정
      *
      * @param context 上下文
      */
@@ -313,18 +311,18 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 初始化默认音量
+     * 기본 볼륨 초기화
      *
      * @param context 上下文
      */
     private void initDefaultVolume(Context context) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         if (audioManager != null) {
-            //获取系统媒体当前音量
+            //시스템 미디어의 현재 볼륨을 가져옵니다.
             int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-            //获取系统媒体最大音量
+            //시스템 미디어의 최대 볼륨을 가져옵니다.
             int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-            //设置播放音量
+            //재생 볼륨 설정
             mSoundHelper.setPlayVolume(currentVolume * 1.0f / maxVolume);
         } else {
             mSoundHelper.setPlayVolume(0.3f);
@@ -342,7 +340,7 @@ public class WheelView<T> extends View implements Runnable {
         }
 
         mFontMetrics = mPaint.getFontMetrics();
-        //itemHeight实际等于字体高度+一个行间距
+        //항목 높이는 실제로 글꼴 높이 + 한 줄 간격과 같습니다.
         mItemHeight = (int) (mFontMetrics.bottom - mFontMetrics.top + mLineSpacing);
     }
 
@@ -366,7 +364,7 @@ public class WheelView<T> extends View implements Runnable {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        //Line Space算在了mItemHeight中
+        //줄 간격은 mItemHeight 단위로 계산됩니다.
         int height;
         if (isCurved) {
             height = (int) ((mItemHeight * mVisibleItems * 2 / Math.PI) + getPaddingTop() + getPaddingBottom());
@@ -385,7 +383,7 @@ public class WheelView<T> extends View implements Runnable {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        //设置内容可绘制区域
+        //콘텐츠 그리기 가능 영역을 설정합니다.
         mDrawRect.set(getPaddingLeft(), getPaddingTop(), getWidth() - getPaddingRight(), getHeight() - getPaddingBottom());
         mCenterX = mDrawRect.centerX();
         mCenterY = mDrawRect.centerY();
@@ -397,10 +395,10 @@ public class WheelView<T> extends View implements Runnable {
         mClipBottom = getHeight() - getPaddingBottom();
 
         calculateDrawStart();
-        //计算滚动限制
+        //롤링 한계 계산
         calculateLimitY();
 
-        //如果初始化时有选中的下标，则计算选中位置的距离
+        //초기화 시 선택한 첨자가 있는 경우 선택한 위치까지의 거리가 계산됩니다.
         int itemDistance = calculateItemDistance(mSelectedItemPosition);
         if (itemDistance > 0) {
             doScroll(itemDistance);
@@ -429,11 +427,11 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 计算滚动限制
+     * 롤링 한계 계산
      */
     private void calculateLimitY() {
         mMinScrollY = isCyclic ? Integer.MIN_VALUE : 0;
-        //下边界 (dataSize - 1 - mInitPosition) * mItemHeight
+        //하한 (dataSize - 1 - mInitPosition) * mItemHeight
         mMaxScrollY = isCyclic ? Integer.MAX_VALUE : (mDataList.size() - 1) * mItemHeight;
     }
 
@@ -441,23 +439,23 @@ public class WheelView<T> extends View implements Runnable {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        //绘制选中区域
+        //선택한 영역 그리기
         drawSelectedRect(canvas);
-        //绘制分割线
+        //구분선 그리기
         drawDivider(canvas);
 
-        //滚动了多少个item，滚动的Y值高度除去每行Item的高度
+        //스크롤된 항목 수와 스크롤된 Y 값의 높이를 항목의 각 줄 높이에서 뺀 값
         int scrolledItem = mScrollOffsetY / dividedItemHeight();
-        //没有滚动完一个item时的偏移值，平滑滑动
+        //항목을 스크롤 할 때 오프셋 값이없고 부드럽게 미끄러집니다.
         int scrolledOffset = mScrollOffsetY % dividedItemHeight();
-        //向上取整
+        //반올림
         int halfItem = (mVisibleItems + 1) / 2;
-        //计算的最小index
+        //계산된 최소 지수
         int minIndex;
-        //计算的最大index
+        //계산된 최대 인덱스
         int maxIndex;
         if (scrolledOffset < 0) {
-            //小于0
+            //0보다 작음
             minIndex = scrolledItem - halfItem - 1;
             maxIndex = scrolledItem + halfItem;
         } else if (scrolledOffset > 0) {
@@ -468,7 +466,7 @@ public class WheelView<T> extends View implements Runnable {
             maxIndex = scrolledItem + halfItem;
         }
 
-        //绘制item
+        //항목 그리기
         for (int i = minIndex; i < maxIndex; i++) {
             if (isCurved) {
                 draw3DItem(canvas, i, scrolledOffset);
@@ -480,7 +478,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 绘制选中区域
+     * 선택한 영역 그리기
      *
      * @param canvas 画布
      */
@@ -492,7 +490,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 绘制分割线
+     * 구분선 그리기
      *
      * @param canvas 画布
      */
@@ -507,7 +505,7 @@ public class WheelView<T> extends View implements Runnable {
                 canvas.drawLine(mClipLeft, mSelectedItemTopLimit, mClipRight, mSelectedItemTopLimit, mPaint);
                 canvas.drawLine(mClipLeft, mSelectedItemBottomLimit, mClipRight, mSelectedItemBottomLimit, mPaint);
             } else {
-                //边界处理 超过边界直接按照DIVIDER_TYPE_FILL类型处理
+                //경계 처리 경계 초과는 DIVIDER_TYPE_FILL 유형에 따라 직접 처리됩니다.
                 int startX = (int) (mCenterX - mMaxTextWidth / 2 - mDividerPaddingForWrap);
                 int stopX = (int) (mCenterX + mMaxTextWidth / 2 + mDividerPaddingForWrap);
 
@@ -521,7 +519,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 绘制2D效果
+     * 2D 효과 그리기
      *
      * @param canvas         画布
      * @param index          下标
@@ -533,77 +531,77 @@ public class WheelView<T> extends View implements Runnable {
             return;
         }
 
-        //index 的 item 距离中间项的偏移
+        //중간 항목에서 인덱스 항목의 오프셋
         int item2CenterOffsetY = (index - mScrollOffsetY / dividedItemHeight()) * mItemHeight - scrolledOffset;
-        //记录初始测量的字体起始X
+        //초기 측정 글꼴 시작 X 기록
         int startX = mStartX;
-        //重新测量字体宽度和基线偏移
+        //글꼴 너비 및 기준선 오프셋 다시 측정
         int centerToBaselineY = isAutoFitTextSize ? remeasureTextSize(text) : mCenterToBaselineY;
 
         if (Math.abs(item2CenterOffsetY) <= 0) {
-            //绘制选中的条目
+            //선택한 항목을 그립니다.
             mPaint.setColor(mSelectedItemTextColor);
             clipAndDraw2DText(canvas, text, mSelectedItemTopLimit, mSelectedItemBottomLimit, item2CenterOffsetY, centerToBaselineY);
         } else if (item2CenterOffsetY > 0 && item2CenterOffsetY < mItemHeight) {
-            //绘制与下边界交汇的条目
+            //아래쪽 경계와 교차하는 항목 그리기
             mPaint.setColor(mSelectedItemTextColor);
             clipAndDraw2DText(canvas, text, mSelectedItemTopLimit, mSelectedItemBottomLimit, item2CenterOffsetY, centerToBaselineY);
 
             mPaint.setColor(mTextColor);
-            //缩小字体，实现折射效果
+            //굴절 효과를 위해 글꼴 줄이기
             float textSize = mPaint.getTextSize();
             mPaint.setTextSize(textSize * mRefractRatio);
-            //mIsBoldForSelectedItem==true 改变字体
+            //mIsBoldForSelectedItem==true 글꼴 변경
             changeTypefaceIfBoldForSelectedItem();
             clipAndDraw2DText(canvas, text, mSelectedItemBottomLimit, mClipBottom, item2CenterOffsetY, centerToBaselineY);
             mPaint.setTextSize(textSize);
-            //mIsBoldForSelectedItem==true 恢复字体
+            //mIsBoldForSelectedItem==true 글꼴 복원
             resetTypefaceIfBoldForSelectedItem();
         } else if (item2CenterOffsetY < 0 && item2CenterOffsetY > -mItemHeight) {
-            //绘制与上边界交汇的条目
+            //위쪽 경계와 교차하는 항목 그리기
             mPaint.setColor(mSelectedItemTextColor);
             clipAndDraw2DText(canvas, text, mSelectedItemTopLimit, mSelectedItemBottomLimit, item2CenterOffsetY, centerToBaselineY);
 
             mPaint.setColor(mTextColor);
-            //缩小字体，实现折射效果
+            //굴절 효과를 위해 글꼴 줄이기
             float textSize = mPaint.getTextSize();
             mPaint.setTextSize(textSize * mRefractRatio);
-            //mIsBoldForSelectedItem==true 改变字体
+            //mIsBoldForSelectedItem==true 글꼴 변경
             changeTypefaceIfBoldForSelectedItem();
             clipAndDraw2DText(canvas, text, mClipTop, mSelectedItemTopLimit, item2CenterOffsetY, centerToBaselineY);
             mPaint.setTextSize(textSize);
-            //mIsBoldForSelectedItem==true 恢复字体
+            //mIsBoldForSelectedItem==true 글꼴 복원
             resetTypefaceIfBoldForSelectedItem();
         } else {
-            //绘制其他条目
+            //추가 항목 그리기
             mPaint.setColor(mTextColor);
-            //缩小字体，实现折射效果
+            //굴절 효과를 위해 글꼴 줄이기
             float textSize = mPaint.getTextSize();
             mPaint.setTextSize(textSize * mRefractRatio);
-            //mIsBoldForSelectedItem==true 改变字体
+            //mIsBoldForSelectedItem==true 글꼴 변경
             changeTypefaceIfBoldForSelectedItem();
             clipAndDraw2DText(canvas, text, mClipTop, mClipBottom, item2CenterOffsetY, centerToBaselineY);
             mPaint.setTextSize(textSize);
-            //mIsBoldForSelectedItem==true 恢复字体
+            //mIsBoldForSelectedItem==true 글꼴 복원
             resetTypefaceIfBoldForSelectedItem();
         }
 
         if (isAutoFitTextSize) {
-            //恢复重新测量之前的样式
+            //다시 측정하기 전의 스타일로 되돌리기
             mPaint.setTextSize(mTextSize);
             mStartX = startX;
         }
     }
 
     /**
-     * 裁剪并绘制2d text
+     * 자르기 및 그리기 2d text
      *
      * @param canvas             画布
-     * @param text               绘制的文字
-     * @param clipTop            裁剪的上边界
-     * @param clipBottom         裁剪的下边界
-     * @param item2CenterOffsetY 距离中间项的偏移
-     * @param centerToBaselineY  文字中心距离baseline的距离
+     * @param text               그려진 텍스트
+     * @param clipTop            작물의 상단 경계
+     * @param clipBottom         작물의 아래쪽 경계
+     * @param item2CenterOffsetY 중간으로부터의 오프셋
+     * @param centerToBaselineY  텍스트 중심에서 기준선까지의 거리
      */
     private void clipAndDraw2DText(Canvas canvas, String text, int clipTop, int clipBottom,
                                    int item2CenterOffsetY, int centerToBaselineY) {
@@ -614,16 +612,16 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 重新测量字体大小
+     * 글꼴 크기 다시 측정
      *
      * @param contentText 被测量文字内容
-     * @return 文字中心距离baseline的距离
+     * @return 텍스트 중심에서 기준선까지의 거리
      */
     private int remeasureTextSize(String contentText) {
         float textWidth = mPaint.measureText(contentText);
         float drawWidth = getWidth();
         float textMargin = mTextBoundaryMargin * 2;
-        //稍微增加了一点文字边距 最大为宽度的1/10
+        //텍스트 여백이 너비까지 약간 증가했습니다.1/10
         if (textMargin > (drawWidth / 10f)) {
             drawWidth = drawWidth * 9f / 10f;
             textMargin = drawWidth / 10f;
@@ -642,16 +640,16 @@ public class WheelView<T> extends View implements Runnable {
             mPaint.setTextSize(textSize);
             textWidth = mPaint.measureText(contentText);
         }
-        //重新计算文字起始X
+        //텍스트 시작 X 다시 계산
         recalculateStartX(textMargin / 2.0f);
-        //高度起点也变了
+        //고도 시작점도 변경되었습니다.
         return recalculateCenterToBaselineY();
     }
 
     /**
-     * 重新计算字体起始X
+     * 글꼴 시작 X 다시 계산
      *
-     * @param textMargin 文字外边距
+     * @param textMargin 텍스트 여백
      */
     private void recalculateStartX(float textMargin) {
         switch (mTextAlign) {
@@ -669,13 +667,13 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 字体大小变化后重新计算距离基线的距离
+     * 글꼴 크기가 변경된 후 기준선으로부터의 거리 다시 계산
      *
-     * @return 文字中心距离baseline的距离
+     * @return 텍스트 중심에서 기준선까지의 거리
      */
     private int recalculateCenterToBaselineY() {
         Paint.FontMetrics fontMetrics = mPaint.getFontMetrics();
-        //高度起点也变了
+        //고도 시작점도 변경되었습니다.
         return (int) (fontMetrics.ascent + (fontMetrics.descent - fontMetrics.ascent) / 2);
     }
 
@@ -691,36 +689,36 @@ public class WheelView<T> extends View implements Runnable {
         if (text == null) {
             return;
         }
-        // 滚轮的半径
+        // 스크롤 휠의 반경
         final int radius = (getHeight() - getPaddingTop() - getPaddingBottom()) / 2;
-        //index 的 item 距离中间项的偏移
+        //index 的 item 중간으로부터의 오프셋
         int item2CenterOffsetY = (index - mScrollOffsetY / dividedItemHeight()) * mItemHeight - scrolledOffset;
 
-        // 当滑动的角度和y轴垂直时（此时文字已经显示为一条线），不绘制文字
+        // 슬라이드의 각도가 y축에 수직인 경우(텍스트가 이미 선으로 표시된 지점) 텍스트가 그려지지 않습니다.
         if (Math.abs(item2CenterOffsetY) > radius * Math.PI / 2) return;
 
         final double angle = (double) item2CenterOffsetY / radius;
-        // 绕x轴滚动的角度
+        // x축을 중심으로 회전하는 각도
         float rotateX = (float) Math.toDegrees(-angle);
-        // 滚动的距离映射到y轴的长度
+        // 스크롤의 거리는 y축의 길이에 매핑됩니다.
         float translateY = (float) (Math.sin(angle) * radius);
-        // 滚动的距离映射到z轴的长度
+        // 스크롤의 거리는 z축의 길이에 매핑됩니다.
         float translateZ = (float) ((1 - Math.cos(angle)) * radius);
         // 透明度
         int alpha = (int) (Math.cos(angle) * 255);
 
-        //记录初始测量的字体起始X
+        //초기 측정 글꼴 시작 X 기록
         int startX = mStartX;
-        //重新测量字体宽度和基线偏移
+        //글꼴 너비 및 기준선 오프셋 다시 측정
         int centerToBaselineY = isAutoFitTextSize ? remeasureTextSize(text) : mCenterToBaselineY;
         if (Math.abs(item2CenterOffsetY) <= 0) {
-            //绘制选中的条目
+            //선택한 항목을 그립니다.
             mPaint.setColor(mSelectedItemTextColor);
             mPaint.setAlpha(255);
             clipAndDraw3DText(canvas, text, mSelectedItemTopLimit, mSelectedItemBottomLimit,
                     rotateX, translateY, translateZ, centerToBaselineY);
         } else if (item2CenterOffsetY > 0 && item2CenterOffsetY < mItemHeight) {
-            //绘制与下边界交汇的条目
+            //아래쪽 경계와 교차하는 항목 그리기
             mPaint.setColor(mSelectedItemTextColor);
             mPaint.setAlpha(255);
             clipAndDraw3DText(canvas, text, mSelectedItemTopLimit, mSelectedItemBottomLimit,
@@ -728,20 +726,20 @@ public class WheelView<T> extends View implements Runnable {
 
             mPaint.setColor(mTextColor);
             mPaint.setAlpha(alpha);
-            //缩小字体，实现折射效果
+            //굴절 효과를 위해 글꼴 줄이기
             float textSize = mPaint.getTextSize();
             mPaint.setTextSize(textSize * mRefractRatio);
-            //mIsBoldForSelectedItem==true 改变字体
+            //mIsBoldForSelectedItem==true 글꼴 변경
             changeTypefaceIfBoldForSelectedItem();
-            //字体变化，重新计算距离基线偏移
+            //글꼴 변경, 기준선에서 오프셋 다시 계산
             int reCenterToBaselineY = recalculateCenterToBaselineY();
             clipAndDraw3DText(canvas, text, mSelectedItemBottomLimit, mClipBottom,
                     rotateX, translateY, translateZ, reCenterToBaselineY);
             mPaint.setTextSize(textSize);
-            //mIsBoldForSelectedItem==true 恢复字体
+            //mIsBoldForSelectedItem==true 글꼴 복원
             resetTypefaceIfBoldForSelectedItem();
         } else if (item2CenterOffsetY < 0 && item2CenterOffsetY > -mItemHeight) {
-            //绘制与上边界交汇的条目
+            //위쪽 경계와 교차하는 항목 그리기
             mPaint.setColor(mSelectedItemTextColor);
             mPaint.setAlpha(255);
             clipAndDraw3DText(canvas, text, mSelectedItemTopLimit, mSelectedItemBottomLimit,
@@ -750,7 +748,7 @@ public class WheelView<T> extends View implements Runnable {
             mPaint.setColor(mTextColor);
             mPaint.setAlpha(alpha);
 
-            //缩小字体，实现折射效果
+            //굴절 효과를 위해 글꼴 줄이기
             float textSize = mPaint.getTextSize();
             mPaint.setTextSize(textSize * mRefractRatio);
             //mIsBoldForSelectedItem==true 改变字体
@@ -760,14 +758,14 @@ public class WheelView<T> extends View implements Runnable {
             clipAndDraw3DText(canvas, text, mClipTop, mSelectedItemTopLimit,
                     rotateX, translateY, translateZ, reCenterToBaselineY);
             mPaint.setTextSize(textSize);
-            //mIsBoldForSelectedItem==true 恢复字体
+            //mIsBoldForSelectedItem==true 글꼴 복원
             resetTypefaceIfBoldForSelectedItem();
         } else {
-            //绘制其他条目
+            //추가 항목 그리기
             mPaint.setColor(mTextColor);
             mPaint.setAlpha(alpha);
 
-            //缩小字体，实现折射效果
+            //굴절 효과를 위해 글꼴 줄이기
             float textSize = mPaint.getTextSize();
             mPaint.setTextSize(textSize * mRefractRatio);
             //mIsBoldForSelectedItem==true 改变字体
@@ -782,14 +780,14 @@ public class WheelView<T> extends View implements Runnable {
         }
 
         if (isAutoFitTextSize) {
-            //恢复重新测量之前的样式
+            //다시 측정하기 전의 스타일로 되돌리기
             mPaint.setTextSize(mTextSize);
             mStartX = startX;
         }
     }
 
     /**
-     * 裁剪并绘制弯曲（3D）效果
+     * 곡률(3D) 효과 자르기 및 그리기
      *
      * @param canvas            画布
      * @param text              绘制的文字
@@ -798,7 +796,7 @@ public class WheelView<T> extends View implements Runnable {
      * @param rotateX           绕X轴旋转角度
      * @param offsetY           Y轴偏移
      * @param offsetZ           Z轴偏移
-     * @param centerToBaselineY 文字中心距离baseline的距离
+     * @param centerToBaselineY 텍스트 중심에서 기준선까지의 거리
      */
     private void clipAndDraw3DText(Canvas canvas, String text, int clipTop, int clipBottom,
                                    float rotateX, float offsetY, float offsetZ, int centerToBaselineY) {
@@ -817,7 +815,7 @@ public class WheelView<T> extends View implements Runnable {
      * @param rotateX           绕X轴旋转角度
      * @param offsetY           Y轴偏移
      * @param offsetZ           Z轴偏移
-     * @param centerToBaselineY 文字中心距离baseline的距离
+     * @param centerToBaselineY 텍스트 중심에서 기준선까지의 거리
      */
     private void draw3DText(Canvas canvas, String text, float rotateX, float offsetY,
                             float offsetZ, int centerToBaselineY) {
@@ -829,7 +827,7 @@ public class WheelView<T> extends View implements Runnable {
 
         // 调节中心点
         float centerX = mCenterX;
-        //根据弯曲（3d）对齐方式设置系数
+        //굽힘(3 d) 정렬에 따른 계수 설정
         if (mCurvedArcDirection == CURVED_ARC_DIRECTION_LEFT) {
             centerX = mCenterX * (1 + mCurvedArcDirectionFactor);
         } else if (mCurvedArcDirection == CURVED_ARC_DIRECTION_RIGHT) {
@@ -858,10 +856,10 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 根据下标获取到内容
+     * 아래 첨자를 기반으로 콘텐츠 가져오기
      *
      * @param index 下标
-     * @return 绘制的文字内容
+     * @return 그려지는 텍스트의 내용
      */
     private String getDataByIndex(int index) {
         int dataSize = mDataList.size();
@@ -896,7 +894,7 @@ public class WheelView<T> extends View implements Runnable {
         } else if (item instanceof IWheelEntity) {
             return ((IWheelEntity) item).getWheelText();
         } else if (item instanceof Integer) {
-            //如果为整形则最少保留两位数.
+            //정수인 경우 최소 두 자리 수가 예약됩니다.
             return isIntegerNeedFormat ? String.format(Locale.getDefault(), mIntegerFormat, item)
                     : String.valueOf(item);
         } else if (item instanceof String) {
@@ -908,7 +906,7 @@ public class WheelView<T> extends View implements Runnable {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        //屏蔽如果未设置数据时，触摸导致运算数据不正确的崩溃 issue #20
+        //Masking crashes when data is not set when touch causes incorrect operation data Issue 20
         if (!isEnabled() || mDataList.isEmpty()) {
             return super.onTouchEvent(event);
         }
@@ -918,11 +916,11 @@ public class WheelView<T> extends View implements Runnable {
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 //手指按下
-                //处理滑动事件嵌套 拦截事件序列
+                //Handling slide event nesting intercept event sequences
                 if (getParent() != null) {
                     getParent().requestDisallowInterceptTouchEvent(true);
                 }
-                //如果未滚动完成，强制滚动完成
+                //스크롤이 완료되지 않은 경우 강제로 스크롤을 완료하십시오.
                 if (!mScroller.isFinished()) {
                     //强制滚动完成
                     mScroller.forceFinished(true);
@@ -975,7 +973,7 @@ public class WheelView<T> extends View implements Runnable {
                     //小于最大滚动值
                     boolean isInMaxRange = scrollRange > 0 && mScrollOffsetY + scrollRange <= mMaxScrollY;
                     if (isInMinRange || isInMaxRange) {
-                        //在滚动范围之内再修正位置
+                        //스크롤 범위 내의 위치 수정
                         //平稳滑动
                         mScroller.startScroll(0, mScrollOffsetY, 0, scrollRange);
                     }
