@@ -1,10 +1,8 @@
 package com.urrecliner.sudoku2pdf;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -32,7 +30,7 @@ class MakeSudoku {
 
     public void make(SudokuInfo sudokuInfo) {
         this.sudokuInfo = sudokuInfo;
-        puzzleCount = sudokuInfo.puzzleCount;
+        puzzleCount = sudokuInfo.pageCount;
         blankCount = sudokuInfo.blankCount;
         try {
             new make_blank_solve().execute("");

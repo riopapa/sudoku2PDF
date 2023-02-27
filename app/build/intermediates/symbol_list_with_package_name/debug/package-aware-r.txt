@@ -2757,6 +2757,7 @@ id baseline
 id beginOnFirstDraw
 id beginning
 id bestChoice
+id blank_count
 id blocking
 id bottom
 id bounce
@@ -2797,7 +2798,6 @@ id continuousVelocity
 id coordinator
 id cos
 id countLabel
-id countText
 id counterclockwise
 id cradle
 id currentState
@@ -2902,7 +2902,6 @@ id left
 id leftToRight
 id legacy
 id levelLabel
-id levelText
 id line1
 id line3
 id linear
@@ -2991,6 +2990,7 @@ id outline
 id outward
 id overshoot
 id packed
+id page_count
 id parallax
 id parent
 id parentPanel
@@ -3354,7 +3354,7 @@ mipmap icon_sudoku2pdf
 mipmap my_sign_yellow
 plurals mtrl_badge_content_description
 raw level_degree
-raw puzzle_count
+raw page_count
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description

@@ -79,13 +79,13 @@ class MakePDF {
         pSig.setStrokeWidth(0);
         pSig.setAlpha(180);
         pSig.setStyle(Paint.Style.FILL_AND_STROKE);
-        pSig.setTextSize(12);
+        pSig.setTextSize(24);
 
         for (int idx = 0; idx < blankTables.length; idx++) {
             int [][] xyTable = str2suArray(blankTables[idx]);
             if (idx % 2 == 0) {
                 if (idx != 0) {
-                    printSignature(sudokuInfo, sigMap, xSig, ySig, pgWidth, pgHeight, canvas, pSig);
+                    printSignature(sudokuInfo, sigMap, pgWidth, pgHeight, canvas, pSig, true);
                     document.finishPage(page);
                 }
                 pageNbr++;
@@ -125,7 +125,7 @@ class MakePDF {
                 }
             canvas.drawText("("+idx+")", xBase + 24 + boxWidth*9, yBase + boxWidth/2f, pMemo);
         }
-        printSignature(sudokuInfo, sigMap, xSig, ySig, pgWidth, pgHeight, canvas, pSig);
+        printSignature(sudokuInfo, sigMap, pgWidth, pgHeight, canvas, pSig, true);
 
         document.finishPage(page);
 
@@ -181,7 +181,7 @@ class MakePDF {
                 }
         }
 
-        printSignature(sudokuInfo, sigMap, xSig, ySig, pgWidth, pgHeight, canvas, pSig);
+        printSignature(sudokuInfo, sigMap, pgWidth, pgHeight, canvas, pSig, false);
         document.finishPage(page);
 
         // write the document content
@@ -195,18 +195,20 @@ class MakePDF {
         document.close();
     }
 
-    private static void printSignature(SudokuInfo sudokuInfo, Bitmap sigMap, int xSig, int ySig, int pgWidth, int pgHeight, Canvas canvas, Paint paint) {
-        int xPos = pgWidth - 40;
-        int yPos = pgHeight - 30 - ySig;
-        canvas.drawBitmap(sigMap, xPos - xSig, yPos, paint);
-        yPos -= 8;
-        canvas.drawText("by", xPos, yPos, paint);
-        yPos -= 16;
-        canvas.drawText("blanks:"+sudokuInfo.blankCount,xPos, yPos, paint);
-        yPos -= 16;
-        canvas.drawText(sudokuInfo.dateTime.substring(9),xPos, yPos, paint);
-        yPos -= 16;
+    private static void printSignature(SudokuInfo sudokuInfo, Bitmap sigMap, int pgWidth, int pgHeight, Canvas canvas, Paint paint, boolean top) {
+        int xPos = (top) ? pgWidth - 40: pgWidth/2;
+        int inc = (int) paint.getTextSize() * 4 / 3;
+        int yPos = (top) ? 40 : pgHeight - 50;
         canvas.drawText(sudokuInfo.dateTime.substring(0,8),xPos, yPos, paint);
+        xPos += (top) ? 0: inc * 3;
+        yPos += (top) ? inc : 0;
+        canvas.drawText(sudokuInfo.dateTime.substring(9),xPos, yPos, paint);
+        xPos += (top) ? 0: inc * 4;
+        yPos += (top) ? inc : 0;
+        canvas.drawText("blanks:"+sudokuInfo.blankCount,xPos, yPos, paint);
+        xPos += (top) ? -sigMap.getWidth() : inc;
+        yPos += (top) ? inc : -sigMap.getHeight();
+        canvas.drawBitmap(sigMap, xPos, yPos, paint);
     }
 
     static int [][] str2suArray(String str) {

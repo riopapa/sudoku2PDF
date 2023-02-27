@@ -345,7 +345,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 更新textAlign
+     * update textAlign
      */
     private void updateTextAlign() {
         switch (mTextAlign) {
@@ -678,7 +678,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 绘制弯曲（3D）效果的item
+     * 곡률(3D) 효과에 대한 항목 그리기
      *
      * @param canvas         画布
      * @param index          下标
@@ -753,7 +753,7 @@ public class WheelView<T> extends View implements Runnable {
             mPaint.setTextSize(textSize * mRefractRatio);
             //mIsBoldForSelectedItem==true 改变字体
             changeTypefaceIfBoldForSelectedItem();
-            //字体变化，重新计算距离基线偏移
+            //글꼴 변경, 기준선에서 오프셋 다시 계산
             int reCenterToBaselineY = recalculateCenterToBaselineY();
             clipAndDraw3DText(canvas, text, mClipTop, mSelectedItemTopLimit,
                     rotateX, translateY, translateZ, reCenterToBaselineY);
@@ -770,7 +770,7 @@ public class WheelView<T> extends View implements Runnable {
             mPaint.setTextSize(textSize * mRefractRatio);
             //mIsBoldForSelectedItem==true 改变字体
             changeTypefaceIfBoldForSelectedItem();
-            //字体变化，重新计算距离基线偏移
+            //글꼴 변경, 기준선에서 오프셋 다시 계산
             int reCenterToBaselineY = recalculateCenterToBaselineY();
             clipAndDraw3DText(canvas, text, mClipTop, mClipBottom,
                     rotateX, translateY, translateZ, reCenterToBaselineY);
@@ -1125,20 +1125,20 @@ public class WheelView<T> extends View implements Runnable {
             }
             onWheelScrollStateChanged(SCROLL_STATE_IDLE);
             int currentItemPosition = getCurrentPosition();
-            //当前选中的Position没变时不回调 onItemSelected()
+            //현재 선택된 포지션은 변경되지 않을 때 콜백하지 않습니다. onItemSelected()
             if (currentItemPosition == mSelectedItemPosition) {
                 return;
             }
             mSelectedItemPosition = currentItemPosition;
-            //停止后重新赋值
+            //중지 및 재할당
             mCurrentScrollPosition = mSelectedItemPosition;
 
-            //停止滚动，选中条目回调
+            //스크롤을 중지하고 항목 콜백을 선택합니다.
             if (mOnItemSelectedListener != null) {
                 mOnItemSelectedListener.onItemSelected(this, mDataList.get(mSelectedItemPosition), mSelectedItemPosition);
             }
             onItemSelected(mDataList.get(mSelectedItemPosition), mSelectedItemPosition);
-            //滚动状态回调
+            //스크롤 상태 콜백
             if (mOnWheelChangedListener != null) {
                 mOnWheelChangedListener.onWheelSelected(mSelectedItemPosition);
             }
@@ -1158,9 +1158,9 @@ public class WheelView<T> extends View implements Runnable {
             invalidateIfYChanged();
             ViewCompat.postOnAnimation(this, this);
         } else if (isFlingScroll) {
-            //滚动完成后，根据是否为快速滚动处理是否需要调整最终位置
+            //스크롤이 완료되면 빠른 스크롤 프로세스인지 여부에 따라 최종 위치를 조정해야합니다.
             isFlingScroll = false;
-            //快速滚动后需要调整滚动完成后的最终位置，重新启动scroll滑动到中心位置
+            //빠른 스크롤 후 스크롤 후 최종 위치를 조정하고 스크롤을 다시 시작하여 중앙 위치로 슬라이드해야합니다.
             mScroller.startScroll(0, mScrollOffsetY, 0, calculateDistanceToEndPoint(mScrollOffsetY % dividedItemHeight()));
             invalidateIfYChanged();
             ViewCompat.postOnAnimation(this, this);
@@ -1168,9 +1168,9 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 根据偏移计算当前位置下标
+     * 오프셋을 기준으로 현재 위치 첨자를 계산합니다.
      *
-     * @return 偏移量对应的当前下标 if dataList is empty return -1
+     * @return 오프셋에 해당하는 현재 아래 첨자 if dataList is empty return -1
      */
     private int getCurrentPosition() {
         if (mDataList.isEmpty()) {
@@ -1191,7 +1191,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * mItemHeight 为被除数时避免为0
+     * mItemHeight 제수일 때 0을 피하십시오.
      *
      * @return 被除数不为0
      */
@@ -1295,14 +1295,14 @@ public class WheelView<T> extends View implements Runnable {
         }
         mDataList = dataList;
         if (!isResetSelectedPosition && mDataList.size() > 0) {
-            //不重置选中下标
+            //선택한 아래 첨자를 재설정하지 마십시오.
             if (mSelectedItemPosition >= mDataList.size()) {
                 mSelectedItemPosition = mDataList.size() - 1;
                 //重置滚动下标
                 mCurrentScrollPosition = mSelectedItemPosition;
             }
         } else {
-            //重置选中下标和滚动下标
+            //선택한 첨자 및 스크롤 첨자 재설정
             mCurrentScrollPosition = mSelectedItemPosition = 0;
         }
         //强制滚动完成
@@ -1375,16 +1375,16 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 获取是否自动调整字体大小，以显示完全
+     * 글꼴 크기가 자동으로 조정되어 전체를 표시할지 여부를 가져옵니다.
      *
-     * @return 是否自动调整字体大小
+     * @return 글꼴 크기를 자동으로 조정할지 여부
      */
     public boolean isAutoFitTextSize() {
         return isAutoFitTextSize;
     }
 
     /**
-     * 设置是否自动调整字体大小，以显示完全
+     * 글꼴 크기를 자동으로 조정하여 전체를 표시할지 여부를 설정합니다.
      *
      * @param isAutoFitTextSize 是否自动调整字体大小
      */
@@ -1415,7 +1415,7 @@ public class WheelView<T> extends View implements Runnable {
      * 设置当前字体
      *
      * @param typeface              字体
-     * @param isBoldForSelectedItem 是否设置选中条目字体加粗，其他条目不会加粗
+     * @param isBoldForSelectedItem 선택한 항목의 글꼴이 굵게 설정되면 다른 항목은 굵게 표시되지 않습니다.
      */
     public void setTypeface(Typeface typeface, boolean isBoldForSelectedItem) {
         if (typeface == null || mPaint.getTypeface() == typeface) {
@@ -1433,14 +1433,14 @@ public class WheelView<T> extends View implements Runnable {
                 mNormalTypeface = typeface;
                 mBoldTypeface = Typeface.create(typeface, Typeface.BOLD);
             }
-            //测量时 使用加粗字体测量，因为加粗字体比普通字体宽，以大的为准进行测量
+            //굵은 글꼴은 일반 글꼴보다 넓기 때문에 측정 할 때 굵은 글꼴을 사용하여 측정합니다.
             mPaint.setTypeface(mBoldTypeface);
         } else {
             mPaint.setTypeface(typeface);
         }
         calculateTextSize();
         calculateDrawStart();
-        //字体大小变化，偏移距离也变化了
+        //글꼴 크기가 변경되었으며 오프셋 거리도 변경되었습니다.
         mScrollOffsetY = mSelectedItemPosition * mItemHeight;
         calculateLimitY();
         requestLayout();
@@ -1448,7 +1448,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 获取文字对齐方式
+     * 텍스트 맞춤을 가져옵니다.
      *
      * @return 文字对齐
      * {@link #TEXT_ALIGN_LEFT}
@@ -1460,7 +1460,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 设置文字对齐方式
+     * 텍스트 맞춤을 설정합니다.
      *
      * @param textAlign 文字对齐方式
      *                  {@link #TEXT_ALIGN_LEFT}
@@ -1478,7 +1478,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 获取未选中条目颜色
+     * 선택되지 않은 항목의 색을 가져옵니다.
      *
      * @return 未选中条目颜色 ColorInt
      */
@@ -1487,18 +1487,18 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 设置未选中条目颜色
+     * 선택되지 않은 항목의 색상을 설정합니다.
      *
-     * @param textColorRes 未选中条目颜色 {@link ColorRes}
+     * @param textColorRes 입력 색상이 선택되지 않았습니다. {@link ColorRes}
      */
     public void setNormalItemTextColorRes(@ColorRes int textColorRes) {
         setNormalItemTextColor(ContextCompat.getColor(getContext(), textColorRes));
     }
 
     /**
-     * 设置未选中条目颜色
+     * 선택되지 않은 항목의 색상을 설정합니다.
      *
-     * @param textColor 未选中条目颜色 {@link ColorInt}
+     * @param textColor 입력 색상이 선택되지 않았습니다. {@link ColorInt}
      */
     public void setNormalItemTextColor(@ColorInt int textColor) {
         if (mTextColor == textColor) {
@@ -1509,7 +1509,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 获取选中条目颜色
+     * 선택한 항목의 색을 가져옵니다.
      *
      * @return 选中条目颜色 ColorInt
      */
@@ -1518,7 +1518,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 设置选中条目颜色
+     * 선택한 항목의 색상을 설정합니다.
      *
      * @param selectedItemColorRes 选中条目颜色 {@link ColorRes}
      */
@@ -1527,7 +1527,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 设置选中条目颜色
+     * 선택한 항목의 색상을 설정합니다.
      *
      * @param selectedItemTextColor 选中条目颜色 {@link ColorInt}
      */
@@ -1540,7 +1540,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 获取文字距离边界的外边距
+     * 텍스트 거리 경계의 여백을 가져옵니다.
      *
      * @return 外边距值
      */
@@ -1558,7 +1558,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 设置文字距离边界的外边距
+     * 문자 거리 경계의 여백을 설정합니다.
      *
      * @param textBoundaryMargin 外边距值
      * @param isDp               单位是否为 dp
@@ -1610,7 +1610,7 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 获取数据为Integer类型时是否需要转换
+     * 데이터가 정수 형식일 때 변환이 필요한지 여부
      *
      * @return isIntegerNeedFormat
      */
@@ -1619,9 +1619,9 @@ public class WheelView<T> extends View implements Runnable {
     }
 
     /**
-     * 设置数据为Integer类型时是否需要转换
+     * 데이터를 Integer 형식으로 설정할 때 변환이 필요한지 여부
      *
-     * @param isIntegerNeedFormat 数据为Integer类型时是否需要转换
+     * @param isIntegerNeedFormat 데이터가 정수 형식일 때 변환이 필요한지 여부
      */
     public void setIntegerNeedFormat(boolean isIntegerNeedFormat) {
         if (this.isIntegerNeedFormat == isIntegerNeedFormat) {
@@ -1636,10 +1636,10 @@ public class WheelView<T> extends View implements Runnable {
     /**
      * 同时设置 isIntegerNeedFormat=true 和 mIntegerFormat=integerFormat
      *
-     * @param integerFormat 注意：integerFormat 中必须包含并且只能包含一个格式说明符（format specifier）
+     * @param integerFormat 注意：integerFormat 형식 지정자를 하나만 포함해야 하며 포함할 수 있습니다.（format specifier）
      *                      格式说明符请参照 http://java2s.com/Tutorials/Java/Data_Format/Java_Format_Specifier.htm
      *                      <p>
-     *                      如果有多个格式说明符会抛出 java.util.MissingFormatArgumentException: Format specifier '%s'(多出来的说明符)
+     *                      형식 지정자가 두 개 이상 있으면 throw됩니다. java.util.MissingFormatArgumentException: Format specifier '%s'(多出来的说明符)
      */
     public void setIntegerNeedFormat(String integerFormat) {
         isIntegerNeedFormat = true;
@@ -1661,10 +1661,10 @@ public class WheelView<T> extends View implements Runnable {
     /**
      * 设置Integer类型转换格式
      *
-     * @param integerFormat 注意：integerFormat 中必须包含并且只能包含一个格式说明符（format specifier）
+     * @param integerFormat 참고: integerFormat은 하나의 형식 지정자만 포함해야 하며 포함할 수 있습니다.（format specifier）
      *                      格式说明符请参照 http://java2s.com/Tutorials/Java/Data_Format/Java_Format_Specifier.htm
      *                      <p>
-     *                      如果有多个格式说明符会抛出 java.util.MissingFormatArgumentException: Format specifier '%s'(多出来的说明符)
+     *                      둘 이상의 형식 지정자가있는 경우 java.util.MissingFormatArgumentException이 발생합니다.: Format specifier '%s'(多出来的说明符)
      */
     public void setIntegerFormat(String integerFormat) {
         if (TextUtils.isEmpty(integerFormat) || integerFormat.equals(mIntegerFormat)) {
@@ -1768,9 +1768,9 @@ public class WheelView<T> extends View implements Runnable {
     /**
      * 设置当前选中下标
      * <p>
-     * bug 修复记录：调用这个方法时大多数情况在初始化时，如果没有执行 onSizeChanged() 方法时，调用这个方法会导致失效
-     * 因为 onSizeChanged() 方法执行结束才确定边界等信息，
-     * 所以在 onSizeChanged() 方法增加了兼容，如果 mSelectedItemPosition >0 的情况重新计算一下滚动值。
+     * bug 레코드 수정: 대부분의 경우 이 메서드를 호출할 때 초기화할 때 onSizeChanged() 메서드가 실행되지 않으면 이 메서드를 호출하면 무효화됩니다.
+     * 因为 onSizeChanged() 경계와 같은 정보는 메서드 실행이 끝난 후에 만 결정됩니다.
+     * 所以在 onSizeChanged() 롤오버 메서드는 롤오버에 대해 mSelectedItemPosition >0이 다시 계산되는 경우 호환성을 추가합니다.。
      *
      * @param position       下标
      * @param isSmoothScroll 是否平滑滚动
@@ -1790,7 +1790,7 @@ public class WheelView<T> extends View implements Runnable {
         abortFinishScroll();
 
         if (isSmoothScroll) {
-            //如果是平滑滚动并且之前的Scroll滚动完成
+            //부드러운 스크롤이고 이전 스크롤 스크롤이 완료된 경우
             mScroller.startScroll(0, mScrollOffsetY, 0, itemDistance,
                     smoothDuration > 0 ? smoothDuration : DEFAULT_SCROLL_DURATION);
             invalidateIfYChanged();

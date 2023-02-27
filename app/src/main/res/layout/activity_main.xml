@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <TextView
-        android:id="@+id/levelText"
+        android:id="@+id/blank_count"
         android:layout_width="60sp"
         android:layout_height="wrap_content"
         android:text="lvl"
@@ -59,7 +59,7 @@
         android:gravity="center_horizontal"
         android:layout_gravity="center_horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/countText"
+        app:layout_constraintRight_toLeftOf="@id/page_count"
         app:layout_constraintTop_toBottomOf="@id/levelLabel"
         />
 
@@ -84,7 +84,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/wheel_count"
-        app:layout_constraintTop_toBottomOf="@id/levelText"
+        app:layout_constraintTop_toBottomOf="@id/blank_count"
         />
 
 <!--    Right for count -->
@@ -104,7 +104,7 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <TextView
-        android:id="@+id/countText"
+        android:id="@+id/page_count"
         android:layout_width="60sp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -113,7 +113,7 @@
         android:textColor="@color/colorAccent"
         android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toRightOf="@id/levelText"
+        app:layout_constraintLeft_toRightOf="@id/blank_count"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/countLabel" />
 
@@ -137,7 +137,7 @@
         app:wv_selectedRectColor="#aebfbe"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@id/wheel_level"
-        app:layout_constraintTop_toBottomOf="@id/countText"
+        app:layout_constraintTop_toBottomOf="@id/page_count"
         />
 
     <TextView

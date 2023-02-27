@@ -5,7 +5,7 @@ import android.content.Context;
 public class SudokuInfo {
     public Context context;
     public String dateTime;
-    public int puzzleCount;
+    public int pageCount;
     public int blankCount;
 
 }
