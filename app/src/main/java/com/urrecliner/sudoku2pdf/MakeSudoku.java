@@ -16,6 +16,8 @@ import static com.urrecliner.sudoku2pdf.MainActivity.statusTV;
 
 import androidx.constraintlayout.widget.ConstraintSet;
 
+import com.urrecliner.sudoku2pdf.Model.SudokuInfo;
+
 class MakeSudoku {
 
     private static int [][] answerTable;
@@ -25,12 +27,12 @@ class MakeSudoku {
     private String [] blankTables;
     private String [] answerTables;
     private String [] commentTables;
-    private int puzzleCount, blankCount;
+    private int pageCount, blankCount;
     private SudokuInfo sudokuInfo;
 
     public void make(SudokuInfo sudokuInfo) {
         this.sudokuInfo = sudokuInfo;
-        puzzleCount = sudokuInfo.pageCount;
+        pageCount = sudokuInfo.pageCount;
         blankCount = sudokuInfo.blankCount;
         try {
             new make_blank_solve().execute("");
@@ -49,9 +51,9 @@ class MakeSudoku {
         protected void onPreExecute() {
 
             random = new Random(System.currentTimeMillis());
-            blankTables = new String[puzzleCount];
-            answerTables = new String[puzzleCount];
-            commentTables = new String[puzzleCount];
+            blankTables = new String[pageCount];
+            answerTables = new String[pageCount];
+            commentTables = new String[pageCount];
             duration = System.currentTimeMillis();
 
 //            ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(500 + puzzleCount * 80, 500 + puzzleCount * 80);
@@ -64,8 +66,8 @@ class MakeSudoku {
 
             ConstraintSet set = new ConstraintSet();
             set.connect(frameLayout.getId(), ConstraintSet.TOP, horizontalLineView.getId(), ConstraintSet.BOTTOM);
-            set.constrainWidth(frameLayout.getId(), 500 + puzzleCount * 80);
-            set.constrainHeight(frameLayout.getId(), 500 + puzzleCount * 80);
+            set.constrainWidth(frameLayout.getId(), 500 + pageCount * 80);
+            set.constrainHeight(frameLayout.getId(), 500 + pageCount * 80);
             set.connect(frameLayout.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
             set.connect(frameLayout.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
             set.connect(frameLayout.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 80);
@@ -76,17 +78,17 @@ class MakeSudoku {
         @Override
         protected String doInBackground(String... inputParams) {
             int madeCount = 0;
-            int percentStart = madeCount * 100 / puzzleCount;
-            int percentFinish = (madeCount + 1) * 100 / puzzleCount;
+            int percentStart = 0;
+            int percentFinish = (madeCount + 1) * 100 / pageCount;
             int showProgressCount = blankCount - 18;     // 18 should be less than MINIMUM_BLANK
-            while (madeCount < puzzleCount) {
+            while (madeCount < pageCount) {
                 // calculate degrees
                 if (tryCount % showProgressCount == 0) {
                     percentStart++;
                     if (percentStart >= percentFinish)
-                        percentStart = madeCount * 100 / puzzleCount;
+                        percentStart = madeCount * 100 / pageCount;
                     publishProgress(PROGRESS_PERCENT, ""+percentStart);
-                    publishProgress(PROGRESS_COUNT, " " + madeCount + "/" + puzzleCount + " Done\n" + tryCount + " tries! ");
+                    publishProgress(PROGRESS_COUNT, " " + madeCount + "/" + pageCount + " Done\n" + tryCount + " tries! ");
                 }
                 tryCount++;
                 make_answerTable(); // result in [] answerTable
@@ -112,8 +114,8 @@ class MakeSudoku {
                     loopSum += tryCount;
                     tryCount = 0;
                     madeCount++;
-                    percentStart = madeCount * 100 / puzzleCount;
-                    percentFinish = (madeCount + 1) * 100 / puzzleCount;
+                    percentStart = madeCount * 100 / pageCount;
+                    percentFinish = (madeCount + 1) * 100 / pageCount;
                     publishProgress(PROGRESS_PERCENT, ""+percentStart);
                 }
             }

@@ -23,6 +23,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.urrecliner.sudoku2pdf.Model.SudokuInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

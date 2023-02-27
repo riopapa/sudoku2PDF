@@ -17,6 +17,8 @@ import java.io.IOException;
 
 import androidx.core.content.res.ResourcesCompat;
 
+import com.urrecliner.sudoku2pdf.Model.SudokuInfo;
+
 class MakePDF {
 
     static void createPDF(String [] blankTables, String [] answerTables, SudokuInfo sudokuInfo) {
@@ -207,7 +209,7 @@ class MakePDF {
         yPos += (top) ? inc : 0;
         canvas.drawText("blanks:"+sudokuInfo.blankCount,xPos, yPos, paint);
         xPos += (top) ? -sigMap.getWidth() : inc;
-        yPos += (top) ? inc : -sigMap.getHeight();
+        yPos += (top) ? inc : -sigMap.getHeight()/2;
         canvas.drawBitmap(sigMap, xPos, yPos, paint);
     }
 
