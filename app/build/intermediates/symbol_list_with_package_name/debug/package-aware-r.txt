@@ -2662,7 +2662,9 @@ drawable notify_panel_notification_icon_bg
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
+font good_times
 font radioland_regular
+font wyjov
 id ALT
 id BOTTOM_END
 id BOTTOM_START

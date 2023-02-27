@@ -59,10 +59,10 @@ class MakePDF {
 
         Paint pNumb = new Paint();
         pNumb.setColor(Color.BLUE);
-        pNumb.setAlpha(200);
+        pNumb.setAlpha(180);
         pNumb.setStrokeWidth(1);
-        pNumb.setTypeface(ResourcesCompat.getFont(sudokuInfo.context, R.font.radioland_regular));
-        pNumb.setTextSize(36);
+        pNumb.setTypeface(ResourcesCompat.getFont(sudokuInfo.context, R.font.good_times));
+        pNumb.setTextSize(44);
         pNumb.setTextAlign(Paint.Align.CENTER);
         pNumb.setStyle(Paint.Style.FILL_AND_STROKE);
 

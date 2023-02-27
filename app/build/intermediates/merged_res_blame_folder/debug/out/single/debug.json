@@ -16,8 +16,16 @@
         "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.4\\com.urrecliner.sudoku2pdf.app-main-31:\\raw\\level_degree.ogg"
     },
     {
-        "merged": "com.urrecliner.sudoku2pdf.app-merged_res-29:/layout_activity_main.xml.flat",
-        "source": "com.urrecliner.sudoku2pdf.app-main-31:/layout/activity_main.xml"
+        "merged": "com.urrecliner.sudoku2pdf.app-merged_res-29:/font_good_times.otf.flat",
+        "source": "com.urrecliner.sudoku2pdf.app-main-31:/font/good_times.otf"
+    },
+    {
+        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.4\\com.urrecliner.sudoku2pdf.app-merged_res-29:\\raw_page_count.ogg.flat",
+        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.4\\com.urrecliner.sudoku2pdf.app-main-31:\\raw\\page_count.ogg"
+    },
+    {
+        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.4\\com.urrecliner.sudoku2pdf.app-merged_res-29:\\font_wyjov.ttf.flat",
+        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.4\\com.urrecliner.sudoku2pdf.app-main-31:\\font\\wyjov.ttf"
     },
     {
         "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.4\\com.urrecliner.sudoku2pdf.app-merged_res-29:\\menu_menu_main.xml.flat",
@@ -26,10 +34,6 @@
     {
         "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.4\\com.urrecliner.sudoku2pdf.app-merged_res-29:\\drawable_circle.xml.flat",
         "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.4\\com.urrecliner.sudoku2pdf.app-main-31:\\drawable\\circle.xml"
-    },
-    {
-        "merged": "com.urrecliner.sudoku2pdf.app-merged_res-29:/raw_page_count.ogg.flat",
-        "source": "com.urrecliner.sudoku2pdf.app-main-31:/raw/page_count.ogg"
     },
     {
         "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.4\\com.urrecliner.sudoku2pdf.app-merged_res-29:\\layout_activity_main.xml.flat",
