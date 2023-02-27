@@ -175,8 +175,6 @@ public class MainActivity extends AppCompatActivity {
         tVPage.setText(""+ pageCount);
 
         final WheelView<String> wheelView = findViewById(R.id.wheel_count);
-//        List<String> list = new ArrayList<>(1);
-//        wheelView.setIntegerNeedFormat(true);
         wheelView.setOnItemSelectedListener(new WheelView.OnItemSelectedListener<String>() {
             @Override
             public void onItemSelected(WheelView<String> wheelView, String data, int position) {
@@ -216,31 +214,6 @@ public class MainActivity extends AppCompatActivity {
         wheelView.setSoundEffectResource(R.raw.page_count);
         wheelView.setPlayVolume(0.1f);
     }
-
-    private void showCountPage(TextView tV, String s) {
-        tV.setText(s);
-    }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @Override
     public void onBackPressed() {
