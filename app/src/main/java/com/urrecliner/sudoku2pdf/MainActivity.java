@@ -35,10 +35,11 @@ public class MainActivity extends AppCompatActivity {
     private Context context;
     int blankCount = 5;
     int pageCount = 0;
+    boolean meshable;
     static TextView statusTV;
     static String fileDate;
     List<String> blankList, pageList;
-    final static int MINIMUM_BLANK = 16, MAXIMUM_BLANK = 58;
+    final static int MINIMUM_BLANK = 10, MAXIMUM_BLANK = 58;
     final static int MINIMUM_PAGE = 4, MAXIMUM_PAGE = 20;
     static ProgressBar progressBar;
     static FrameLayout frameLayout;
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         editor = mSettings.edit();
         pageCount = mSettings.getInt("pageCount", 16);
         blankCount = mSettings.getInt("blankCount", 16);
+        meshable = mSettings.getBoolean("mesh", true);
 
         statusTV = findViewById(R.id.status);
         statusTV.setVisibility(View.INVISIBLE);
@@ -86,8 +88,19 @@ public class MainActivity extends AppCompatActivity {
         horizontalLineView = findViewById(R.id.horizontal_line);
 
         context = getApplicationContext();
-        ImageButton make = findViewById(R.id.start);
-        make.setOnClickListener(new View.OnClickListener() {
+        ImageButton mesh = findViewById(R.id.mesh);
+        mesh.setImageResource((meshable)? R.drawable.mesh_on : R.drawable.mesh_off);
+        mesh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                meshable = !meshable;
+                mesh.setImageResource((meshable) ? R.drawable.mesh_on : R.drawable.mesh_off);
+                editor.putBoolean("mesh", meshable).apply();
+            }
+        });
+
+        ImageButton generate = findViewById(R.id.generate);
+        generate.setOnClickListener(new View.OnClickListener() {
             boolean isRunning = false;
             @Override
             public void onClick(View view) {
@@ -104,11 +117,13 @@ public class MainActivity extends AppCompatActivity {
                     sudokuInfo.blankCount = blankCount;
                     sudokuInfo.pageCount = pageCount;
                     sudokuInfo.context = context;
+                    sudokuInfo.meshable = meshable;
                     new MakeSudoku().make(sudokuInfo);
                     isRunning = false;
                 }
             }
         });
+
         blankList = new ArrayList<>();
         for (int level = MINIMUM_BLANK; level <= MAXIMUM_BLANK; level++) {
             blankList.add(level + "");

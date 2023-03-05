@@ -7,4 +7,6 @@ public class SudokuInfo {
     public String dateTime;
     public int pageCount;
     public int blankCount;
+
+    public boolean meshable;
 }

@@ -30,6 +30,7 @@ class MakePDF {
         int xSig = sigMap.getWidth() / 5;
         int ySig = sigMap.getHeight() / 5;
         sigMap = Bitmap.createScaledBitmap(sigMap, xSig, ySig, false);
+        boolean meshable = sudokuInfo.meshable;
         int pgWidth = 210*5, pgHeight = 297*5;  // A4 size
         int boxWidth = pgWidth / 14;    // 75
         int boxWidth3 = boxWidth / 3;
@@ -107,7 +108,7 @@ class MakePDF {
                     canvas.drawRect(xPos, yPos, xPos + boxWidth, yPos + boxWidth, pRect);
                     if (xyTable[row][col] > 0) {
                         canvas.drawText("" + xyTable[row][col], xPos + xGap, yPos + space + yGap, pNumb);
-                    } else {
+                    } else if (meshable){
                         canvas.drawLine(xPos + boxWidth3, yPos, xPos + boxWidth3, yPos + boxWidth, pDotted);
                         canvas.drawLine(xPos + boxWidth3 + boxWidth3, yPos,
                                 xPos + boxWidth3 + boxWidth3, yPos + boxWidth, pDotted);
@@ -125,7 +126,7 @@ class MakePDF {
                     int yPos = yBase + row * boxWidth;
                     canvas.drawRect(xBase, yBase, xPos + boxWidth*3, yPos + boxWidth*3, pRectO);
                 }
-            canvas.drawText("("+idx+")", xBase + 24 + boxWidth*9, yBase + boxWidth/2f, pMemo);
+            canvas.drawText("("+idx+")", xBase + 32 + boxWidth*9, yBase + boxWidth/2f, pMemo);
         }
         printSignature(sudokuInfo, sigMap, pgWidth, pgHeight, canvas, pSig, true);
 
@@ -198,19 +199,27 @@ class MakePDF {
     }
 
     private static void printSignature(SudokuInfo sudokuInfo, Bitmap sigMap, int pgWidth, int pgHeight, Canvas canvas, Paint paint, boolean top) {
-        int xPos = (top) ? pgWidth - 40: pgWidth/2;
         int inc = (int) paint.getTextSize() * 4 / 3;
-        int yPos = (top) ? 40 : pgHeight - 50;
-        canvas.drawText(sudokuInfo.dateTime.substring(0,8),xPos, yPos, paint);
-        xPos += (top) ? 0: inc * 3;
-        yPos += (top) ? inc : 0;
-        canvas.drawText(sudokuInfo.dateTime.substring(9),xPos, yPos, paint);
-        xPos += (top) ? 0: inc * 4;
-        yPos += (top) ? inc : 0;
-        canvas.drawText("blanks:"+sudokuInfo.blankCount,xPos, yPos, paint);
-        xPos += (top) ? -sigMap.getWidth() : inc;
-        yPos += (top) ? inc : -sigMap.getHeight()/2;
-        canvas.drawBitmap(sigMap, xPos, yPos, paint);
+        if (top) {
+            int xPos = pgWidth - 40;
+            int yPos = 40;
+            canvas.drawText(sudokuInfo.dateTime.substring(0,8),xPos, yPos, paint);
+            yPos += inc;
+            canvas.drawText(sudokuInfo.dateTime.substring(9),xPos, yPos, paint);
+            yPos += inc;
+            canvas.drawText("□ "+sudokuInfo.blankCount,xPos, yPos, paint);
+            yPos += inc;
+            xPos -= sigMap.getWidth();
+            canvas.drawBitmap(sigMap, xPos, yPos, paint);
+        } else {
+            int xPos = pgWidth/2;
+            int yPos = pgHeight - 50;
+            String s = sudokuInfo.dateTime + "   □"+ sudokuInfo.blankCount;
+            canvas.drawText(sudokuInfo.dateTime, xPos, yPos, paint);
+            xPos += inc;
+            yPos -= sigMap.getHeight()/2;
+            canvas.drawBitmap(sigMap, xPos, yPos, paint);
+        }
     }
 
     static int [][] str2suArray(String str) {

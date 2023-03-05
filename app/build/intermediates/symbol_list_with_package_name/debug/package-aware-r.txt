@@ -2609,6 +2609,8 @@ drawable material_ic_keyboard_arrow_previous_black_24dp
 drawable material_ic_keyboard_arrow_right_black_24dp
 drawable material_ic_menu_arrow_down_black_24dp
 drawable material_ic_menu_arrow_up_black_24dp
+drawable mesh_off
+drawable mesh_on
 drawable mtrl_bottomsheet_drag_handle
 drawable mtrl_checkbox_button
 drawable mtrl_checkbox_button_checked_unchecked
@@ -2866,6 +2868,7 @@ id forever
 id fragment_container_view_tag
 id frost
 id fullscreen_header
+id generate
 id ghost_view
 id ghost_view_holder
 id gone
@@ -2933,6 +2936,7 @@ id material_timepicker_ok_button
 id material_timepicker_view
 id material_value_index
 id matrix
+id mesh
 id message
 id middle
 id mini
