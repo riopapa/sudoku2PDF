@@ -127,7 +127,8 @@ public class MainActivity extends AppCompatActivity {
                     Snackbar.make(view, "Starting generation", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
-                    fileDate = "sudoku_" + sdfDate.format(System.currentTimeMillis()) + " with "+ blankCount +" Blanks";
+                    fileDate =  "sudoku_"+sdfDate.format(System.currentTimeMillis())+" ("+twoThree+"."+blankCount+")";
+
                     SudokuInfo sudokuInfo = new SudokuInfo();
                     sudokuInfo.dateTime = sdfDate.format(System.currentTimeMillis());
                     sudokuInfo.blankCount = blankCount;

@@ -24,8 +24,7 @@ class MakePDF {
     static void createPDF(String [] blankTables, String [] answerTables, SudokuInfo sudokuInfo) {
 
         String downLoadFolder = Environment.getExternalStorageDirectory().getPath();
-        String fileName = "sudoku_"+sudokuInfo.dateTime+" ("+sudokuInfo.twoThree+"."+sudokuInfo.blankCount+")";
-
+        String fileName = MainActivity.fileDate;
         Bitmap sigMap = BitmapFactory.decodeResource(sudokuInfo.context.getResources(), R.mipmap.my_sign_yellow);
         int xSig = sigMap.getWidth() / 5;
         int ySig = sigMap.getHeight() / 5;
