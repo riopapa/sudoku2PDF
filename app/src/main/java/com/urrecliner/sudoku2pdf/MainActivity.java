@@ -35,8 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private Context context;
     int blankCount = 5;
     int pageCount = 0;
+    int twoThree = 2;
     boolean meshable;
-    static TextView statusTV;
+    static TextView tvSstatus;
     static String fileDate;
     List<String> blankList, pageList;
     final static int MINIMUM_BLANK = 10, MAXIMUM_BLANK = 58;
@@ -69,9 +70,10 @@ public class MainActivity extends AppCompatActivity {
         pageCount = mSettings.getInt("pageCount", 16);
         blankCount = mSettings.getInt("blankCount", 16);
         meshable = mSettings.getBoolean("mesh", true);
+        twoThree = mSettings.getInt("twoThree", 2);
 
-        statusTV = findViewById(R.id.status);
-        statusTV.setVisibility(View.INVISIBLE);
+        tvSstatus = findViewById(R.id.status);
+        tvSstatus.setVisibility(View.INVISIBLE);
 
         Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.circle, null);
         progressBar = findViewById(R.id.progress_circle);
@@ -98,6 +100,20 @@ public class MainActivity extends AppCompatActivity {
                 editor.putBoolean("mesh", meshable).apply();
             }
         });
+        TextView tv23 = findViewById(R.id.two_three);
+        tv23.setText(twoThree+"/Page");
+        tv23.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (twoThree == 2) {
+                    twoThree = 3;
+                } else {
+                    twoThree = 2;
+                }
+                tv23.setText(twoThree+"/Page");
+                editor.putInt("twoThree", twoThree).apply();
+            }
+        });
 
         ImageButton generate = findViewById(R.id.generate);
         generate.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
                     sudokuInfo.dateTime = sdfDate.format(System.currentTimeMillis());
                     sudokuInfo.blankCount = blankCount;
                     sudokuInfo.pageCount = pageCount;
+                    sudokuInfo.twoThree = twoThree;
                     sudokuInfo.context = context;
                     sudokuInfo.meshable = meshable;
                     new MakeSudoku().make(sudokuInfo);

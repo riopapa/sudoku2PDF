@@ -24,7 +24,7 @@ class MakePDF {
     static void createPDF(String [] blankTables, String [] answerTables, SudokuInfo sudokuInfo) {
 
         String downLoadFolder = Environment.getExternalStorageDirectory().getPath();
-        String fileName = "sudoku_"+sudokuInfo.dateTime;
+        String fileName = "sudoku_"+sudokuInfo.dateTime+" ("+sudokuInfo.twoThree+"."+sudokuInfo.blankCount+")";
 
         Bitmap sigMap = BitmapFactory.decodeResource(sudokuInfo.context.getResources(), R.mipmap.my_sign_yellow);
         int xSig = sigMap.getWidth() / 5;
@@ -32,9 +32,10 @@ class MakePDF {
         sigMap = Bitmap.createScaledBitmap(sigMap, xSig, ySig, false);
         boolean meshable = sudokuInfo.meshable;
         int pgWidth = 210*5, pgHeight = 297*5;  // A4 size
-        int boxWidth = pgWidth / 14;    // 75
+        int twoThree = sudokuInfo.twoThree;
+        int boxWidth = (twoThree == 2) ? pgHeight / (10*2) : pgHeight / (10*3);
         int boxWidth3 = boxWidth / 3;
-        int space = 10;
+        int space = boxWidth3;  // space = 2 : 24, 3:
         int pageNbr = 0;
         Canvas canvas = null;
         PdfDocument.Page page = null;
@@ -63,7 +64,7 @@ class MakePDF {
         pNumb.setAlpha(180);
         pNumb.setStrokeWidth(1);
         pNumb.setTypeface(ResourcesCompat.getFont(sudokuInfo.context, R.font.good_times));
-        pNumb.setTextSize(44);
+        pNumb.setTextSize(boxWidth3+boxWidth3);
         pNumb.setTextAlign(Paint.Align.CENTER);
         pNumb.setStyle(Paint.Style.FILL_AND_STROKE);
 
@@ -86,7 +87,7 @@ class MakePDF {
 
         for (int idx = 0; idx < blankTables.length; idx++) {
             int [][] xyTable = str2suArray(blankTables[idx]);
-            if (idx % 2 == 0) {
+            if (idx % twoThree == 0) {
                 if (idx != 0) {
                     printSignature(sudokuInfo, sigMap, pgWidth, pgHeight, canvas, pSig, true);
                     document.finishPage(page);
@@ -98,16 +99,16 @@ class MakePDF {
                 canvas = page.getCanvas();
             }
             int xBase = space + 10;
-            int yBase = space + 10 + (idx % 2) * boxWidth * 10;
+            int yBase = space + 10 + (idx % twoThree) * boxWidth * 10;
             int xGap = boxWidth/2;
-            int yGap = boxWidth/2+8;
+            int yGap = boxWidth3+boxWidth3+boxWidth3/3;
             for (int row = 0; row < 9; row++) {
                 for (int col = 0; col < 9; col++) {
                     int xPos = xBase + col * boxWidth;
                     int yPos = yBase + row * boxWidth;
                     canvas.drawRect(xPos, yPos, xPos + boxWidth, yPos + boxWidth, pRect);
                     if (xyTable[row][col] > 0) {
-                        canvas.drawText("" + xyTable[row][col], xPos + xGap, yPos + space + yGap, pNumb);
+                        canvas.drawText("" + xyTable[row][col], xPos + xGap, yPos + yGap, pNumb);
                     } else if (meshable){
                         canvas.drawLine(xPos + boxWidth3, yPos, xPos + boxWidth3, yPos + boxWidth, pDotted);
                         canvas.drawLine(xPos + boxWidth3 + boxWidth3, yPos,
