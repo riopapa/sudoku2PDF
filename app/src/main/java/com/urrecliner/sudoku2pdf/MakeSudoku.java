@@ -12,7 +12,7 @@ import static com.urrecliner.sudoku2pdf.MainActivity.frameLayout;
 import static com.urrecliner.sudoku2pdf.MainActivity.horizontalLineView;
 import static com.urrecliner.sudoku2pdf.MainActivity.mainLayout;
 import static com.urrecliner.sudoku2pdf.MainActivity.progressBar;
-import static com.urrecliner.sudoku2pdf.MainActivity.tvSstatus;
+import static com.urrecliner.sudoku2pdf.MainActivity.tvStatus;
 
 import androidx.constraintlayout.widget.ConstraintSet;
 
@@ -62,7 +62,7 @@ class MakeSudoku {
             progressBar.setMax(100);
             progressBar.setProgress(0);
             progressBar.setVisibility(View.VISIBLE);
-            tvSstatus.setVisibility(View.VISIBLE);
+            tvStatus.setVisibility(View.VISIBLE);
 
             ConstraintSet set = new ConstraintSet();
             set.connect(frameLayout.getId(), ConstraintSet.TOP, horizontalLineView.getId(), ConstraintSet.BOTTOM);
@@ -476,7 +476,7 @@ class MakeSudoku {
             switch (which) {
                 case PROGRESS_COUNT:
                     String statusText = values[1];
-                    tvSstatus.setText(statusText);
+                    tvStatus.setText(statusText);
                     break;
                 case PROGRESS_PERCENT:
                     int progress = Integer.parseInt(values[1]);
@@ -495,8 +495,8 @@ class MakeSudoku {
 //            Toast.makeText(MainActivity.,statistics, Toast.LENGTH_LONG).show();
             Log.w("DONE", statistics);
             progressBar.setVisibility(View.INVISIBLE);
-            tvSstatus.setText(statistics);
-            tvSstatus.invalidate();
+            tvStatus.setText(statistics);
+            tvStatus.invalidate();
 
             MakePDF.createPDF(blankTables, answerTables, sudokuInfo);
         }

@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     int twoThree = 2;
 
     int meshType = 1;
-    static TextView tvSstatus;
+    static TextView tvStatus;
     static String fileDate;
     List<String> blankList, pageList;
     final static int MINIMUM_BLANK = 10, MAXIMUM_BLANK = 58;
@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
         meshType = mSettings.getInt("mesh", 1);
         twoThree = mSettings.getInt("twoThree", 2);
 
-        tvSstatus = findViewById(R.id.status);
-        tvSstatus.setVisibility(View.INVISIBLE);
+        tvStatus = findViewById(R.id.status);
+        tvStatus.setVisibility(View.INVISIBLE);
 
         Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.circle, null);
         progressBar = findViewById(R.id.progress_circle);
