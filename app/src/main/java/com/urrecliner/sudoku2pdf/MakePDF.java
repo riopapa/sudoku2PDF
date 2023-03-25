@@ -29,7 +29,7 @@ class MakePDF {
         int xSig = sigMap.getWidth() / 5;
         int ySig = sigMap.getHeight() / 5;
         sigMap = Bitmap.createScaledBitmap(sigMap, xSig, ySig, false);
-        boolean meshable = sudokuInfo.meshable;
+        int meshType = sudokuInfo.meshType;
         int pgWidth = 210*5, pgHeight = 297*5;  // A4 size
         int twoThree = sudokuInfo.twoThree;
         int boxWidth = (twoThree == 2) ? pgHeight / (10*2) : pgHeight / (10*3);
@@ -97,7 +97,7 @@ class MakePDF {
                 page = document.startPage(pageInfo);
                 canvas = page.getCanvas();
             }
-            int xBase = space + 10;
+            int xBase = boxWidth + 10;
             int yBase = space + 10 + (idx % twoThree) * boxWidth * 10;
             int xGap = boxWidth/2;
             int yGap = boxWidth3+boxWidth3+boxWidth3/3;
@@ -108,7 +108,7 @@ class MakePDF {
                     canvas.drawRect(xPos, yPos, xPos + boxWidth, yPos + boxWidth, pRect);
                     if (xyTable[row][col] > 0) {
                         canvas.drawText("" + xyTable[row][col], xPos + xGap, yPos + yGap, pNumb);
-                    } else if (meshable){
+                    } else if (meshType == 1){
                         canvas.drawLine(xPos + boxWidth3, yPos, xPos + boxWidth3, yPos + boxWidth, pDotted);
                         canvas.drawLine(xPos + boxWidth3 + boxWidth3, yPos,
                                 xPos + boxWidth3 + boxWidth3, yPos + boxWidth, pDotted);
@@ -116,6 +116,12 @@ class MakePDF {
                                 xPos + boxWidth, yPos + boxWidth3, pDotted);
                         canvas.drawLine(xPos, yPos + boxWidth3 + boxWidth3,
                                 xPos + boxWidth, yPos + boxWidth3 + boxWidth3, pDotted);
+                    } else if (meshType == 2){
+                        canvas.drawLine(xPos + boxWidth3, yPos, xPos + boxWidth3, yPos + boxWidth3, pDotted);
+                        canvas.drawLine(xPos + boxWidth3 + boxWidth3, yPos,
+                                xPos + boxWidth3 + boxWidth3, yPos + boxWidth3, pDotted);
+                        canvas.drawLine(xPos, yPos + boxWidth3,
+                                xPos + boxWidth, yPos + boxWidth3, pDotted);
                     }
                 }
             }

@@ -1,5 +1,9 @@
 [
     {
+        "merged": "com.urrecliner.sudoku2pdf.app-merged_res-29:/drawable_circle1.xml.flat",
+        "source": "com.urrecliner.sudoku2pdf.app-main-31:/drawable/circle1.xml"
+    },
+    {
         "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.urrecliner.sudoku2pdf.app-merged_res-29:\\drawable_circle.xml.flat",
         "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.urrecliner.sudoku2pdf.app-main-31:\\drawable\\circle.xml"
     },
@@ -8,12 +12,16 @@
         "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.urrecliner.sudoku2pdf.app-main-31:\\mipmap-xxhdpi\\my_sign_yellow.png"
     },
     {
-        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.urrecliner.sudoku2pdf.app-merged_res-29:\\mipmap-xxhdpi_icon_sudoku2pdf.png.flat",
-        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.urrecliner.sudoku2pdf.app-main-31:\\mipmap-xxhdpi\\icon_sudoku2pdf.png"
+        "merged": "com.urrecliner.sudoku2pdf.app-merged_res-29:/drawable_mesh_top.xml.flat",
+        "source": "com.urrecliner.sudoku2pdf.app-main-31:/drawable/mesh_top.xml"
     },
     {
-        "merged": "com.urrecliner.sudoku2pdf.app-merged_res-29:/layout_activity_main.xml.flat",
-        "source": "com.urrecliner.sudoku2pdf.app-main-31:/layout/activity_main.xml"
+        "merged": "com.urrecliner.sudoku2pdf.app-merged_res-29:/drawable_mesh_on.xml.flat",
+        "source": "com.urrecliner.sudoku2pdf.app-main-31:/drawable/mesh_on.xml"
+    },
+    {
+        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.urrecliner.sudoku2pdf.app-merged_res-29:\\mipmap-xxhdpi_icon_sudoku2pdf.png.flat",
+        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.urrecliner.sudoku2pdf.app-main-31:\\mipmap-xxhdpi\\icon_sudoku2pdf.png"
     },
     {
         "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.urrecliner.sudoku2pdf.app-merged_res-29:\\raw_level_degree.ogg.flat",

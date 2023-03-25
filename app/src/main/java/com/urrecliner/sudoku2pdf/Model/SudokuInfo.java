@@ -8,5 +8,5 @@ public class SudokuInfo {
     public int pageCount;
     public int blankCount;
     public int twoThree;
-    public boolean meshable;
+    public int meshType;
 }

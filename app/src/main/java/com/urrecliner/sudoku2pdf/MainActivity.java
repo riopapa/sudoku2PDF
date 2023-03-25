@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
     int blankCount = 5;
     int pageCount = 0;
     int twoThree = 2;
-    boolean meshable;
+
+    int meshType = 1;
     static TextView tvSstatus;
     static String fileDate;
     List<String> blankList, pageList;
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         editor = mSettings.edit();
         pageCount = mSettings.getInt("pageCount", 16);
         blankCount = mSettings.getInt("blankCount", 16);
-        meshable = mSettings.getBoolean("mesh", true);
+        meshType = mSettings.getInt("mesh", 1);
         twoThree = mSettings.getInt("twoThree", 2);
 
         tvSstatus = findViewById(R.id.status);
@@ -91,13 +92,23 @@ public class MainActivity extends AppCompatActivity {
 
         context = getApplicationContext();
         ImageButton mesh = findViewById(R.id.mesh);
-        mesh.setImageResource((meshable)? R.drawable.mesh_on : R.drawable.mesh_off);
+        if (meshType == 0)
+            mesh.setImageResource(R.drawable.mesh_off);
+        else if (meshType == 1)
+            mesh.setImageResource(R.drawable.mesh_on);
+        else
+            mesh.setImageResource(R.drawable.mesh_top);
         mesh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                meshable = !meshable;
-                mesh.setImageResource((meshable) ? R.drawable.mesh_on : R.drawable.mesh_off);
-                editor.putBoolean("mesh", meshable).apply();
+                meshType = (meshType+1) % 3;
+                if (meshType == 0)
+                    mesh.setImageResource(R.drawable.mesh_on);
+                else if (meshType == 1)
+                    mesh.setImageResource(R.drawable.mesh_off);
+                else
+                    mesh.setImageResource(R.drawable.mesh_top);
+                editor.putInt("mesh", meshType).apply();
             }
         });
         TextView tv23 = findViewById(R.id.two_three);
@@ -135,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     sudokuInfo.pageCount = pageCount;
                     sudokuInfo.twoThree = twoThree;
                     sudokuInfo.context = context;
-                    sudokuInfo.meshable = meshable;
+                    sudokuInfo.meshType = meshType;
                     new MakeSudoku().make(sudokuInfo);
                     isRunning = false;
                 }
