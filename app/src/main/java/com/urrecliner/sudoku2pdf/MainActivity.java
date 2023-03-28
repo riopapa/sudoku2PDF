@@ -12,8 +12,11 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -29,6 +32,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -165,12 +170,30 @@ public class MainActivity extends AppCompatActivity {
         buildBlankWheel();
         buildPageWheel();
 
+
+        //        new Timer().schedule(new TimerTask() {
+//            public void run() {
+////                Animation aniRotateClk = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate);
+////                ivImage1.startAnimation(aniRotateClk);
+//                ivImage1.animate().rotation(180f).setDuration(5000).start();
+//            }
+//        }, 1000);
+
+//        new Timer().schedule(new TimerTask() {
+//            public void run() {
+////                Animation aniRotateClk = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate);
+////                ivImage1.startAnimation(aniRotateClk);
+//                ivImage1.animate().cancel();
+//            }
+//        }, 22000);
+
+
+
+
+
     }
 
     private void buildBlankWheel() {
-
-        final TextView tV = findViewById(R.id.blank_count);
-        tV.setText(""+ blankCount);
 
         final WheelView<String> wheelView = findViewById(R.id.wheel_level);
         wheelView.setOnItemSelectedListener(new WheelView.OnItemSelectedListener<String>() {
@@ -188,7 +211,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onWheelItemChanged(int oldPosition, int newPosition) {
                 blankCount = Integer.parseInt(blankList.get(newPosition));
-                tV.setText(""+ blankCount);
                 float vol = (float) blankCount / (float) MAXIMUM_BLANK / 2;
                 wheelView.setPlayVolume(vol);
             }
@@ -196,7 +218,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onWheelSelected(int position) {
                 blankCount = Integer.parseInt(blankList.get(position));
-                tV.setText(""+ blankCount);
                 editor.putInt("blankCount", blankCount).apply();
             }
 
@@ -216,9 +237,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void buildPageWheel() {
 
-        final TextView tVPage = findViewById(R.id.page_count);
-        tVPage.setText(""+ pageCount);
-
         final WheelView<String> wheelView = findViewById(R.id.wheel_count);
         wheelView.setOnItemSelectedListener(new WheelView.OnItemSelectedListener<String>() {
             @Override
@@ -235,7 +253,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onWheelItemChanged(int oldPosition, int newPosition) {
                 pageCount = Integer.parseInt(pageList.get(newPosition));
-                tVPage.setText(""+ pageCount);
                 editor.putInt("pageCount", pageCount).apply();
                 float vol = (float) pageCount / (float) MAXIMUM_PAGE / 2;
                 wheelView.setPlayVolume(vol);
@@ -244,7 +261,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onWheelSelected(int position) {
                 pageCount = Integer.parseInt(pageList.get(position));
-                tVPage.setText(""+ pageCount);
             }
 
             @Override

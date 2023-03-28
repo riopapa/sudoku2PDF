@@ -35,7 +35,7 @@
 
 <!--    Left for level -->
     <TextView
-        android:id="@+id/levelLabel"
+        android:id="@+id/spacesLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -45,23 +45,8 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/countLabel"
+        app:layout_constraintRight_toLeftOf="@id/pagesLabel"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
-    <TextView
-        android:id="@+id/blank_count"
-        android:layout_width="60sp"
-        android:layout_height="wrap_content"
-        android:text="lvl"
-        android:textColor="@color/colorAccent"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:gravity="center_horizontal"
-        android:layout_gravity="center_horizontal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/page_count"
-        app:layout_constraintTop_toBottomOf="@id/levelLabel"
-        />
 
     <com.urrecliner.sudoku2pdf.WheelView
         android:id="@+id/wheel_level"
@@ -78,19 +63,18 @@
         app:wv_dividerColor="@color/colorPrimary"
         app:wv_dividerHeight="2dp"
         app:wv_dividerType="fill"
-
         app:wv_drawSelectedRect="true"
         app:wv_selectedRectColor="#aebfbe"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/wheel_count"
-        app:layout_constraintTop_toBottomOf="@id/blank_count"
+        app:layout_constraintTop_toBottomOf="@id/spacesLabel"
         />
 
 <!--    Right for count -->
 
     <TextView
-        android:id="@+id/countLabel"
+        android:id="@+id/pagesLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -99,23 +83,9 @@
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toRightOf="@id/levelLabel"
+        app:layout_constraintLeft_toRightOf="@id/spacesLabel"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
-    <TextView
-        android:id="@+id/page_count"
-        android:layout_width="60sp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:text="cnt"
-        android:textColor="@color/colorAccent"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toRightOf="@id/blank_count"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/countLabel" />
 
     <com.urrecliner.sudoku2pdf.WheelView
         android:id="@+id/wheel_count"
@@ -137,7 +107,7 @@
         app:wv_selectedRectColor="#aebfbe"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@id/wheel_level"
-        app:layout_constraintTop_toBottomOf="@id/page_count"
+        app:layout_constraintTop_toBottomOf="@id/pagesLabel"
         />
 
     <TextView
@@ -166,7 +136,6 @@
             android:indeterminate="false"
             android:max="100"
             android:progress="40"
-            android:layout_centerInParent="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:progressDrawable="@drawable/circle"
@@ -184,7 +153,6 @@
             android:text="status"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
-            android:layout_centerVertical="true"
             app:layout_constraintTop_toBottomOf="@id/wheel_count"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -34,6 +34,7 @@ int anim linear_indeterminate_line2_tail_interpolator 0x7f010020
 int anim mtrl_bottom_sheet_slide_in 0x7f010021
 int anim mtrl_bottom_sheet_slide_out 0x7f010022
 int anim mtrl_card_lowers_interpolator 0x7f010023
+int anim rotate 0x7f010024
 int animator design_appbar_state_list_animator 0x7f020000
 int animator design_fab_hide_motion_spec 0x7f020001
 int animator design_fab_show_motion_spec 0x7f020002
@@ -2576,7 +2577,6 @@ int drawable btn_radio_off_to_on_mtrl_animation 0x7f070078
 int drawable btn_radio_on_mtrl 0x7f070079
 int drawable btn_radio_on_to_off_mtrl_animation 0x7f07007a
 int drawable circle 0x7f07007b
-int drawable circle1 0x7f0700d4
 int drawable design_fab_background 0x7f07007c
 int drawable design_ic_visibility 0x7f07007d
 int drawable design_ic_visibility_off 0x7f07007e
@@ -2762,7 +2762,6 @@ int id baseline 0x7f09005a
 int id beginOnFirstDraw 0x7f09005b
 int id beginning 0x7f09005c
 int id bestChoice 0x7f09005d
-int id blank_count 0x7f09005e
 int id blocking 0x7f09005f
 int id bottom 0x7f090060
 int id bounce 0x7f090061
@@ -2802,7 +2801,6 @@ int id contiguous 0x7f090082
 int id continuousVelocity 0x7f090083
 int id coordinator 0x7f090084
 int id cos 0x7f090085
-int id countLabel 0x7f090086
 int id counterclockwise 0x7f090087
 int id cradle 0x7f090088
 int id currentState 0x7f090089
@@ -2907,7 +2905,6 @@ int id layout 0x7f0900ea
 int id left 0x7f0900eb
 int id leftToRight 0x7f0900ec
 int id legacy 0x7f0900ed
-int id levelLabel 0x7f0900ee
 int id line1 0x7f0900ef
 int id line3 0x7f0900f0
 int id linear 0x7f0900f1
@@ -2997,7 +2994,7 @@ int id outline 0x7f090144
 int id outward 0x7f090145
 int id overshoot 0x7f090146
 int id packed 0x7f090147
-int id page_count 0x7f090148
+int id pagesLabel 0x7f0901ee
 int id parallax 0x7f090149
 int id parent 0x7f09014a
 int id parentPanel 0x7f09014b
@@ -3065,6 +3062,7 @@ int id snap 0x7f090188
 int id snapMargins 0x7f090189
 int id south 0x7f09018a
 int id spacer 0x7f09018b
+int id spacesLabel 0x7f0901ef
 int id special_effects_controller_view_tag 0x7f09018c
 int id spline 0x7f09018d
 int id split_action_bar 0x7f09018e

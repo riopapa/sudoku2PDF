@@ -2414,7 +2414,6 @@ public class WheelView<T> extends View implements Runnable {
         void setPlayVolume(@FloatRange(from = 0.0, to = 1.0) float playVolume) {
             this.mPlayVolume = playVolume;
         }
-
         /**
          * 获取音量
          *
