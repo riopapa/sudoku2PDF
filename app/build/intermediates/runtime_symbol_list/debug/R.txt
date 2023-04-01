@@ -2773,6 +2773,8 @@ int id cache_measures 0x7f090066
 int id callMeasure 0x7f090067
 int id cancel_button 0x7f090068
 int id carryVelocity 0x7f090069
+int id case1 0x7f0901f1
+int id case2 0x7f0901f2
 int id center 0x7f09006a
 int id centerCrop 0x7f09006b
 int id centerInside 0x7f09006c

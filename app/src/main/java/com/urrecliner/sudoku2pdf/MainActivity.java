@@ -12,13 +12,11 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -32,16 +30,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
     private Context context;
-    int blankCount = 5;
-    int pageCount = 0;
+    int blankCount = 5, blankCount1, blankCount2;
+    int pageCount = 0, pageCount1, pageCount2;
     int twoThree = 2;
-
     int meshType = 1;
     static TextView tvStatus;
     static String fileDate;
@@ -77,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
         blankCount = mSettings.getInt("blankCount", 16);
         meshType = mSettings.getInt("mesh", 1);
         twoThree = mSettings.getInt("twoThree", 2);
+
+        pageCount1 = mSettings.getInt("pageCount1", 6);
+        blankCount1 = mSettings.getInt("blankCount1", 12);
+
+        pageCount2 = mSettings.getInt("pageCount2", 16);
+        blankCount2 = mSettings.getInt("blankCount2", 30);
 
         tvStatus = findViewById(R.id.status);
         tvStatus.setVisibility(View.INVISIBLE);
@@ -139,6 +140,10 @@ public class MainActivity extends AppCompatActivity {
                 if (!isRunning) {
                     editor.putInt("blankCount", blankCount).apply();
                     editor.putInt("pageCount", pageCount).apply();
+                    editor.putInt("blankCount1", blankCount1).apply();
+                    editor.putInt("pageCount1", pageCount1).apply();
+                    editor.putInt("blankCount2", blankCount2).apply();
+                    editor.putInt("pageCount2", pageCount2).apply();
                     isRunning = true;
                     Snackbar.make(view, "Starting generation", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
@@ -170,23 +175,53 @@ public class MainActivity extends AppCompatActivity {
         buildBlankWheel();
         buildPageWheel();
 
-
-        //        new Timer().schedule(new TimerTask() {
-//            public void run() {
-////                Animation aniRotateClk = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate);
-////                ivImage1.startAnimation(aniRotateClk);
-//                ivImage1.animate().rotation(180f).setDuration(5000).start();
-//            }
-//        }, 1000);
-
-//        new Timer().schedule(new TimerTask() {
-//            public void run() {
-////                Animation aniRotateClk = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate);
-////                ivImage1.startAnimation(aniRotateClk);
-//                ivImage1.animate().cancel();
-//            }
-//        }, 22000);
-
+        String s;
+        TextView tvCase1 = findViewById(R.id.case1);
+        s = blankCount1+" blanks, "+pageCount1+" pages";
+        tvCase1.setText(s);
+        tvCase1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                blankCount1 = blankCount;
+                pageCount1 =  pageCount;
+                String s = blankCount+" blanks, "+pageCount+" pages";
+                tvCase1.setText(s);
+                Toast.makeText(context, "Saved to case 1", Toast.LENGTH_SHORT).show();
+            }
+        });
+        tvCase1.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                blankCount = blankCount1;
+                pageCount = pageCount1;
+                buildBlankWheel();
+                buildPageWheel();
+                return false;
+            }
+        });
+        TextView tvCase2 = findViewById(R.id.case2);
+        s = blankCount2+" blanks, "+pageCount2+" pages";
+        tvCase2.setText(s);
+        tvCase2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                blankCount2 = blankCount;
+                pageCount2 =  pageCount;
+                String s = blankCount+" blanks, "+pageCount+" pages";
+                tvCase2.setText(s);
+                Toast.makeText(context, "Saved to case 2", Toast.LENGTH_SHORT).show();
+            }
+        });
+        tvCase2.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                blankCount = blankCount2;
+                pageCount = pageCount2;
+                buildBlankWheel();
+                buildPageWheel();
+                return false;
+            }
+        });
 
 
 

@@ -26,7 +26,6 @@ class MakeSudoku {
     private static int [][][] usedTable;    // set '1' if used within that col, row, block
     private String [] blankTables;
     private String [] answerTables;
-    private String [] commentTables;
     private int pageCount, blankCount;
     private SudokuInfo sudokuInfo;
 
@@ -53,7 +52,6 @@ class MakeSudoku {
             random = new Random(System.currentTimeMillis());
             blankTables = new String[pageCount];
             answerTables = new String[pageCount];
-            commentTables = new String[pageCount];
             duration = System.currentTimeMillis();
 
 //            ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(500 + puzzleCount * 80, 500 + puzzleCount * 80);
@@ -108,7 +106,6 @@ class MakeSudoku {
                     blankTables[madeCount] = suArray2Str(blankTable);
                     duration = System.currentTimeMillis() - duration;
 //                    String s = "  "+tryCount + " tries; \n" + String.format(Locale.US,"%.3f",((float) duration) / 1000f) + " secs. to generate";
-                    commentTables[madeCount] = ""; // s;
                     durationSum += duration;
                     duration = System.currentTimeMillis();
                     loopSum += tryCount;

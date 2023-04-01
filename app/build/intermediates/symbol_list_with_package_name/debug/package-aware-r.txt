@@ -2774,6 +2774,8 @@ id cache_measures
 id callMeasure
 id cancel_button
 id carryVelocity
+id case1
+id case2
 id center
 id centerCrop
 id centerInside
