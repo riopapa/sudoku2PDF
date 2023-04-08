@@ -1,6 +1,5 @@
 package com.riopapa.sudoku2pdf;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -11,13 +10,13 @@ import android.graphics.pdf.PdfDocument;
 import android.os.Environment;
 import android.util.Log;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import androidx.core.content.res.ResourcesCompat;
 
 import com.riopapa.sudoku2pdf.Model.SudokuInfo;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 class MakePDF {
 
