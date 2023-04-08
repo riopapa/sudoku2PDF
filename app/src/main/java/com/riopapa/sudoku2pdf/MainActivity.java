@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,16 +12,12 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.riopapa.sudoku2pdf.Model.SudokuInfo;
@@ -40,15 +35,10 @@ public class MainActivity extends AppCompatActivity {
     int twoThree = 2;
     int meshType = 1;
     Boolean makeAnswer = false;
-    TextView tvStatus;
     static String fileDate;
     List<String> blankList, pageList;
-    final static int MINIMUM_BLANK = 10, MAXIMUM_BLANK = 58;
+    final static int MINIMUM_BLANK = 10, MAXIMUM_BLANK = 50;
     final static int MINIMUM_PAGE = 4, MAXIMUM_PAGE = 20;
-    static ProgressBar progressBar;
-    static FrameLayout frameLayout;
-    static ConstraintLayout mainLayout;
-    static TextView horizontalLineView;
     SharedPreferences mSettings = null;
     SharedPreferences.Editor editor = null;
 
@@ -94,39 +84,31 @@ public class MainActivity extends AppCompatActivity {
             mesh.setImageResource(R.drawable.mesh1_top);
         else
             mesh.setImageResource(R.drawable.mesh2_on);
-        mesh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                meshType = (meshType+1) % 3;
-                if (meshType == 0)
-                    mesh.setImageResource(R.drawable.mesh0_off);
-                else if (meshType == 1)
-                    mesh.setImageResource(R.drawable.mesh1_top);
-                else
-                    mesh.setImageResource(R.drawable.mesh2_on);
-                saveValues();
-            }
+        mesh.setOnClickListener(view -> {
+            meshType = (meshType+1) % 3;
+            if (meshType == 0)
+                mesh.setImageResource(R.drawable.mesh0_off);
+            else if (meshType == 1)
+                mesh.setImageResource(R.drawable.mesh1_top);
+            else
+                mesh.setImageResource(R.drawable.mesh2_on);
+            saveValues();
         });
         TextView tv23 = findViewById(R.id.two_three);
         tv23.setText(twoThree+"/Page");
-        tv23.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (twoThree == 2) {
-                    twoThree = 3;
-                } else {
-                    twoThree = 2;
-                }
-                tv23.setText(twoThree+"/Page");
-                editor.putInt("twoThree", twoThree).apply();
+        tv23.setOnClickListener(view -> {
+            if (twoThree == 2) {
+                twoThree = 3;
+            } else {
+                twoThree = 2;
             }
+            tv23.setText(twoThree+"/Page");
+            editor.putInt("twoThree", twoThree).apply();
         });
 
         SwitchCompat swAnswer = findViewById(R.id.makeAnswer);
         swAnswer.setChecked(makeAnswer);
-        swAnswer.setOnClickListener(v -> {
-            makeAnswer = !makeAnswer;
-        });
+        swAnswer.setOnClickListener(v -> makeAnswer = !makeAnswer);
 
         ImageButton generate = findViewById(R.id.generate);
         generate.setOnClickListener(new View.OnClickListener() {
@@ -175,49 +157,37 @@ public class MainActivity extends AppCompatActivity {
         s = blankCount1+" blanks, "+pageCount1+" pages";
         tvCase1.setText(s);
         TextView tvCase1Load = findViewById(R.id.case1Load);
-        tvCase1Load.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                blankCount = blankCount1;
-                pageCount = pageCount1;
-                buildBlankWheel();
-                buildPageWheel();
-            }
+        tvCase1Load.setOnClickListener(view -> {
+            blankCount = blankCount1;
+            pageCount = pageCount1;
+            buildBlankWheel();
+            buildPageWheel();
         });
         TextView tvCase1Save = findViewById(R.id.case1Save);
-        tvCase1Save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                blankCount1 = blankCount;
-                pageCount1 =  pageCount;
-                String s = blankCount+" blanks, "+pageCount+" pages";
-                tvCase1.setText(s);
-                saveValues();
-            }
+        tvCase1Save.setOnClickListener(view -> {
+            blankCount1 = blankCount;
+            pageCount1 =  pageCount;
+            String s1 = blankCount+" blanks, "+pageCount+" pages";
+            tvCase1.setText(s1);
+            saveValues();
         });
         TextView tvCase2 = findViewById(R.id.case2);
         s = blankCount2+" blanks, "+pageCount2+" pages";
         tvCase2.setText(s);
         TextView tvCase2Load = findViewById(R.id.case2Load);
-        tvCase2Load.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                blankCount = blankCount2;
-                pageCount = pageCount2;
-                buildBlankWheel();
-                buildPageWheel();
-            }
+        tvCase2Load.setOnClickListener(view -> {
+            blankCount = blankCount2;
+            pageCount = pageCount2;
+            buildBlankWheel();
+            buildPageWheel();
         });
         TextView tvCase2Save = findViewById(R.id.case2Save);
-        tvCase2Save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                blankCount2 = blankCount;
-                pageCount2 =  pageCount;
-                String s = blankCount+" blanks, "+pageCount+" pages";
-                tvCase2.setText(s);
-                saveValues();
-            }
+        tvCase2Save.setOnClickListener(view -> {
+            blankCount2 = blankCount;
+            pageCount2 =  pageCount;
+            String s12 = blankCount+" blanks, "+pageCount+" pages";
+            tvCase2.setText(s12);
+            saveValues();
         });
     }
     private void saveValues() {
@@ -228,16 +198,14 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt("blankCount2", blankCount2).apply();
         editor.putInt("pageCount2", pageCount2).apply();
         editor.putInt("mesh", meshType).apply();
+        editor.putBoolean("makeAnswer", makeAnswer).apply();
     }
 
     private void buildBlankWheel() {
 
         final WheelView<String> wheelView = findViewById(R.id.wheel_level);
-        wheelView.setOnItemSelectedListener(new WheelView.OnItemSelectedListener<String>() {
-            @Override
-            public void onItemSelected(WheelView<String> wheelView, String data, int position) {
+        wheelView.setOnItemSelectedListener((wheelView1, data, position) -> {
 //                Log.w(TAG, "onItemSelected: data=" + data + ",position=" + position);
-            }
         });
         wheelView.setOnWheelChangedListener(new WheelView.OnWheelChangedListener() {
             @Override
@@ -275,11 +243,8 @@ public class MainActivity extends AppCompatActivity {
     private void buildPageWheel() {
 
         final WheelView<String> wheelView = findViewById(R.id.wheel_count);
-        wheelView.setOnItemSelectedListener(new WheelView.OnItemSelectedListener<String>() {
-            @Override
-            public void onItemSelected(WheelView<String> wheelView, String data, int position) {
+        wheelView.setOnItemSelectedListener((wheelView1, data, position) -> {
 //                Log.w(TAG, "onItemSelected: data=" + data + ",position=" + position);
-            }
         });
         wheelView.setOnWheelChangedListener(new WheelView.OnWheelChangedListener() {
             @Override
