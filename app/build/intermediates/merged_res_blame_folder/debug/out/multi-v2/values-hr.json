@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.urrecliner.sudoku2pdf.app-mergeDebugResources-27:/values-hr/values-hr.xml",
+            "outputFile": "com.riopapa.sudoku2pdf.app-mergeDebugResources-27:/values-hr/values-hr.xml",
             "map": [
                 {
                     "source": "C:\\Users\\riopa\\.gradle\\caches\\transforms-3\\3ee95d1bcf2a77adc395e95d05870b86\\transformed\\appcompat-1.5.1\\res\\values-hr\\values-hr.xml",

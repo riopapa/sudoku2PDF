@@ -92,7 +92,7 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\ri
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.8.0] C:\Users\riopa\.gradle\caches\transforms-3\968064ff3003ad62f627826d23aea343\transformed\core-1.8.0\AndroidManifest.xml:24:18-86
 	android:supportsRtl
-		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:13:9-35
+		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:13:9-36
 	android:label
 		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:11:9-41
 	android:roundIcon
@@ -103,7 +103,7 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\ri
 		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:9:9-35
 	android:theme
 		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:14:9-40
-activity#com.urrecliner.sudoku2pdf.MainActivity
+activity#com.riopapa.sudoku2pdf.MainActivity
 ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:15:9-25:20
 	android:label
 		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:18:13-45
