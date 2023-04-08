@@ -6,11 +6,10 @@ public class Solve {
 
     int [][] blankTable, solveTable, answerTable;
     int [][][] usedTable;
-    Random random;
+    Random random = new Random();
 
     public int exe(int [][] blanks, int [][]answers) {
 
-        random = new Random();
         int blankRetry = 5;
         int solved = 0;
         blankTable = new SudokuTable().copy(blanks);
@@ -79,7 +78,7 @@ public class Solve {
         }
         return tempTable;
     }
-    class XYPos {
+    static class XYPos {
         int x;
         int y;
         int nbr0;
