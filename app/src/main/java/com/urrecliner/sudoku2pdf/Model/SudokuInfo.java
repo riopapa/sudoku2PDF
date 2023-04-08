@@ -9,4 +9,6 @@ public class SudokuInfo {
     public int blankCount;
     public int twoThree;
     public int meshType;
+
+    public boolean makeAnswer;
 }

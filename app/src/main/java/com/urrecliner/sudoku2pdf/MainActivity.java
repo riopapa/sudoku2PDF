@@ -12,13 +12,16 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     int pageCount = 0, pageCount1, pageCount2;
     int twoThree = 2;
     int meshType = 1;
+    Boolean makeAnswer = false;
     static TextView tvStatus;
     static String fileDate;
     List<String> blankList, pageList;
@@ -72,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         blankCount = mSettings.getInt("blankCount", 16);
         meshType = mSettings.getInt("mesh", 1);
         twoThree = mSettings.getInt("twoThree", 2);
+        makeAnswer = mSettings.getBoolean("makeAnswer", false);
 
         pageCount1 = mSettings.getInt("pageCount1", 6);
         blankCount1 = mSettings.getInt("blankCount1", 12);
@@ -99,21 +104,21 @@ public class MainActivity extends AppCompatActivity {
         context = getApplicationContext();
         ImageButton mesh = findViewById(R.id.mesh);
         if (meshType == 0)
-            mesh.setImageResource(R.drawable.mesh_off);
+            mesh.setImageResource(R.drawable.mesh0_off);
         else if (meshType == 1)
-            mesh.setImageResource(R.drawable.mesh_on);
+            mesh.setImageResource(R.drawable.mesh1_top);
         else
-            mesh.setImageResource(R.drawable.mesh_top);
+            mesh.setImageResource(R.drawable.mesh2_on);
         mesh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 meshType = (meshType+1) % 3;
                 if (meshType == 0)
-                    mesh.setImageResource(R.drawable.mesh_on);
+                    mesh.setImageResource(R.drawable.mesh0_off);
                 else if (meshType == 1)
-                    mesh.setImageResource(R.drawable.mesh_off);
+                    mesh.setImageResource(R.drawable.mesh1_top);
                 else
-                    mesh.setImageResource(R.drawable.mesh_top);
+                    mesh.setImageResource(R.drawable.mesh2_on);
                 editor.putInt("mesh", meshType).apply();
             }
         });
@@ -130,6 +135,12 @@ public class MainActivity extends AppCompatActivity {
                 tv23.setText(twoThree+"/Page");
                 editor.putInt("twoThree", twoThree).apply();
             }
+        });
+
+        SwitchCompat swAnswer = findViewById(R.id.makeAnswer);
+        swAnswer.setChecked(makeAnswer);
+        swAnswer.setOnClickListener(v -> {
+            makeAnswer = !makeAnswer;
         });
 
         ImageButton generate = findViewById(R.id.generate);
@@ -157,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
                     sudokuInfo.twoThree = twoThree;
                     sudokuInfo.context = context;
                     sudokuInfo.meshType = meshType;
+                    sudokuInfo.makeAnswer = makeAnswer;
                     new MakeSudoku().make(sudokuInfo);
                     isRunning = false;
                 }
@@ -179,47 +191,49 @@ public class MainActivity extends AppCompatActivity {
         TextView tvCase1 = findViewById(R.id.case1);
         s = blankCount1+" blanks, "+pageCount1+" pages";
         tvCase1.setText(s);
-        tvCase1.setOnClickListener(new View.OnClickListener() {
+        TextView tvCase1Load = findViewById(R.id.case1Load);
+        tvCase1Load.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                blankCount = blankCount1;
+                pageCount = pageCount1;
+                buildBlankWheel();
+                buildPageWheel();
+
+            }
+        });
+        TextView tvCase1Save = findViewById(R.id.case1Save);
+        tvCase1Save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 blankCount1 = blankCount;
                 pageCount1 =  pageCount;
                 String s = blankCount+" blanks, "+pageCount+" pages";
                 tvCase1.setText(s);
-                Toast.makeText(context, "Saved to case 1", Toast.LENGTH_SHORT).show();
-            }
-        });
-        tvCase1.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                blankCount = blankCount1;
-                pageCount = pageCount1;
-                buildBlankWheel();
-                buildPageWheel();
-                return false;
             }
         });
         TextView tvCase2 = findViewById(R.id.case2);
         s = blankCount2+" blanks, "+pageCount2+" pages";
         tvCase2.setText(s);
-        tvCase2.setOnClickListener(new View.OnClickListener() {
+        TextView tvCase2Load = findViewById(R.id.case2Load);
+        tvCase2Load.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                blankCount = blankCount2;
+                pageCount = pageCount2;
+                buildBlankWheel();
+                buildPageWheel();
+
+            }
+        });
+        TextView tvCase2Save = findViewById(R.id.case2Save);
+        tvCase2Save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 blankCount2 = blankCount;
                 pageCount2 =  pageCount;
                 String s = blankCount+" blanks, "+pageCount+" pages";
                 tvCase2.setText(s);
-                Toast.makeText(context, "Saved to case 2", Toast.LENGTH_SHORT).show();
-            }
-        });
-        tvCase2.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                blankCount = blankCount2;
-                pageCount = pageCount2;
-                buildBlankWheel();
-                buildPageWheel();
-                return false;
             }
         });
 

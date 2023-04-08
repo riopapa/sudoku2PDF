@@ -25,16 +25,16 @@ class MakePDF {
 
         String downLoadFolder = Environment.getExternalStorageDirectory().getPath();
         String fileName = MainActivity.fileDate;
-        Bitmap sigMap = BitmapFactory.decodeResource(sudokuInfo.context.getResources(), R.mipmap.my_sign_yellow);
+        Bitmap sigMap = BitmapFactory.decodeResource(sudokuInfo.context.getResources(), R.mipmap.my_sign_blured);
         int xSig = sigMap.getWidth() / 5;
         int ySig = sigMap.getHeight() / 5;
         sigMap = Bitmap.createScaledBitmap(sigMap, xSig, ySig, false);
         int meshType = sudokuInfo.meshType;
         int pgWidth = 210*5, pgHeight = 297*5;  // A4 size
         int twoThree = sudokuInfo.twoThree;
-        int boxWidth = (twoThree == 2) ? pgHeight / (10*2) : pgHeight / (10*3);
+        int boxWidth = (twoThree == 2) ? pgHeight / (11*2) : pgHeight / (11*3);
         int boxWidth3 = boxWidth / 3;
-        int space = boxWidth3;  // space = 2 : 24, 3:
+        int space = boxWidth*2/3;  // space = 2 : 24, 3:
         int pageNbr = 0;
         Canvas canvas = null;
         PdfDocument.Page page = null;
@@ -63,7 +63,7 @@ class MakePDF {
         pNumb.setAlpha(180);
         pNumb.setStrokeWidth(1);
         pNumb.setTypeface(ResourcesCompat.getFont(sudokuInfo.context, R.font.good_times));
-        pNumb.setTextSize(boxWidth3+boxWidth3);
+        pNumb.setTextSize(boxWidth * 8 / 10);
         pNumb.setTextAlign(Paint.Align.CENTER);
         pNumb.setStyle(Paint.Style.FILL_AND_STROKE);
 
@@ -98,7 +98,7 @@ class MakePDF {
                 canvas = page.getCanvas();
             }
             int xBase = boxWidth + 10;
-            int yBase = space + 10 + (idx % twoThree) * boxWidth * 10;
+            int yBase = space + 10 + (idx % twoThree) * boxWidth * 11;
             int xGap = boxWidth/2;
             int yGap = boxWidth3+boxWidth3+boxWidth3/3;
             for (int row = 0; row < 9; row++) {
@@ -109,6 +109,12 @@ class MakePDF {
                     if (xyTable[row][col] > 0) {
                         canvas.drawText("" + xyTable[row][col], xPos + xGap, yPos + yGap, pNumb);
                     } else if (meshType == 1){
+                        canvas.drawLine(xPos + boxWidth3, yPos, xPos + boxWidth3, yPos + boxWidth3, pDotted);
+                        canvas.drawLine(xPos + boxWidth3 + boxWidth3, yPos,
+                                xPos + boxWidth3 + boxWidth3, yPos + boxWidth3, pDotted);
+                        canvas.drawLine(xPos, yPos + boxWidth3,
+                                xPos + boxWidth, yPos + boxWidth3, pDotted);
+                    } else if (meshType == 2){
                         canvas.drawLine(xPos + boxWidth3, yPos, xPos + boxWidth3, yPos + boxWidth, pDotted);
                         canvas.drawLine(xPos + boxWidth3 + boxWidth3, yPos,
                                 xPos + boxWidth3 + boxWidth3, yPos + boxWidth, pDotted);
@@ -116,12 +122,6 @@ class MakePDF {
                                 xPos + boxWidth, yPos + boxWidth3, pDotted);
                         canvas.drawLine(xPos, yPos + boxWidth3 + boxWidth3,
                                 xPos + boxWidth, yPos + boxWidth3 + boxWidth3, pDotted);
-                    } else if (meshType == 2){
-                        canvas.drawLine(xPos + boxWidth3, yPos, xPos + boxWidth3, yPos + boxWidth3, pDotted);
-                        canvas.drawLine(xPos + boxWidth3 + boxWidth3, yPos,
-                                xPos + boxWidth3 + boxWidth3, yPos + boxWidth3, pDotted);
-                        canvas.drawLine(xPos, yPos + boxWidth3,
-                                xPos + boxWidth, yPos + boxWidth3, pDotted);
                     }
                 }
             }
@@ -147,6 +147,8 @@ class MakePDF {
         // close the document
         document.close();
 
+        if (!sudokuInfo.makeAnswer)
+            return;
 
 //         Create Answer Page ------------
 
@@ -157,7 +159,7 @@ class MakePDF {
         page = document.startPage(pageInfo);
         canvas = page.getCanvas();
 
-        boxWidth = pgWidth / 4 / 10;    // 4 answer for 1 line, maybe 26
+        boxWidth = (pgWidth - space) / 40;    // 4 answer for 1 line
         pNumb.setTextSize(boxWidth/2f); // pNumb : answer number
         pNumb.setAlpha(180);
         pMemo.setTextSize(boxWidth/2f);  // pMemo : given number
@@ -168,7 +170,7 @@ class MakePDF {
             int [][] ansTable = str2suArray(answerTables[nbrInPage]);
             int [][] blankTable = str2suArray(blankTables[nbrInPage]);
             int xBase = space +20 + (nbrInPage % 4) * boxWidth * 95 / 10;
-            int yBase = space + (nbrInPage / 4) * boxWidth * 10 + boxWidth;
+            int yBase = space + (nbrInPage / 4) * boxWidth * 11;
             int xGap = boxWidth/2;
             int yGap = boxWidth*3/4;
             for (int row = 0; row < 9; row++) {
@@ -180,7 +182,7 @@ class MakePDF {
                             (blankTable[row][col] == 0)? pNumb:pMemo);
                 }
             }
-            canvas.drawText("["+nbrInPage+"]", xBase + 60, yBase - 8, pMemo);
+            canvas.drawText("["+nbrInPage+"]", xBase + boxWidth, yBase - 8, pMemo);
 
             for (int row = 0; row < 9; row+=3)
                 for (int col = 0; col < 9; col+=3) {

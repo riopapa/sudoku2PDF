@@ -2610,9 +2610,9 @@ drawable material_ic_keyboard_arrow_previous_black_24dp
 drawable material_ic_keyboard_arrow_right_black_24dp
 drawable material_ic_menu_arrow_down_black_24dp
 drawable material_ic_menu_arrow_up_black_24dp
-drawable mesh_off
-drawable mesh_on
-drawable mesh_top
+drawable mesh0_off
+drawable mesh1_top
+drawable mesh2_on
 drawable mtrl_bottomsheet_drag_handle
 drawable mtrl_checkbox_button
 drawable mtrl_checkbox_button_checked_unchecked
@@ -2775,7 +2775,11 @@ id callMeasure
 id cancel_button
 id carryVelocity
 id case1
+id case1Load
+id case1Save
 id case2
+id case2Load
+id case2Save
 id center
 id centerCrop
 id centerInside
@@ -2914,6 +2918,7 @@ id linear
 id listMode
 id list_item
 id mainLayout
+id makeAnswer
 id marquee
 id masked
 id match_constraint
@@ -3360,6 +3365,8 @@ layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
 mipmap icon_sudoku2pdf
+mipmap my_sign_blued
+mipmap my_sign_blured
 mipmap my_sign_yellow
 plurals mtrl_badge_content_description
 raw level_degree
