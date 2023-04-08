@@ -62,9 +62,9 @@ class MakeSudoku {
 
     class make_blank_solve extends AsyncTask< String, String, String> {
 
-        Long duration = 0L, durationSum = 0L;
+        Long duration = 0L;
         private Random random;
-        private int tryCount = 0, loopSum = 0;
+        private int tryCount = 0;
 
         @Override
         protected void onPreExecute() {
@@ -90,7 +90,6 @@ class MakeSudoku {
             set.connect(frameLayout.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
             set.connect(frameLayout.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 80);
             set.applyTo(mainLayout);
-
         }
 
         @Override
@@ -98,7 +97,6 @@ class MakeSudoku {
             int madeCount = 0;
             int percentStart = 0;
             int percentFinish = (madeCount + 1) * 100 / pageCount;
-            int showProgressCount = blankCount - 18;     // 18 should be less than MINIMUM_BLANK
             while (madeCount < pageCount) {
                 // calculate degrees
                 percentStart++;
@@ -125,21 +123,19 @@ class MakeSudoku {
                 if (blankCount == solved) {
                     answerTables[madeCount] = suArray2Str(answerTable);
                     blankTables[madeCount] = suArray2Str(blankTable);
-                    duration = System.currentTimeMillis() - duration;
+//                    duration = System.currentTimeMillis() - duration;
 //                    String s = "  "+tryCount + " tries; \n" + String.format(Locale.US,"%.3f",((float) duration) / 1000f) + " secs. to generate";
-                    durationSum += duration;
-                    duration = System.currentTimeMillis();
-                    loopSum += tryCount;
-                    tryCount = 0;
                     madeCount++;
                     percentStart = (madeCount+1) * 100 / pageCount;
                     percentFinish = (madeCount+1) * 100 / pageCount;
                     publishProgress(PROGRESS_PERCENT, ""+percentStart);
                 }
             }
-
-            return "\nTotal tries: " + loopSum + " with duration: " + String.format(Locale.US,"%.3f",(float) durationSum / 1000f) + " secs."+"\noutput: "+MainActivity.fileDate+".PDF\n";
-
+            duration = System.currentTimeMillis() - duration;
+            return "\nTries: " + tryCount +
+                    ", Duration: " + String.format(Locale.US,"%.3f",
+                    (float) duration / 1000f) + " secs." +
+                    "\nfile: "+MainActivity.fileDate+".PDF\n";
         }
 
 

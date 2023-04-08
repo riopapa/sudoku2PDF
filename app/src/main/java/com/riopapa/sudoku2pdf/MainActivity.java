@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     Boolean makeAnswer = false;
     static String fileDate;
     List<String> blankList, pageList;
-    final static int MINIMUM_BLANK = 10, MAXIMUM_BLANK = 50;
+    final static int MINIMUM_BLANK = 10, MAXIMUM_BLANK = 54;
     final static int MINIMUM_PAGE = 4, MAXIMUM_PAGE = 20;
     SharedPreferences mSettings = null;
     SharedPreferences.Editor editor = null;
