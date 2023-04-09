@@ -1,66 +1,62 @@
 [
     {
-        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-merged_res-29:\\mipmap-xxhdpi_my_sign_yellow.png.flat",
-        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-main-31:\\mipmap-xxhdpi\\my_sign_yellow.png"
+        "merged": "com.riopapa.sudoku2pdf.app-merged_res-29:/raw_level_degree.ogg.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-31:/raw/level_degree.ogg"
     },
     {
-        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-merged_res-29:\\anim_rotate.xml.flat",
-        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-main-31:\\anim\\rotate.xml"
+        "merged": "com.riopapa.sudoku2pdf.app-merged_res-29:/font_wyjov.ttf.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-31:/font/wyjov.ttf"
     },
     {
-        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-merged_res-29:\\font_radioland_regular.ttf.flat",
-        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-main-31:\\font\\radioland_regular.ttf"
+        "merged": "com.riopapa.sudoku2pdf.app-merged_res-29:/font_radioland_regular.ttf.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-31:/font/radioland_regular.ttf"
     },
     {
-        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-merged_res-29:\\mipmap-xxhdpi_my_sign_blured.png.flat",
-        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-main-31:\\mipmap-xxhdpi\\my_sign_blured.png"
+        "merged": "com.riopapa.sudoku2pdf.app-merged_res-29:/anim_rotate.xml.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-31:/anim/rotate.xml"
     },
     {
-        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-merged_res-29:\\drawable_mesh2_on.xml.flat",
-        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-main-31:\\drawable\\mesh2_on.xml"
+        "merged": "com.riopapa.sudoku2pdf.app-merged_res-29:/drawable_mesh1_top.xml.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-31:/drawable/mesh1_top.xml"
     },
     {
-        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-merged_res-29:\\drawable_mesh1_top.xml.flat",
-        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-main-31:\\drawable\\mesh1_top.xml"
+        "merged": "com.riopapa.sudoku2pdf.app-merged_res-29:/mipmap-xxhdpi_my_sign_blued.png.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-31:/mipmap-xxhdpi/my_sign_blued.png"
     },
     {
-        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-merged_res-29:\\drawable_mesh0_off.xml.flat",
-        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-main-31:\\drawable\\mesh0_off.xml"
+        "merged": "com.riopapa.sudoku2pdf.app-merged_res-29:/drawable_mesh0_off.xml.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-31:/drawable/mesh0_off.xml"
     },
     {
-        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-merged_res-29:\\font_wyjov.ttf.flat",
-        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-main-31:\\font\\wyjov.ttf"
+        "merged": "com.riopapa.sudoku2pdf.app-merged_res-29:/drawable_circle.xml.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-31:/drawable/circle.xml"
     },
     {
-        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-merged_res-29:\\drawable_circle.xml.flat",
-        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-main-31:\\drawable\\circle.xml"
+        "merged": "com.riopapa.sudoku2pdf.app-merged_res-29:/mipmap-xxhdpi_my_sign_yellow.png.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-31:/mipmap-xxhdpi/my_sign_yellow.png"
     },
     {
-        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-merged_res-29:\\mipmap-xxhdpi_icon_sudoku2pdf.png.flat",
-        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-main-31:\\mipmap-xxhdpi\\icon_sudoku2pdf.png"
+        "merged": "com.riopapa.sudoku2pdf.app-merged_res-29:/font_good_times.otf.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-31:/font/good_times.otf"
     },
     {
-        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-merged_res-29:\\raw_level_degree.ogg.flat",
-        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-main-31:\\raw\\level_degree.ogg"
-    },
-    {
-        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-merged_res-29:\\raw_page_count.ogg.flat",
-        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-main-31:\\raw\\page_count.ogg"
+        "merged": "com.riopapa.sudoku2pdf.app-merged_res-29:/drawable_mesh2_on.xml.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-31:/drawable/mesh2_on.xml"
     },
     {
         "merged": "com.riopapa.sudoku2pdf.app-merged_res-29:/layout_activity_main.xml.flat",
         "source": "com.riopapa.sudoku2pdf.app-main-31:/layout/activity_main.xml"
     },
     {
-        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-merged_res-29:\\layout_activity_main.xml.flat",
-        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-main-31:\\layout\\activity_main.xml"
+        "merged": "com.riopapa.sudoku2pdf.app-merged_res-29:/mipmap-xxhdpi_icon_sudoku2pdf.png.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-31:/mipmap-xxhdpi/icon_sudoku2pdf.png"
     },
     {
-        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-merged_res-29:\\font_good_times.otf.flat",
-        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-main-31:\\font\\good_times.otf"
+        "merged": "com.riopapa.sudoku2pdf.app-merged_res-29:/raw_page_count.ogg.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-31:/raw/page_count.ogg"
     },
     {
-        "merged": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-merged_res-29:\\mipmap-xxhdpi_my_sign_blued.png.flat",
-        "source": "C:\\Users\\riopa\\.gradle\\daemon\\7.5\\com.riopapa.sudoku2pdf.app-main-31:\\mipmap-xxhdpi\\my_sign_blued.png"
+        "merged": "com.riopapa.sudoku2pdf.app-merged_res-29:/mipmap-xxhdpi_my_sign_blured.png.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-31:/mipmap-xxhdpi/my_sign_blured.png"
     }
 ]

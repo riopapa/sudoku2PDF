@@ -61,21 +61,15 @@ class MakeSudoku {
     }
 
     class make_blank_solve extends AsyncTask< String, String, String> {
-
         Long duration = 0L;
-        private Random random;
         private int tryCount = 0;
 
         @Override
         protected void onPreExecute() {
 
-            random = new Random(System.currentTimeMillis());
             blankTables = new String[pageCount];
             answerTables = new String[pageCount];
             duration = System.currentTimeMillis();
-
-//            ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(500 + puzzleCount * 80, 500 + puzzleCount * 80);
-//            frameLayout.setLayoutParams(layoutParams);
 
             progressBar.setMax(100);
             progressBar.setProgress(0);
@@ -123,8 +117,6 @@ class MakeSudoku {
                 if (blankCount == solved) {
                     answerTables[madeCount] = suArray2Str(answerTable);
                     blankTables[madeCount] = suArray2Str(blankTable);
-//                    duration = System.currentTimeMillis() - duration;
-//                    String s = "  "+tryCount + " tries; \n" + String.format(Locale.US,"%.3f",((float) duration) / 1000f) + " secs. to generate";
                     madeCount++;
                     percentStart = (madeCount+1) * 100 / pageCount;
                     percentFinish = (madeCount+1) * 100 / pageCount;
@@ -137,15 +129,13 @@ class MakeSudoku {
                     (float) duration / 1000f) + " secs." +
                     "\nfile: "+MainActivity.fileDate+".PDF\n";
         }
-
-
         String suArray2Str (int [][] tbl) {
             StringBuilder result = new StringBuilder();
             for (int row = 0; row < 9; row++) {
                 StringBuilder s = new StringBuilder();
                 for (int col = 0; col < 9; col++)
-                    s.append(tbl[row][col]+";");
-                result.append(s +":");
+                    s.append(tbl[row][col]).append(";");
+                result.append(s).append(":");
             }
             return result.toString();
         }

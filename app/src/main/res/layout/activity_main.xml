@@ -33,8 +33,6 @@
         android:theme="@style/AppTheme.AppBarOverlay">
     </com.google.android.material.appbar.AppBarLayout>
 
-
-
     <!--    Left for level -->
     <TextView
         android:id="@+id/spacesLabel"
@@ -100,19 +98,32 @@
             />
 
         <TextView
+            android:id="@+id/center"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:text="%"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <TextView
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:visibility="invisible"
             android:gravity="center"
             android:text="status"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
             android:layout_marginBottom="64dp"
-            app:layout_constraintTop_toBottomOf="@id/horizontal_line"
+            app:layout_constraintTop_toTopOf="@id/center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             />
+<!--        app:layout_constraintTop_toBottomOf="@id/horizontal_line"-->
 
     </FrameLayout>
 
@@ -277,8 +288,6 @@
         app:layout_constraintRight_toLeftOf="@id/wheel_count"
         app:layout_constraintTop_toBottomOf="@id/spacesLabel"
         />
-
-    <!--    Right for count -->
 
     <com.riopapa.sudoku2pdf.WheelView
         android:id="@+id/wheel_count"
