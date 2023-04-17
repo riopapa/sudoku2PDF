@@ -5,18 +5,14 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.riopapa.sudoku2pdf.Model.SudokuInfo;
 
 import java.util.Locale;
-import java.util.Random;
 
 class MakeSudoku {
 
@@ -27,9 +23,6 @@ class MakeSudoku {
     private int pageCount, blankCount;
     private SudokuInfo sudokuInfo;
     private TextView tvStatus;
-    private FrameLayout frameLayout;
-    private TextView horizontalLineView;
-    private ConstraintLayout mainLayout;
     private ProgressBar progressBar;
 
     public void make(SudokuInfo sudokuInfo) {
@@ -39,18 +32,12 @@ class MakeSudoku {
         blankCount = sudokuInfo.blankCount;
 
         tvStatus = activity.findViewById(R.id.status);
-        frameLayout = activity.findViewById(R.id.progress_frame);
-        mainLayout = activity.findViewById(R.id.mainLayout);
-        horizontalLineView = activity.findViewById(R.id.horizontal_line);
 
-        Drawable drawable = ResourcesCompat.getDrawable(sudokuInfo.context.getResources(), R.drawable.circle, null);
+        Drawable drawable = ResourcesCompat.getDrawable(sudokuInfo.context.getResources(),
+                R.drawable.circle, null);
         progressBar = activity.findViewById(R.id.progress_circle);
         progressBar.setVisibility(View.VISIBLE);
         progressBar.setProgressDrawable(drawable);
-
-//        progressBar.setProgress(0);   // Main Progress
-//        progressBar.setSecondaryProgress(100); // Secondary Progress
-//        progressBar.setMax(100); // Maximum Progress
 
         try {
             new make_blank_solve().execute("");
@@ -76,14 +63,14 @@ class MakeSudoku {
             progressBar.setVisibility(View.VISIBLE);
             tvStatus.setVisibility(View.VISIBLE);
 
-            ConstraintSet set = new ConstraintSet();
-            set.connect(frameLayout.getId(), ConstraintSet.TOP, horizontalLineView.getId(), ConstraintSet.BOTTOM);
-            set.constrainWidth(frameLayout.getId(), 500 + pageCount * 80);
-            set.constrainHeight(frameLayout.getId(), 500 + pageCount * 80);
-            set.connect(frameLayout.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
-            set.connect(frameLayout.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
-            set.connect(frameLayout.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 80);
-            set.applyTo(mainLayout);
+//            ConstraintSet set = new ConstraintSet();
+//            set.connect(frameLayout.getId(), ConstraintSet.TOP, horizontalLineView.getId(), ConstraintSet.BOTTOM);
+//            set.constrainWidth(frameLayout.getId(), 500 + pageCount * 80);
+//            set.constrainHeight(frameLayout.getId(), 500 + pageCount * 80);
+//            set.connect(frameLayout.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
+//            set.connect(frameLayout.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
+//            set.connect(frameLayout.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 80);
+//            set.applyTo(mainLayout);
         }
 
         @Override
@@ -154,6 +141,7 @@ class MakeSudoku {
                 case PROGRESS_PERCENT:
                     int progress = Integer.parseInt(values[1]);
                     progressBar.setProgress(progress);
+                    progressBar.setSecondaryProgress(100);
                     break;
             }
         }
@@ -171,7 +159,7 @@ class MakeSudoku {
             tvStatus.setText(statistics);
             tvStatus.invalidate();
 
-            MakePDF.createPDF(blankTables, answerTables, sudokuInfo);
+            MakePDF.create(blankTables, answerTables, sudokuInfo);
         }
     }
 }
