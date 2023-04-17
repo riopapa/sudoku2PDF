@@ -36,6 +36,15 @@
         </activity>
 
         <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.riopapa.sudoku2pdf.provider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepath" />
+        </provider>
+        <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="com.riopapa.sudoku2pdf.androidx-startup"
             android:exported="false" >
