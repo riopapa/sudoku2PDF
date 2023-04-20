@@ -1,5 +1,6 @@
 package com.riopapa.sudoku2pdf;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -17,26 +18,32 @@ import com.riopapa.sudoku2pdf.Model.SudokuInfo;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 class MakePDF {
 
     static String downLoadFolder;
-    static String fileName;
+    static String fileDate, fileInfo;
     static Bitmap sigMap;
     static Paint pRect, pRectO, pDotted, pNumb, pMemo, pSig;
     static int pgWidth = 210*5, pgHeight = 297*5;  // A4 size
 
-    static void create(String [] blankTables, String [] answerTables, SudokuInfo sudokuInfo) {
+    static void create(String [] blankTables, String [] answerTables, SudokuInfo su,
+                       Context context) {
 
         downLoadFolder = Environment.getExternalStorageDirectory().getPath();
-        fileName = MainActivity.fileDate;
-        sigMap = BitmapFactory.decodeResource(sudokuInfo.context.getResources(), R.mipmap.my_sign_blured);
+        final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
+        fileDate = sdfDate.format(System.currentTimeMillis());
+        fileInfo = "(b"+su.blankCount+".p"+su.pageCount+")";
+
+        sigMap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.my_sign_blured);
         int xSig = sigMap.getWidth() / 5;
         int ySig = sigMap.getHeight() / 5;
         sigMap = Bitmap.createScaledBitmap(sigMap, xSig, ySig, false);
-        int meshType = sudokuInfo.meshType;
-        int twoThree = sudokuInfo.twoThree;
+        int meshType = su.meshType;
+        int twoThree = su.twoThree;
         int boxWidth = (twoThree == 2) ? pgHeight / (11*2) : pgHeight / (11*3);
         int boxWidth3 = boxWidth / 3;
         int space = boxWidth*2/3;  // space = 2 : 24, 3:
@@ -67,7 +74,7 @@ class MakePDF {
         pNumb.setColor(Color.BLUE);
         pNumb.setAlpha(180);
         pNumb.setStrokeWidth(1);
-        pNumb.setTypeface(ResourcesCompat.getFont(sudokuInfo.context, R.font.good_times));
+        pNumb.setTypeface(ResourcesCompat.getFont(context, R.font.good_times));
         pNumb.setTextSize((float) boxWidth * 8 / 10);
         pNumb.setTextAlign(Paint.Align.CENTER);
         pNumb.setStyle(Paint.Style.FILL_AND_STROKE);
@@ -93,7 +100,7 @@ class MakePDF {
             int [][] xyTable = str2suArray(blankTables[idx]);
             if (idx % twoThree == 0) {
                 if (idx != 0) {
-                    printSignature(sudokuInfo, sigMap, pgWidth, pgHeight, canvas, pSig, true);
+                    printSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
                     document.finishPage(page);
                 }
                 pageNbr++;
@@ -139,11 +146,11 @@ class MakePDF {
                 }
             canvas.drawText("("+idx+")", xBase + 32 + boxWidth*9, yBase + boxWidth/2f, pMemo);
         }
-        printSignature(sudokuInfo, sigMap, pgWidth, pgHeight, canvas, pSig, true);
+        printSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
 
         document.finishPage(page);
 
-        File filePath = new File(downLoadFolder, fileName+" Qz.pdf");
+        File filePath = new File(downLoadFolder, "su_"+fileDate+fileInfo+"  Qz.pdf");
         try {
             document.writeTo(Files.newOutputStream(filePath.toPath()));
         } catch (IOException e) {
@@ -152,18 +159,18 @@ class MakePDF {
         // close the document
         document.close();
 
-        if (sudokuInfo.makeAnswer)
-            makeAnswer(blankTables, answerTables, sudokuInfo, fileName, space);
+        if (su.makeAnswer)
+            makeAnswer(blankTables, answerTables, su, space);
 
 //        ArrayList<File> arrayList = new ArrayList<>();
 //        arrayList.add(filePath);
-//        new ShareFile().send(sudokuInfo.context, arrayList);
-//        new ShareFile().print(sudokuInfo.context, filePath);
-        new ShareFile().show(sudokuInfo.context, filePath);
+//        new ShareFile().send(su.context, arrayList);
+//        new ShareFile().print(su.context, filePath);
+        new ShareFile().show(context, filePath);
     }
 
     private static void makeAnswer(String[] blankTables, String[] answerTables,
-                                   SudokuInfo sudokuInfo, String fileName, int space) {
+                                   SudokuInfo sudokuInfo, int space) {
         File filePath;
         PdfDocument.Page page;
         PdfDocument document;
@@ -215,7 +222,7 @@ class MakePDF {
         document.finishPage(page);
 
         // write the document content
-        filePath = new File(downLoadFolder, fileName +"Ans.pdf");
+        filePath = new File(downLoadFolder, "su_"+fileDate+fileInfo +" Ans.pdf");
         try {
             document.writeTo(Files.newOutputStream(filePath.toPath()));
         } catch (IOException e) {
@@ -225,24 +232,33 @@ class MakePDF {
         document.close();
     }
 
-    private static void printSignature(SudokuInfo sudokuInfo, Bitmap sigMap, int pgWidth, int pgHeight, Canvas canvas, Paint paint, boolean top) {
+    private static void printSignature(SudokuInfo su, Bitmap sigMap,
+                       int pgWidth, int pgHeight, Canvas canvas, Paint paint, boolean top) {
         int inc = (int) paint.getTextSize() * 4 / 3;
         int xPos;
         int yPos;
         if (top) {
             xPos = pgWidth - 40;
             yPos = 40;
-            canvas.drawText(sudokuInfo.dateTime.substring(0,8),xPos, yPos, paint);
+            canvas.drawText(fileDate.substring(0,8),xPos, yPos, paint);
             yPos += inc;
-            canvas.drawText(sudokuInfo.dateTime.substring(9),xPos, yPos, paint);
-            yPos += inc;
-            canvas.drawText("□ "+sudokuInfo.blankCount,xPos, yPos, paint);
+            canvas.drawText(fileDate.substring(9),xPos, yPos, paint);
+            yPos += inc+paint.getTextSize();
+            Paint p = new Paint();
+            p.setColor(paint.getColor());
+            p.setTextAlign(Paint.Align.RIGHT);
+            p.setStyle(Paint.Style.STROKE);
+            p.setStrokeWidth(0);
+            p.setAlpha(paint.getAlpha());
+            p.setStyle(Paint.Style.FILL_AND_STROKE);
+            p.setTextSize(paint.getTextSize()*2);
+            canvas.drawText("□"+su.blankCount,xPos, yPos, p);
             yPos += inc;
             xPos -= sigMap.getWidth();
         } else {
             xPos = pgWidth / 2;
             yPos = pgHeight - 50;
-            canvas.drawText(sudokuInfo.dateTime, xPos, yPos, paint);
+            canvas.drawText(fileDate+fileInfo, xPos, yPos, paint);
             xPos += inc;
             yPos -= sigMap.getHeight()/2;
         }

@@ -1,6 +1,7 @@
 package com.riopapa.sudoku2pdf;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -25,15 +26,14 @@ class MakeSudoku {
     private TextView tvStatus;
     private ProgressBar progressBar;
 
-    public void make(SudokuInfo sudokuInfo) {
+    public void make(SudokuInfo sudokuInfo, Context context, Activity activity) {
         this.sudokuInfo = sudokuInfo;
-        Activity activity = sudokuInfo.activity;
         pageCount = sudokuInfo.pageCount;
         blankCount = sudokuInfo.blankCount;
 
         tvStatus = activity.findViewById(R.id.status);
 
-        Drawable drawable = ResourcesCompat.getDrawable(sudokuInfo.context.getResources(),
+        Drawable drawable = ResourcesCompat.getDrawable(context.getResources(),
                 R.drawable.circle, null);
         progressBar = activity.findViewById(R.id.progress_circle);
         progressBar.setVisibility(View.VISIBLE);
@@ -113,8 +113,7 @@ class MakeSudoku {
             duration = System.currentTimeMillis() - duration;
             return "\nTries: " + tryCount +
                     ", Duration: " + String.format(Locale.US,"%.3f",
-                    (float) duration / 1000f) + " secs." +
-                    "\nfile: "+MainActivity.fileDate+".PDF\n";
+                    (float) duration / 1000f) + " secs.\n";
         }
         String suArray2Str (int [][] tbl) {
             StringBuilder result = new StringBuilder();
@@ -159,7 +158,7 @@ class MakeSudoku {
             tvStatus.setText(statistics);
             tvStatus.invalidate();
 
-            MakePDF.create(blankTables, answerTables, sudokuInfo);
+            MakePDF.create(blankTables, answerTables, sudokuInfo, tvStatus.getContext());
         }
     }
 }
