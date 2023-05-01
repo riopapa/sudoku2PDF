@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.riopapa.sudoku2pdf.app-mergeDebugResources-27:/values-watch-v21/values-watch-v21.xml",
+            "outputFile": "com.riopapa.sudoku2pdf.app-mergeDebugResources-33:/values-watch-v21/values-watch-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\riopa\\.gradle\\caches\\transforms-3\\3ee95d1bcf2a77adc395e95d05870b86\\transformed\\appcompat-1.5.1\\res\\values-watch-v21\\values-watch-v21.xml",
+                    "source": "C:\\Users\\riopa\\.gradle\\caches\\transforms-3\\fdb62f843a97fed5523b88948cf92c80\\transformed\\appcompat-1.6.1\\res\\values-watch-v21\\values-watch-v21.xml",
                     "from": {
                         "startLines": "2,6,10",
                         "startColumns": "4,4,4",

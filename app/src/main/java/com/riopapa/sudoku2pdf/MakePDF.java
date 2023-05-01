@@ -39,9 +39,8 @@ class MakePDF {
         fileInfo = "(b"+su.blankCount+".p"+su.pageCount+")";
 
         sigMap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.my_sign_blured);
-        int xSig = sigMap.getWidth() / 5;
-        int ySig = sigMap.getHeight() / 5;
-        sigMap = Bitmap.createScaledBitmap(sigMap, xSig, ySig, false);
+        sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 6,
+                sigMap.getHeight() / 6, false);
         int meshType = su.meshType;
         int twoThree = su.twoThree;
         int boxWidth = (twoThree == 2) ? pgHeight / (11*2) : pgHeight / (11*3);
@@ -70,8 +69,8 @@ class MakePDF {
         pDotted.setAlpha(120);
         pDotted.setStrokeWidth(1);
 
-        pNumb = new Paint();
-        pNumb.setColor(Color.BLUE);
+        pNumb = new Paint();        // number
+        pNumb.setColor(Color.BLACK);
         pNumb.setAlpha(180);
         pNumb.setStrokeWidth(1);
         pNumb.setTypeface(ResourcesCompat.getFont(context, R.font.good_times));
@@ -243,7 +242,7 @@ class MakePDF {
             canvas.drawText(fileDate.substring(0,8),xPos, yPos, paint);
             yPos += inc;
             canvas.drawText(fileDate.substring(9),xPos, yPos, paint);
-            yPos += inc+paint.getTextSize();
+            yPos += inc+paint.getTextSize()/2;
             Paint p = new Paint();
             p.setColor(paint.getColor());
             p.setTextAlign(Paint.Align.RIGHT);
@@ -251,9 +250,9 @@ class MakePDF {
             p.setStrokeWidth(0);
             p.setAlpha(paint.getAlpha());
             p.setStyle(Paint.Style.FILL_AND_STROKE);
-            p.setTextSize(paint.getTextSize()*2);
+            p.setTextSize(paint.getTextSize()*3/2);
             canvas.drawText("□"+su.blankCount,xPos, yPos, p);
-            yPos += inc;
+            yPos += inc/2;
             xPos -= sigMap.getWidth();
         } else {
             xPos = pgWidth / 2;

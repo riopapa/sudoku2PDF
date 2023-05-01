@@ -25,7 +25,9 @@ public class ParamsShare {
 
     SudokuInfo get(Context context, String id) {
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+//        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences sharedPref = androidx.preference.
+                PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
         SudokuInfo sudokuInfo = null;
         String json = sharedPref.getString(id, "");

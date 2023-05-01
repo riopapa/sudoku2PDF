@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.riopapa.sudoku2pdf.app-mergeDebugResources-27:/values-h550dp-port-v13/values-h550dp-port-v13.xml",
+            "outputFile": "com.riopapa.sudoku2pdf.app-mergeDebugResources-33:/values-h550dp-port-v13/values-h550dp-port-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\riopa\\.gradle\\caches\\transforms-3\\89bf1a3393ace4102067f58e4ae35a98\\transformed\\material-1.7.0\\res\\values-h550dp-port-v13\\values-h550dp-port-v13.xml",
+                    "source": "C:\\Users\\riopa\\.gradle\\caches\\transforms-3\\dcdf8c98777bfcff366102a17fbc6b04\\transformed\\material-1.8.0\\res\\values-h550dp-port-v13\\values-h550dp-port-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

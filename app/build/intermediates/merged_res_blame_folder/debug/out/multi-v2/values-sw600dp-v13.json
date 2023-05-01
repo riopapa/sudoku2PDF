@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.riopapa.sudoku2pdf.app-mergeDebugResources-27:/values-sw600dp-v13/values-sw600dp-v13.xml",
+            "outputFile": "com.riopapa.sudoku2pdf.app-mergeDebugResources-33:/values-sw600dp-v13/values-sw600dp-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\riopa\\.gradle\\caches\\transforms-3\\3ee95d1bcf2a77adc395e95d05870b86\\transformed\\appcompat-1.5.1\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+                    "source": "C:\\Users\\riopa\\.gradle\\caches\\transforms-3\\fdb62f843a97fed5523b88948cf92c80\\transformed\\appcompat-1.6.1\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\riopa\\.gradle\\caches\\transforms-3\\89bf1a3393ace4102067f58e4ae35a98\\transformed\\material-1.7.0\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+                    "source": "C:\\Users\\riopa\\.gradle\\caches\\transforms-3\\dcdf8c98777bfcff366102a17fbc6b04\\transformed\\material-1.8.0\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,10,11,12,13,14",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
