@@ -220,7 +220,7 @@
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/makeAnswer"
         android:layout_width="100sp"
-        android:text="With Answer"
+        android:text="With\nAnswer"
         android:textSize="14sp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
