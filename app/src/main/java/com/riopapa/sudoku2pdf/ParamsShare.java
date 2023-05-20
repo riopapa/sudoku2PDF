@@ -3,8 +3,6 @@ package com.riopapa.sudoku2pdf;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import androidx.preference.PreferenceManager;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.riopapa.sudoku2pdf.Model.SudokuInfo;
@@ -34,7 +32,7 @@ public class ParamsShare {
         if (json.isEmpty()) {
             sudokuInfo = new SudokuInfo();
             sudokuInfo.blankCount = 13;
-            sudokuInfo.pageCount = 4;
+            sudokuInfo.quizCount = 4;
             sudokuInfo.twoThree = 2;
             sudokuInfo.meshType = 1;
             sudokuInfo.makeAnswer = false;

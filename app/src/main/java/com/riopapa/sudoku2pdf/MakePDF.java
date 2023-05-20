@@ -19,7 +19,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Locale;
 
 class MakePDF {
@@ -36,7 +35,7 @@ class MakePDF {
         downLoadFolder = Environment.getExternalStorageDirectory().getPath();
         final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
         fileDate = sdfDate.format(System.currentTimeMillis());
-        fileInfo = "(b"+su.blankCount+".p"+su.pageCount+")";
+        fileInfo = "(b"+su.blankCount+".p"+su.quizCount +")";
 
         sigMap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.my_sign_blured);
         sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 6,
@@ -71,7 +70,7 @@ class MakePDF {
 
         pNumb = new Paint();        // number
         pNumb.setColor(Color.BLACK);
-        pNumb.setAlpha(180);
+        pNumb.setAlpha(220);
         pNumb.setStrokeWidth(1);
         pNumb.setTypeface(ResourcesCompat.getFont(context, R.font.good_times));
         pNumb.setTextSize((float) boxWidth * 8 / 10);

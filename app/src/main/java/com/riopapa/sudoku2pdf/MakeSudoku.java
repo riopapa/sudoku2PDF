@@ -28,7 +28,7 @@ class MakeSudoku {
 
     public void make(SudokuInfo sudokuInfo, Context context, Activity activity) {
         this.sudokuInfo = sudokuInfo;
-        pageCount = sudokuInfo.pageCount;
+        pageCount = sudokuInfo.quizCount;
         blankCount = sudokuInfo.blankCount;
 
         tvStatus = activity.findViewById(R.id.status);
@@ -65,8 +65,8 @@ class MakeSudoku {
 
 //            ConstraintSet set = new ConstraintSet();
 //            set.connect(frameLayout.getId(), ConstraintSet.TOP, horizontalLineView.getId(), ConstraintSet.BOTTOM);
-//            set.constrainWidth(frameLayout.getId(), 500 + pageCount * 80);
-//            set.constrainHeight(frameLayout.getId(), 500 + pageCount * 80);
+//            set.constrainWidth(frameLayout.getId(), 500 + quizCount * 80);
+//            set.constrainHeight(frameLayout.getId(), 500 + quizCount * 80);
 //            set.connect(frameLayout.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
 //            set.connect(frameLayout.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
 //            set.connect(frameLayout.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 80);

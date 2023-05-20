@@ -9,9 +9,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -20,10 +22,8 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.snackbar.Snackbar;
 import com.riopapa.sudoku2pdf.Model.SudokuInfo;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     List<String> blankList, pageList;
     final static int MINIMUM_BLANK = 10, MAXIMUM_BLANK = 54;
     final static int MINIMUM_PAGE = 4, MAXIMUM_PAGE = 20;
+    ImageButton btnMesh;
+    TextView tv23;
 
     SudokuInfo su, su1, su2;
 
@@ -58,37 +60,24 @@ public class MainActivity extends AppCompatActivity {
         su1 = new ParamsShare().get(mContext, "su1");
         su2 = new ParamsShare().get(mContext, "su2");
 
-        ImageButton mesh = findViewById(R.id.mesh);
-        if (su.meshType == 0)
-            mesh.setImageResource(R.drawable.mesh0_off);
-        else if (su.meshType == 1)
-            mesh.setImageResource(R.drawable.mesh1_top);
-        else
-            mesh.setImageResource(R.drawable.mesh2_on);
-        mesh.setOnClickListener(view -> {
+        btnMesh = findViewById(R.id.mesh);
+        btnMesh.setOnClickListener(view -> {
             su.meshType = (su.meshType+1) % 3;
-            if (su.meshType == 0)
-                mesh.setImageResource(R.drawable.mesh0_off);
-            else if (su.meshType == 1)
-                mesh.setImageResource(R.drawable.mesh1_top);
-            else
-                mesh.setImageResource(R.drawable.mesh2_on);
+            showMesh(su.meshType);
         });
-        TextView tv23 = findViewById(R.id.two_three);
-        tv23.setText(su.twoThree+"/Page");
+        showMesh(su.meshType);
+
+        tv23 = findViewById(R.id.two_three);
         tv23.setOnClickListener(view -> {
-            if (su.twoThree == 2) {
-                su.twoThree = 3;
-            } else {
-                su.twoThree = 2;
-            }
-            tv23.setText(su.twoThree+"/Page");
+            su.twoThree = (su.twoThree == 2) ? 3:2;
+            tv23.setText(su.twoThree+" qz /\nA4 Page");
             new ParamsShare().put(su, mContext, "su");
         });
+        tv23.setText(su.twoThree+" qz /\nA4 Page");
 
-        SwitchCompat swAnswer = findViewById(R.id.makeAnswer);
-        swAnswer.setChecked(su.makeAnswer);
-        swAnswer.setOnClickListener(v -> su.makeAnswer = !su.makeAnswer);
+        SwitchCompat makeAnswer = findViewById(R.id.makeAnswer);
+        makeAnswer.setChecked(su.makeAnswer);
+        makeAnswer.setOnClickListener(v -> su.makeAnswer = !su.makeAnswer);
 
         ImageButton generate = findViewById(R.id.generate);
         generate.setOnClickListener(new View.OnClickListener() {
@@ -121,42 +110,72 @@ public class MainActivity extends AppCompatActivity {
 
         String s;
         TextView tvCase1 = findViewById(R.id.case1);
-        s = su1.blankCount+" blanks, "+su1.pageCount+" pages";
+        s = su1.blankCount+" blanks, "+su1.quizCount +" quiz";
         tvCase1.setText(s);
         TextView tvCase1Load = findViewById(R.id.case1Load);
         tvCase1Load.setOnClickListener(view -> {
-            su = su1;
+            copySu(su1,su);
             buildBlankWheel();
             buildPageWheel();
+            toastMsg("Case One Loaded");
+            showMesh(su.meshType);
         });
         TextView tvCase1Save = findViewById(R.id.case1Save);
         tvCase1Save.setOnClickListener(view -> {
-            su1 = su;
-            String s1 = su.blankCount+" blanks, "+su.pageCount+" pages";
+            copySu(su, su1);
+            String s1 = su.blankCount+" blanks, "+su.quizCount +" quiz";
             tvCase1.setText(s1);
             new ParamsShare().put(su1, mContext, "su1");
+            toastMsg("Saved to Case One");
+            showMesh(su.meshType);
         });
         TextView tvCase2 = findViewById(R.id.case2);
-        s = su2.blankCount+" blanks, "+su2.pageCount+" pages";
+        s = su2.blankCount+" blanks, "+su2.quizCount +" quiz";
         tvCase2.setText(s);
         TextView tvCase2Load = findViewById(R.id.case2Load);
         tvCase2Load.setOnClickListener(view -> {
-            su = su2;
+            copySu(su2, su);
             buildBlankWheel();
             buildPageWheel();
+            toastMsg("Case Two Loaded");
+            showMesh(su.meshType);
         });
         TextView tvCase2Save = findViewById(R.id.case2Save);
         tvCase2Save.setOnClickListener(view -> {
-            su2 = su;
-            String s2 = su.blankCount+" blanks, "+su.pageCount+" pages";
+            copySu(su, su2);
+            String s2 = su.blankCount+" blanks, "+su.quizCount +" pages";
             tvCase2.setText(s2);
             new ParamsShare().put(su2, mContext, "su2");
+            toastMsg("Saved to Case Two");
+            showMesh(su.meshType);
         });
     }
 
+    private void toastMsg(String s) {
+        Toast toast = Toast.makeText(mContext, s, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+    }
+
+    private void showMesh(int mesh) {
+        if (mesh == 0)
+            btnMesh.setImageResource(R.drawable.mesh0_off);
+        else if (mesh == 1)
+            btnMesh.setImageResource(R.drawable.mesh1_top);
+        else
+            btnMesh.setImageResource(R.drawable.mesh2_on);
+    }
+
+    private void copySu(SudokuInfo suFrom, SudokuInfo suTo) {
+        suTo.quizCount = suFrom.quizCount;
+        suTo.blankCount = suFrom.blankCount;
+        suTo.meshType = suFrom.meshType;
+        suTo.twoThree = suFrom.twoThree;
+        suTo.makeAnswer = suFrom.makeAnswer;
+    }
     private void buildBlankWheel() {
 
-        final WheelView<String> wheelView = findViewById(R.id.wheel_level);
+        final WheelView<String> wheelView = findViewById(R.id.wheel_blanks);
         wheelView.setOnItemSelectedListener((wheelView1, data, position) -> {
 //                Log.w(TAG, "onItemSelected: data=" + data + ",position=" + position);
         });
@@ -194,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void buildPageWheel() {
 
-        final WheelView<String> wheelView = findViewById(R.id.wheel_count);
+        final WheelView<String> wheelView = findViewById(R.id.wheel_quiz);
         wheelView.setOnItemSelectedListener((wheelView1, data, position) -> {
 //                Log.w(TAG, "onItemSelected: data=" + data + ",position=" + position);
         });
@@ -206,14 +225,14 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onWheelItemChanged(int oldPosition, int newPosition) {
-                su.pageCount = Integer.parseInt(pageList.get(newPosition));
-                float vol = (float) su.pageCount / (float) MAXIMUM_PAGE / 2;
+                su.quizCount = Integer.parseInt(pageList.get(newPosition));
+                float vol = (float) su.quizCount / (float) MAXIMUM_PAGE / 2;
                 wheelView.setPlayVolume(vol);
             }
 
             @Override
             public void onWheelSelected(int position) {
-                su.pageCount = Integer.parseInt(pageList.get(position));
+                su.quizCount = Integer.parseInt(pageList.get(position));
             }
 
             @Override
@@ -223,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         wheelView.setData(pageList);
-        wheelView.setSelectedItemPosition((su.pageCount- MINIMUM_PAGE)/2, true);
+        wheelView.setSelectedItemPosition((su.quizCount - MINIMUM_PAGE)/2, true);
         wheelView.setSoundEffect(true);
         wheelView.setSoundEffectResource(R.raw.page_count);
         wheelView.setPlayVolume(0.1f);
