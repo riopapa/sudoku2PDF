@@ -3117,6 +3117,8 @@ int id flip 0x7f0900c8
 int id floating 0x7f0900c9
 int id forever 0x7f0900ca
 int id fragment_container_view_tag 0x7f0900cb
+int id frmCase1 0x7f090213
+int id frmCase2 0x7f090214
 int id frost 0x7f0900cc
 int id fullscreen_header 0x7f0900cd
 int id generate 0x7f0900ce
@@ -3252,7 +3254,6 @@ int id outline 0x7f09014f
 int id outward 0x7f090150
 int id overshoot 0x7f090151
 int id packed 0x7f090152
-int id pagesLabel 0x7f090153
 int id parallax 0x7f090154
 int id parent 0x7f090155
 int id parentPanel 0x7f090156
@@ -3274,6 +3275,7 @@ int id progress_circle 0x7f090165
 int id progress_circular 0x7f090166
 int id progress_frame 0x7f090167
 int id progress_horizontal 0x7f090168
+int id quizLabel 0x7f09020f
 int id radio 0x7f090169
 int id ratio 0x7f09016a
 int id rectangles 0x7f09016b
@@ -3430,8 +3432,8 @@ int id view_tree_view_model_store_owner 0x7f090201
 int id visible 0x7f090202
 int id visible_removing_fragment_view_tag 0x7f090203
 int id west 0x7f090204
-int id wheel_count 0x7f090205
-int id wheel_level 0x7f090206
+int id wheel_blanks 0x7f090210
+int id wheel_quiz 0x7f090211
 int id withText 0x7f090207
 int id with_icon 0x7f090208
 int id withinBounds 0x7f090209

@@ -4,24 +4,7 @@
             "outputFile": "com.riopapa.sudoku2pdf.app-mergeDebugResources-33:/values-nl/values-nl.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\riopa\\.gradle\\caches\\transforms-3\\4f1c6f33e1e3cecf9ca512bc04f69787\\transformed\\preference-1.2.0\\res\\values-nl\\values-nl.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8",
-                        "startColumns": "4,4,4,4,4,4,4",
-                        "startOffsets": "105,177,267,348,494,663,743",
-                        "endColumns": "71,89,80,145,168,79,76",
-                        "endOffsets": "172,262,343,489,658,738,815"
-                    },
-                    "to": {
-                        "startLines": "41,43,96,98,101,102,103",
-                        "startColumns": "4,4,4,4,4,4,4",
-                        "startOffsets": "3778,3914,8091,8253,8583,8752,8832",
-                        "endColumns": "71,89,80,145,168,79,76",
-                        "endOffsets": "3845,3999,8167,8394,8747,8827,8904"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\riopa\\.gradle\\caches\\transforms-3\\fdb62f843a97fed5523b88948cf92c80\\transformed\\appcompat-1.6.1\\res\\values-nl\\values-nl.xml",
+                    "source": "C:\\Users\\riopa\\.gradle\\caches\\transforms-3\\3eb7a200d58f17195184c526aab2e8b6\\transformed\\appcompat-1.6.1\\res\\values-nl\\values-nl.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -38,24 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\riopa\\.gradle\\caches\\transforms-3\\00b450424c2e9ede76c5807ec915ee51\\transformed\\core-1.9.0\\res\\values-nl\\values-nl.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    },
-                    "to": {
-                        "startLines": "100",
-                        "startColumns": "4",
-                        "startOffsets": "8482",
-                        "endColumns": "100",
-                        "endOffsets": "8578"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\riopa\\.gradle\\caches\\transforms-3\\dcdf8c98777bfcff366102a17fbc6b04\\transformed\\material-1.8.0\\res\\values-nl\\values-nl.xml",
+                    "source": "C:\\Users\\riopa\\.gradle\\caches\\transforms-3\\17fa7b592a740140c9d00879de722b02\\transformed\\material-1.8.0\\res\\values-nl\\values-nl.xml",
                     "from": {
                         "startLines": "2,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -71,6 +37,40 @@
                         "endLines": "5,33,34,35,36,37,38,39,40,42,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,97",
                         "endColumns": "12,85,81,76,97,93,96,121,80,63,88,78,62,92,61,65,57,72,63,55,121,56,61,55,75,133,84,85,137,80,78,89,56,50,65,77,82,87,74,78,72,70,93,77,88,89,73,80,86,52,66,80,83,61,63,62,107,100,101,102,60,54,80",
                         "endOffsets": "314,3122,3204,3281,3379,3473,3570,3692,3773,3909,4088,4167,4230,4323,4385,4451,4509,4582,4646,4702,4824,4881,4943,4999,5075,5209,5294,5380,5518,5599,5678,5768,5825,5876,5942,6020,6103,6191,6266,6345,6418,6489,6583,6661,6750,6840,6914,6995,7082,7135,7202,7283,7367,7429,7493,7556,7664,7765,7867,7970,8031,8086,8248"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\riopa\\.gradle\\caches\\transforms-3\\d704af19d91b9f807c7e7aad38f342c8\\transformed\\preference-1.2.0\\res\\values-nl\\values-nl.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "105,177,267,348,494,663,743",
+                        "endColumns": "71,89,80,145,168,79,76",
+                        "endOffsets": "172,262,343,489,658,738,815"
+                    },
+                    "to": {
+                        "startLines": "41,43,96,98,101,102,103",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "3778,3914,8091,8253,8583,8752,8832",
+                        "endColumns": "71,89,80,145,168,79,76",
+                        "endOffsets": "3845,3999,8167,8394,8747,8827,8904"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\riopa\\.gradle\\caches\\transforms-3\\b8ae84c04285664ed981dc54d358566f\\transformed\\core-1.9.0\\res\\values-nl\\values-nl.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "100",
+                        "startColumns": "4",
+                        "startOffsets": "8482",
+                        "endColumns": "100",
+                        "endOffsets": "8578"
                     }
                 }
             ]

@@ -4,7 +4,7 @@
             "outputFile": "com.riopapa.sudoku2pdf.app-mergeDebugResources-33:/values-watch-v21/values-watch-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\riopa\\.gradle\\caches\\transforms-3\\fdb62f843a97fed5523b88948cf92c80\\transformed\\appcompat-1.6.1\\res\\values-watch-v21\\values-watch-v21.xml",
+                    "source": "C:\\Users\\riopa\\.gradle\\caches\\transforms-3\\3eb7a200d58f17195184c526aab2e8b6\\transformed\\appcompat-1.6.1\\res\\values-watch-v21\\values-watch-v21.xml",
                     "from": {
                         "startLines": "2,6,10",
                         "startColumns": "4,4,4",

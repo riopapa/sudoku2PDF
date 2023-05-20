@@ -3118,6 +3118,8 @@ id flip
 id floating
 id forever
 id fragment_container_view_tag
+id frmCase1
+id frmCase2
 id frost
 id fullscreen_header
 id generate
@@ -3253,7 +3255,6 @@ id outline
 id outward
 id overshoot
 id packed
-id pagesLabel
 id parallax
 id parent
 id parentPanel
@@ -3275,6 +3276,7 @@ id progress_circle
 id progress_circular
 id progress_frame
 id progress_horizontal
+id quizLabel
 id radio
 id ratio
 id rectangles
@@ -3431,8 +3433,8 @@ id view_tree_view_model_store_owner
 id visible
 id visible_removing_fragment_view_tag
 id west
-id wheel_count
-id wheel_level
+id wheel_blanks
+id wheel_quiz
 id withText
 id with_icon
 id withinBounds
