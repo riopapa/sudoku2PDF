@@ -58,9 +58,9 @@ class MakePDF {
         pRect.setPathEffect(new DashPathEffect(new float[] {1,2}, 0));
 
         pRectO = new Paint();     // outer box
-        pRectO.setColor(Color.DKGRAY);
+        pRectO.setColor(Color.BLACK);
         pRectO.setStyle(Paint.Style.STROKE);
-        pRectO.setStrokeWidth(2);
+        pRectO.setStrokeWidth(3);
 
         pDotted = new Paint();        // inner dotted box (answer)
         pDotted.setPathEffect(new DashPathEffect(new float[] {6, 3}, 0));
@@ -142,7 +142,7 @@ class MakePDF {
                     int yPos = yBase + row * boxWidth;
                     canvas.drawRect(xBase, yBase, xPos + boxWidth*3, yPos + boxWidth*3, pRectO);
                 }
-            canvas.drawText("("+idx+")", xBase + 32 + boxWidth*9, yBase + boxWidth/2f, pMemo);
+            canvas.drawText("{"+(idx+1)+"}", xBase + 64 + boxWidth*9, yBase, pMemo);
         }
         printSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
 
@@ -184,17 +184,17 @@ class MakePDF {
         canvas = page.getCanvas();
 
         boxWidth = (pgWidth - space) / 40;    // 4 answer for 1 line
-        pNumb.setTextSize(boxWidth/2f); // pNumb : answer number
-        pNumb.setAlpha(180);
+        pNumb.setTextSize(boxWidth/2.3f); // pNumb : answer number
+        pNumb.setAlpha(200);
         pMemo.setTextSize(boxWidth/2f);  // pMemo : given number
         pMemo.setColor(Color.DKGRAY);
         pMemo.setAlpha(200);
 
-        for (int nbrInPage = 0; nbrInPage < answerTables.length; nbrInPage++) {
-            int [][] ansTable = str2suArray(answerTables[nbrInPage]);
-            int [][] blankTable = str2suArray(blankTables[nbrInPage]);
-            int xBase = space +20 + (nbrInPage % 4) * boxWidth * 95 / 10;
-            int yBase = space + (nbrInPage / 4) * boxWidth * 11;
+        for (int nbrQz = 0; nbrQz < answerTables.length; nbrQz++) {
+            int [][] ansTable = str2suArray(answerTables[nbrQz]);
+            int [][] blankTable = str2suArray(blankTables[nbrQz]);
+            int xBase = space +20 + (nbrQz % 4) * boxWidth * 95 / 10;
+            int yBase = space + (nbrQz / 4) * boxWidth * 11;
             int xGap = boxWidth/2;
             int yGap = boxWidth*3/4;
             for (int row = 0; row < 9; row++) {
@@ -206,8 +206,9 @@ class MakePDF {
                             (blankTable[row][col] == 0)? pNumb : pMemo);
                 }
             }
-            canvas.drawText("["+nbrInPage+"]", xBase + boxWidth, yBase - 8, pMemo);
+            canvas.drawText("{"+(nbrQz+1)+"}", xBase + boxWidth, yBase - 8, pNumb);
 
+            pRectO.setStrokeWidth(pRectO.getStrokeWidth()/2);
             for (int row = 0; row < 9; row+=3)
                 for (int col = 0; col < 9; col+=3) {
                     int xPos = xBase + col * boxWidth;
