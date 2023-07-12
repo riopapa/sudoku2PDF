@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -77,8 +78,12 @@ public class MainActivity extends AppCompatActivity {
 
         SwitchCompat makeAnswer = findViewById(R.id.makeAnswer);
         makeAnswer.setChecked(su.makeAnswer);
-        makeAnswer.setOnClickListener(v -> su.makeAnswer = !su.makeAnswer);
-
+        makeAnswer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                su.makeAnswer = b;
+            }
+        });
         ImageButton generate = findViewById(R.id.generate);
         generate.setOnClickListener(new View.OnClickListener() {
             boolean isRunning = false;

@@ -32,10 +32,10 @@ class MakePDF {
     static void create(String [] blankTables, String [] answerTables, SudokuInfo su,
                        Context context) {
 
-        downLoadFolder = Environment.getExternalStorageDirectory().getPath();
+        downLoadFolder = Environment.getExternalStorageDirectory().getPath()+"/download";
         final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
         fileDate = sdfDate.format(System.currentTimeMillis());
-        fileInfo = "(b"+su.blankCount+".p"+su.quizCount +")";
+        fileInfo = " (b"+su.blankCount+".p"+su.quizCount +")";
 
         sigMap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.my_sign_blured);
         sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 6,
