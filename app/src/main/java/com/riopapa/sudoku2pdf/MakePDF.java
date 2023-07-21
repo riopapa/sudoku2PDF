@@ -99,7 +99,7 @@ class MakePDF {
             int [][] xyTable = str2suArray(blankTables[idx]);
             if (idx % twoThree == 0) {
                 if (idx != 0) {
-                    printSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
+                    addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
                     document.finishPage(page);
                 }
                 pageNbr++;
@@ -145,7 +145,7 @@ class MakePDF {
                 }
             canvas.drawText("{"+(idx+1)+"}", xBase + 64 + boxWidth*9, yBase, pMemo);
         }
-        printSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
+        addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
 
         document.finishPage(page);
 
@@ -218,7 +218,7 @@ class MakePDF {
                 }
         }
 
-        printSignature(sudokuInfo, sigMap, pgWidth, pgHeight, canvas, pSig, false);
+        addSignature(sudokuInfo, sigMap, pgWidth, pgHeight, canvas, pSig, false);
         document.finishPage(page);
 
         // write the document content
@@ -232,8 +232,8 @@ class MakePDF {
         document.close();
     }
 
-    private static void printSignature(SudokuInfo su, Bitmap sigMap,
-                       int pgWidth, int pgHeight, Canvas canvas, Paint paint, boolean top) {
+    private static void addSignature(SudokuInfo su, Bitmap sigMap, int pgWidth, int pgHeight,
+                                     Canvas canvas, Paint paint, boolean top) {
         int inc = (int) paint.getTextSize() * 4 / 3;
         int xPos;
         int yPos;

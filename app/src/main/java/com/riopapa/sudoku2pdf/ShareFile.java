@@ -15,8 +15,6 @@ public class ShareFile {
         Uri selectedUri = Uri.parse(folder);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(selectedUri, "resource/folder");
-
-        if (intent.resolveActivityInfo(context.getPackageManager(), 0) != null)
-            context.startActivity(intent);
+        context.startActivity(intent);
     }
 }

@@ -7,7 +7,7 @@
 7    <uses-sdk
 8        android:minSdkVersion="29"
 8-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml
-9        android:targetSdkVersion="29" />
+9        android:targetSdkVersion="30" />
 9-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml
 10
 11    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -110,19 +110,6 @@
 62                android:value="androidx.startup" />
 62-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\riopa\.gradle\caches\transforms-3\7b62666ae8bcab58b82ea556fa2b742a\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
 63        </provider>
-64
-65        <uses-library
-65-->[androidx.window:window:1.0.0] C:\Users\riopa\.gradle\caches\transforms-3\f0b5195bf5088b7d91addc29da734c5c\transformed\jetified-window-1.0.0\AndroidManifest.xml:25:9-27:40
-66            android:name="androidx.window.extensions"
-66-->[androidx.window:window:1.0.0] C:\Users\riopa\.gradle\caches\transforms-3\f0b5195bf5088b7d91addc29da734c5c\transformed\jetified-window-1.0.0\AndroidManifest.xml:26:13-54
-67            android:required="false" />
-67-->[androidx.window:window:1.0.0] C:\Users\riopa\.gradle\caches\transforms-3\f0b5195bf5088b7d91addc29da734c5c\transformed\jetified-window-1.0.0\AndroidManifest.xml:27:13-37
-68        <uses-library
-68-->[androidx.window:window:1.0.0] C:\Users\riopa\.gradle\caches\transforms-3\f0b5195bf5088b7d91addc29da734c5c\transformed\jetified-window-1.0.0\AndroidManifest.xml:28:9-30:40
-69            android:name="androidx.window.sidecar"
-69-->[androidx.window:window:1.0.0] C:\Users\riopa\.gradle\caches\transforms-3\f0b5195bf5088b7d91addc29da734c5c\transformed\jetified-window-1.0.0\AndroidManifest.xml:29:13-51
-70            android:required="false" />
-70-->[androidx.window:window:1.0.0] C:\Users\riopa\.gradle\caches\transforms-3\f0b5195bf5088b7d91addc29da734c5c\transformed\jetified-window-1.0.0\AndroidManifest.xml:30:13-37
-71    </application>
-72
-73</manifest>
+64    </application>
+65
+66</manifest>

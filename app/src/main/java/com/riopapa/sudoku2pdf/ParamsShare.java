@@ -1,5 +1,7 @@
 package com.riopapa.sudoku2pdf;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -12,8 +14,7 @@ import java.lang.reflect.Type;
 public class ParamsShare {
     public void put(SudokuInfo sudokuInfo, Context context, String id) {
 
-        SharedPreferences sharedPref = androidx.preference.
-                PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences sharedPref = context.getSharedPreferences("sudoku", MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor = sharedPref.edit();
         Gson gson = new Gson();
         String json = gson.toJson(sudokuInfo);
@@ -23,9 +24,7 @@ public class ParamsShare {
 
     SudokuInfo get(Context context, String id) {
 
-//        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences sharedPref = androidx.preference.
-                PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences sharedPref = context.getSharedPreferences("sudoku", MODE_PRIVATE);
         Gson gson = new Gson();
         SudokuInfo sudokuInfo = null;
         String json = sharedPref.getString(id, "");
