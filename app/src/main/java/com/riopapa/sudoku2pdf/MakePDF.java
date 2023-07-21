@@ -24,6 +24,7 @@ import java.util.Locale;
 class MakePDF {
 
     static String downLoadFolder;
+    static File outFile;
     static String fileDate, fileInfo;
     static Bitmap sigMap;
     static Paint pRect, pRectO, pDotted, pNumb, pMemo, pSig;
@@ -35,8 +36,8 @@ class MakePDF {
         downLoadFolder = Environment.getExternalStorageDirectory().getPath()+"/download";
         final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
         fileDate = sdfDate.format(System.currentTimeMillis());
-        fileInfo = " (b"+su.blankCount+".p"+su.quizCount +")";
-
+        fileInfo = " (b"+su.blankCount+"p"+su.quizCount +")";
+        outFile = new File(downLoadFolder, "/sudoku/s"+fileDate+fileInfo);
         sigMap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.my_sign_blured);
         sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 6,
                 sigMap.getHeight() / 6, false);
@@ -148,7 +149,7 @@ class MakePDF {
 
         document.finishPage(page);
 
-        File filePath = new File(downLoadFolder, "su_"+fileDate+fileInfo+"  Qz.pdf");
+        File filePath = new File(outFile+" Qz.pdf");
         try {
             document.writeTo(Files.newOutputStream(filePath.toPath()));
         } catch (IOException e) {
@@ -164,7 +165,7 @@ class MakePDF {
 //        arrayList.add(filePath);
 //        new ShareFile().send(su.context, arrayList);
 //        new ShareFile().print(su.context, filePath);
-        new ShareFile().show(context, filePath);
+        new ShareFile().show(context, downLoadFolder+"/sudoku");
     }
 
     private static void makeAnswer(String[] blankTables, String[] answerTables,
@@ -221,7 +222,7 @@ class MakePDF {
         document.finishPage(page);
 
         // write the document content
-        filePath = new File(downLoadFolder, "su_"+fileDate+fileInfo +" Ans.pdf");
+        filePath = new File(outFile+"Ans.pdf");
         try {
             document.writeTo(Files.newOutputStream(filePath.toPath()));
         } catch (IOException e) {
