@@ -12,6 +12,7 @@ import android.provider.Settings;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     final static int MINIMUM_PAGE = 4, MAXIMUM_PAGE = 20;
     ImageButton btnMesh;
     TextView tv23;
+    EditText darkNess;    // 255 : real black
 
     SudokuInfo su, su1, su2;
 
@@ -68,13 +70,15 @@ public class MainActivity extends AppCompatActivity {
         });
         showMesh(su.meshType);
 
+        darkNess = findViewById(R.id.dark);
+
         tv23 = findViewById(R.id.two_three);
         tv23.setOnClickListener(view -> {
             su.twoThree = (su.twoThree == 2) ? 3:2;
-            tv23.setText(su.twoThree+" qz /\nA4 Page");
+            tv23.setText(su.twoThree+" qz");
             new ParamsShare().put(su, mContext, "su");
         });
-        tv23.setText(su.twoThree+" qz /\nA4 Page");
+        tv23.setText(su.twoThree+" qz");
 
         SwitchCompat makeAnswer = findViewById(R.id.makeAnswer);
         makeAnswer.setChecked(su.makeAnswer);
@@ -91,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!isRunning) {
                     isRunning = true;
+                    su.darkness = Integer.parseInt(darkNess.getText().toString());
                     Snackbar.make(view, "Starting generation", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     new ParamsShare().put(su, mContext, "su");
@@ -177,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
         suTo.meshType = suFrom.meshType;
         suTo.twoThree = suFrom.twoThree;
         suTo.makeAnswer = suFrom.makeAnswer;
+        suTo.darkness = suFrom.darkness;
     }
     private void buildBlankWheel() {
 

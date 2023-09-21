@@ -6,4 +6,6 @@ public class SudokuInfo {
     public int twoThree;
     public int meshType;
     public boolean makeAnswer;
+
+    public int darkness;
 }

@@ -57,17 +57,20 @@ class MakePDF {
         pRect.setStrokeWidth(1);
         pRect.setAlpha(200);
         pRect.setPathEffect(new DashPathEffect(new float[] {1,2}, 0));
+        pRect.setAlpha(su.darkness);
 
         pRectO = new Paint();     // outer box
         pRectO.setColor(Color.BLACK);
         pRectO.setStyle(Paint.Style.STROKE);
         pRectO.setStrokeWidth(3);
+        pRectO.setAlpha(su.darkness);
 
         pDotted = new Paint();        // inner dotted box (answer)
         pDotted.setPathEffect(new DashPathEffect(new float[] {6, 3}, 0));
         pDotted.setColor(Color.BLUE);
         pDotted.setAlpha(120);
         pDotted.setStrokeWidth(1);
+        pDotted.setAlpha(su.darkness);
 
         pNumb = new Paint();        // number
         pNumb.setColor(Color.BLACK);
@@ -77,6 +80,7 @@ class MakePDF {
         pNumb.setTextSize((float) boxWidth * 8 / 10);
         pNumb.setTextAlign(Paint.Align.CENTER);
         pNumb.setStyle(Paint.Style.FILL_AND_STROKE);
+        pNumb.setAlpha(su.darkness);
 
         pMemo = new Paint();
         pMemo.setColor(Color.BLUE);

@@ -217,50 +217,106 @@
             />
     </FrameLayout>
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/makeAnswer"
-        android:layout_width="100sp"
-        android:text="With\nAnswer"
-        android:textSize="14sp"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/llAnswer"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/llDarkness"
+        app:layout_constraintTop_toTopOf="@id/generate"
+        app:layout_constraintBottom_toBottomOf="@id/generate"
+        >
+        <TextView
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:text="With\nAnswer"
+            android:textSize="12sp"
+            android:textColor="#000"
+            />
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/makeAnswer"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:gravity="left"
+            android:layout_height="wrap_content"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llDarkness"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toRightOf="@id/llAnswer"
         app:layout_constraintRight_toLeftOf="@id/mesh"
         app:layout_constraintTop_toTopOf="@id/generate"
         app:layout_constraintBottom_toBottomOf="@id/generate"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        >
+        <TextView
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:text="진한정도"
+            android:textSize="12sp"
+            android:textColor="#000"
+            />
+        <EditText
+            android:id="@+id/dark"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:hint = "255"
+            android:text="200"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimary"
+            android:inputType="number"
+            android:autofillHints = "255" />
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/mesh"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@drawable/mesh2_on"
         android:background="@android:color/transparent"
-        app:layout_constraintLeft_toRightOf="@id/makeAnswer"
-        app:layout_constraintRight_toLeftOf="@id/two_three"
+        app:layout_constraintLeft_toRightOf="@id/llDarkness"
+        app:layout_constraintRight_toLeftOf="@id/llTwoThree"
         app:layout_constraintTop_toTopOf="@id/generate"
         app:layout_constraintBottom_toBottomOf="@id/generate"
         />
-
-    <TextView
-        android:id="@+id/two_three"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="2/page"
-        android:textColor="@color/colorPrimary"
-        android:textSize="16sp"
-        android:textStyle="bold"
+    <LinearLayout
+        android:id="@+id/llTwoThree"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:orientation="vertical"
         app:layout_constraintStart_toEndOf="@id/mesh"
         app:layout_constraintEnd_toStartOf="@id/generate"
         app:layout_constraintTop_toTopOf="@id/generate"
         app:layout_constraintBottom_toBottomOf="@id/generate"
-        />
-
+        >
+        <TextView
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:text="페이지당"
+            android:textSize="12sp"
+            android:textColor="#000"
+            />
+        <TextView
+            android:id="@+id/two_three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="2/page"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
     <ImageButton
         android:id = "@+id/generate"
-        android:layout_width = "64dp"
-        android:layout_height = "64dp"
+        android:layout_width = "48dp"
+        android:layout_height = "48dp"
         android:layout_marginTop = "16dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom = "50dp"
