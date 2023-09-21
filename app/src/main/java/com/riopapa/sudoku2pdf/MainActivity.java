@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         su1 = new ParamsShare().get(mContext, "su1");
         su2 = new ParamsShare().get(mContext, "su2");
 
+        Log.w("su", "darkness "+su.darkness);
         btnMesh = findViewById(R.id.mesh);
         btnMesh.setOnClickListener(view -> {
             su.meshType = (su.meshType+1) % 3;
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         showMesh(su.meshType);
 
         darkNess = findViewById(R.id.dark);
+        darkNess.setText(""+su.darkness);
 
         tv23 = findViewById(R.id.two_three);
         tv23.setOnClickListener(view -> {
@@ -79,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
             new ParamsShare().put(su, mContext, "su");
         });
         tv23.setText(su.twoThree+" qz");
+
 
         SwitchCompat makeAnswer = findViewById(R.id.makeAnswer);
         makeAnswer.setChecked(su.makeAnswer);
@@ -129,6 +133,8 @@ public class MainActivity extends AppCompatActivity {
             buildPageWheel();
             toastMsg("Case One Loaded");
             showMesh(su.meshType);
+            darkNess.setText(""+su.darkness);
+            tv23.setText(su.twoThree+" qz");
         });
         TextView tvCase1Save = findViewById(R.id.case1Save);
         tvCase1Save.setOnClickListener(view -> {
@@ -149,6 +155,8 @@ public class MainActivity extends AppCompatActivity {
             buildPageWheel();
             toastMsg("Case Two Loaded");
             showMesh(su.meshType);
+            darkNess.setText(""+su.darkness);
+            tv23.setText(su.twoThree+" qz");
         });
         TextView tvCase2Save = findViewById(R.id.case2Save);
         tvCase2Save.setOnClickListener(view -> {

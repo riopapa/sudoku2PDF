@@ -3182,6 +3182,7 @@ id currentState
 id custom
 id customPanel
 id cut
+id dark
 id date_picker_actions
 id decelerate
 id decelerateAndComplete
@@ -3287,6 +3288,9 @@ id line3
 id linear
 id listMode
 id list_item
+id llAnswer
+id llDarkness
+id llTwoThree
 id m3_side_sheet
 id mainLayout
 id makeAnswer
