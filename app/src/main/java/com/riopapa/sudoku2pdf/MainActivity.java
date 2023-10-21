@@ -1,6 +1,7 @@
 package com.riopapa.sudoku2pdf;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     SudokuInfo su, su1, su2;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -64,16 +68,32 @@ public class MainActivity extends AppCompatActivity {
         su1 = new ParamsShare().get(mContext, "su1");
         su2 = new ParamsShare().get(mContext, "su2");
 
-        Log.w("su", "darkness "+su.darkness);
         btnMesh = findViewById(R.id.mesh);
         btnMesh.setOnClickListener(view -> {
             su.meshType = (su.meshType+1) % 3;
             showMesh(su.meshType);
+            new ParamsShare().put(su, mContext, "su");
         });
         showMesh(su.meshType);
 
         darkNess = findViewById(R.id.dark);
         darkNess.setText(""+su.darkness);
+        darkNess.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if (s.length() > 0) {
+                    su.darkness = Integer.parseInt(s.toString());
+                    new ParamsShare().put(su, mContext, "su");
+                }
+            }
+        });
 
         tv23 = findViewById(R.id.two_three);
         tv23.setOnClickListener(view -> {
@@ -86,12 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
         SwitchCompat makeAnswer = findViewById(R.id.makeAnswer);
         makeAnswer.setChecked(su.makeAnswer);
-        makeAnswer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                su.makeAnswer = b;
-            }
-        });
+        makeAnswer.setOnCheckedChangeListener((compoundButton, b) -> su.makeAnswer = b);
         ImageButton generate = findViewById(R.id.generate);
         generate.setOnClickListener(new View.OnClickListener() {
             boolean isRunning = false;
@@ -124,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
         String s;
         TextView tvCase1 = findViewById(R.id.case1);
-        s = su1.blankCount+" blanks, "+su1.quizCount +" quiz";
+        s = su1.blankCount+" blanks\n"+su1.quizCount +" quiz";
         tvCase1.setText(s);
         TextView tvCase1Load = findViewById(R.id.case1Load);
         tvCase1Load.setOnClickListener(view -> {
@@ -139,14 +154,14 @@ public class MainActivity extends AppCompatActivity {
         TextView tvCase1Save = findViewById(R.id.case1Save);
         tvCase1Save.setOnClickListener(view -> {
             copySu(su, su1);
-            String s1 = su.blankCount+" blanks, "+su.quizCount +" quiz";
+            String s1 = su.blankCount+" blanks\n"+su.quizCount +" quiz";
             tvCase1.setText(s1);
             new ParamsShare().put(su1, mContext, "su1");
             toastMsg("Saved to Case One");
             showMesh(su.meshType);
         });
         TextView tvCase2 = findViewById(R.id.case2);
-        s = su2.blankCount+" blanks, "+su2.quizCount +" quiz";
+        s = su2.blankCount+" blanks\n"+su2.quizCount +" quiz";
         tvCase2.setText(s);
         TextView tvCase2Load = findViewById(R.id.case2Load);
         tvCase2Load.setOnClickListener(view -> {
@@ -161,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
         TextView tvCase2Save = findViewById(R.id.case2Save);
         tvCase2Save.setOnClickListener(view -> {
             copySu(su, su2);
-            String s2 = su.blankCount+" blanks, "+su.quizCount +" pages";
+            String s2 = su.blankCount+" blanks\n"+su.quizCount +" pages";
             tvCase2.setText(s2);
             new ParamsShare().put(su2, mContext, "su2");
             toastMsg("Saved to Case Two");
@@ -196,31 +211,26 @@ public class MainActivity extends AppCompatActivity {
 
         final WheelView<String> wheelView = findViewById(R.id.wheel_blanks);
         wheelView.setOnItemSelectedListener((wheelView1, data, position) -> {
-//                Log.w(TAG, "onItemSelected: data=" + data + ",position=" + position);
-        });
-        wheelView.setOnWheelChangedListener(new WheelView.OnWheelChangedListener() {
-            @Override
-            public void onWheelScroll(int scrollOffsetY) {
-//                Log.w(TAG, "onWheelScroll: scrollOffsetY=" + scrollOffsetY);
-            }
-
-            @Override
-            public void onWheelItemChanged(int oldPosition, int newPosition) {
-                su.blankCount = Integer.parseInt(blankList.get(newPosition));
-                float vol = (float) su.blankCount / (float) MAXIMUM_BLANK / 2;
-                wheelView.setPlayVolume(vol);
-            }
-
-            @Override
-            public void onWheelSelected(int position) {
+                Log.w("setOnItemSelectedListener", "setOnItemSelectedListener: data=" + data + ",position=" + position);
                 su.blankCount = Integer.parseInt(blankList.get(position));
-            }
-
-            @Override
-            public void onWheelScrollStateChanged(int state) {
-//                Log.w(TAG, "onWheelScrollStateChanged: state=" + state);
-            }
+                new ParamsShare().put(su, mContext, "su");
         });
+//        wheelView.setOnWheelChangedListener(new WheelView.OnWheelChangedListener() {
+//            @Override
+//            public void onWheelScroll(int scrollOffsetY) {}
+//
+//            @Override
+//            public void onWheelItemChanged(int oldPosition, int newPosition) {}
+//            @Override
+//            public void onWheelScrollStateChanged(int state) {}
+//
+//            @Override
+//            public void onWheelSelected(int position) {
+//                su.blankCount = Integer.parseInt(blankList.get(position));
+//                new ParamsShare().put(su, mContext, "su");
+//            }
+//
+//        });
 
         wheelView.setData(blankList);
         wheelView.setSelectedItemPosition(su.blankCount - MINIMUM_BLANK, true);
@@ -234,31 +244,24 @@ public class MainActivity extends AppCompatActivity {
 
         final WheelView<String> wheelView = findViewById(R.id.wheel_quiz);
         wheelView.setOnItemSelectedListener((wheelView1, data, position) -> {
-//                Log.w(TAG, "onItemSelected: data=" + data + ",position=" + position);
+            su.quizCount = Integer.parseInt(data);
+            new ParamsShare().put(su, mContext, "su");
         });
-        wheelView.setOnWheelChangedListener(new WheelView.OnWheelChangedListener() {
-            @Override
-            public void onWheelScroll(int scrollOffsetY) {
-//                Log.w(TAG, "onWheelScroll: scrollOffsetY=" + scrollOffsetY);
-            }
-
-            @Override
-            public void onWheelItemChanged(int oldPosition, int newPosition) {
-                su.quizCount = Integer.parseInt(pageList.get(newPosition));
-                float vol = (float) su.quizCount / (float) MAXIMUM_PAGE / 2;
-                wheelView.setPlayVolume(vol);
-            }
-
-            @Override
-            public void onWheelSelected(int position) {
-                su.quizCount = Integer.parseInt(pageList.get(position));
-            }
-
-            @Override
-            public void onWheelScrollStateChanged(int state) {
-//                Log.w(TAG, "onWheelScrollStateChanged: state=" + state);
-            }
-        });
+//        wheelView.setOnWheelChangedListener(new WheelView.OnWheelChangedListener() {
+//            @Override
+//            public void onWheelScroll(int scrollOffsetY) {}
+//            @Override
+//            public void onWheelItemChanged(int oldPosition, int newPosition) {}
+//            @Override
+//            public void onWheelScrollStateChanged(int state) {}
+//
+//            @Override
+//            public void onWheelSelected(int position) {
+//                Log.w("onWheelSelected", "onWheelSelected: pos=" + position);
+//                su.quizCount = Integer.parseInt(pageList.get(position));
+//                new ParamsShare().put(su, mContext, "su");
+//            }
+//        });
 
         wheelView.setData(pageList);
         wheelView.setSelectedItemPosition((su.quizCount - MINIMUM_PAGE)/2, true);
