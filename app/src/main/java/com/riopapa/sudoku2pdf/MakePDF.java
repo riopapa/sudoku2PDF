@@ -36,8 +36,8 @@ class MakePDF {
         downLoadFolder = Environment.getExternalStorageDirectory().getPath()+"/download";
         final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
         fileDate = sdfDate.format(System.currentTimeMillis());
-        fileInfo = " (b"+su.blankCount+"p"+su.quizCount +")";
-        outFile = new File(downLoadFolder, "/sudoku/s"+fileDate+fileInfo);
+        fileInfo = "b"+su.blankCount+"p"+su.quizCount;
+        outFile = new File(downLoadFolder, "/sudoku/"+fileDate+" "+fileInfo);
         sigMap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.my_sign_blured);
         sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 6,
                 sigMap.getHeight() / 6, false);
