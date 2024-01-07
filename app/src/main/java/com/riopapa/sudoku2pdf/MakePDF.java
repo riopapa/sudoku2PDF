@@ -55,32 +55,29 @@ class MakePDF {
         pRect.setColor(Color.BLUE);
         pRect.setStyle(Paint.Style.STROKE);
         pRect.setStrokeWidth(1);
-        pRect.setAlpha(200);
-        pRect.setPathEffect(new DashPathEffect(new float[] {1,2}, 0));
-        pRect.setAlpha(su.darkness);
+        pRect.setAlpha(su.alpha *3/4);
+        pRect.setPathEffect(new DashPathEffect(new float[] {2,3}, 0));
 
         pRectO = new Paint();     // outer box
         pRectO.setColor(Color.BLACK);
         pRectO.setStyle(Paint.Style.STROKE);
         pRectO.setStrokeWidth(3);
-        pRectO.setAlpha(su.darkness);
+        pRectO.setAlpha(su.alpha);
 
         pDotted = new Paint();        // inner dotted box (answer)
         pDotted.setPathEffect(new DashPathEffect(new float[] {6, 3}, 0));
         pDotted.setColor(Color.BLUE);
-        pDotted.setAlpha(120);
         pDotted.setStrokeWidth(1);
-        pDotted.setAlpha(su.darkness);
+        pDotted.setAlpha(su.alpha);
 
         pNumb = new Paint();        // number
         pNumb.setColor(Color.BLACK);
-        pNumb.setAlpha(220);
+        pNumb.setAlpha(su.alpha);
         pNumb.setStrokeWidth(1);
         pNumb.setTypeface(ResourcesCompat.getFont(context, R.font.good_times));
         pNumb.setTextSize((float) boxWidth * 8 / 10);
         pNumb.setTextAlign(Paint.Align.CENTER);
         pNumb.setStyle(Paint.Style.FILL_AND_STROKE);
-        pNumb.setAlpha(su.darkness);
 
         pMemo = new Paint();
         pMemo.setColor(Color.BLUE);
@@ -95,7 +92,7 @@ class MakePDF {
         pSig.setTextAlign(Paint.Align.RIGHT);
         pSig.setStyle(Paint.Style.STROKE);
         pSig.setStrokeWidth(0);
-        pSig.setAlpha(180);
+        pSig.setAlpha(su.alpha*3/4);
         pSig.setStyle(Paint.Style.FILL_AND_STROKE);
         pSig.setTextSize(24);
 
@@ -122,7 +119,7 @@ class MakePDF {
                     int yPos = yBase + row * boxWidth;
                     canvas.drawRect(xPos, yPos, xPos + boxWidth, yPos + boxWidth, pRect);
                     if (xyTable[row][col] > 0) {
-                        canvas.drawText("" + xyTable[row][col], xPos + xGap, yPos + yGap, pNumb);
+                        canvas.drawText(String.valueOf(xyTable[row][col]), xPos + xGap, yPos + yGap, pNumb);
                     } else if (meshType == 1){
                         canvas.drawLine(xPos + boxWidth3, yPos, xPos + boxWidth3, yPos + boxWidth3, pDotted);
                         canvas.drawLine(xPos + boxWidth3 + boxWidth3, yPos,
@@ -165,15 +162,11 @@ class MakePDF {
         if (su.makeAnswer)
             makeAnswer(blankTables, answerTables, su, space);
 
-//        ArrayList<File> arrayList = new ArrayList<>();
-//        arrayList.add(filePath);
-//        new ShareFile().send(su.context, arrayList);
-//        new ShareFile().print(su.context, filePath);
         new ShareFile().show(context, downLoadFolder+"/sudoku");
     }
 
     private static void makeAnswer(String[] blankTables, String[] answerTables,
-                                   SudokuInfo sudokuInfo, int space) {
+                                   SudokuInfo su, int space) {
         File filePath;
         PdfDocument.Page page;
         PdfDocument document;
@@ -190,10 +183,10 @@ class MakePDF {
 
         boxWidth = (pgWidth - space) / 40;    // 4 answer for 1 line
         pNumb.setTextSize(boxWidth/2.3f); // pNumb : answer number
-        pNumb.setAlpha(200);
+        pNumb.setAlpha(su.alpha);
         pMemo.setTextSize(boxWidth/2f);  // pMemo : given number
         pMemo.setColor(Color.DKGRAY);
-        pMemo.setAlpha(200);
+        pMemo.setAlpha(su.alpha);
 
         for (int nbrQz = 0; nbrQz < answerTables.length; nbrQz++) {
             int [][] ansTable = str2suArray(answerTables[nbrQz]);
@@ -207,7 +200,7 @@ class MakePDF {
                     int xPos = xBase + col * boxWidth;
                     int yPos = yBase + row * boxWidth;
                     canvas.drawRect(xPos, yPos, xPos + boxWidth, yPos + boxWidth, pRect);
-                    canvas.drawText("" + ansTable[row][col], xPos + xGap, yPos + yGap,
+                    canvas.drawText(String.valueOf(ansTable[row][col]), xPos + xGap, yPos + yGap,
                             (blankTable[row][col] == 0)? pNumb : pMemo);
                 }
             }
@@ -222,7 +215,7 @@ class MakePDF {
                 }
         }
 
-        addSignature(sudokuInfo, sigMap, pgWidth, pgHeight, canvas, pSig, false);
+        addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, false);
         document.finishPage(page);
 
         // write the document content

@@ -15,7 +15,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -40,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     final static int MINIMUM_PAGE = 4, MAXIMUM_PAGE = 20;
     ImageButton btnMesh;
     TextView tv23;
-    EditText darkNess;    // 255 : real black
+    EditText alpha;    // 255 : real black
 
     SudokuInfo su, su1, su2;
 
@@ -76,9 +75,9 @@ public class MainActivity extends AppCompatActivity {
         });
         showMesh(su.meshType);
 
-        darkNess = findViewById(R.id.dark);
-        darkNess.setText(""+su.darkness);
-        darkNess.addTextChangedListener(new TextWatcher() {
+        alpha = findViewById(R.id.dark);
+        alpha.setText(String.valueOf(su.alpha));
+        alpha.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {}
 
@@ -89,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
                 if (s.length() > 0) {
-                    su.darkness = Integer.parseInt(s.toString());
+                    su.alpha = Integer.parseInt(s.toString());
                     new ParamsShare().put(su, mContext, "su");
                 }
             }
@@ -114,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!isRunning) {
                     isRunning = true;
-                    su.darkness = Integer.parseInt(darkNess.getText().toString());
+                    su.alpha = Integer.parseInt(alpha.getText().toString());
                     Snackbar.make(view, "Starting generation", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     new ParamsShare().put(su, mContext, "su");
@@ -127,11 +126,11 @@ public class MainActivity extends AppCompatActivity {
 
         blankList = new ArrayList<>();
         for (int level = MINIMUM_BLANK; level <= MAXIMUM_BLANK; level++) {
-            blankList.add(level + "");
+            blankList.add(String.valueOf(level));
         }
         pageList = new ArrayList<>();
         for (int page = MINIMUM_PAGE; page <= MAXIMUM_PAGE; page += 2) {
-            pageList.add(page + "");
+            pageList.add(String.valueOf(page));
         }
 
         buildBlankWheel();
@@ -148,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             buildPageWheel();
             toastMsg("Case One Loaded");
             showMesh(su.meshType);
-            darkNess.setText(""+su.darkness);
+            alpha.setText(String.valueOf(su.alpha));
             tv23.setText(su.twoThree+" qz");
         });
         TextView tvCase1Save = findViewById(R.id.case1Save);
@@ -170,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
             buildPageWheel();
             toastMsg("Case Two Loaded");
             showMesh(su.meshType);
-            darkNess.setText(""+su.darkness);
+            alpha.setText(String.valueOf(su.alpha));
             tv23.setText(su.twoThree+" qz");
         });
         TextView tvCase2Save = findViewById(R.id.case2Save);
@@ -205,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
         suTo.meshType = suFrom.meshType;
         suTo.twoThree = suFrom.twoThree;
         suTo.makeAnswer = suFrom.makeAnswer;
-        suTo.darkness = suFrom.darkness;
+        suTo.alpha = suFrom.alpha;
     }
     private void buildBlankWheel() {
 
@@ -215,22 +214,6 @@ public class MainActivity extends AppCompatActivity {
                 su.blankCount = Integer.parseInt(blankList.get(position));
                 new ParamsShare().put(su, mContext, "su");
         });
-//        wheelView.setOnWheelChangedListener(new WheelView.OnWheelChangedListener() {
-//            @Override
-//            public void onWheelScroll(int scrollOffsetY) {}
-//
-//            @Override
-//            public void onWheelItemChanged(int oldPosition, int newPosition) {}
-//            @Override
-//            public void onWheelScrollStateChanged(int state) {}
-//
-//            @Override
-//            public void onWheelSelected(int position) {
-//                su.blankCount = Integer.parseInt(blankList.get(position));
-//                new ParamsShare().put(su, mContext, "su");
-//            }
-//
-//        });
 
         wheelView.setData(blankList);
         wheelView.setSelectedItemPosition(su.blankCount - MINIMUM_BLANK, true);
@@ -247,21 +230,6 @@ public class MainActivity extends AppCompatActivity {
             su.quizCount = Integer.parseInt(data);
             new ParamsShare().put(su, mContext, "su");
         });
-//        wheelView.setOnWheelChangedListener(new WheelView.OnWheelChangedListener() {
-//            @Override
-//            public void onWheelScroll(int scrollOffsetY) {}
-//            @Override
-//            public void onWheelItemChanged(int oldPosition, int newPosition) {}
-//            @Override
-//            public void onWheelScrollStateChanged(int state) {}
-//
-//            @Override
-//            public void onWheelSelected(int position) {
-//                Log.w("onWheelSelected", "onWheelSelected: pos=" + position);
-//                su.quizCount = Integer.parseInt(pageList.get(position));
-//                new ParamsShare().put(su, mContext, "su");
-//            }
-//        });
 
         wheelView.setData(pageList);
         wheelView.setSelectedItemPosition((su.quizCount - MINIMUM_PAGE)/2, true);

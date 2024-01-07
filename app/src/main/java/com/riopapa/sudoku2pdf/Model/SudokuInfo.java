@@ -7,5 +7,5 @@ public class SudokuInfo {
     public int meshType;
     public boolean makeAnswer;
 
-    public int darkness;
+    public int alpha;
 }

@@ -75,7 +75,7 @@ public class WheelView<T> extends View implements Runnable {
     public static final int DIVIDER_TYPE_FILL = 0;
     public static final int DIVIDER_TYPE_WRAP = 1;
 
-    private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     //font size
     private float mTextSize;
     //Whether to automatically adjust the font size to display completely
@@ -509,8 +509,8 @@ public class WheelView<T> extends View implements Runnable {
                 int startX = (int) (mCenterX - mMaxTextWidth / 2 - mDividerPaddingForWrap);
                 int stopX = (int) (mCenterX + mMaxTextWidth / 2 + mDividerPaddingForWrap);
 
-                int wrapStartX = startX < mClipLeft ? mClipLeft : startX;
-                int wrapStopX = stopX > mClipRight ? mClipRight : stopX;
+                int wrapStartX = Math.max(startX, mClipLeft);
+                int wrapStopX = Math.min(stopX, mClipRight);
                 canvas.drawLine(wrapStartX, mSelectedItemTopLimit, wrapStopX, mSelectedItemTopLimit, mPaint);
                 canvas.drawLine(wrapStartX, mSelectedItemBottomLimit, wrapStopX, mSelectedItemBottomLimit, mPaint);
             }

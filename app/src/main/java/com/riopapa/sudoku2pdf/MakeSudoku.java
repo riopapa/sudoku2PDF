@@ -17,8 +17,6 @@ import java.util.Locale;
 
 class MakeSudoku {
 
-    //    private static int [][] solveTable;
-//    private static int [][][] usedTable;    // set '1' if used within that col, row, block
     private String [] blankTables;
     private String [] answerTables;
     private int pageCount, blankCount;
@@ -63,14 +61,6 @@ class MakeSudoku {
             progressBar.setVisibility(View.VISIBLE);
             tvStatus.setVisibility(View.VISIBLE);
 
-//            ConstraintSet set = new ConstraintSet();
-//            set.connect(frameLayout.getId(), ConstraintSet.TOP, horizontalLineView.getId(), ConstraintSet.BOTTOM);
-//            set.constrainWidth(frameLayout.getId(), 500 + quizCount * 80);
-//            set.constrainHeight(frameLayout.getId(), 500 + quizCount * 80);
-//            set.connect(frameLayout.getId(), ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START);
-//            set.connect(frameLayout.getId(), ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END);
-//            set.connect(frameLayout.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 80);
-//            set.applyTo(mainLayout);
         }
 
         @Override

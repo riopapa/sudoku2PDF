@@ -26,7 +26,7 @@ public class ParamsShare {
 
         SharedPreferences sharedPref = context.getSharedPreferences("sudoku", MODE_PRIVATE);
         Gson gson = new Gson();
-        SudokuInfo sudokuInfo = null;
+        SudokuInfo sudokuInfo;
         String json = sharedPref.getString(id, "");
         if (json.isEmpty()) {
             sudokuInfo = new SudokuInfo();
@@ -35,7 +35,7 @@ public class ParamsShare {
             sudokuInfo.twoThree = 2;
             sudokuInfo.meshType = 1;
             sudokuInfo.makeAnswer = false;
-            sudokuInfo.darkness = 200;
+            sudokuInfo.alpha = 200;
         } else {
             Type type = new TypeToken<SudokuInfo>() {
             }.getType();
