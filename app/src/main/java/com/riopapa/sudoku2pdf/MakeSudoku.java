@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
 
-import com.riopapa.sudoku2pdf.Model.SudokuInfo;
+import com.riopapa.sudoku2pdf.Model.Sudoku;
 
 import java.util.Locale;
 
@@ -20,14 +20,14 @@ class MakeSudoku {
     private String [] blankTables;
     private String [] answerTables;
     private int pageCount, blankCount;
-    private SudokuInfo sudokuInfo;
+    private Sudoku sudoku;
     private TextView tvStatus;
     private ProgressBar progressBar;
 
-    public void make(SudokuInfo sudokuInfo, Context context, Activity activity) {
-        this.sudokuInfo = sudokuInfo;
-        pageCount = sudokuInfo.quizCount;
-        blankCount = sudokuInfo.blankCount;
+    public void make(Sudoku sudoku, Context context, Activity activity) {
+        this.sudoku = sudoku;
+        pageCount = sudoku.quiz;
+        blankCount = sudoku.blank;
 
         tvStatus = activity.findViewById(R.id.status);
 
@@ -142,13 +142,13 @@ class MakeSudoku {
         @Override
         protected void onPostExecute(String statistics ) {
 
-//            Toast.makeText(MainActivity.,statistics, Toast.LENGTH_LONG).show();
+//            Toast.makeText(ActivityOneEdit.,statistics, Toast.LENGTH_LONG).show();
             Log.w("DONE", statistics);
             progressBar.setVisibility(View.INVISIBLE);
             tvStatus.setText(statistics);
             tvStatus.invalidate();
 
-            MakePDF.create(blankTables, answerTables, sudokuInfo, tvStatus.getContext());
+            MakePDF.create(blankTables, answerTables, sudoku, tvStatus.getContext());
         }
     }
 }

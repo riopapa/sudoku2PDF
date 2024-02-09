@@ -1427,6 +1427,7 @@ color foreground_material_dark
 color foreground_material_light
 color highlighted_text_material_dark
 color highlighted_text_material_light
+color line_text
 color m3_appbar_overlay_color
 color m3_assist_chip_icon_tint_color
 color m3_assist_chip_stroke_color
@@ -2232,6 +2233,7 @@ dimen hint_pressed_alpha_material_light
 dimen item_touch_helper_max_drag_scroll_per_frame
 dimen item_touch_helper_swipe_escape_max_velocity
 dimen item_touch_helper_swipe_escape_velocity
+dimen line_text
 dimen m3_alert_dialog_action_bottom_padding
 dimen m3_alert_dialog_action_top_padding
 dimen m3_alert_dialog_corner_size
@@ -2929,6 +2931,7 @@ drawable abc_textfield_search_activated_mtrl_alpha
 drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
+drawable add_new
 drawable avd_hide_password
 drawable avd_show_password
 drawable btn_checkbox_checked_mtrl
@@ -3108,6 +3111,7 @@ id action_text
 id actions
 id activity_chooser_view_content
 id add
+id add_new
 id alertTitle
 id aligned
 id all
@@ -3131,6 +3135,7 @@ id baseline
 id beginOnFirstDraw
 id beginning
 id bestChoice
+id blankCount
 id blocking
 id bottom
 id bounce
@@ -3142,12 +3147,6 @@ id cache_measures
 id callMeasure
 id cancel_button
 id carryVelocity
-id case1
-id case1Load
-id case1Save
-id case2
-id case2Load
-id case2Save
 id center
 id centerCrop
 id centerInside
@@ -3182,7 +3181,6 @@ id currentState
 id custom
 id customPanel
 id cut
-id dark
 id date_picker_actions
 id decelerate
 id decelerateAndComplete
@@ -3243,7 +3241,6 @@ id floating
 id forever
 id fragment_container_view_tag
 id frmCase1
-id frmCase2
 id frost
 id fullscreen_header
 id generate
@@ -3292,7 +3289,6 @@ id llAnswer
 id llDarkness
 id llTwoThree
 id m3_side_sheet
-id mainLayout
 id makeAnswer
 id marquee
 id masked
@@ -3354,6 +3350,7 @@ id mtrl_picker_text_input_range_start
 id mtrl_picker_title_text
 id mtrl_view_tag_bottom_padding
 id multiply
+id name
 id navigation_bar_item_active_indicator_view
 id navigation_bar_item_icon_container
 id navigation_bar_item_icon_view
@@ -3375,6 +3372,16 @@ id notification_main_column_container
 id off
 id on
 id onInterceptTouchReturnSwipe
+id one_answer
+id one_blank
+id one_layout
+id one_list
+id one_mesh
+id one_name
+id one_nbr_page
+id one_opacity
+id one_quiz
+id opacity
 id outline
 id outward
 id overshoot
@@ -3397,7 +3404,7 @@ id progress_circle
 id progress_circular
 id progress_frame
 id progress_horizontal
-id quizLabel
+id quizCount
 id radio
 id ratio
 id rectangles
@@ -3461,7 +3468,6 @@ id snap
 id snapMargins
 id south
 id spacer
-id spacesLabel
 id special_effects_controller_view_tag
 id spline
 id split_action_bar
@@ -3485,6 +3491,7 @@ id stretch
 id submenuarrow
 id submit_area
 id supportScrollUp
+id t_name
 id tabMode
 id tag_accessibility_actions
 id tag_accessibility_clickable_spans
@@ -3672,6 +3679,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_main
+layout activity_one
 layout custom_dialog
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
@@ -3745,10 +3753,12 @@ layout notification_template_custom_big
 layout notification_template_icon_group
 layout notification_template_part_chronometer
 layout notification_template_part_time
+layout one_line
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
+menu menu_main
 mipmap icon_sudoku2pdf
 mipmap my_sign_blued
 mipmap my_sign_blured

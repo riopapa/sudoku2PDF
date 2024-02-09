@@ -27,7 +27,7 @@
 18-->[androidx.core:core:1.9.0] C:\Users\user\.gradle\caches\transforms-3\7458bba87ca443bf519a2197f4f4149a\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
 19
 20    <application
-20-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:8:5-35:19
+20-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:8:5-34:19
 21        android:allowBackup="true"
 21-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:9:9-35
 22        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -46,68 +46,67 @@
 30        android:theme="@style/AppTheme" >
 30-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:14:9-40
 31        <activity
-31-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:15:9-25:20
+31-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:15:9-23:20
 32            android:name="com.riopapa.sudoku2pdf.MainActivity"
 32-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:16:13-41
-33            android:exported="true"
+33            android:exported="true" >
 33-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:17:13-36
-34            android:label="@string/app_name"
-34-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:18:13-45
-35            android:theme="@style/AppTheme.NoActionBar" >
-35-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:19:13-56
-36            <intent-filter>
-36-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:20:13-24:29
-37                <action android:name="android.intent.action.MAIN" />
-37-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:21:17-69
-37-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:21:25-66
-38                <action android:name="android.intent.action.VIEW" />
-38-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:22:17-69
-38-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:22:25-66
-39
-40                <category android:name="android.intent.category.LAUNCHER" />
-40-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:23:17-77
-40-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:23:27-74
-41            </intent-filter>
-42        </activity>
-43
-44        <provider
-44-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:26:9-34:20
-45            android:name="androidx.core.content.FileProvider"
-45-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:27:13-62
-46            android:authorities="com.riopapa.sudoku2pdf.provider"
-46-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:28:13-66
-47            android:exported="false"
-47-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:29:13-37
-48            android:grantUriPermissions="true" >
-48-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:30:13-47
-49            <meta-data
-49-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:31:13-33:52
-50                android:name="android.support.FILE_PROVIDER_PATHS"
-50-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:32:17-67
-51                android:resource="@xml/filepath" />
-51-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:33:17-49
-52        </provider>
-53        <provider
-53-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-3\96a6ff27813fefb426400e3746cd387d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
-54            android:name="androidx.startup.InitializationProvider"
-54-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-3\96a6ff27813fefb426400e3746cd387d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
-55            android:authorities="com.riopapa.sudoku2pdf.androidx-startup"
-55-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-3\96a6ff27813fefb426400e3746cd387d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
-56            android:exported="false" >
-56-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-3\96a6ff27813fefb426400e3746cd387d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
-57            <meta-data
-57-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-3\96a6ff27813fefb426400e3746cd387d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
-58                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-58-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-3\96a6ff27813fefb426400e3746cd387d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
-59                android:value="androidx.startup" />
-59-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-3\96a6ff27813fefb426400e3746cd387d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
-60            <meta-data
-60-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\user\.gradle\caches\transforms-3\ad3ee006a50df04737262c0191c8a6e7\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
-61                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-61-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\user\.gradle\caches\transforms-3\ad3ee006a50df04737262c0191c8a6e7\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
-62                android:value="androidx.startup" />
-62-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\user\.gradle\caches\transforms-3\ad3ee006a50df04737262c0191c8a6e7\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
-63        </provider>
-64    </application>
-65
-66</manifest>
+34            <intent-filter>
+34-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:18:13-22:29
+35                <action android:name="android.intent.action.MAIN" />
+35-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:19:17-69
+35-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:19:25-66
+36                <action android:name="android.intent.action.VIEW" />
+36-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:20:17-69
+36-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:20:25-66
+37
+38                <category android:name="android.intent.category.LAUNCHER" />
+38-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:21:17-77
+38-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:21:27-74
+39            </intent-filter>
+40        </activity>
+41        <activity android:name="com.riopapa.sudoku2pdf.ActivityOneEdit" />
+41-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:24:9-52
+41-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:24:19-50
+42
+43        <provider
+43-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:25:9-33:20
+44            android:name="androidx.core.content.FileProvider"
+44-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:26:13-62
+45            android:authorities="com.riopapa.sudoku2pdf.provider"
+45-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:27:13-66
+46            android:exported="false"
+46-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:28:13-37
+47            android:grantUriPermissions="true" >
+47-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:29:13-47
+48            <meta-data
+48-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:30:13-32:52
+49                android:name="android.support.FILE_PROVIDER_PATHS"
+49-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:31:17-67
+50                android:resource="@xml/filepath" />
+50-->D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:32:17-49
+51        </provider>
+52        <provider
+52-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-3\96a6ff27813fefb426400e3746cd387d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+53            android:name="androidx.startup.InitializationProvider"
+53-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-3\96a6ff27813fefb426400e3746cd387d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+54            android:authorities="com.riopapa.sudoku2pdf.androidx-startup"
+54-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-3\96a6ff27813fefb426400e3746cd387d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+55            android:exported="false" >
+55-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-3\96a6ff27813fefb426400e3746cd387d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+56            <meta-data
+56-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-3\96a6ff27813fefb426400e3746cd387d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+57                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+57-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-3\96a6ff27813fefb426400e3746cd387d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+58                android:value="androidx.startup" />
+58-->[androidx.emoji2:emoji2:1.2.0] C:\Users\user\.gradle\caches\transforms-3\96a6ff27813fefb426400e3746cd387d\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+59            <meta-data
+59-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\user\.gradle\caches\transforms-3\ad3ee006a50df04737262c0191c8a6e7\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+60                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+60-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\user\.gradle\caches\transforms-3\ad3ee006a50df04737262c0191c8a6e7\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+61                android:value="androidx.startup" />
+61-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\user\.gradle\caches\transforms-3\ad3ee006a50df04737262c0191c8a6e7\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+62        </provider>
+63    </application>
+64
+65</manifest>

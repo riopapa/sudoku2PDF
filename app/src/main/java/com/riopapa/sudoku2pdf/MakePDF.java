@@ -13,7 +13,7 @@ import android.util.Log;
 
 import androidx.core.content.res.ResourcesCompat;
 
-import com.riopapa.sudoku2pdf.Model.SudokuInfo;
+import com.riopapa.sudoku2pdf.Model.Sudoku;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,19 +30,19 @@ class MakePDF {
     static Paint pRect, pRectO, pDotted, pNumb, pMemo, pSig;
     static int pgWidth = 210*5, pgHeight = 297*5;  // A4 size
 
-    static void create(String [] blankTables, String [] answerTables, SudokuInfo su,
+    static void create(String [] blankTables, String [] answerTables, Sudoku su,
                        Context context) {
 
         downLoadFolder = Environment.getExternalStorageDirectory().getPath()+"/download";
         final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
         fileDate = sdfDate.format(System.currentTimeMillis());
-        fileInfo = "b"+su.blankCount+"p"+su.quizCount;
+        fileInfo = "b"+su.blank +"p"+su.quiz;
         outFile = new File(downLoadFolder, "/sudoku/"+fileDate+" "+fileInfo);
         sigMap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.my_sign_blured);
         sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 6,
                 sigMap.getHeight() / 6, false);
         int meshType = su.meshType;
-        int twoThree = su.twoThree;
+        int twoThree = su.nbrPage;
         int boxWidth = (twoThree == 2) ? pgHeight / (11*2) : pgHeight / (11*3);
         int boxWidth3 = boxWidth / 3;
         int space = boxWidth*2/3;  // space = 2 : 24, 3:
@@ -55,24 +55,24 @@ class MakePDF {
         pRect.setColor(Color.BLUE);
         pRect.setStyle(Paint.Style.STROKE);
         pRect.setStrokeWidth(1);
-        pRect.setAlpha(su.alpha *3/4);
+        pRect.setAlpha(su.opacity *3/4);
         pRect.setPathEffect(new DashPathEffect(new float[] {2,3}, 0));
 
         pRectO = new Paint();     // outer box
         pRectO.setColor(Color.BLACK);
         pRectO.setStyle(Paint.Style.STROKE);
         pRectO.setStrokeWidth(3);
-        pRectO.setAlpha(su.alpha);
+        pRectO.setAlpha(su.opacity);
 
         pDotted = new Paint();        // inner dotted box (answer)
         pDotted.setPathEffect(new DashPathEffect(new float[] {6, 3}, 0));
         pDotted.setColor(Color.BLUE);
         pDotted.setStrokeWidth(1);
-        pDotted.setAlpha(su.alpha);
+        pDotted.setAlpha(su.opacity);
 
         pNumb = new Paint();        // number
         pNumb.setColor(Color.BLACK);
-        pNumb.setAlpha(su.alpha);
+        pNumb.setAlpha(su.opacity);
         pNumb.setStrokeWidth(1);
         pNumb.setTypeface(ResourcesCompat.getFont(context, R.font.good_times));
         pNumb.setTextSize((float) boxWidth * 8 / 10);
@@ -92,7 +92,7 @@ class MakePDF {
         pSig.setTextAlign(Paint.Align.RIGHT);
         pSig.setStyle(Paint.Style.STROKE);
         pSig.setStrokeWidth(0);
-        pSig.setAlpha(su.alpha*3/4);
+        pSig.setAlpha(su.opacity *3/4);
         pSig.setStyle(Paint.Style.FILL_AND_STROKE);
         pSig.setTextSize(24);
 
@@ -159,14 +159,14 @@ class MakePDF {
         // close the document
         document.close();
 
-        if (su.makeAnswer)
+        if (su.answer)
             makeAnswer(blankTables, answerTables, su, space);
 
         new ShareFile().show(context, downLoadFolder+"/sudoku");
     }
 
     private static void makeAnswer(String[] blankTables, String[] answerTables,
-                                   SudokuInfo su, int space) {
+                                   Sudoku su, int space) {
         File filePath;
         PdfDocument.Page page;
         PdfDocument document;
@@ -183,10 +183,10 @@ class MakePDF {
 
         boxWidth = (pgWidth - space) / 40;    // 4 answer for 1 line
         pNumb.setTextSize(boxWidth/2.3f); // pNumb : answer number
-        pNumb.setAlpha(su.alpha);
+        pNumb.setAlpha(su.opacity);
         pMemo.setTextSize(boxWidth/2f);  // pMemo : given number
         pMemo.setColor(Color.DKGRAY);
-        pMemo.setAlpha(su.alpha);
+        pMemo.setAlpha(su.opacity);
 
         for (int nbrQz = 0; nbrQz < answerTables.length; nbrQz++) {
             int [][] ansTable = str2suArray(answerTables[nbrQz]);
@@ -229,7 +229,7 @@ class MakePDF {
         document.close();
     }
 
-    private static void addSignature(SudokuInfo su, Bitmap sigMap, int pgWidth, int pgHeight,
+    private static void addSignature(Sudoku su, Bitmap sigMap, int pgWidth, int pgHeight,
                                      Canvas canvas, Paint paint, boolean top) {
         int inc = (int) paint.getTextSize() * 4 / 3;
         int xPos;
@@ -249,7 +249,7 @@ class MakePDF {
             p.setAlpha(paint.getAlpha());
             p.setStyle(Paint.Style.FILL_AND_STROKE);
             p.setTextSize(paint.getTextSize()*3/2);
-            canvas.drawText("□"+su.blankCount,xPos, yPos, p);
+            canvas.drawText("□"+su.blank,xPos, yPos, p);
             yPos += inc/2;
             xPos -= sigMap.getWidth();
         } else {

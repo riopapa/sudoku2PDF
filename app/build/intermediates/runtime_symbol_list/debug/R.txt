@@ -1426,6 +1426,7 @@ int color foreground_material_dark 0x7f05005e
 int color foreground_material_light 0x7f05005f
 int color highlighted_text_material_dark 0x7f050060
 int color highlighted_text_material_light 0x7f050061
+int color line_text 0x7f0502e9
 int color m3_appbar_overlay_color 0x7f050062
 int color m3_assist_chip_icon_tint_color 0x7f050063
 int color m3_assist_chip_stroke_color 0x7f050064
@@ -2231,6 +2232,7 @@ int dimen hint_pressed_alpha_material_light 0x7f06009a
 int dimen item_touch_helper_max_drag_scroll_per_frame 0x7f06009b
 int dimen item_touch_helper_swipe_escape_max_velocity 0x7f06009c
 int dimen item_touch_helper_swipe_escape_velocity 0x7f06009d
+int dimen line_text 0x7f060308
 int dimen m3_alert_dialog_action_bottom_padding 0x7f06009e
 int dimen m3_alert_dialog_action_top_padding 0x7f06009f
 int dimen m3_alert_dialog_corner_size 0x7f0600a0
@@ -2928,6 +2930,7 @@ int drawable abc_textfield_search_activated_mtrl_alpha 0x7f070073
 int drawable abc_textfield_search_default_mtrl_alpha 0x7f070074
 int drawable abc_textfield_search_material 0x7f070075
 int drawable abc_vector_test 0x7f070076
+int drawable add_new 0x7f0700e0
 int drawable avd_hide_password 0x7f070077
 int drawable avd_show_password 0x7f070078
 int drawable btn_checkbox_checked_mtrl 0x7f070079
@@ -3107,6 +3110,7 @@ int id action_text 0x7f090043
 int id actions 0x7f090044
 int id activity_chooser_view_content 0x7f090045
 int id add 0x7f090046
+int id add_new 0x7f090218
 int id alertTitle 0x7f090047
 int id aligned 0x7f090048
 int id all 0x7f090049
@@ -3130,6 +3134,7 @@ int id baseline 0x7f09005a
 int id beginOnFirstDraw 0x7f09005b
 int id beginning 0x7f09005c
 int id bestChoice 0x7f09005d
+int id blankCount 0x7f09020a
 int id blocking 0x7f09005e
 int id bottom 0x7f09005f
 int id bounce 0x7f090060
@@ -3141,12 +3146,6 @@ int id cache_measures 0x7f090065
 int id callMeasure 0x7f090066
 int id cancel_button 0x7f090067
 int id carryVelocity 0x7f090068
-int id case1 0x7f090069
-int id case1Load 0x7f09006a
-int id case1Save 0x7f09006b
-int id case2 0x7f09006c
-int id case2Load 0x7f09006d
-int id case2Save 0x7f09006e
 int id center 0x7f09006f
 int id centerCrop 0x7f090070
 int id centerInside 0x7f090071
@@ -3181,7 +3180,6 @@ int id currentState 0x7f09008d
 int id custom 0x7f09008e
 int id customPanel 0x7f09008f
 int id cut 0x7f090090
-int id dark 0x7f090091
 int id date_picker_actions 0x7f090092
 int id decelerate 0x7f090093
 int id decelerateAndComplete 0x7f090094
@@ -3242,7 +3240,6 @@ int id floating 0x7f0900ca
 int id forever 0x7f0900cb
 int id fragment_container_view_tag 0x7f0900cc
 int id frmCase1 0x7f0900cd
-int id frmCase2 0x7f0900ce
 int id frost 0x7f0900cf
 int id fullscreen_header 0x7f0900d0
 int id generate 0x7f0900d1
@@ -3291,7 +3288,6 @@ int id llAnswer 0x7f0900fb
 int id llDarkness 0x7f0900fc
 int id llTwoThree 0x7f0900fd
 int id m3_side_sheet 0x7f0900fe
-int id mainLayout 0x7f0900ff
 int id makeAnswer 0x7f090100
 int id marquee 0x7f090101
 int id masked 0x7f090102
@@ -3353,6 +3349,7 @@ int id mtrl_picker_text_input_range_start 0x7f090139
 int id mtrl_picker_title_text 0x7f09013a
 int id mtrl_view_tag_bottom_padding 0x7f09013b
 int id multiply 0x7f09013c
+int id name 0x7f09020b
 int id navigation_bar_item_active_indicator_view 0x7f09013d
 int id navigation_bar_item_icon_container 0x7f09013e
 int id navigation_bar_item_icon_view 0x7f09013f
@@ -3374,6 +3371,16 @@ int id notification_main_column_container 0x7f09014e
 int id off 0x7f09014f
 int id on 0x7f090150
 int id onInterceptTouchReturnSwipe 0x7f090151
+int id one_answer 0x7f09020c
+int id one_blank 0x7f09020d
+int id one_layout 0x7f09020e
+int id one_list 0x7f09020f
+int id one_mesh 0x7f090210
+int id one_name 0x7f090211
+int id one_nbr_page 0x7f090212
+int id one_opacity 0x7f090213
+int id one_quiz 0x7f090214
+int id opacity 0x7f090215
 int id outline 0x7f090152
 int id outward 0x7f090153
 int id overshoot 0x7f090154
@@ -3396,7 +3403,7 @@ int id progress_circle 0x7f090164
 int id progress_circular 0x7f090165
 int id progress_frame 0x7f090166
 int id progress_horizontal 0x7f090167
-int id quizLabel 0x7f090168
+int id quizCount 0x7f090216
 int id radio 0x7f090169
 int id ratio 0x7f09016a
 int id rectangles 0x7f09016b
@@ -3460,7 +3467,6 @@ int id snap 0x7f0901a4
 int id snapMargins 0x7f0901a5
 int id south 0x7f0901a6
 int id spacer 0x7f0901a7
-int id spacesLabel 0x7f0901a8
 int id special_effects_controller_view_tag 0x7f0901a9
 int id spline 0x7f0901aa
 int id split_action_bar 0x7f0901ab
@@ -3484,6 +3490,7 @@ int id stretch 0x7f0901bc
 int id submenuarrow 0x7f0901bd
 int id submit_area 0x7f0901be
 int id supportScrollUp 0x7f0901bf
+int id t_name 0x7f090217
 int id tabMode 0x7f0901c0
 int id tag_accessibility_actions 0x7f0901c1
 int id tag_accessibility_clickable_spans 0x7f0901c2
@@ -3671,6 +3678,7 @@ int layout abc_search_view 0x7f0c0019
 int layout abc_select_dialog_material 0x7f0c001a
 int layout abc_tooltip 0x7f0c001b
 int layout activity_main 0x7f0c001c
+int layout activity_one 0x7f0c006a
 int layout custom_dialog 0x7f0c001d
 int layout design_bottom_navigation_item 0x7f0c001e
 int layout design_bottom_sheet_dialog 0x7f0c001f
@@ -3744,10 +3752,12 @@ int layout notification_template_custom_big 0x7f0c0062
 int layout notification_template_icon_group 0x7f0c0063
 int layout notification_template_part_chronometer 0x7f0c0064
 int layout notification_template_part_time 0x7f0c0065
+int layout one_line 0x7f0c006b
 int layout select_dialog_item_material 0x7f0c0066
 int layout select_dialog_multichoice_material 0x7f0c0067
 int layout select_dialog_singlechoice_material 0x7f0c0068
 int layout support_simple_spinner_dropdown_item 0x7f0c0069
+int menu menu_main 0x7f150000
 int mipmap icon_sudoku2pdf 0x7f0e0000
 int mipmap my_sign_blued 0x7f0e0001
 int mipmap my_sign_blured 0x7f0e0002

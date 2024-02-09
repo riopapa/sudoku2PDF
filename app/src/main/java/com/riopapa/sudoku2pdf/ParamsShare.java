@@ -2,46 +2,48 @@ package com.riopapa.sudoku2pdf;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import static com.riopapa.sudoku2pdf.MainActivity.sudokus;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.riopapa.sudoku2pdf.Model.SudokuInfo;
+import com.riopapa.sudoku2pdf.Model.Sudoku;
 
 import java.lang.reflect.Type;
 
 public class ParamsShare {
-    public void put(SudokuInfo sudokuInfo, Context context, String id) {
+    public void put(Context context) {
 
         SharedPreferences sharedPref = context.getSharedPreferences("sudoku", MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor = sharedPref.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(sudokuInfo);
-        prefsEditor.putString(id, json);
+        String json = gson.toJson(sudokus);
+        prefsEditor.putString("sudoku", json);
         prefsEditor.apply();
     }
 
-    SudokuInfo get(Context context, String id) {
+    Sudoku get(Context context, String id) {
 
         SharedPreferences sharedPref = context.getSharedPreferences("sudoku", MODE_PRIVATE);
         Gson gson = new Gson();
-        SudokuInfo sudokuInfo;
+        Sudoku sudoku;
         String json = sharedPref.getString(id, "");
         if (json.isEmpty()) {
-            sudokuInfo = new SudokuInfo();
-            sudokuInfo.blankCount = 13;
-            sudokuInfo.quizCount = 4;
-            sudokuInfo.twoThree = 2;
-            sudokuInfo.meshType = 1;
-            sudokuInfo.makeAnswer = false;
-            sudokuInfo.alpha = 200;
+            sudoku = new Sudoku();
+            sudoku.blank = 13;
+            sudoku.quiz = 4;
+            sudoku.nbrPage = 2;
+            sudoku.meshType = 1;
+            sudoku.answer = false;
+            sudoku.opacity = 200;
         } else {
-            Type type = new TypeToken<SudokuInfo>() {
+            Type type = new TypeToken<Sudoku>() {
             }.getType();
-            sudokuInfo = gson.fromJson(json, type);
+            sudoku = gson.fromJson(json, type);
         }
-        return sudokuInfo;
+        return sudoku;
     }
 
 }
