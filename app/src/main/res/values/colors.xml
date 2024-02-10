@@ -6,6 +6,6 @@
     <color name="background">@color/WiseriaPurple</color>
 
     <color name="WiseriaPurple">#C6AEC7</color>
-    <color name="line_text">#C6AEC7</color>
+    <color name="line_text">#032C28</color>
 
 </resources>

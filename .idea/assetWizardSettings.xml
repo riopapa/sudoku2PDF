@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../../zAndroid_SDK/icons/material/materialiconssharp/grid_on/sharp_grid_on_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../zAndroid_SDK/icons/material/materialicons/delete/baseline_delete_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="44ff33" />
-                            <entry key="outputName" value="mesh_on" />
+                            <entry key="color" value="00ffff" />
+                            <entry key="outputName" value="baseline_delete_24" />
                             <entry key="sourceFile" value="D:\@ANDROID\sudoku2PDF" />
                           </map>
                         </option>

@@ -13,27 +13,28 @@ import androidx.core.content.res.ResourcesCompat;
 
 import com.riopapa.sudoku2pdf.Model.Sudoku;
 
+import org.w3c.dom.Text;
+
 import java.util.Locale;
 
 class MakeSudoku {
 
     private String [] blankTables;
     private String [] answerTables;
-    private int pageCount, blankCount;
-    private Sudoku sudoku;
-    private TextView tvStatus;
-    private ProgressBar progressBar;
+    private int quizCount, blankCount;
+    private Sudoku su;
+    TextView tvStatus;
+    ProgressBar progressBar;
+    Drawable drawable;
 
-    public void make(Sudoku sudoku, Context context, Activity activity) {
-        this.sudoku = sudoku;
-        pageCount = sudoku.quiz;
+    public void make(Sudoku sudoku, Context context, Activity activity,
+                     TextView tvStat, ProgressBar progress, Drawable draw) {
+        this.su = sudoku;
+        quizCount = sudoku.quiz;
         blankCount = sudoku.blank;
-
-        tvStatus = activity.findViewById(R.id.status);
-
-        Drawable drawable = ResourcesCompat.getDrawable(context.getResources(),
-                R.drawable.circle, null);
-        progressBar = activity.findViewById(R.id.progress_circle);
+        tvStatus = tvStat;
+        progressBar = progress;
+        drawable = draw;
         progressBar.setVisibility(View.VISIBLE);
         progressBar.setProgressDrawable(drawable);
 
@@ -52,8 +53,8 @@ class MakeSudoku {
         @Override
         protected void onPreExecute() {
 
-            blankTables = new String[pageCount];
-            answerTables = new String[pageCount];
+            blankTables = new String[quizCount];
+            answerTables = new String[quizCount];
             duration = System.currentTimeMillis();
 
             progressBar.setMax(100);
@@ -67,14 +68,14 @@ class MakeSudoku {
         protected String doInBackground(String... inputParams) {
             int madeCount = 0;
             int percentStart = 0;
-            int percentFinish = (madeCount + 1) * 100 / pageCount;
-            while (madeCount < pageCount) {
+            int percentFinish = (madeCount + 1) * 100 / quizCount;
+            while (madeCount < quizCount) {
                 // calculate degrees
                 percentStart++;
                 if (percentStart >= percentFinish)
-                    percentStart = (madeCount+1) * 100 / pageCount;
-                publishProgress(PROGRESS_PERCENT, ""+percentStart);
-                publishProgress(PROGRESS_COUNT, " " + madeCount + "/" + pageCount + " Done\n" + tryCount + " tries! ");
+                    percentStart = (madeCount+1) * 100 / quizCount;
+                publishProgress(PROGRESS_PERCENT, ""+((tryCount%100)*10));
+                publishProgress(PROGRESS_COUNT, " " + madeCount + "/" + quizCount + " Done\n" + tryCount + " tries! ");
 
                 tryCount++;
                 int[][] answerTable = new Answer().generate();
@@ -95,8 +96,8 @@ class MakeSudoku {
                     answerTables[madeCount] = suArray2Str(answerTable);
                     blankTables[madeCount] = suArray2Str(blankTable);
                     madeCount++;
-                    percentStart = (madeCount+1) * 100 / pageCount;
-                    percentFinish = (madeCount+1) * 100 / pageCount;
+                    percentStart = (madeCount+1) * 100 / quizCount;
+                    percentFinish = (madeCount+1) * 100 / quizCount;
                     publishProgress(PROGRESS_PERCENT, ""+percentStart);
                 }
             }
@@ -116,7 +117,6 @@ class MakeSudoku {
             return result.toString();
         }
 
-
         final static String PROGRESS_COUNT = "c";
         final static String PROGRESS_PERCENT = "p";
         @Override
@@ -130,7 +130,7 @@ class MakeSudoku {
                 case PROGRESS_PERCENT:
                     int progress = Integer.parseInt(values[1]);
                     progressBar.setProgress(progress);
-                    progressBar.setSecondaryProgress(100);
+                    progressBar.setSecondaryProgress(0);
                     break;
             }
         }
@@ -148,7 +148,7 @@ class MakeSudoku {
             tvStatus.setText(statistics);
             tvStatus.invalidate();
 
-            MakePDF.create(blankTables, answerTables, sudoku, tvStatus.getContext());
+            MakePDF.create(blankTables, answerTables, su, tvStatus.getContext());
         }
     }
 }

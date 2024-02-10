@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     public static Activity mActivity;
     public static ArrayList<Sudoku> sudokus;
     public static int onePos;
+    RecyclerView oneRecyclerView;
+    public static OneAdapter oneAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
         mActivity = this;
         new SharedSudoku().get(mContext);   // read sudokus
 
-        RecyclerView appRecyclerView = findViewById(R.id.one_list);
-        OneAdapter oneAdapter = new OneAdapter();
-        appRecyclerView.setAdapter(oneAdapter);
+        oneAdapter = new OneAdapter();
+        oneRecyclerView = findViewById(R.id.one_list);
+        oneRecyclerView.setAdapter(oneAdapter);
     }
 
     @Override
@@ -60,6 +62,18 @@ public class MainActivity extends AppCompatActivity {
 
         int menuItem = item.getItemId();
         if (menuItem == R.id.add_new) {
+            Sudoku su = new Sudoku();
+            su.name = "새로운 분";
+            su.blank = 24;
+            su.opacity = 255;
+            su.mesh = 0;
+            su.quiz = 6;
+            su.answer = false;
+            su.nbrPage = 2;
+            sudokus.add(su);
+            mActivity.runOnUiThread(() -> {
+                oneAdapter.notifyDataSetChanged();
+            });
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -1,6 +1,7 @@
 package com.riopapa.sudoku2pdf;
 
 
+import static com.riopapa.sudoku2pdf.MainActivity.oneAdapter;
 import static com.riopapa.sudoku2pdf.MainActivity.onePos;
 import static com.riopapa.sudoku2pdf.MainActivity.sudokus;
 
@@ -8,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +18,8 @@ import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -24,6 +28,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.riopapa.sudoku2pdf.Model.Sudoku;
@@ -40,7 +45,7 @@ public class ActivityOneEdit extends AppCompatActivity {
     final static int MINIMUM_PAGE = 4, MAXIMUM_PAGE = 20;
     ImageButton btnMesh;
     TextView tv23;
-    EditText eOpacity;    // 255 : real black
+    EditText eOpacity, eName;    // 255 : real black
     Sudoku su;
 
     @SuppressLint("SetTextI18n")
@@ -49,8 +54,8 @@ public class ActivityOneEdit extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (!Environment.isExternalStorageManager()){
                 Intent intent = new Intent();
@@ -63,11 +68,11 @@ public class ActivityOneEdit extends AppCompatActivity {
         su = sudokus.get(onePos);
         btnMesh = findViewById(R.id.mesh);
         btnMesh.setOnClickListener(view -> {
-            su.meshType = (su.meshType+1) % 3;
-            showMesh(su.meshType);
+            su.mesh = (su.mesh +1) % 3;
+            showMesh(su.mesh);
             sudokus.set(onePos, su);
         });
-        showMesh(su.meshType);
+        showMesh(su.mesh);
 
         eOpacity = findViewById(R.id.opacity);
         eOpacity.setText(String.valueOf(su.opacity));
@@ -88,6 +93,25 @@ public class ActivityOneEdit extends AppCompatActivity {
             }
         });
 
+        eName = findViewById(R.id.name);
+        eName.setText(String.valueOf(su.name));
+        eName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if (s.length() > 0) {
+                    su.name = s.toString();
+                    sudokus.set(onePos, su);
+                }
+            }
+        });
+
         tv23 = findViewById(R.id.two_three);
         tv23.setOnClickListener(view -> {
             su.nbrPage = (su.nbrPage == 2) ? 3:2;
@@ -98,7 +122,8 @@ public class ActivityOneEdit extends AppCompatActivity {
 
         SwitchCompat makeAnswer = findViewById(R.id.makeAnswer);
         makeAnswer.setChecked(su.answer);
-        makeAnswer.setOnCheckedChangeListener((compoundButton, b) -> su.answer = b);
+        makeAnswer.setOnCheckedChangeListener((compoundButton, b) ->
+            {su.answer = b; sudokus.set(onePos, su);});
         ImageButton generate = findViewById(R.id.generate);
         generate.setOnClickListener(new View.OnClickListener() {
             boolean isRunning = false;
@@ -106,12 +131,16 @@ public class ActivityOneEdit extends AppCompatActivity {
             public void onClick(View view) {
                 if (!isRunning) {
                     isRunning = true;
-                    su.opacity = Integer.parseInt(eOpacity.getText().toString());
                     sudokus.set(onePos, su);
-                    new ParamsShare().put(mContext);
+                    new SharedSudoku().put(getApplicationContext());
                     Snackbar.make(view, "Starting generation", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                    new MakeSudoku().make(su, mContext, mActivity);
+
+                    new MakeSudoku().make(su, mContext, mActivity,
+                            findViewById(R.id.status),
+                            findViewById(R.id.progress_circle),
+                            ResourcesCompat.getDrawable(getResources(), R.drawable.circle, null)
+                    );
                     isRunning = false;
                 }
             }
@@ -144,7 +173,7 @@ public class ActivityOneEdit extends AppCompatActivity {
 
         final WheelView<String> wheelView = findViewById(R.id.wheel_blanks);
         wheelView.setOnItemSelectedListener((wheelView1, data, position) -> {
-                Log.w("setOnItemSelectedListener", "setOnItemSelectedListener: data=" + data + ",position=" + position);
+//                Log.w("setOnItemSelectedListener", "setOnItemSelectedListener: data=" + data + ",position=" + position);
                 su.blank = Integer.parseInt(blankList.get(position));
         });
 
@@ -170,11 +199,32 @@ public class ActivityOneEdit extends AppCompatActivity {
         wheelView.setPlayVolume(0.1f);
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_edit, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int menuItem = item.getItemId();
+        if (menuItem == R.id.delete) {
+            sudokus.remove(onePos);
+            new SharedSudoku().put(getApplicationContext());
+            oneAdapter.notifyItemRemoved(onePos);
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     public void onBackPressed() {
+        new SharedSudoku().put(getApplicationContext());
+        oneAdapter.notifyItemChanged(onePos);
         super.onBackPressed();
-        finishAffinity();
-        System.exit(0);
-        android.os.Process.killProcess(android.os.Process.myPid());
     }
 }

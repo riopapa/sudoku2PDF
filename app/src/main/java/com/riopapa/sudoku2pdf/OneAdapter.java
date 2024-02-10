@@ -29,9 +29,8 @@ public class OneAdapter extends RecyclerView.Adapter<OneAdapter.ViewHolder> {
 
         Context context;
         View tLine;
-        TextView tName, tBlank, tQuiz, tOpacity, tNbrPage;
+        TextView tName, tBlank, tQuiz, tOpacity, tAnswer,tNbrPage;
         ImageView iMesh;
-        SwitchCompat tAnswer;
 
         ViewHolder(final View itemView) {
             super(itemView);
@@ -41,9 +40,9 @@ public class OneAdapter extends RecyclerView.Adapter<OneAdapter.ViewHolder> {
             tBlank = itemView.findViewById(R.id.one_blank);
             tQuiz = itemView.findViewById(R.id.one_quiz);
             tOpacity = itemView.findViewById(R.id.one_opacity);
-            tNbrPage = itemView.findViewById(R.id.one_nbr_page);
             iMesh = itemView.findViewById(R.id.one_mesh);
             tAnswer = itemView.findViewById(R.id.one_answer);
+            tNbrPage = itemView.findViewById(R.id.one_nbr_page);
         }
     }
 
@@ -57,14 +56,15 @@ public class OneAdapter extends RecyclerView.Adapter<OneAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-        onePos = holder.getAdapterPosition();
-        Sudoku su = sudokus.get(onePos);
+        Sudoku su = sudokus.get(position);
         holder.tName.setText(su.name);
         holder.tBlank.setText(String.valueOf(su.blank));
         holder.tQuiz.setText(String.valueOf(su.quiz));
+        holder.tAnswer.setText((su.answer) ? "Yes" : "No");
+        holder.tOpacity.setText(String.valueOf(su.opacity));
+        holder.iMesh.setImageResource((su.mesh == 0) ? R.drawable.mesh0_off :
+                            (su.mesh == 1) ? R.drawable.mesh1_top : R.drawable.mesh2_on);
         holder.tNbrPage.setText(String.valueOf(su.nbrPage));
-        holder.tAnswer.setChecked(su.answer);
-
         holder.tLine.setOnClickListener(v -> {
             onePos = holder.getAdapterPosition();
             Intent intent = new Intent(holder.context, ActivityOneEdit.class);

@@ -35,7 +35,7 @@ public class ParamsShare {
             sudoku.blank = 13;
             sudoku.quiz = 4;
             sudoku.nbrPage = 2;
-            sudoku.meshType = 1;
+            sudoku.mesh = 1;
             sudoku.answer = false;
             sudoku.opacity = 200;
         } else {

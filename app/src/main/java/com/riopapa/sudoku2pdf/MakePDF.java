@@ -24,7 +24,7 @@ import java.util.Locale;
 class MakePDF {
 
     static String downLoadFolder;
-    static File outFile;
+    static File outFolder, outFile;
     static String fileDate, fileInfo;
     static Bitmap sigMap;
     static Paint pRect, pRectO, pDotted, pNumb, pMemo, pSig;
@@ -37,11 +37,14 @@ class MakePDF {
         final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
         fileDate = sdfDate.format(System.currentTimeMillis());
         fileInfo = "b"+su.blank +"p"+su.quiz;
-        outFile = new File(downLoadFolder, "/sudoku/"+fileDate+" "+fileInfo);
+        outFolder = new File(downLoadFolder, "sudoku");
+        if (!outFolder.exists())
+            outFolder.mkdirs();
+        outFile = new File(outFolder, fileDate + " " + fileInfo + " " + su.name);
         sigMap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.my_sign_blured);
         sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 6,
                 sigMap.getHeight() / 6, false);
-        int meshType = su.meshType;
+        int meshType = su.mesh;
         int twoThree = su.nbrPage;
         int boxWidth = (twoThree == 2) ? pgHeight / (11*2) : pgHeight / (11*3);
         int boxWidth3 = boxWidth / 3;

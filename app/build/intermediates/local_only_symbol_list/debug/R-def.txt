@@ -36,6 +36,7 @@ dimen fab_margin
 dimen line_text
 drawable add_new
 drawable circle
+drawable delete
 drawable mesh0_off
 drawable mesh1_top
 drawable mesh2_on
@@ -44,16 +45,17 @@ font radioland_regular
 font wyjov
 id add_new
 id appBar
-id appName
 id blankCount
 id center
+id delete
 id fill
 id frmCase1
+id frmCase2
 id generate
 id horizontal_line
 id left
 id llAnswer
-id llDarkness
+id llOpacity
 id llTwoThree
 id makeAnswer
 id mesh
@@ -74,7 +76,6 @@ id quizCount
 id right
 id status
 id t_name
-id toolbar
 id two_three
 id wheel_blanks
 id wheel_quiz
@@ -82,6 +83,7 @@ id wrap
 layout activity_main
 layout activity_one
 layout one_line
+menu menu_edit
 menu menu_main
 mipmap icon_sudoku2pdf
 mipmap my_sign_blued

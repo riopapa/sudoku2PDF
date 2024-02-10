@@ -6,28 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".ActivityOneEdit">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/AppTheme.PopupOverlay">
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        android:id="@+id/toolbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?attr/actionBarSize"-->
+<!--        android:background="?attr/colorPrimary"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:popupTheme="@style/AppTheme.PopupOverlay">-->
 
-        <TextView
-            android:id="@+id/appName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="수도쿠 만들기 by 하원철"
-            />
+<!--        <TextView-->
+<!--            android:id="@+id/appName"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="수도쿠 만들기 by 하원철"-->
+<!--            />-->
 
-    </androidx.appcompat.widget.Toolbar>
+<!--    </androidx.appcompat.widget.Toolbar>-->
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:theme="@style/AppTheme.AppBarOverlay">
     </com.google.android.material.appbar.AppBarLayout>
@@ -41,11 +41,11 @@
         android:layout_gravity="center_horizontal"
         android:text="How many\nBlanks \?"
         android:textColor="@color/colorPrimary"
-        android:textSize="24sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/quizCount"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/quizCount"
@@ -55,11 +55,11 @@
         android:gravity="center_horizontal"
         android:text="How many\nQuiz \?"
         android:textColor="@color/colorPrimary"
-        android:textSize="24sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@id/blankCount"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/horizontal_line"
@@ -72,29 +72,14 @@
 
     <FrameLayout
         android:id="@+id/progress_frame"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintTop_toBottomOf="@id/horizontal_line"
         app:layout_constraintBottom_toTopOf="@id/frmCase1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         >
-
-        <ProgressBar
-            android:id="@+id/progress_circle"
-            android:visibility="invisible"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:indeterminate="false"
-            android:max="100"
-            android:progress="40"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:progressDrawable="@drawable/circle"
-            app:layout_constraintTop_toBottomOf="@id/horizontal_line"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
 
         <TextView
             android:id="@+id/center"
@@ -118,24 +103,40 @@
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
             android:layout_marginBottom="64dp"
-            app:layout_constraintTop_toTopOf="@id/center"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             />
 <!--        app:layout_constraintTop_toBottomOf="@id/horizontal_line"-->
 
     </FrameLayout>
 
-    <FrameLayout
+    <ProgressBar
+        android:id="@+id/progress_circle"
+        android:visibility="invisible"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="40"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:progressDrawable="@drawable/circle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <LinearLayout
         android:id="@+id/frmCase1"
         android:layout_width="0dp"
-        app:layout_constraintWidth_percent=".7"
+        android:layout_height = "60dp"
+        app:layout_constraintWidth_percent=".6"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_height = "wrap_content"
-        android:layout_margin="12dp"
         app:layout_constraintTop_toBottomOf="@id/progress_frame"
-        app:layout_constraintBottom_toTopOf="@id/llAnswer"
+        app:layout_constraintBottom_toTopOf="@id/frmCase2"
         >
         <TextView
             android:id = "@+id/t_name"
@@ -143,7 +144,7 @@
             android:layout_height = "wrap_content"
             android:layout_margin = "8sp"
             android:text = "Name\nGroup"
-            android:textSize = "14sp"
+            android:textSize = "12sp"
             android:textStyle = "bold"
             android:layout_gravity="left|center"
             />
@@ -159,112 +160,121 @@
             />
         <ImageButton
             android:id = "@+id/generate"
-            android:layout_width = "40dp"
-            android:layout_height = "40dp"
-            android:layout_margin = "8dp"
-            android:layout_gravity="right|center"
-            android:background = "@android:color/transparent"
+            android:layout_width = "60dp"
+            android:layout_height = "60dp"
+            android:layout_margin = "0dp"
             android:src = "@mipmap/icon_sudoku2pdf"
         />
-    </FrameLayout>
+    </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/llAnswer"
-        android:layout_width = "wrap_content"
-        android:layout_height = "wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
+        android:id="@+id/frmCase2"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginBottom="120dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@id/llDarkness"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/frmCase1"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal"
         >
-        <TextView
-            android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:text="With\nAnswer"
-            android:textSize="12sp"
-            android:textColor="#000"
-            />
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/makeAnswer"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/llAnswer"
+            android:layout_width = "0dp"
+            android:layout_weight="4"
+            android:layout_height = "match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
             android:layout_gravity="center"
-            android:gravity="left"
-            android:layout_height="wrap_content"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/llDarkness"
-        android:layout_width = "wrap_content"
-        android:layout_height = "wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintLeft_toRightOf="@id/llAnswer"
-        app:layout_constraintRight_toLeftOf="@id/mesh"
-        app:layout_constraintTop_toBottomOf="@id/frmCase1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        >
-        <TextView
-            android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:text="불투명도"
-            android:textSize="12sp"
-            android:textColor="#000"
-            />
-        <EditText
-            android:id="@+id/opacity"
-            android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:hint = "255"
-            android:text="200"
-            android:textSize="14sp"
-            android:textColor="@color/colorPrimary"
-            android:inputType="number"
-            android:autofillHints = "255"
-            />
+            android:layout_marginStart="24dp"
+            >
+            <TextView
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                android:text="Answer"
+                android:textSize="12sp"
+                android:textColor="#000"
+                />
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/makeAnswer"
+                android:layout_width = "32sp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                tools:ignore="UseSwitchCompatOrMaterialXml"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llOpacity"
+            android:layout_width = "0dp"
+            android:layout_weight="4"
+            android:layout_height = "match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            >
+            <TextView
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                android:gravity="center"
+                android:text="불투명도"
+                android:textSize="12sp"
+                android:textColor="#000"
+                />
+            <EditText
+                android:id="@+id/opacity"
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                android:gravity="center"
+                android:text="200"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"
+                android:inputType="number"
+                android:autofillHints = "255"
+                />
 
-    </LinearLayout>
+        </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/mesh"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/mesh2_on"
-        android:background="@android:color/transparent"
-        app:layout_constraintLeft_toRightOf="@id/llDarkness"
-        app:layout_constraintRight_toLeftOf="@id/llTwoThree"
-        app:layout_constraintTop_toBottomOf="@id/frmCase1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
-    <LinearLayout
-        android:id="@+id/llTwoThree"
-        android:layout_width = "wrap_content"
-        android:layout_height = "wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintStart_toEndOf="@id/mesh"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/frmCase1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        >
-        <TextView
-            android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:text="페이지당"
-            android:textSize="12sp"
-            android:textColor="#000"
-            />
-        <TextView
-            android:id="@+id/two_three"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <ImageButton
+            android:id="@+id/mesh"
+            android:layout_width = "0dp"
+            android:layout_weight="3"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="2/page"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:src="@drawable/mesh2_on"
+            android:background="@android:color/transparent"
             />
+        <LinearLayout
+            android:id="@+id/llTwoThree"
+            android:layout_width = "0dp"
+            android:layout_weight="4"
+            android:layout_height = "wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="페이지당"
+                android:textSize="12sp"
+                android:textColor="#000"
+                />
+            <TextView
+                android:id="@+id/two_three"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="2/page"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
 
     </LinearLayout>
 

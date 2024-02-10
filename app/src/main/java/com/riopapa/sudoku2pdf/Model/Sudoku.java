@@ -5,7 +5,7 @@ public class Sudoku {
     public int quiz;
     public int blank;
     public int nbrPage;
-    public int meshType;
+    public int mesh;
     public boolean answer;
     public int opacity;
 }

@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:background="#AAA"
     android:layout_margin="3dp"
     android:padding="3dp" >
-
 
     <TextView
         android:id="@+id/one_name"
@@ -22,7 +22,7 @@
     <TextView
         android:id="@+id/one_blank"
         android:layout_width="0dp"
-        android:layout_weight="4"
+        android:layout_weight="3"
         android:layout_height="wrap_content"
         android:text="15"
         android:gravity="right"
@@ -33,21 +33,23 @@
     <TextView
         android:id="@+id/one_quiz"
         android:layout_width="0dp"
-        android:layout_weight="4"
+        android:layout_weight="3"
         android:layout_height="wrap_content"
         android:text="15"
         android:gravity="right"
         android:textColor="@color/line_text"
         android:textSize="@dimen/line_text"
         />
-    <androidx.appcompat.widget.SwitchCompat
+
+    <TextView
         android:id="@+id/one_answer"
         android:layout_width="0dp"
         android:layout_weight="4"
-        android:layout_gravity="center"
-        android:gravity="left"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="Ans"
+        android:gravity="center"
+        android:textColor="@color/line_text"
+        android:textSize="@dimen/line_text"
         />
 
     <TextView
@@ -63,8 +65,10 @@
 
     <ImageView
         android:id="@+id/one_mesh"
-        android:layout_width="24dp"
+        android:layout_width="0dp"
+        android:layout_weight="4"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:src="@drawable/mesh2_on"
         android:background="@android:color/transparent"
         />
@@ -72,7 +76,7 @@
     <TextView
         android:id="@+id/one_nbr_page"
         android:layout_width="0dp"
-        android:layout_weight="4"
+        android:layout_weight="2"
         android:layout_height="wrap_content"
         android:text="6"
         android:gravity="right"

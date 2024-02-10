@@ -5,7 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="line_text">#C6AEC7</color>
+    <color name="line_text">#032C28</color>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="line_text">14sp</dimen>
     <string name="action_settings">Settings</string>
