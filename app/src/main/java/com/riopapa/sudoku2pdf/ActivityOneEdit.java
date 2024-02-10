@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -42,9 +43,9 @@ public class ActivityOneEdit extends AppCompatActivity {
     public Activity mActivity;
     List<String> blankList, pageList;
     final static int MINIMUM_BLANK = 12, MAXIMUM_BLANK = 55;
-    final static int MINIMUM_PAGE = 4, MAXIMUM_PAGE = 20;
+    final static int MINIMUM_PAGE = 4, MAXIMUM_PAGE = 40;
     ImageButton btnMesh;
-    TextView tv23;
+    TextView tv23, tStatus;
     EditText eOpacity, eName;    // 255 : real black
     Sudoku su;
 
@@ -78,7 +79,17 @@ public class ActivityOneEdit extends AppCompatActivity {
         eOpacity.setText(String.valueOf(su.opacity));
         eOpacity.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                int i = Integer.parseInt(s.toString());
+                if (i > 255 || i < 120) {
+                    tStatus.setText("120 과 255 사이의 값을 넣어 주세요");
+                } else {
+                    tStatus.setText("");
+                    su.opacity = i;
+                    sudokus.set(onePos, su);
+                }
+
+            }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -86,18 +97,6 @@ public class ActivityOneEdit extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                if (s.length() > 0) {
-                    su.opacity = Integer.parseInt(s.toString());
-                    if (su.opacity > 255) {
-                        su.opacity = 255;
-                        eOpacity.setText("255");
-                    }
-                    if (su.opacity < 120) {
-                        su.opacity = 120;
-                        eOpacity.setText("120");
-                    }
-                    sudokus.set(onePos, su);
-                }
             }
         });
 
@@ -127,6 +126,8 @@ public class ActivityOneEdit extends AppCompatActivity {
             sudokus.set(onePos, su);
         });
         tv23.setText(su.nbrPage +" qz");
+
+        tStatus = findViewById(R.id.status);
 
         SwitchCompat makeAnswer = findViewById(R.id.makeAnswer);
         makeAnswer.setChecked(su.answer);

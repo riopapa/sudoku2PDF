@@ -190,12 +190,22 @@ class MakePDF {
         pMemo.setTextSize(boxWidth/2f);  // pMemo : given number
         pMemo.setColor(Color.DKGRAY);
         pMemo.setAlpha(su.opacity);
-
+        int pageNbr = 0;
         for (int nbrQz = 0; nbrQz < answerTables.length; nbrQz++) {
+            if (nbrQz != 0 && nbrQz > 19 && pageNbr == 0) {
+                pageNbr++;
+                addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, false);
+                document.finishPage(page);
+                pageInfo = new PdfDocument.PageInfo.Builder(pgWidth, pgHeight, pageNbr).create();
+                // start a page
+                page = document.startPage(pageInfo);
+                canvas = page.getCanvas();
+            }
+
             int [][] ansTable = str2suArray(answerTables[nbrQz]);
             int [][] blankTable = str2suArray(blankTables[nbrQz]);
             int xBase = space +20 + (nbrQz % 4) * boxWidth * 95 / 10;
-            int yBase = space + (nbrQz / 4) * boxWidth * 11;
+            int yBase = space + ((nbrQz > 19) ? nbrQz-20 : nbrQz) / 4 * boxWidth * 11;
             int xGap = boxWidth/2;
             int yGap = boxWidth*3/4;
             for (int row = 0; row < 9; row++) {

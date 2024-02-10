@@ -6,23 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ActivityOneEdit">
 
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/toolbar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="?attr/actionBarSize"-->
-<!--        android:background="?attr/colorPrimary"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:popupTheme="@style/AppTheme.PopupOverlay">-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/appName"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="수도쿠 만들기 by 하원철"-->
-<!--            />-->
-
-<!--    </androidx.appcompat.widget.Toolbar>-->
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
@@ -62,55 +45,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/horizontal_line"
+        android:id="@+id/status"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_margin="4dp"
-        app:layout_constraintTop_toBottomOf="@id/wheel_quiz"
-        app:layout_constraintBottom_toTopOf="@id/progress_frame"
-        />
-
-    <FrameLayout
-        android:id="@+id/progress_frame"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_line"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/progress_circle"
         app:layout_constraintBottom_toTopOf="@id/frmCase1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        >
-
-        <TextView
-            android:id="@+id/center"
-            android:layout_width = "wrap_content"
-            android:layout_height = "wrap_content"
-            android:text=""
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="invisible"
-            android:gravity="center"
-            android:text="status"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp"
-            android:layout_marginBottom="64dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-<!--        app:layout_constraintTop_toBottomOf="@id/horizontal_line"-->
-
-    </FrameLayout>
+        android:layout_marginBottom="16sp"
+        />
 
     <ProgressBar
         android:id="@+id/progress_circle"
@@ -134,7 +81,7 @@
         android:layout_height = "60dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/progress_frame"
+        app:layout_constraintTop_toBottomOf="@id/status"
         app:layout_constraintBottom_toTopOf="@id/frmCase2"
         >
         <LinearLayout
@@ -150,8 +97,8 @@
                 android:layout_width = "match_parent"
                 android:layout_height = "wrap_content"
                 android:text = "이름 / 그룹"
+                android:textColor="#000"
                 android:textSize = "12sp"
-                android:textStyle = "bold"
                 android:gravity="center"
                 />
             <EditText
@@ -200,11 +147,11 @@
             android:id = "@+id/generate"
             android:layout_width = "0dp"
             android:layout_weight="6"
-            android:layout_height = "60dp"
+            android:layout_height = "50dp"
             android:layout_margin = "0dp"
             android:layout_gravity="left"
             android:background="#0FFF"
-            android:src = "@drawable/generate"
+            android:src = "@drawable/make_pdf"
         />
     </LinearLayout>
 

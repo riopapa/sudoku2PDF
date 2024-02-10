@@ -38,6 +38,7 @@ drawable add_new
 drawable circle
 drawable delete
 drawable generate
+drawable make_pdf
 drawable mesh0_off
 drawable mesh1_top
 drawable mesh2_on
@@ -53,7 +54,6 @@ id fill
 id frmCase1
 id frmCase2
 id generate
-id horizontal_line
 id left
 id llAnswer
 id llName
@@ -73,7 +73,6 @@ id one_opacity
 id one_quiz
 id opacity
 id progress_circle
-id progress_frame
 id quizCount
 id right
 id status

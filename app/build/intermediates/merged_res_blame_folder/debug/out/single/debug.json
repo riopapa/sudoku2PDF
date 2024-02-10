@@ -80,6 +80,10 @@
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-main-30:\\mipmap-xxhdpi\\my_sign_yellow.png"
     },
     {
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-merged_res-28:\\drawable_make_pdf.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\make_pdf.xml"
+    },
+    {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-merged_res-28:\\drawable_add_new.xml.flat",
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\add_new.xml"
     },

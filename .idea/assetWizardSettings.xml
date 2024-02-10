@@ -28,9 +28,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="478c44" />
-                            <entry key="outputName" value="baseline_assignment_24" />
-                            <entry key="sourceFile" value="D:\@ANDROID\sudoku2PDF" />
+                            <entry key="outputName" value="doc_download" />
+                            <entry key="sourceFile" value="D:\DownloadsD\doc_download.svg" />
                           </map>
                         </option>
                       </PersistentState>
