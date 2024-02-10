@@ -37,6 +37,7 @@ dimen line_text
 drawable add_new
 drawable circle
 drawable delete
+drawable generate
 drawable mesh0_off
 drawable mesh1_top
 drawable mesh2_on
@@ -55,6 +56,7 @@ id generate
 id horizontal_line
 id left
 id llAnswer
+id llName
 id llOpacity
 id llTwoThree
 id makeAnswer

@@ -132,78 +132,41 @@
         android:id="@+id/frmCase1"
         android:layout_width="0dp"
         android:layout_height = "60dp"
-        app:layout_constraintWidth_percent=".6"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/progress_frame"
         app:layout_constraintBottom_toTopOf="@id/frmCase2"
         >
-        <TextView
-            android:id = "@+id/t_name"
-            android:layout_width="wrap_content"
-            android:layout_height = "wrap_content"
-            android:layout_margin = "8sp"
-            android:text = "Name\nGroup"
-            android:textSize = "12sp"
-            android:textStyle = "bold"
-            android:layout_gravity="left|center"
-            />
-        <EditText
-            android:id="@+id/name"
-            android:layout_width = "100sp"
-            android:layout_height = "wrap_content"
-            android:text="그룹/팀명"
-            android:textSize="14sp"
-            android:layout_gravity="center"
-            android:textColor="@color/colorPrimary"
-            android:inputType="text"
-            />
-        <ImageButton
-            android:id = "@+id/generate"
-            android:layout_width = "60dp"
-            android:layout_height = "60dp"
-            android:layout_margin = "0dp"
-            android:src = "@mipmap/icon_sudoku2pdf"
-        />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/frmCase2"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginBottom="120dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/frmCase1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:orientation="horizontal"
-        >
         <LinearLayout
-            android:id="@+id/llAnswer"
+            android:id="@+id/llName"
             android:layout_width = "0dp"
-            android:layout_weight="4"
+            android:layout_weight="9"
             android:layout_height = "match_parent"
             android:orientation="vertical"
-            android:gravity="center"
             android:layout_gravity="center"
-            android:layout_marginStart="24dp"
             >
             <TextView
+                android:id = "@+id/t_name"
                 android:layout_width = "match_parent"
                 android:layout_height = "wrap_content"
-                android:text="Answer"
-                android:textSize="12sp"
+                android:text = "이름 / 그룹"
                 android:textColor="#000"
-                />
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/makeAnswer"
-                android:layout_width = "32sp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:textSize = "12sp"
                 android:gravity="center"
-                tools:ignore="UseSwitchCompatOrMaterialXml"
+                />
+            <EditText
+                android:id="@+id/name"
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                android:text="그룹/팀명"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"
+                android:inputType="text"
+                android:autofillHints = "이름을 넣으세요"
+                android:gravity="center"
                 />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/llOpacity"
             android:layout_width = "0dp"
@@ -224,14 +187,63 @@
                 android:id="@+id/opacity"
                 android:layout_width = "match_parent"
                 android:layout_height = "wrap_content"
-                android:gravity="center"
                 android:text="200"
                 android:textSize="14sp"
                 android:textColor="@color/colorPrimary"
                 android:inputType="number"
                 android:autofillHints = "255"
+                android:gravity="center"
                 />
 
+        </LinearLayout>
+        <ImageButton
+            android:id = "@+id/generate"
+            android:layout_width = "0dp"
+            android:layout_weight="6"
+            android:layout_height = "60dp"
+            android:layout_margin = "0dp"
+            android:layout_gravity="left"
+            android:background="#0FFF"
+            android:src = "@drawable/generate"
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/frmCase2"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginBottom="120dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frmCase1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal"
+        >
+        <LinearLayout
+            android:id="@+id/llAnswer"
+            android:layout_width = "0dp"
+            android:layout_weight="3"
+            android:layout_height = "match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginStart="24dp"
+            >
+            <TextView
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                android:text="Answer"
+                android:textSize="12sp"
+                android:textColor="#000"
+                />
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/makeAnswer"
+                android:layout_width = "48sp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:gravity="left"
+                tools:ignore="UseSwitchCompatOrMaterialXml"
+                />
         </LinearLayout>
 
         <ImageButton

@@ -2949,6 +2949,7 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable generate
 drawable ic_arrow_back_black_24
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
@@ -3288,6 +3289,7 @@ id linear
 id listMode
 id list_item
 id llAnswer
+id llName
 id llOpacity
 id llTwoThree
 id m3_side_sheet

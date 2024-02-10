@@ -88,6 +88,14 @@ public class ActivityOneEdit extends AppCompatActivity {
                                       int before, int count) {
                 if (s.length() > 0) {
                     su.opacity = Integer.parseInt(s.toString());
+                    if (su.opacity > 255) {
+                        su.opacity = 255;
+                        eOpacity.setText("255");
+                    }
+                    if (su.opacity < 120) {
+                        su.opacity = 120;
+                        eOpacity.setText("120");
+                    }
                     sudokus.set(onePos, su);
                 }
             }
@@ -151,7 +159,7 @@ public class ActivityOneEdit extends AppCompatActivity {
             blankList.add(String.valueOf(level));
         }
         pageList = new ArrayList<>();
-        for (int page = MINIMUM_PAGE; page <= MAXIMUM_PAGE; page += 2) {
+        for (int page = MINIMUM_PAGE; page <= MAXIMUM_PAGE; page++) {
             pageList.add(String.valueOf(page));
         }
 
@@ -193,7 +201,7 @@ public class ActivityOneEdit extends AppCompatActivity {
         });
 
         wheelView.setData(pageList);
-        wheelView.setSelectedItemPosition((su.quiz - MINIMUM_PAGE)/2, true);
+        wheelView.setSelectedItemPosition((su.quiz - MINIMUM_PAGE), true);
         wheelView.setSoundEffect(true);
         wheelView.setSoundEffectResource(R.raw.page_count);
         wheelView.setPlayVolume(0.1f);
