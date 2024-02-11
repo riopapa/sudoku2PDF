@@ -9,7 +9,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,18 +16,15 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -45,7 +41,7 @@ public class ActivityOneEdit extends AppCompatActivity {
     final static int MINIMUM_BLANK = 12, MAXIMUM_BLANK = 55;
     final static int MINIMUM_PAGE = 4, MAXIMUM_PAGE = 40;
     ImageButton btnMesh;
-    TextView tv23, tStatus;
+    TextView tv2or6, tMessage;
     EditText eOpacity, eName;    // 255 : real black
     Sudoku su;
 
@@ -82,9 +78,9 @@ public class ActivityOneEdit extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 int i = Integer.parseInt(s.toString());
                 if (i > 255 || i < 120) {
-                    tStatus.setText("120 과 255 사이의 값을 넣어 주세요");
+                    tMessage.setText("120 과 255 사이의 값을 넣어 주세요");
                 } else {
-                    tStatus.setText("");
+                    tMessage.setText("");
                     su.opacity = i;
                     sudokus.set(onePos, su);
                 }
@@ -119,15 +115,15 @@ public class ActivityOneEdit extends AppCompatActivity {
             }
         });
 
-        tv23 = findViewById(R.id.two_three);
-        tv23.setOnClickListener(view -> {
-            su.nbrPage = (su.nbrPage == 2) ? 3:2;
-            tv23.setText(su.nbrPage +" qz");
+        tv2or6 = findViewById(R.id.two_six);
+        tv2or6.setOnClickListener(view -> {
+            su.nbrPage = (su.nbrPage == 2) ? 6:2;
+            tv2or6.setText(su.nbrPage +" qz");
             sudokus.set(onePos, su);
         });
-        tv23.setText(su.nbrPage +" qz");
+        tv2or6.setText(su.nbrPage +" qz");
 
-        tStatus = findViewById(R.id.status);
+        tMessage = findViewById(R.id.message);
 
         SwitchCompat makeAnswer = findViewById(R.id.makeAnswer);
         makeAnswer.setChecked(su.answer);
@@ -146,7 +142,7 @@ public class ActivityOneEdit extends AppCompatActivity {
                             .setAction("Action", null).show();
 
                     new MakeSudoku().make(su, mContext, mActivity,
-                            findViewById(R.id.status),
+                            findViewById(R.id.message),
                             findViewById(R.id.progress_circle),
                             ResourcesCompat.getDrawable(getResources(), R.drawable.circle, null)
                     );

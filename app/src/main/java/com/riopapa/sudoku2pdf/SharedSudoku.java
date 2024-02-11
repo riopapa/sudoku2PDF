@@ -15,6 +15,7 @@ import java.util.List;
 public class SharedSudoku {
 
 
+    final String su ="sudoku";
     void initSudokus() {
 
         sudokus = new ArrayList<>();
@@ -25,27 +26,27 @@ public class SharedSudoku {
         su = new Sudoku(); su.name = "할만하네"; su.blank = 28; su.quiz = 6; su.mesh = 0;
         su.nbrPage = 2; su.opacity = 255; su.answer = true; sudokus.add(su);
 
-        su = new Sudoku(); su.name = "어렵군"; su.blank = 40; su.quiz = 4; su.mesh = 1;
-        su.nbrPage = 2; su.opacity = 255; su.answer = true; sudokus.add(su);
+        su = new Sudoku(); su.name = "어렵군"; su.blank = 40; su.quiz = 12; su.mesh = 1;
+        su.nbrPage = 6; su.opacity = 255; su.answer = true; sudokus.add(su);
 
-        su = new Sudoku(); su.name = "골치아프네"; su.blank = 50; su.quiz = 6; su.mesh = 2;
-        su.nbrPage = 3; su.opacity = 255; su.answer = true; sudokus.add(su);
+        su = new Sudoku(); su.name = "풀리긴 함"; su.blank = 50; su.quiz = 6; su.mesh = 2;
+        su.nbrPage = 6; su.opacity = 255; su.answer = true; sudokus.add(su);
 
     }
 
     public void put(Context context) {
-        SharedPreferences sharedPref = context.getSharedPreferences("sudoku", Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = context.getSharedPreferences(su, Context.MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor = sharedPref.edit();
         Gson gson = new Gson();
         String json = gson.toJson(sudokus);
-        prefsEditor.putString("sudoku", json);
+        prefsEditor.putString(su, json);
         prefsEditor.apply();
     }
 
     public void get(Context context) {
-        SharedPreferences sharedPref = context.getSharedPreferences("sudoku", Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = context.getSharedPreferences(su, Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPref.getString("sudoku", "");
+        String json = sharedPref.getString(su, "");
 
         if (json.isEmpty()) {
             initSudokus();

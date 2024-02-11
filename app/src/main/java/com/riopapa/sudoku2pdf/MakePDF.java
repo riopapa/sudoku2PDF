@@ -27,7 +27,7 @@ class MakePDF {
     static File outFolder, outFile;
     static String fileDate, fileInfo;
     static Bitmap sigMap;
-    static Paint pRect, pRectO, pDotted, pNumb, pMemo, pSig;
+    static Paint pBoxIn, pBoxOut, pDotted, pNumb, pMemo, pSig;
     static int pgWidth = 210*5, pgHeight = 297*5;  // A4 size
 
     static void create(String [] blankTables, String [] answerTables, Sudoku su,
@@ -39,38 +39,39 @@ class MakePDF {
         fileInfo = "b"+su.blank +"p"+su.quiz;
         outFolder = new File(downLoadFolder, "sudoku");
         if (!outFolder.exists())
-            outFolder.mkdirs();
+            if (outFolder.mkdirs())
+                Log.i("folder","Sudoku Folder");
         outFile = new File(outFolder, fileDate + " " + fileInfo + " " + su.name);
         sigMap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.my_sign_blured);
-        sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 6,
-                sigMap.getHeight() / 6, false);
+        sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 10,
+                sigMap.getHeight() / 10, false);
         int meshType = su.mesh;
-        int twoThree = su.nbrPage;
-        int boxWidth = (twoThree == 2) ? pgHeight / (11*2) : pgHeight / (11*3);
+        int twoSix = su.nbrPage;
+        int boxWidth = (twoSix == 2) ? pgHeight / (11*2) : pgHeight / (11*3);
         int boxWidth3 = boxWidth / 3;
-        int space = boxWidth*2/3;  // space = 2 : 24, 3:
+        int space = boxWidth*2/8;  // space = 2 : 24, 3:
         int pageNbr = 0;
-        Canvas canvas = null;
-        PdfDocument.Page page = null;
         PdfDocument document = new PdfDocument();
+        Canvas canvas;
+        PdfDocument.Page page;
 
-        pRect = new Paint();      // inner box    (quiz)
-        pRect.setColor(Color.BLUE);
-        pRect.setStyle(Paint.Style.STROKE);
-        pRect.setStrokeWidth(1);
-        pRect.setAlpha(su.opacity *3/4);
-        pRect.setPathEffect(new DashPathEffect(new float[] {2,3}, 0));
+        pBoxIn = new Paint();      // inner box    (quiz)
+        pBoxIn.setColor(Color.BLUE);
+        pBoxIn.setStyle(Paint.Style.STROKE);
+        pBoxIn.setStrokeWidth(2);
+        pBoxIn.setAlpha(su.opacity *3/4);
+        pBoxIn.setPathEffect(new DashPathEffect(new float[] {2,3}, 0));
 
-        pRectO = new Paint();     // outer box
-        pRectO.setColor(Color.BLACK);
-        pRectO.setStyle(Paint.Style.STROKE);
-        pRectO.setStrokeWidth(3);
-        pRectO.setAlpha(su.opacity);
+        pBoxOut = new Paint();     // outer box
+        pBoxOut.setColor(Color.BLACK);
+        pBoxOut.setStyle(Paint.Style.STROKE);
+        pBoxOut.setStrokeWidth(3);
+        pBoxOut.setAlpha(su.opacity);
 
         pDotted = new Paint();        // inner dotted box (answer)
         pDotted.setPathEffect(new DashPathEffect(new float[] {6, 3}, 0));
         pDotted.setColor(Color.BLUE);
-        pDotted.setStrokeWidth(1);
+        pDotted.setStrokeWidth(2);
         pDotted.setAlpha(su.opacity);
 
         pNumb = new Paint();        // number
@@ -97,30 +98,35 @@ class MakePDF {
         pSig.setStrokeWidth(0);
         pSig.setAlpha(su.opacity *3/4);
         pSig.setStyle(Paint.Style.FILL_AND_STROKE);
-        pSig.setTextSize(24);
+        pSig.setTextSize(12);
 
-        for (int idx = 0; idx < blankTables.length; idx++) {
-            int [][] xyTable = str2suArray(blankTables[idx]);
-            if (idx % twoThree == 0) {
-                if (idx != 0) {
-                    addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
-                    document.finishPage(page);
-                }
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(pgWidth, pgHeight, pageNbr).create();
+        page = document.startPage(pageInfo);
+        canvas = page.getCanvas();
+
+        for (int nbrQz = 0; nbrQz < blankTables.length; nbrQz++) {
+            if (nbrQz == 0)
+                addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
+            else if ((twoSix == 2 && nbrQz % 2 == 0) || (twoSix == 6 && nbrQz > 5 && nbrQz % 6 == 0)) {
                 pageNbr++;
-                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(pgWidth, pgHeight, pageNbr).create();
+                addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
+                document.finishPage(page);
+                pageInfo = new PdfDocument.PageInfo.Builder(pgWidth, pgHeight, pageNbr).create();
                 // start a page
                 page = document.startPage(pageInfo);
                 canvas = page.getCanvas();
             }
-            int xBase = boxWidth + 10;
-            int yBase = space + 10 + (idx % twoThree) * boxWidth * 11;
+
+            int [][] xyTable = str2suArray(blankTables[nbrQz]);
+            int xBase = boxWidth + ((twoSix == 2) ? 10 : 5) + ((twoSix == 2) ?  0 : (nbrQz % 6) % 2) * boxWidth * 10 ;
+            int yBase = space + boxWidth + ((twoSix == 2) ? nbrQz % 2: (nbrQz%6) / 2) * boxWidth * 11;
             int xGap = boxWidth/2;
             int yGap = boxWidth3+boxWidth3+boxWidth3/3;
             for (int row = 0; row < 9; row++) {
                 for (int col = 0; col < 9; col++) {
                     int xPos = xBase + col * boxWidth;
                     int yPos = yBase + row * boxWidth;
-                    canvas.drawRect(xPos, yPos, xPos + boxWidth, yPos + boxWidth, pRect);
+                    canvas.drawRect(xPos, yPos, xPos + boxWidth, yPos + boxWidth, pBoxIn);
                     if (xyTable[row][col] > 0) {
                         canvas.drawText(String.valueOf(xyTable[row][col]), xPos + xGap, yPos + yGap, pNumb);
                     } else if (meshType == 1){
@@ -145,15 +151,16 @@ class MakePDF {
                 for (int col = 0; col < 9; col+=3) {
                     int xPos = xBase + col * boxWidth;
                     int yPos = yBase + row * boxWidth;
-                    canvas.drawRect(xBase, yBase, xPos + boxWidth*3, yPos + boxWidth*3, pRectO);
+                    canvas.drawRect(xBase, yBase, xPos + boxWidth*3, yPos + boxWidth*3, pBoxOut);
                 }
-            canvas.drawText("{"+(idx+1)+"}", xBase + 64 + boxWidth*9, yBase, pMemo);
+            pMemo.setTextSize(pNumb.getTextSize()/2);
+            canvas.drawText("{"+(nbrQz+1)+"}", xBase + 20 + boxWidth*9, yBase, pMemo);
         }
         addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
 
         document.finishPage(page);
 
-        File filePath = new File(outFile+" Qz.pdf");
+        File filePath = new File(outFile+" 문제.pdf");
         try {
             document.writeTo(Files.newOutputStream(filePath.toPath()));
         } catch (IOException e) {
@@ -163,19 +170,19 @@ class MakePDF {
         document.close();
 
         if (su.answer)
-            makeAnswer(blankTables, answerTables, su, space);
+            makeAnswer(blankTables, answerTables, su);
 
-        new ShareFile().show(context, downLoadFolder+"/sudoku");
+        new ShareFile().show(context, outFolder.getAbsolutePath());
     }
 
+    //         Create Answer Page ------------
     private static void makeAnswer(String[] blankTables, String[] answerTables,
-                                   Sudoku su, int space) {
+                                   Sudoku su) {
         File filePath;
         PdfDocument.Page page;
         PdfDocument document;
         Canvas canvas;
         int boxWidth;
-        //         Create Answer Page ------------
 
         document = new PdfDocument();
 
@@ -184,7 +191,7 @@ class MakePDF {
         page = document.startPage(pageInfo);
         canvas = page.getCanvas();
 
-        boxWidth = (pgWidth - space) / 40;    // 4 answer for 1 line
+        boxWidth = (pgWidth - 30) / 40;    // 4 answer for 1 line
         pNumb.setTextSize(boxWidth/2.3f); // pNumb : answer number
         pNumb.setAlpha(su.opacity);
         pMemo.setTextSize(boxWidth/2f);  // pMemo : given number
@@ -192,7 +199,7 @@ class MakePDF {
         pMemo.setAlpha(su.opacity);
         int pageNbr = 0;
         for (int nbrQz = 0; nbrQz < answerTables.length; nbrQz++) {
-            if (nbrQz != 0 && nbrQz > 19 && pageNbr == 0) {
+            if (nbrQz > 19 && nbrQz % 20 == 0) {
                 pageNbr++;
                 addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, false);
                 document.finishPage(page);
@@ -204,27 +211,27 @@ class MakePDF {
 
             int [][] ansTable = str2suArray(answerTables[nbrQz]);
             int [][] blankTable = str2suArray(blankTables[nbrQz]);
-            int xBase = space +20 + (nbrQz % 4) * boxWidth * 95 / 10;
-            int yBase = space + ((nbrQz > 19) ? nbrQz-20 : nbrQz) / 4 * boxWidth * 11;
+            int xBase = 30 + (nbrQz % 4) * boxWidth * 95 / 10;
+            int yBase = 50 + ((nbrQz > 19) ? nbrQz-20 : nbrQz) / 4 * boxWidth * 11;
             int xGap = boxWidth/2;
             int yGap = boxWidth*3/4;
             for (int row = 0; row < 9; row++) {
                 for (int col = 0; col < 9; col++) {
                     int xPos = xBase + col * boxWidth;
                     int yPos = yBase + row * boxWidth;
-                    canvas.drawRect(xPos, yPos, xPos + boxWidth, yPos + boxWidth, pRect);
+                    canvas.drawRect(xPos, yPos, xPos + boxWidth, yPos + boxWidth, pBoxIn);
                     canvas.drawText(String.valueOf(ansTable[row][col]), xPos + xGap, yPos + yGap,
                             (blankTable[row][col] == 0)? pNumb : pMemo);
                 }
             }
             canvas.drawText("{"+(nbrQz+1)+"}", xBase + boxWidth, yBase - 8, pNumb);
 
-            pRectO.setStrokeWidth(pRectO.getStrokeWidth()/2);
+            pBoxOut.setStrokeWidth(pBoxOut.getStrokeWidth()/2);
             for (int row = 0; row < 9; row+=3)
                 for (int col = 0; col < 9; col+=3) {
                     int xPos = xBase + col * boxWidth;
                     int yPos = yBase + row * boxWidth;
-                    canvas.drawRect(xBase, yBase, xPos + boxWidth*3, yPos + boxWidth*3, pRectO);
+                    canvas.drawRect(xBase, yBase, xPos + boxWidth*3, yPos + boxWidth*3, pBoxOut);
                 }
         }
 
@@ -232,7 +239,7 @@ class MakePDF {
         document.finishPage(page);
 
         // write the document content
-        filePath = new File(outFile+"Ans.pdf");
+        filePath = new File(outFile+" 해답.pdf");
         try {
             document.writeTo(Files.newOutputStream(filePath.toPath()));
         } catch (IOException e) {
@@ -247,14 +254,14 @@ class MakePDF {
         int inc = (int) paint.getTextSize() * 4 / 3;
         int xPos;
         int yPos;
+        Paint p = new Paint();
         if (top) {
-            xPos = pgWidth - 40;
-            yPos = 40;
+            xPos = pgWidth - 20;
+            yPos = 50;
             canvas.drawText(fileDate.substring(0,8),xPos, yPos, paint);
             yPos += inc;
             canvas.drawText(fileDate.substring(9),xPos, yPos, paint);
             yPos += inc+paint.getTextSize()/2;
-            Paint p = new Paint();
             p.setColor(paint.getColor());
             p.setTextAlign(Paint.Align.RIGHT);
             p.setStyle(Paint.Style.STROKE);
@@ -268,11 +275,12 @@ class MakePDF {
         } else {
             xPos = pgWidth / 2;
             yPos = pgHeight - 50;
-            canvas.drawText(fileDate+fileInfo, xPos, yPos, paint);
+            canvas.drawText(fileDate+" "+fileInfo, xPos, yPos, paint);
             xPos += inc;
             yPos -= sigMap.getHeight()/2;
         }
-        canvas.drawBitmap(sigMap, xPos, yPos, paint);
+        p.setAlpha(paint.getAlpha()*3/4);
+        canvas.drawBitmap(sigMap, xPos, yPos, p);
     }
 
     static int [][] str2suArray(String str) {
