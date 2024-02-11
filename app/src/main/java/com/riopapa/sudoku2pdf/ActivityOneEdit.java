@@ -51,8 +51,6 @@ public class ActivityOneEdit extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one);
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (!Environment.isExternalStorageManager()){
                 Intent intent = new Intent();
@@ -193,9 +191,7 @@ public class ActivityOneEdit extends AppCompatActivity {
     private void buildPageWheel() {
 
         final WheelView<String> wheelView = findViewById(R.id.wheel_quiz);
-        wheelView.setOnItemSelectedListener((wheelView1, data, position) -> {
-            su.quiz = Integer.parseInt(data);
-        });
+        wheelView.setOnItemSelectedListener((wheelView1, data, position) -> su.quiz = Integer.parseInt(data));
 
         wheelView.setData(pageList);
         wheelView.setSelectedItemPosition((su.quiz - MINIMUM_PAGE), true);
