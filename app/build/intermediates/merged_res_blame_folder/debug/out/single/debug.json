@@ -8,20 +8,20 @@
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\mesh2_on.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-merged_res-28:\\menu_menu_main.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-main-30:\\menu\\menu_main.xml"
-    },
-    {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-merged_res-28:\\drawable_mesh0_off.xml.flat",
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\mesh0_off.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-merged_res-28:\\drawable_delete.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\delete.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-merged_res-28:\\menu_menu_main.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-main-30:\\menu\\menu_main.xml"
     },
     {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-merged_res-28:\\drawable_mesh1_top.xml.flat",
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\mesh1_top.xml"
+    },
+    {
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-merged_res-28:\\drawable_delete.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\delete.xml"
     },
     {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-merged_res-28:\\layout_activity_one.xml.flat",

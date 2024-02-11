@@ -61,6 +61,7 @@ id llOpacity
 id llTwoThree
 id makeAnswer
 id mesh
+id message
 id name
 id one_answer
 id one_blank
@@ -75,9 +76,8 @@ id opacity
 id progress_circle
 id quizCount
 id right
-id status
 id t_name
-id two_three
+id two_six
 id wheel_blanks
 id wheel_quiz
 id wrap

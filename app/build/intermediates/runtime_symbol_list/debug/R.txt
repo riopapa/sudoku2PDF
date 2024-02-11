@@ -3487,7 +3487,6 @@ int id startToEnd 0x7f0901b9
 int id startVertical 0x7f0901ba
 int id staticLayout 0x7f0901bb
 int id staticPostLayout 0x7f0901bc
-int id status 0x7f0901bd
 int id stop 0x7f0901be
 int id stretch 0x7f0901bf
 int id submenuarrow 0x7f0901c0
@@ -3540,7 +3539,7 @@ int id transition_position 0x7f0901ee
 int id transition_scene_layoutid_cache 0x7f0901ef
 int id transition_transform 0x7f0901f0
 int id triangle 0x7f0901f1
-int id two_three 0x7f0901f2
+int id two_six 0x7f09020c
 int id unchecked 0x7f0901f3
 int id uniform 0x7f0901f4
 int id unlabeled 0x7f0901f5

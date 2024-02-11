@@ -39,7 +39,7 @@ public class ActivityOneEdit extends AppCompatActivity {
     public Activity mActivity;
     List<String> blankList, pageList;
     final static int MINIMUM_BLANK = 12, MAXIMUM_BLANK = 55;
-    final static int MINIMUM_PAGE = 4, MAXIMUM_PAGE = 40;
+    final static int MINIMUM_PAGE = 4, MAXIMUM_PAGE = 60;
     ImageButton btnMesh;
     TextView tv2or6, tMessage;
     EditText eOpacity, eName;    // 255 : real black

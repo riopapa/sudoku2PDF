@@ -3488,7 +3488,6 @@ id startToEnd
 id startVertical
 id staticLayout
 id staticPostLayout
-id status
 id stop
 id stretch
 id submenuarrow
@@ -3541,7 +3540,7 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
-id two_three
+id two_six
 id unchecked
 id uniform
 id unlabeled
