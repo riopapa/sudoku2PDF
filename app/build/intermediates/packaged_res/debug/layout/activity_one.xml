@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:layout_gravity="center_horizontal"
-        android:text="How many\nBlanks \?"
+        android:text="빈칸 수"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
-        android:text="How many\nQuiz \?"
+        android:text="문제 수"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -179,7 +179,7 @@
             <TextView
                 android:layout_width = "match_parent"
                 android:layout_height = "wrap_content"
-                android:text="Answer"
+                android:text="답안지"
                 android:textSize="12sp"
                 android:textColor="#000"
                 />
@@ -229,7 +229,7 @@
                 android:gravity="center"
                 android:text="2/page"
                 android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 />
 

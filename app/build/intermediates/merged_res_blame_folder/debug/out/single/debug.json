@@ -16,10 +16,6 @@
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\mesh0_off.xml"
     },
     {
-        "merged": "com.riopapa.sudoku2pdf.app-merged_res-28:/layout_one_line.xml.flat",
-        "source": "com.riopapa.sudoku2pdf.app-main-30:/layout/one_line.xml"
-    },
-    {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-merged_res-28:\\drawable_delete.xml.flat",
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\delete.xml"
     },
@@ -30,6 +26,10 @@
     {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-merged_res-28:\\layout_activity_one.xml.flat",
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-main-30:\\layout\\activity_one.xml"
+    },
+    {
+        "merged": "com.riopapa.sudoku2pdf.app-merged_res-28:/layout_activity_one.xml.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-30:/layout/activity_one.xml"
     },
     {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-merged_res-28:\\anim_rotate.xml.flat",
@@ -82,10 +82,6 @@
     {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-merged_res-28:\\mipmap-xxhdpi_my_sign_yellow.png.flat",
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-main-30:\\mipmap-xxhdpi\\my_sign_yellow.png"
-    },
-    {
-        "merged": "com.riopapa.sudoku2pdf.app-merged_res-28:/drawable_border_folder.xml.flat",
-        "source": "com.riopapa.sudoku2pdf.app-main-30:/drawable/border_folder.xml"
     },
     {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.2\\com.riopapa.sudoku2pdf.app-merged_res-28:\\drawable_make_pdf.xml.flat",
