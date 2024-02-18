@@ -35,6 +35,7 @@ color line_text
 dimen fab_margin
 dimen line_text
 drawable add_new
+drawable border_folder
 drawable circle
 drawable delete
 drawable generate

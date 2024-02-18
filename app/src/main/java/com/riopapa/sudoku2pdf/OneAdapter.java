@@ -57,14 +57,14 @@ public class OneAdapter extends RecyclerView.Adapter<OneAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         Sudoku su = sudokus.get(position);
-        holder.tName.setText(su.name);
-        holder.tBlank.setText(String.valueOf(su.blank));
-        holder.tQuiz.setText(String.valueOf(su.quiz));
-        holder.tAnswer.setText((su.answer) ? "Yes" : "No");
-        holder.tOpacity.setText(String.valueOf(su.opacity));
+        holder.tName.setText("이름/그룹 : " + su.name);
+        holder.tBlank.setText("빈칸 수 : " + su.blank);
+        holder.tQuiz.setText("문제 수 : " + su.quiz);
+        holder.tAnswer.setText((su.answer) ? "답안지도 만듬" : "답안지 안 만듬");
+        holder.tOpacity.setText("인쇄 강도 : " + su.opacity);
         holder.iMesh.setImageResource((su.mesh == 0) ? R.drawable.mesh0_off :
                             (su.mesh == 1) ? R.drawable.mesh1_top : R.drawable.mesh2_on);
-        holder.tNbrPage.setText(String.valueOf(su.nbrPage));
+        holder.tNbrPage.setText("페이지당 인쇄 수 : " + su.nbrPage);
         holder.tLine.setOnClickListener(v -> {
             onePos = holder.getAdapterPosition();
             Intent intent = new Intent(holder.context, ActivityOneEdit.class);

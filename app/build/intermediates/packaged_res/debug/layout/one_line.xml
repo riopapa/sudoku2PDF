@@ -3,15 +3,14 @@
     android:id="@+id/one_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="#8C8"
+    android:orientation="vertical"
+    android:background="@drawable/border_folder"
     android:layout_margin="3dp"
     android:padding="3dp" >
 
     <TextView
         android:id="@+id/one_name"
-        android:layout_width="0dp"
-        android:layout_weight="8"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="이름/그룹"
@@ -21,30 +20,27 @@
 
     <TextView
         android:id="@+id/one_blank"
-        android:layout_width="0dp"
-        android:layout_weight="3"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="15"
-        android:gravity="right"
+        android:gravity="center"
         android:textColor="@color/line_text"
         android:textSize="@dimen/line_text"
         />
 
     <TextView
         android:id="@+id/one_quiz"
-        android:layout_width="0dp"
-        android:layout_weight="3"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="15"
-        android:gravity="right"
+        android:gravity="center"
         android:textColor="@color/line_text"
         android:textSize="@dimen/line_text"
         />
 
     <TextView
         android:id="@+id/one_answer"
-        android:layout_width="0dp"
-        android:layout_weight="4"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ans"
         android:gravity="center"
@@ -54,34 +50,31 @@
 
     <TextView
         android:id="@+id/one_opacity"
-        android:layout_width="0dp"
-        android:layout_weight="4"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="15"
-        android:gravity="right"
+        android:gravity="center"
+        android:textColor="@color/line_text"
+        android:textSize="@dimen/line_text"
+        />
+
+    <TextView
+        android:id="@+id/one_nbr_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="6"
+        android:gravity="center"
         android:textColor="@color/line_text"
         android:textSize="@dimen/line_text"
         />
 
     <ImageView
         android:id="@+id/one_mesh"
-        android:layout_width="0dp"
-        android:layout_weight="4"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:src="@drawable/mesh2_on"
         android:background="@android:color/transparent"
-        />
-
-    <TextView
-        android:id="@+id/one_nbr_page"
-        android:layout_width="0dp"
-        android:layout_weight="2"
-        android:layout_height="wrap_content"
-        android:text="6"
-        android:gravity="right"
-        android:textColor="@color/line_text"
-        android:textSize="@dimen/line_text"
         />
 
 </LinearLayout>
