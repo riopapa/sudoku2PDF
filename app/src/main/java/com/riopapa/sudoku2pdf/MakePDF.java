@@ -43,8 +43,8 @@ class MakePDF {
                 Log.i("folder","Sudoku Folder");
         outFile = new File(outFolder, fileDate + " " + fileInfo + " " + su.name);
         sigMap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.my_sign_blured);
-        sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 10,
-                sigMap.getHeight() / 10, false);
+        sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 8,
+                sigMap.getHeight() / 8, false);
         int meshType = su.mesh;
         int twoSix = su.nbrPage;
         int boxWidth = (twoSix == 2) ? pgHeight / (11*2) : pgHeight / (11*3);
@@ -98,7 +98,7 @@ class MakePDF {
         pSig.setStrokeWidth(0);
         pSig.setAlpha(su.opacity *3/4);
         pSig.setStyle(Paint.Style.FILL_AND_STROKE);
-        pSig.setTextSize(12);
+        pSig.setTextSize(18);
 
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(pgWidth, pgHeight, pageNbr).create();
         page = document.startPage(pageInfo);
@@ -251,24 +251,24 @@ class MakePDF {
 
     private static void addSignature(Sudoku su, Bitmap sigMap, int pgWidth, int pgHeight,
                                      Canvas canvas, Paint paint, boolean top) {
-        int inc = (int) paint.getTextSize() * 4 / 3;
         int xPos;
         int yPos;
         Paint p = new Paint();
+        p.setTextSize(paint.getTextSize() * 15 / ((su.nbrPage == 2) ? 10 : 15) );
+        p.setColor(paint.getColor());
+        p.setTextAlign(Paint.Align.RIGHT);
+        p.setStyle(Paint.Style.STROKE);
+        p.setStrokeWidth(0);
+        p.setStyle(Paint.Style.FILL_AND_STROKE);
+        int inc = (int) p.getTextSize() * 5 / 3;
         if (top) {
             xPos = pgWidth - 20;
             yPos = 50;
-            canvas.drawText(fileDate.substring(0,8),xPos, yPos, paint);
+            canvas.drawText(fileDate.substring(0,8),xPos, yPos, p);
             yPos += inc;
-            canvas.drawText(fileDate.substring(9),xPos, yPos, paint);
-            yPos += inc+paint.getTextSize()/2;
-            p.setColor(paint.getColor());
-            p.setTextAlign(Paint.Align.RIGHT);
-            p.setStyle(Paint.Style.STROKE);
-            p.setStrokeWidth(0);
-            p.setAlpha(paint.getAlpha());
-            p.setStyle(Paint.Style.FILL_AND_STROKE);
-            p.setTextSize(paint.getTextSize()*3/2);
+            canvas.drawText(fileDate.substring(9),xPos, yPos, p);
+            yPos += inc+inc/2;
+            p.setTextSize(p.getTextSize()*3/2);
             canvas.drawText("□"+su.blank,xPos, yPos, p);
             yPos += inc/2;
             xPos -= sigMap.getWidth();
