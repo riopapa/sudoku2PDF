@@ -6,6 +6,7 @@ import static com.riopapa.sudoku2pdf.MainActivity.sudokus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +61,7 @@ public class OneAdapter extends RecyclerView.Adapter<OneAdapter.ViewHolder> {
         holder.tName.setText("이름/그룹 : " + su.name);
         holder.tBlank.setText("빈칸 수 : " + su.blank);
         holder.tQuiz.setText("문제 수 : " + su.quiz);
-        holder.tAnswer.setText((su.answer) ? "답안지도 만듬" : "답안지 안 만듬");
+        holder.tAnswer.setText((su.answer) ? "답안지 만듬 \uD83D\uDDA8\uFE0F" : "답안지 안 만듬");
         holder.tOpacity.setText("인쇄 강도 : " + su.opacity);
         holder.iMesh.setImageResource((su.mesh == 0) ? R.drawable.mesh0_off :
                             (su.mesh == 1) ? R.drawable.mesh1_top : R.drawable.mesh2_on);

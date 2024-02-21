@@ -3,9 +3,10 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="background">@color/WiseriaPurple</color>
 
-    <color name="WiseriaPurple">#C6AEC7</color>
+    <color name="dotLine">#FF334480</color>
+    <color name="memoBox">#FF2324A0</color>
+
     <color name="line_text">#032C28</color>
 
 </resources>

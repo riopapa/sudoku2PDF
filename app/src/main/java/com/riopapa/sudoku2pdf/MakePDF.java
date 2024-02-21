@@ -1,5 +1,7 @@
 package com.riopapa.sudoku2pdf;
 
+import static com.riopapa.sudoku2pdf.MainActivity.mContext;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +13,7 @@ import android.graphics.pdf.PdfDocument;
 import android.os.Environment;
 import android.util.Log;
 
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.riopapa.sudoku2pdf.Model.Sudoku;
@@ -71,7 +74,7 @@ class MakePDF {
 
         pDotted = new Paint();        // inner dotted box (answer)
         pDotted.setPathEffect(new DashPathEffect(new float[] {6, 3}, 0));
-        pDotted.setColor(Color.BLUE);
+        pDotted.setColor(context.getColor(R.color.dotLine));
         pDotted.setStrokeWidth(2);
         pDotted.setAlpha(su.opacity);
 
@@ -85,7 +88,7 @@ class MakePDF {
         pNumb.setStyle(Paint.Style.FILL_AND_STROKE);
 
         pMemo = new Paint();
-        pMemo.setColor(Color.BLUE);
+        pMemo.setColor(context.getColor(R.color.memoBox));
         pMemo.setStyle(Paint.Style.STROKE);
         pMemo.setStrokeWidth(0);
         pMemo.setTextAlign(Paint.Align.CENTER);
@@ -119,8 +122,8 @@ class MakePDF {
             }
 
             int [][] xyTable = str2suArray(blankTables[nbrQz]);
-            int xBase = boxWidth + ((twoSix == 2) ? 10 : 5) + ((twoSix == 2) ?  0 : (nbrQz % 6) % 2) * boxWidth * 10 ;
-            int yBase = space + boxWidth + ((twoSix == 2) ? nbrQz % 2: (nbrQz%6) / 2) * boxWidth * 105 / 10;
+            int xBase = boxWidth3 + ((twoSix == 2) ? 10 : 5) + ((twoSix == 2) ?  0 : (nbrQz % 6) % 2) * boxWidth * 10 ;
+            int yBase = space + boxWidth3 + ((twoSix == 2) ? nbrQz % 2: (nbrQz%6) / 2) * boxWidth * 105 / 10;
             int xGap = boxWidth/2;
             int yGap = boxWidth3+boxWidth3+boxWidth3/3;
             for (int row = 0; row < 9; row++) {
@@ -183,7 +186,6 @@ class MakePDF {
         PdfDocument.Page page;
         PdfDocument document;
         Canvas canvas;
-        int boxWidth;
 
         document = new PdfDocument();
 
@@ -198,7 +200,7 @@ class MakePDF {
         pMemo.setTextSize(boxWidth/2f);  // pMemo : given number
         pMemo.setColor(Color.DKGRAY);
         pMemo.setAlpha(su.opacity);
-        int pageNbr = 0;
+        pageNbr = 0;
         for (int nbrQz = 0; nbrQz < answerTables.length; nbrQz++) {
             if (nbrQz > 19 && nbrQz % 20 == 0) {
                 pageNbr++;
