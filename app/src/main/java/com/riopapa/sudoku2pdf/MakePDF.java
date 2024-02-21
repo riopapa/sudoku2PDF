@@ -23,14 +23,15 @@ import java.util.Locale;
 
 class MakePDF {
 
-    static String downLoadFolder;
-    static File outFolder, outFile;
-    static String fileDate, fileInfo;
-    static Bitmap sigMap;
-    static Paint pBoxIn, pBoxOut, pDotted, pNumb, pMemo, pSig;
-    static int pgWidth = 210*5, pgHeight = 297*5;  // A4 size
+    String downLoadFolder;
+    File outFolder, outFile;
+    String fileDate, fileInfo;
+    Bitmap sigMap;
+    Paint pBoxIn, pBoxOut, pDotted, pNumb, pMemo, pSig;
+    int pgWidth = 210*5, pgHeight = 297*5;  // A4 size
+    int meshType, twoSix, boxWidth, boxWidth3, space, pageNbr;
 
-    static void create(String [] blankTables, String [] answerTables, Sudoku su,
+    void create(String [] blankTables, String [] answerTables, Sudoku su,
                        Context context) {
 
         downLoadFolder = Environment.getExternalStorageDirectory().getPath()+"/download";
@@ -45,12 +46,12 @@ class MakePDF {
         sigMap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.my_sign_blured);
         sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 8,
                 sigMap.getHeight() / 8, false);
-        int meshType = su.mesh;
-        int twoSix = su.nbrPage;
-        int boxWidth = (twoSix == 2) ? pgHeight / (11*2) : pgHeight / (11*3);
-        int boxWidth3 = boxWidth / 3;
-        int space = boxWidth*2/8;  // space = 2 : 24, 3:
-        int pageNbr = 0;
+        meshType = su.mesh;
+        twoSix = su.nbrPage;
+        boxWidth = pgHeight / ((twoSix == 2) ? (11*2-1) : (11*3-1));
+        boxWidth3 = boxWidth / 3;
+        space = boxWidth*2/8;  // space = 2 : 24, 3:
+        pageNbr = 0;
         PdfDocument document = new PdfDocument();
         Canvas canvas;
         PdfDocument.Page page;
@@ -119,7 +120,7 @@ class MakePDF {
 
             int [][] xyTable = str2suArray(blankTables[nbrQz]);
             int xBase = boxWidth + ((twoSix == 2) ? 10 : 5) + ((twoSix == 2) ?  0 : (nbrQz % 6) % 2) * boxWidth * 10 ;
-            int yBase = space + boxWidth + ((twoSix == 2) ? nbrQz % 2: (nbrQz%6) / 2) * boxWidth * 11;
+            int yBase = space + boxWidth + ((twoSix == 2) ? nbrQz % 2: (nbrQz%6) / 2) * boxWidth * 105 / 10;
             int xGap = boxWidth/2;
             int yGap = boxWidth3+boxWidth3+boxWidth3/3;
             for (int row = 0; row < 9; row++) {
@@ -176,7 +177,7 @@ class MakePDF {
     }
 
     //         Create Answer Page ------------
-    private static void makeAnswer(String[] blankTables, String[] answerTables,
+    void makeAnswer(String[] blankTables, String[] answerTables,
                                    Sudoku su) {
         File filePath;
         PdfDocument.Page page;
@@ -249,12 +250,12 @@ class MakePDF {
         document.close();
     }
 
-    private static void addSignature(Sudoku su, Bitmap sigMap, int pgWidth, int pgHeight,
+    void addSignature(Sudoku su, Bitmap sigMap, int pgWidth, int pgHeight,
                                      Canvas canvas, Paint paint, boolean top) {
         int xPos;
         int yPos;
         Paint p = new Paint();
-        p.setTextSize(paint.getTextSize() * 15 / ((su.nbrPage == 2) ? 10 : 15) );
+        p.setTextSize(paint.getTextSize() * 15 / ((twoSix == 2) ? 10 : 15) );
         p.setColor(paint.getColor());
         p.setTextAlign(Paint.Align.RIGHT);
         p.setStyle(Paint.Style.STROKE);
@@ -283,7 +284,7 @@ class MakePDF {
         canvas.drawBitmap(sigMap, xPos, yPos, p);
     }
 
-    static int [][] str2suArray(String str) {
+    int [][] str2suArray(String str) {
         String [] sRow = str.split(":");
         int [][] sudoku = new int [9][9];
         for (int row = 0; row < 9; row++) {

@@ -148,7 +148,7 @@ class MakeSudoku {
             tvStatus.setText(statistics);
             tvStatus.invalidate();
 
-            MakePDF.create(blankTables, answerTables, su, tvStatus.getContext());
+            new MakePDF().create(blankTables, answerTables, su, tvStatus.getContext());
         }
     }
 }
