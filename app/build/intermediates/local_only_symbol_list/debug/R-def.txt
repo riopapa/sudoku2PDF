@@ -26,12 +26,12 @@ attr? wv_textAlign
 attr? wv_textBoundaryMargin
 attr? wv_textSize
 attr? wv_visibleItems
-color WiseriaPurple
-color background
 color colorAccent
 color colorPrimary
 color colorPrimaryDark
+color dotLine
 color line_text
+color memoBox
 dimen fab_margin
 dimen line_text
 drawable add_new

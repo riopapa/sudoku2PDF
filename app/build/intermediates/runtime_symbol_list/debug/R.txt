@@ -1328,7 +1328,6 @@ int attr yearTodayStyle 0x7f0304e1
 int bool abc_action_bar_embed_tabs 0x7f040000
 int bool abc_config_actionMenuItemAllCaps 0x7f040001
 int bool mtrl_btn_textappearance_all_caps 0x7f040002
-int color WiseriaPurple 0x7f050000
 int color abc_background_cache_hint_selector_material_dark 0x7f050001
 int color abc_background_cache_hint_selector_material_light 0x7f050002
 int color abc_btn_colored_borderless_text_material 0x7f050003
@@ -1358,7 +1357,6 @@ int color accent_material_dark 0x7f05001a
 int color accent_material_light 0x7f05001b
 int color androidx_core_ripple_material_light 0x7f05001c
 int color androidx_core_secondary_text_default_material_light 0x7f05001d
-int color background 0x7f05001e
 int color background_floating_material_dark 0x7f05001f
 int color background_floating_material_light 0x7f050020
 int color background_material_dark 0x7f050021
@@ -1420,6 +1418,7 @@ int color dim_foreground_disabled_material_dark 0x7f050058
 int color dim_foreground_disabled_material_light 0x7f050059
 int color dim_foreground_material_dark 0x7f05005a
 int color dim_foreground_material_light 0x7f05005b
+int color dotLine 0x7f0502ea
 int color error_color_material_dark 0x7f05005c
 int color error_color_material_light 0x7f05005d
 int color foreground_material_dark 0x7f05005e
@@ -1995,6 +1994,7 @@ int color material_timepicker_button_stroke 0x7f050297
 int color material_timepicker_clock_text_color 0x7f050298
 int color material_timepicker_clockface 0x7f050299
 int color material_timepicker_modebutton_tint 0x7f05029a
+int color memoBox 0x7f0502eb
 int color mtrl_btn_bg_color_selector 0x7f05029b
 int color mtrl_btn_ripple_color 0x7f05029c
 int color mtrl_btn_stroke_color_selector 0x7f05029d

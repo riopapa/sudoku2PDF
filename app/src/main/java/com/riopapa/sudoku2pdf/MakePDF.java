@@ -47,11 +47,16 @@ class MakePDF {
                 Log.i("folder","Sudoku Folder");
         outFile = new File(outFolder, fileDate + " " + fileInfo + " " + su.name);
         sigMap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.my_sign_blured);
-        sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 8,
-                sigMap.getHeight() / 8, false);
+        sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 6,
+                sigMap.getHeight() / 6, false);
         meshType = su.mesh;
         twoSix = su.nbrPage;
-        boxWidth = pgHeight / ((twoSix == 2) ? (11*2-1) : (11*3-1));
+        if (twoSix == 2)
+            boxWidth = pgHeight / (11*2-1);
+        else if (twoSix == 6)
+            boxWidth = pgHeight / (11*3-1);
+        else
+            boxWidth = (pgWidth - 200) / 10;
         boxWidth3 = boxWidth / 3;
         space = boxWidth*2/8;  // space = 2 : 24, 3:
         pageNbr = 0;
@@ -60,11 +65,11 @@ class MakePDF {
         PdfDocument.Page page;
 
         pBoxIn = new Paint();      // inner box    (quiz)
-        pBoxIn.setColor(Color.BLUE);
+        pBoxIn.setColor(Color.BLACK);
         pBoxIn.setStyle(Paint.Style.STROKE);
         pBoxIn.setStrokeWidth(2);
         pBoxIn.setAlpha(su.opacity *3/4);
-        pBoxIn.setPathEffect(new DashPathEffect(new float[] {2,3}, 0));
+        pBoxIn.setPathEffect(new DashPathEffect(new float[] {4,3}, 0));
 
         pBoxOut = new Paint();     // outer box
         pBoxOut.setColor(Color.BLACK);
@@ -72,8 +77,8 @@ class MakePDF {
         pBoxOut.setStrokeWidth(3);
         pBoxOut.setAlpha(su.opacity);
 
-        pDotted = new Paint();        // inner dotted box (answer)
-        pDotted.setPathEffect(new DashPathEffect(new float[] {6, 3}, 0));
+        pDotted = new Paint();        // inner dotted box
+        pDotted.setPathEffect(new DashPathEffect(new float[] {4, 2}, 0));
         pDotted.setColor(context.getColor(R.color.dotLine));
         pDotted.setStrokeWidth(2);
         pDotted.setAlpha(su.opacity);
@@ -111,7 +116,9 @@ class MakePDF {
         for (int nbrQz = 0; nbrQz < blankTables.length; nbrQz++) {
             if (nbrQz == 0)
                 addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
-            else if ((twoSix == 2 && nbrQz % 2 == 0) || (twoSix == 6 && nbrQz > 5 && nbrQz % 6 == 0)) {
+            else if ((twoSix == 2 && nbrQz % 2 == 0) ||
+                    (twoSix == 6 && nbrQz > 5 && nbrQz % 6 == 0) ||
+                    twoSix == 1) {
                 pageNbr++;
                 addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
                 document.finishPage(page);
@@ -122,8 +129,24 @@ class MakePDF {
             }
 
             int [][] xyTable = str2suArray(blankTables[nbrQz]);
-            int xBase = boxWidth3 + ((twoSix == 2) ? 10 : 5) + ((twoSix == 2) ?  0 : (nbrQz % 6) % 2) * boxWidth * 10 ;
-            int yBase = space + boxWidth3 + ((twoSix == 2) ? nbrQz % 2: (nbrQz%6) / 2) * boxWidth * 105 / 10;
+            int xBase;
+            if (twoSix == 2) {
+                xBase = boxWidth + 10;
+            } else if (twoSix == 6) {
+                xBase = boxWidth + 5 + ((nbrQz % 6) % 2) * 10 * boxWidth;
+            } else {
+                xBase = boxWidth + 10;
+            }
+
+            int yBase;
+            if (twoSix == 2) {
+                yBase = boxWidth + (nbrQz % 2) * boxWidth * 105 / 10;
+            } else if (twoSix == 6) {
+                yBase = boxWidth + ((nbrQz%6) / 2) * boxWidth * 105 / 10;
+            } else {
+                yBase = boxWidth;
+            }
+
             int xGap = boxWidth/2;
             int yGap = boxWidth3+boxWidth3+boxWidth3/3;
             for (int row = 0; row < 9; row++) {
@@ -158,7 +181,8 @@ class MakePDF {
                     canvas.drawRect(xBase, yBase, xPos + boxWidth*3, yPos + boxWidth*3, pBoxOut);
                 }
             pMemo.setTextSize(pNumb.getTextSize()/2);
-            canvas.drawText("{"+(nbrQz+1)+"}", xBase + 20 + boxWidth*9, yBase, pMemo);
+            pMemo.setColor(Color.BLACK);
+            canvas.drawText("{"+(nbrQz+1)+"}", xBase + 16 + boxWidth*9, yBase+10, pMemo);
         }
         addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
 
@@ -195,6 +219,7 @@ class MakePDF {
         canvas = page.getCanvas();
 
         boxWidth = (pgWidth - 30) / 40;    // 4 answer for 1 line
+        pBoxIn.setStrokeWidth(1);
         pNumb.setTextSize(boxWidth/2.3f); // pNumb : answer number
         pNumb.setAlpha(su.opacity);
         pMemo.setTextSize(boxWidth/2f);  // pMemo : given number
@@ -229,12 +254,13 @@ class MakePDF {
             }
             canvas.drawText("{"+(nbrQz+1)+"}", xBase + boxWidth, yBase - 8, pNumb);
 
-            pBoxOut.setStrokeWidth(pBoxOut.getStrokeWidth()/2);
+            pBoxOut.setStrokeWidth(2);
             for (int row = 0; row < 9; row+=3)
                 for (int col = 0; col < 9; col+=3) {
                     int xPos = xBase + col * boxWidth;
                     int yPos = yBase + row * boxWidth;
-                    canvas.drawRect(xBase, yBase, xPos + boxWidth*3, yPos + boxWidth*3, pBoxOut);
+                    canvas.drawRect(xBase, yBase, xPos + boxWidth*3, yPos + boxWidth*3,
+                            pBoxOut);
                 }
         }
 
@@ -257,7 +283,7 @@ class MakePDF {
         int xPos;
         int yPos;
         Paint p = new Paint();
-        p.setTextSize(paint.getTextSize() * 15 / ((twoSix == 2) ? 10 : 15) );
+        p.setTextSize(16);
         p.setColor(paint.getColor());
         p.setTextAlign(Paint.Align.RIGHT);
         p.setStyle(Paint.Style.STROKE);
@@ -265,13 +291,13 @@ class MakePDF {
         p.setStyle(Paint.Style.FILL_AND_STROKE);
         int inc = (int) p.getTextSize() * 5 / 3;
         if (top) {
-            xPos = pgWidth - 20;
+            xPos = pgWidth - 10;
             yPos = 50;
             canvas.drawText(fileDate.substring(0,8),xPos, yPos, p);
             yPos += inc;
             canvas.drawText(fileDate.substring(9),xPos, yPos, p);
             yPos += inc+inc/2;
-            p.setTextSize(p.getTextSize()*3/2);
+            p.setTextSize(28);
             canvas.drawText("□"+su.blank,xPos, yPos, p);
             yPos += inc/2;
             xPos -= sigMap.getWidth();

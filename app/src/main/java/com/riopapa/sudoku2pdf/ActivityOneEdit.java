@@ -115,8 +115,13 @@ public class ActivityOneEdit extends AppCompatActivity {
 
         tv2or6 = findViewById(R.id.two_six);
         tv2or6.setOnClickListener(view -> {
-            su.nbrPage = (su.nbrPage == 2) ? 6:2;
-            tv2or6.setText(su.nbrPage +"문제");
+            if (su.nbrPage == 2)
+                su.nbrPage = 6;
+            else if (su.nbrPage == 6)
+                    su.nbrPage = 1;
+            else
+                su.nbrPage = 2;
+            tv2or6.setText(su.nbrPage +" 문제");
             sudokus.set(onePos, su);
         });
         tv2or6.setText(su.nbrPage +"문제");

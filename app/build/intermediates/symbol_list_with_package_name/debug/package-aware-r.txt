@@ -1329,7 +1329,6 @@ attr yearTodayStyle
 bool abc_action_bar_embed_tabs
 bool abc_config_actionMenuItemAllCaps
 bool mtrl_btn_textappearance_all_caps
-color WiseriaPurple
 color abc_background_cache_hint_selector_material_dark
 color abc_background_cache_hint_selector_material_light
 color abc_btn_colored_borderless_text_material
@@ -1359,7 +1358,6 @@ color accent_material_dark
 color accent_material_light
 color androidx_core_ripple_material_light
 color androidx_core_secondary_text_default_material_light
-color background
 color background_floating_material_dark
 color background_floating_material_light
 color background_material_dark
@@ -1421,6 +1419,7 @@ color dim_foreground_disabled_material_dark
 color dim_foreground_disabled_material_light
 color dim_foreground_material_dark
 color dim_foreground_material_light
+color dotLine
 color error_color_material_dark
 color error_color_material_light
 color foreground_material_dark
@@ -1996,6 +1995,7 @@ color material_timepicker_button_stroke
 color material_timepicker_clock_text_color
 color material_timepicker_clockface
 color material_timepicker_modebutton_tint
+color memoBox
 color mtrl_btn_bg_color_selector
 color mtrl_btn_ripple_color
 color mtrl_btn_stroke_color_selector
