@@ -68,12 +68,16 @@
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\menu\\menu_edit.xml"
     },
     {
-        "merged": "com.riopapa.sudoku2pdf.app-debug-28:/layout_one_line.xml.flat",
-        "source": "com.riopapa.sudoku2pdf.app-main-30:/layout/one_line.xml"
-    },
-    {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\layout_one_line.xml.flat",
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\layout\\one_line.xml"
+    },
+    {
+        "merged": "com.riopapa.sudoku2pdf.app-debug-28:/raw_level_degree.ogg.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-30:/raw/level_degree.ogg"
+    },
+    {
+        "merged": "com.riopapa.sudoku2pdf.app-debug-28:/raw_page_count.mp3.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-30:/raw/page_count.mp3"
     },
     {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\mipmap-xxhdpi_icon_sudoku2pdf.png.flat",
