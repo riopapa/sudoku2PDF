@@ -188,7 +188,7 @@ class MakePDF {
 
         document.finishPage(page);
 
-        File filePath = new File(outFile+" 문제.pdf");
+        File filePath = new File(outFile+" Quiz.pdf");
         try {
             document.writeTo(Files.newOutputStream(filePath.toPath()));
         } catch (IOException e) {
@@ -268,7 +268,7 @@ class MakePDF {
         document.finishPage(page);
 
         // write the document content
-        filePath = new File(outFile+" 해답.pdf");
+        filePath = new File(outFile+" Sol.pdf");
         try {
             document.writeTo(Files.newOutputStream(filePath.toPath()));
         } catch (IOException e) {
