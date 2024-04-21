@@ -23,7 +23,9 @@ public class MainActivity extends AppCompatActivity {
     public static Context mContext;
     public static Activity mActivity;
     public static ArrayList<Sudoku> sudokus;
+    public static int shareTo = 0;   // 0 : folder, 1: printer
     public static int onePos;
+    static MenuItem shareToMenu;
     RecyclerView oneRecyclerView;
     public static OneAdapter oneAdapter;
 
@@ -54,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        shareToMenu = menu.findItem(R.id.share_to_main);
+        shareToMenu.setIcon((shareTo == 0)? R.drawable.folder:R.drawable.printer);
         return true;
     }
 
@@ -75,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
                 oneAdapter.notifyDataSetChanged();
             });
             return true;
+        } else if (menuItem == R.id.share_to_main) {
+            shareTo = ++shareTo % 2;
+            shareToMenu.setIcon((shareTo == 0)? R.drawable.folder:R.drawable.printer);
         }
         return super.onOptionsItemSelected(item);
     }

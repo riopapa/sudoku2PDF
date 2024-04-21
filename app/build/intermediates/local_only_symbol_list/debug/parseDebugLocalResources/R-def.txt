@@ -38,11 +38,13 @@ drawable add_new
 drawable border_folder
 drawable circle
 drawable delete
+drawable folder
 drawable generate
 drawable make_pdf
 drawable mesh0_off
 drawable mesh1_top
 drawable mesh2_on
+drawable printer
 font good_times
 font radioland_regular
 font wyjov
@@ -77,6 +79,8 @@ id opacity
 id progress_circle
 id quizCount
 id right
+id share_to_main
+id share_to_one
 id t_name
 id two_six
 id wheel_blanks

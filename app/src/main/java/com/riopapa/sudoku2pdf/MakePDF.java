@@ -1,6 +1,8 @@
 package com.riopapa.sudoku2pdf;
 
+import static androidx.core.content.ContextCompat.getSystemService;
 import static com.riopapa.sudoku2pdf.MainActivity.mContext;
+import static com.riopapa.sudoku2pdf.MainActivity.shareTo;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,6 +13,9 @@ import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
 import android.os.Environment;
+import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintManager;
 import android.util.Log;
 
 import androidx.core.content.ContextCompat;
@@ -182,7 +187,7 @@ class MakePDF {
                 }
             pMemo.setTextSize(pNumb.getTextSize()/2);
             pMemo.setColor(Color.BLACK);
-            canvas.drawText("{"+(nbrQz+1)+"}", xBase + 16 + boxWidth*9, yBase+10, pMemo);
+            canvas.drawText("{"+(nbrQz+1)+"}", xBase + 22 + boxWidth*9, yBase+10, pMemo);
         }
         addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
 
@@ -200,7 +205,21 @@ class MakePDF {
         if (su.answer)
             makeAnswer(blankTables, answerTables, su);
 
-        new ShareFile().show(context, outFolder.getAbsolutePath());
+        if (shareTo == 0)
+            new ShareFile().show(context, outFolder.getAbsolutePath());
+        else    // == 1
+            PDF2Printer(context, filePath.getPath());
+    }
+
+    void PDF2Printer (Context context, String fullPath) {
+        PrintManager printManager = (PrintManager) context.getSystemService(Context.PRINT_SERVICE);
+        try {
+            PrintDocumentAdapter printAdapter = new PdfDocumentAdapter(context, fullPath);
+            printManager.print("Document", printAdapter, new PrintAttributes.Builder().build());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     //         Create Answer Page ------------

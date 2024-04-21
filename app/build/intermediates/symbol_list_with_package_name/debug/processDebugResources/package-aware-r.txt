@@ -2950,6 +2950,7 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable folder
 drawable generate
 drawable ic_arrow_back_black_24
 drawable ic_clear_black_24
@@ -3038,6 +3039,7 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable printer
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -3456,6 +3458,8 @@ id search_voice_btn
 id select_dialog_listview
 id selected
 id selection_type
+id share_to_main
+id share_to_one
 id sharedValueSet
 id sharedValueUnset
 id shortcut

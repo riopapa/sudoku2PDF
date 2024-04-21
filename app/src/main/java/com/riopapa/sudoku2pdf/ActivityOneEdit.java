@@ -3,6 +3,7 @@ package com.riopapa.sudoku2pdf;
 
 import static com.riopapa.sudoku2pdf.MainActivity.oneAdapter;
 import static com.riopapa.sudoku2pdf.MainActivity.onePos;
+import static com.riopapa.sudoku2pdf.MainActivity.shareTo;
 import static com.riopapa.sudoku2pdf.MainActivity.sudokus;
 
 import android.annotation.SuppressLint;
@@ -44,6 +45,7 @@ public class ActivityOneEdit extends AppCompatActivity {
     TextView tv2or6, tMessage;
     EditText eOpacity, eName;    // 255 : real black
     Sudoku su;
+    MenuItem shareToMenu;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -181,7 +183,6 @@ public class ActivityOneEdit extends AppCompatActivity {
 
         final WheelView<String> wheelView = findViewById(R.id.wheel_blanks);
         wheelView.setOnItemSelectedListener((wheelView1, data, position) -> {
-//                Log.w("setOnItemSelectedListener", "setOnItemSelectedListener: data=" + data + ",position=" + position);
                 su.blank = Integer.parseInt(blankList.get(position));
         });
 
@@ -189,7 +190,7 @@ public class ActivityOneEdit extends AppCompatActivity {
         wheelView.setSelectedItemPosition(su.blank - MINIMUM_BLANK, true);
         wheelView.setSoundEffect(true);
         wheelView.setSoundEffectResource(R.raw.level_degree);
-        wheelView.setPlayVolume(0.1f);
+        wheelView.setPlayVolume(0.04f);
 
     }
 
@@ -202,7 +203,7 @@ public class ActivityOneEdit extends AppCompatActivity {
         wheelView.setSelectedItemPosition((su.quiz - MINIMUM_PAGE), true);
         wheelView.setSoundEffect(true);
         wheelView.setSoundEffectResource(R.raw.page_count);
-        wheelView.setPlayVolume(0.1f);
+        wheelView.setPlayVolume(0.04f);
     }
 
 
@@ -210,6 +211,8 @@ public class ActivityOneEdit extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_edit, menu);
+        shareToMenu = menu.findItem(R.id.share_to_one);
+        shareToMenu.setIcon((shareTo == 0)? R.drawable.folder:R.drawable.printer);
         return true;
     }
 
@@ -223,6 +226,9 @@ public class ActivityOneEdit extends AppCompatActivity {
             oneAdapter.notifyItemRemoved(onePos);
             finish();
             return true;
+        } else if (menuItem == R.id.share_to_one) {
+            shareTo = ++shareTo % 2;
+            shareToMenu.setIcon((shareTo == 0)? R.drawable.folder:R.drawable.printer);
         }
         return super.onOptionsItemSelected(item);
     }
