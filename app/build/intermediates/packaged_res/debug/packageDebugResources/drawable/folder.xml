@@ -3,7 +3,7 @@
     <path
         android:fillColor="#EDE"
         android:pathData="
-		M20,4
+		M20,4.5
 		h-8
 		l-2,-2
 		l-6,0
@@ -16,7 +16,7 @@
 		c0,-1.1 -0.9,-2 -2,-2
 		z
 
-		M20.5,17.5
+		M20.5,18
 		l-17,0
 		l0,-11
 		h17

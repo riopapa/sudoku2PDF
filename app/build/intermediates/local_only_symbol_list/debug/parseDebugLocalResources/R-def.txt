@@ -39,12 +39,14 @@ drawable border_folder
 drawable circle
 drawable delete
 drawable folder
+drawable folder_big
 drawable generate
 drawable make_pdf
 drawable mesh0_off
 drawable mesh1_top
 drawable mesh2_on
 drawable printer
+drawable printer_big
 font good_times
 font radioland_regular
 font wyjov

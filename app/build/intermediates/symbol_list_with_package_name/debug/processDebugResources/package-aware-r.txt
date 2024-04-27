@@ -2951,6 +2951,7 @@ drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
 drawable folder
+drawable folder_big
 drawable generate
 drawable ic_arrow_back_black_24
 drawable ic_clear_black_24
@@ -3040,6 +3041,7 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable printer
+drawable printer_big
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light

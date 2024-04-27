@@ -36,12 +36,12 @@ import java.util.List;
 
 public class ActivityOneEdit extends AppCompatActivity {
 
-    public Context mContext;
-    public Activity mActivity;
+    public static Context oneContext;
+    public static Activity oneActivity;
     List<String> blankList, pageList;
     final static int MINIMUM_BLANK = 12, MAXIMUM_BLANK = 55;
     final static int MINIMUM_PAGE = 4, MAXIMUM_PAGE = 60;
-    ImageButton btnMesh;
+    ImageButton btnMesh, generate;
     TextView tv2or6, tMessage;
     EditText eOpacity, eName;    // 255 : real black
     Sudoku su;
@@ -52,6 +52,10 @@ public class ActivityOneEdit extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        oneContext = this;
+        oneActivity = this;
+
         setContentView(R.layout.activity_one);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (!Environment.isExternalStorageManager()){
@@ -84,7 +88,6 @@ public class ActivityOneEdit extends AppCompatActivity {
                     su.opacity = i;
                     sudokus.set(onePos, su);
                 }
-
             }
 
             @Override
@@ -134,7 +137,8 @@ public class ActivityOneEdit extends AppCompatActivity {
         makeAnswer.setChecked(su.answer);
         makeAnswer.setOnCheckedChangeListener((compoundButton, b) ->
             {su.answer = b; sudokus.set(onePos, su);});
-        ImageButton generate = findViewById(R.id.generate);
+        generate = findViewById(R.id.generate);
+        generate.setImageResource((shareTo == 0) ? R.drawable.folder_big : R.drawable.printer_big);
         generate.setOnClickListener(new View.OnClickListener() {
             boolean isRunning = false;
             @Override
@@ -146,7 +150,7 @@ public class ActivityOneEdit extends AppCompatActivity {
                     Snackbar.make(view, "Starting generation", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
 
-                    new MakeSudoku().make(su, mContext, mActivity,
+                    new MakeSudoku().make(su, oneContext, oneActivity,
                             findViewById(R.id.message),
                             findViewById(R.id.progress_circle),
                             ResourcesCompat.getDrawable(getResources(), R.drawable.circle, null)
@@ -229,6 +233,7 @@ public class ActivityOneEdit extends AppCompatActivity {
         } else if (menuItem == R.id.share_to_one) {
             shareTo = ++shareTo % 2;
             shareToMenu.setIcon((shareTo == 0)? R.drawable.folder:R.drawable.printer);
+            generate.setImageResource((shareTo == 0) ? R.drawable.folder_big : R.drawable.printer_big);
         }
         return super.onOptionsItemSelected(item);
     }

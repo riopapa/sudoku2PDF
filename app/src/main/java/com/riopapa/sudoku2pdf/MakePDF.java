@@ -1,6 +1,8 @@
 package com.riopapa.sudoku2pdf;
 
 import static androidx.core.content.ContextCompat.getSystemService;
+import static com.riopapa.sudoku2pdf.ActivityOneEdit.oneActivity;
+import static com.riopapa.sudoku2pdf.MainActivity.mActivity;
 import static com.riopapa.sudoku2pdf.MainActivity.mContext;
 import static com.riopapa.sudoku2pdf.MainActivity.shareTo;
 
