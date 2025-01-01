@@ -1,126 +1,118 @@
 [
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\font_radioland_regular.ttf.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\font\\radioland_regular.ttf"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_folder.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\folder.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\font_good_times.otf.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\font\\good_times.otf"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_generate.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\generate.xml"
     },
     {
-        "merged": "com.riopapa.sudoku2pdf.app-debug-28:/drawable_folder_big.xml.flat",
-        "source": "com.riopapa.sudoku2pdf.app-main-30:/drawable/folder_big.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\layout\\activity_main.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\layout_activity_main.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\layout\\activity_main.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_mesh1_top.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\mesh1_top.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\menu_menu_main.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\menu\\menu_main.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\font_radioland_regular.ttf.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\font\\radioland_regular.ttf"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_mesh1_top.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\mesh1_top.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\font_good_times.otf.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\font\\good_times.otf"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\font_wyjov.ttf.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\font\\wyjov.ttf"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\mipmap-xxhdpi_my_sign_blured.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\mipmap-xxhdpi\\my_sign_blured.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_mesh0_off.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\mesh0_off.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\raw_page_count.mp3.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\raw\\page_count.mp3"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_make_pdf.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\make_pdf.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\mipmap-xxhdpi_my_sign_blued.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\mipmap-xxhdpi\\my_sign_blued.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_generate.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\generate.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\anim_rotate.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\anim\\rotate.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\layout_activity_one.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\layout\\activity_one.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\font_wyjov.ttf.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\font\\wyjov.ttf"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_mesh2_on.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\mesh2_on.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_mesh0_off.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\mesh0_off.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_add_new.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\add_new.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_add_new.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\add_new.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_delete.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\delete.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_delete.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\delete.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\mipmap-xxhdpi_my_sign_yellow.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\mipmap-xxhdpi\\my_sign_yellow.png"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_folder_big.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\folder_big.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\xml_filepath.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\xml\\filepath.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\layout_one_line.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\layout\\one_line.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\raw_page_count.mp3.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\raw\\page_count.mp3"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_make_pdf.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\make_pdf.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\menu_menu_edit.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\menu\\menu_edit.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_printer_big.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\printer_big.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\layout_one_line.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\layout\\one_line.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\mipmap-xxhdpi_icon_sudoku2pdf.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\mipmap-xxhdpi\\icon_sudoku2pdf.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_printer_big.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\printer_big.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\mipmap-xxhdpi_my_sign_yellow.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\mipmap-xxhdpi\\my_sign_yellow.png"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\mipmap-xxhdpi_icon_sudoku2pdf.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\mipmap-xxhdpi\\icon_sudoku2pdf.png"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_circle.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\circle.xml"
     },
     {
-        "merged": "com.riopapa.sudoku2pdf.app-debug-28:/drawable_printer_big.xml.flat",
-        "source": "com.riopapa.sudoku2pdf.app-main-30:/drawable/printer_big.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_mesh2_on.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\mesh2_on.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_border_folder.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\border_folder.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_printer.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\printer.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_printer.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\printer.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_border_folder.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\border_folder.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_circle.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\circle.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\menu_menu_edit.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\menu\\menu_edit.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\mipmap-xxhdpi_my_sign_blured.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\mipmap-xxhdpi\\my_sign_blured.png"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\xml_filepath.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\xml\\filepath.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_folder_big.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\folder_big.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\menu_menu_main.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\menu\\menu_main.xml"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_folder.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\folder.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\raw_level_degree.ogg.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\raw\\level_degree.ogg"
     },
     {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\mipmap-xxhdpi_my_sign_blued.png.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\mipmap-xxhdpi\\my_sign_blued.png"
-    },
-    {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\raw_level_degree.ogg.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\raw\\level_degree.ogg"
-    },
-    {
-        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-debug-28:\\anim_rotate.xml.flat",
-        "source": "C:\\Users\\user\\.gradle\\daemon\\8.4\\com.riopapa.sudoku2pdf.app-main-30:\\anim\\rotate.xml"
+        "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\layout_activity_one.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\layout\\activity_one.xml"
     }
 ]

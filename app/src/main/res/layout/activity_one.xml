@@ -78,9 +78,10 @@
     <LinearLayout
         android:id="@+id/frmCase1"
         android:layout_width="0dp"
+        app:layout_constraintHorizontal_weight="7"
         android:layout_height = "60dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/make_print"
         app:layout_constraintTop_toBottomOf="@id/message"
         app:layout_constraintBottom_toTopOf="@id/frmCase2"
         >
@@ -111,6 +112,7 @@
                 android:inputType="text"
                 android:autofillHints = "이름을 넣으세요"
                 android:gravity="center"
+                android:padding="4dp"
                 />
         </LinearLayout>
 
@@ -143,25 +145,16 @@
                 />
 
         </LinearLayout>
-        <ImageButton
-            android:id = "@+id/generate"
-            android:layout_width = "0dp"
-            android:layout_weight="6"
-            android:layout_height = "50dp"
-            android:layout_margin = "0dp"
-            android:layout_gravity="left"
-            android:background="#0FFF"
-            android:src = "@drawable/make_pdf"
-        />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/frmCase2"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        app:layout_constraintHorizontal_weight="2"
         android:layout_height="80dp"
         android:layout_marginBottom="120dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/make_print"
         app:layout_constraintTop_toBottomOf="@id/frmCase1"
         app:layout_constraintBottom_toBottomOf="parent"
         android:orientation="horizontal"
@@ -237,6 +230,27 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/make_print"
+        android:layout_width="0dp"
+        app:layout_constraintHorizontal_weight="2"
+        android:layout_height = "60dp"
+        app:layout_constraintLeft_toRightOf="@id/frmCase1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/frmCase1"
+        app:layout_constraintBottom_toBottomOf="@id/frmCase2"
+        >
+        <ImageButton
+            android:id = "@+id/generate"
+            android:layout_width="match_parent"
+            android:layout_height = "match_parent"
+            android:layout_margin = "0dp"
+            android:layout_gravity="left"
+            android:background="#0FFF"
+            android:contentDescription="TODO"
+            android:src = "@drawable/make_pdf"
+            />
+    </LinearLayout>
     <com.riopapa.sudoku2pdf.WheelView
         android:id="@+id/wheel_blanks"
         android:layout_height="wrap_content"

@@ -4,9 +4,12 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="dotLine">#4A5D9E</color>
+    <color name="dotLine">#2A396A</color>
     <color name="memoBox">#FF2324A0</color>
+    <color name="innerBox">#16176F</color>
+    <color name="number">#170109</color>
 
     <color name="line_text">#032C28</color>
+
 
 </resources>

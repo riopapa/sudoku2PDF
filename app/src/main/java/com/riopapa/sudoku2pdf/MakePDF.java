@@ -1,9 +1,5 @@
 package com.riopapa.sudoku2pdf;
 
-import static androidx.core.content.ContextCompat.getSystemService;
-import static com.riopapa.sudoku2pdf.ActivityOneEdit.oneActivity;
-import static com.riopapa.sudoku2pdf.MainActivity.mActivity;
-import static com.riopapa.sudoku2pdf.MainActivity.mContext;
 import static com.riopapa.sudoku2pdf.MainActivity.shareTo;
 
 import android.content.Context;
@@ -19,9 +15,6 @@ import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
 import android.util.Log;
-
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 
 import com.riopapa.sudoku2pdf.Model.Sudoku;
 
@@ -53,7 +46,7 @@ class MakePDF {
             if (outFolder.mkdirs())
                 Log.i("folder","Sudoku Folder");
         outFile = new File(outFolder, fileDate + " " + fileInfo + " " + su.name);
-        sigMap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.my_sign_blured);
+        sigMap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.my_sign_yellow);
         sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 6,
                 sigMap.getHeight() / 6, false);
         meshType = su.mesh;
@@ -72,7 +65,7 @@ class MakePDF {
         PdfDocument.Page page;
 
         pBoxIn = new Paint();      // inner box    (quiz)
-        pBoxIn.setColor(Color.BLACK);
+        pBoxIn.setColor(context.getColor(R.color.innerBox));
         pBoxIn.setStyle(Paint.Style.STROKE);
         pBoxIn.setStrokeWidth(2);
         pBoxIn.setAlpha(su.opacity *3/4);
@@ -91,10 +84,10 @@ class MakePDF {
         pDotted.setAlpha(su.opacity);
 
         pNumb = new Paint();        // number
-        pNumb.setColor(Color.BLACK);
+        pNumb.setColor(context.getResources().getColor(R.color.number));
         pNumb.setAlpha(su.opacity);
         pNumb.setStrokeWidth(1);
-        pNumb.setTypeface(ResourcesCompat.getFont(context, R.font.good_times));
+        pNumb.setTypeface(context.getResources().getFont(R.font.good_times));
         pNumb.setTextSize((float) boxWidth * 8 / 10);
         pNumb.setTextAlign(Paint.Align.CENTER);
         pNumb.setStyle(Paint.Style.FILL_AND_STROKE);
@@ -187,9 +180,9 @@ class MakePDF {
                     int yPos = yBase + row * boxWidth;
                     canvas.drawRect(xBase, yBase, xPos + boxWidth*3, yPos + boxWidth*3, pBoxOut);
                 }
-            pMemo.setTextSize(pNumb.getTextSize()/2);
+            pMemo.setTextSize(pNumb.getTextSize()/3);
             pMemo.setColor(Color.BLACK);
-            canvas.drawText("{"+(nbrQz+1)+"}", xBase + 22 + boxWidth*9, yBase+10, pMemo);
+            canvas.drawText("{"+(nbrQz+1)+"}", xBase + 24 + boxWidth*9, yBase+10, pMemo);
         }
         addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
 
@@ -219,7 +212,7 @@ class MakePDF {
             PrintDocumentAdapter printAdapter = new PdfDocumentAdapter(context, fullPath);
             printManager.print("Document", printAdapter, new PrintAttributes.Builder().build());
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("PDF2Printer", "error " + e);
         }
 
     }

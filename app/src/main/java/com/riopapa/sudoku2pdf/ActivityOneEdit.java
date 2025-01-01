@@ -36,8 +36,8 @@ import java.util.List;
 
 public class ActivityOneEdit extends AppCompatActivity {
 
-    public static Context oneContext;
-    public static Activity oneActivity;
+    Context oneContext;
+    Activity oneActivity;
     List<String> blankList, pageList;
     final static int MINIMUM_BLANK = 12, MAXIMUM_BLANK = 55;
     final static int MINIMUM_PAGE = 4, MAXIMUM_PAGE = 60;

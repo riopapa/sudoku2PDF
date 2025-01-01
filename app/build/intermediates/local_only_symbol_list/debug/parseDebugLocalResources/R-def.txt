@@ -30,8 +30,10 @@ color colorAccent
 color colorPrimary
 color colorPrimaryDark
 color dotLine
+color innerBox
 color line_text
 color memoBox
+color number
 dimen fab_margin
 dimen line_text
 drawable add_new
@@ -65,6 +67,7 @@ id llName
 id llOpacity
 id llTwoThree
 id makeAnswer
+id make_print
 id mesh
 id message
 id name
@@ -94,7 +97,6 @@ layout one_line
 menu menu_edit
 menu menu_main
 mipmap icon_sudoku2pdf
-mipmap my_sign_blued
 mipmap my_sign_blured
 mipmap my_sign_yellow
 raw level_degree

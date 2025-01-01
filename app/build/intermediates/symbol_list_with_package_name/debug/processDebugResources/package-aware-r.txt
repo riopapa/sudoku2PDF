@@ -1426,6 +1426,7 @@ color foreground_material_dark
 color foreground_material_light
 color highlighted_text_material_dark
 color highlighted_text_material_light
+color innerBox
 color line_text
 color m3_appbar_overlay_color
 color m3_assist_chip_icon_tint_color
@@ -2053,6 +2054,7 @@ color mtrl_textinput_focused_box_stroke_color
 color mtrl_textinput_hovered_box_stroke_color
 color notification_action_color_filter
 color notification_icon_bg_color
+color number
 color primary_dark_material_dark
 color primary_dark_material_light
 color primary_material_dark
@@ -3299,6 +3301,7 @@ id llOpacity
 id llTwoThree
 id m3_side_sheet
 id makeAnswer
+id make_print
 id marquee
 id masked
 id match_constraint
@@ -3769,7 +3772,6 @@ layout support_simple_spinner_dropdown_item
 menu menu_edit
 menu menu_main
 mipmap icon_sudoku2pdf
-mipmap my_sign_blued
 mipmap my_sign_blured
 mipmap my_sign_yellow
 plurals mtrl_badge_content_description
