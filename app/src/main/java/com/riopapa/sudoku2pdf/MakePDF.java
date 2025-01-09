@@ -30,7 +30,7 @@ class MakePDF {
     File outFolder, outFile;
     String fileDate, fileInfo;
     Bitmap sigMap;
-    Paint pBoxIn, pBoxOut, pDotted, pNumb, pMemo, pSig;
+    Paint pBoxIn, pBoxOut, pDotted, pNumb, pMemo, pSig, pCount;
     int pgWidth = 210*5, pgHeight = 297*5;  // A4 size
     int meshType, twoSix, boxWidth, boxWidth3, space, pageNbr;
 
@@ -47,8 +47,8 @@ class MakePDF {
                 Log.i("folder","Sudoku Folder");
         outFile = new File(outFolder, fileDate + " " + fileInfo + " " + su.name);
         sigMap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.my_sign_yellow);
-        sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 6,
-                sigMap.getHeight() / 6, false);
+        sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 5,
+                sigMap.getHeight() / 5, false);
         meshType = su.mesh;
         twoSix = su.nbrPage;
         if (twoSix == 2)
@@ -78,10 +78,10 @@ class MakePDF {
         pBoxOut.setAlpha(su.opacity);
 
         pDotted = new Paint();        // inner dotted box
-        pDotted.setPathEffect(new DashPathEffect(new float[] {4, 2}, 0));
+        pDotted.setPathEffect(new DashPathEffect(new float[] {1, 4}, 0));
         pDotted.setColor(context.getColor(R.color.dotLine));
-        pDotted.setStrokeWidth(2);
-        pDotted.setAlpha(su.opacity);
+        pDotted.setStrokeWidth(1);
+        pDotted.setAlpha(su.opacity/2);
 
         pNumb = new Paint();        // number
         pNumb.setColor(context.getResources().getColor(R.color.number));
@@ -92,6 +92,15 @@ class MakePDF {
         pNumb.setTextAlign(Paint.Align.CENTER);
         pNumb.setStyle(Paint.Style.FILL_AND_STROKE);
 
+        pCount = new Paint();        // number
+        pCount.setColor(context.getResources().getColor(R.color.count));
+        pCount.setAlpha(su.opacity*2/3);
+        pCount.setStrokeWidth(1);
+        pCount.setTypeface(context.getResources().getFont(R.font.good_times));
+        pCount.setTextSize((float) boxWidth * 5 / 10);
+//        pCount.setTextAlign(Paint.Align.LEFT);
+        pCount.setStyle(Paint.Style.FILL);
+
         pMemo = new Paint();
         pMemo.setColor(context.getColor(R.color.memoBox));
         pMemo.setStyle(Paint.Style.STROKE);
@@ -101,7 +110,7 @@ class MakePDF {
         pMemo.setTextSize(32);
 
         pSig = new Paint();
-        pSig.setColor(Color.BLACK);
+        pSig.setColor(Color.BLUE);
         pSig.setTextAlign(Paint.Align.RIGHT);
         pSig.setStyle(Paint.Style.STROKE);
         pSig.setStrokeWidth(0);
@@ -180,9 +189,9 @@ class MakePDF {
                     int yPos = yBase + row * boxWidth;
                     canvas.drawRect(xBase, yBase, xPos + boxWidth*3, yPos + boxWidth*3, pBoxOut);
                 }
-            pMemo.setTextSize(pNumb.getTextSize()/3);
-            pMemo.setColor(Color.BLACK);
-            canvas.drawText("{"+(nbrQz+1)+"}", xBase + 24 + boxWidth*9, yBase+10, pMemo);
+//            pMemo.setTextSize(pNumb.getTextSize()/3);
+//            pMemo.setColor(Color.BLACK);
+            canvas.drawText("{"+(nbrQz+1)+"}", xBase + 4 + boxWidth*9, yBase+10, pCount);
         }
         addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
 
@@ -254,7 +263,7 @@ class MakePDF {
             int [][] ansTable = str2suArray(answerTables[nbrQz]);
             int [][] blankTable = str2suArray(blankTables[nbrQz]);
             int xBase = 30 + (nbrQz % 4) * boxWidth * 95 / 10;
-            int yBase = 50 + ((nbrQz > 19) ? nbrQz-20 : nbrQz) / 4 * boxWidth * 11;
+            int yBase = 50 + ((nbrQz > 19) ? nbrQz-20 : nbrQz-2) / 4 * boxWidth * 11;
             int xGap = boxWidth/2;
             int yGap = boxWidth*3/4;
             for (int row = 0; row < 9; row++) {
@@ -266,7 +275,7 @@ class MakePDF {
                             (blankTable[row][col] == 0)? pNumb : pMemo);
                 }
             }
-            canvas.drawText("{"+(nbrQz+1)+"}", xBase + boxWidth, yBase - 8, pNumb);
+            canvas.drawText("{"+(nbrQz+1)+"}", xBase + boxWidth, yBase - 8, pCount);
 
             pBoxOut.setStrokeWidth(2);
             for (int row = 0; row < 9; row+=3)
@@ -298,10 +307,11 @@ class MakePDF {
         int yPos;
         Paint p = new Paint();
         p.setTextSize(16);
-        p.setColor(paint.getColor());
+//        p.setColor(paint.getColor());
+        p.setColor(0xFFAF4844);
         p.setTextAlign(Paint.Align.RIGHT);
         p.setStyle(Paint.Style.STROKE);
-        p.setStrokeWidth(0);
+//        p.setStrokeWidth(0);
         p.setStyle(Paint.Style.FILL_AND_STROKE);
         int inc = (int) p.getTextSize() * 5 / 3;
         if (top) {
@@ -309,6 +319,7 @@ class MakePDF {
             yPos = 50;
             canvas.drawText(fileDate.substring(0,8),xPos, yPos, p);
             yPos += inc;
+            p.setColor(0xFF4488FF);
             canvas.drawText(fileDate.substring(9),xPos, yPos, p);
             yPos += inc+inc/2;
             p.setTextSize(28);
