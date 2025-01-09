@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -15,6 +16,8 @@ import com.riopapa.sudoku2pdf.Model.Sudoku;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 class MakeSudoku {
@@ -148,7 +151,8 @@ class MakeSudoku {
             tvStatus.setText(statistics);
             tvStatus.invalidate();
 
-            new MakePDF().create(blankTables, answerTables, su, tvStatus.getContext());
+            new MakePDF(blankTables, answerTables, su, tvStatus.getContext());
+
         }
     }
 }

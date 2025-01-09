@@ -34,7 +34,7 @@ class MakePDF {
     int pgWidth = 210*5, pgHeight = 297*5;  // A4 size
     int meshType, twoSix, boxWidth, boxWidth3, space, pageNbr;
 
-    void create(String [] blankTables, String [] answerTables, Sudoku su,
+    public MakePDF(String [] blankTables, String [] answerTables, Sudoku su,
                        Context context) {
 
         downLoadFolder = Environment.getExternalStorageDirectory().getPath()+"/download";
@@ -307,11 +307,9 @@ class MakePDF {
         int yPos;
         Paint p = new Paint();
         p.setTextSize(16);
-//        p.setColor(paint.getColor());
         p.setColor(0xFFAF4844);
         p.setTextAlign(Paint.Align.RIGHT);
         p.setStyle(Paint.Style.STROKE);
-//        p.setStrokeWidth(0);
         p.setStyle(Paint.Style.FILL_AND_STROKE);
         int inc = (int) p.getTextSize() * 5 / 3;
         if (top) {
@@ -329,8 +327,11 @@ class MakePDF {
         } else {
             xPos = pgWidth / 2;
             yPos = pgHeight - 50;
-            canvas.drawText(fileDate+" "+fileInfo, xPos, yPos, paint);
-            xPos += inc;
+            paint.setTextAlign(Paint.Align.RIGHT);
+            canvas.drawText(fileDate, xPos, yPos, paint);
+            paint.setTextAlign(Paint.Align.LEFT);
+            canvas.drawText(fileInfo, xPos + 24, yPos, paint);
+            xPos += 70 + inc;
             yPos -= sigMap.getHeight()/2;
         }
         p.setAlpha(paint.getAlpha()*3/4);
