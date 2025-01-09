@@ -189,8 +189,6 @@ class MakePDF {
                     int yPos = yBase + row * boxWidth;
                     canvas.drawRect(xBase, yBase, xPos + boxWidth*3, yPos + boxWidth*3, pBoxOut);
                 }
-//            pMemo.setTextSize(pNumb.getTextSize()/3);
-//            pMemo.setColor(Color.BLACK);
             canvas.drawText("{"+(nbrQz+1)+"}", xBase + 4 + boxWidth*9, yBase+10, pCount);
         }
         addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
@@ -203,7 +201,7 @@ class MakePDF {
         } catch (IOException e) {
             Log.e("main", "error " + e);
         }
-        // close the document
+
         document.close();
 
         if (su.answer)
@@ -290,14 +288,12 @@ class MakePDF {
         addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, false);
         document.finishPage(page);
 
-        // write the document content
         filePath = new File(outFile+" Sol.pdf");
         try {
             document.writeTo(Files.newOutputStream(filePath.toPath()));
         } catch (IOException e) {
             Log.e("main", "error " + e);
         }
-        // close the document
         document.close();
     }
 
