@@ -67,21 +67,21 @@ class MakePDF {
         pBoxIn = new Paint();      // inner box    (quiz)
         pBoxIn.setColor(context.getColor(R.color.innerBox));
         pBoxIn.setStyle(Paint.Style.STROKE);
-        pBoxIn.setStrokeWidth(2);
+        pBoxIn.setStrokeWidth(1);
         pBoxIn.setAlpha(su.opacity *3/4);
-        pBoxIn.setPathEffect(new DashPathEffect(new float[] {4,3}, 0));
+        pBoxIn.setPathEffect(new DashPathEffect(new float[] {2,2}, 0));
 
         pBoxOut = new Paint();     // outer box
         pBoxOut.setColor(Color.BLACK);
         pBoxOut.setStyle(Paint.Style.STROKE);
-        pBoxOut.setStrokeWidth(3);
+        pBoxOut.setStrokeWidth(2);
         pBoxOut.setAlpha(su.opacity);
 
         pDotted = new Paint();        // inner dotted box
-        pDotted.setPathEffect(new DashPathEffect(new float[] {1, 4}, 0));
+        pDotted.setPathEffect(new DashPathEffect(new float[] {2, 3}, 0));
         pDotted.setColor(context.getColor(R.color.dotLine));
         pDotted.setStrokeWidth(1);
-        pDotted.setAlpha(su.opacity/2);
+        pDotted.setAlpha(su.opacity*2/3);
 
         pNumb = new Paint();        // number
         pNumb.setColor(context.getResources().getColor(R.color.number));

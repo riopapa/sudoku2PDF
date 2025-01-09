@@ -1376,6 +1376,7 @@ int color cardview_shadow_start_color 0x7f05002c
 int color colorAccent 0x7f05002d
 int color colorPrimary 0x7f05002e
 int color colorPrimaryDark 0x7f05002f
+int color count 0x7f0502ec
 int color design_bottom_navigation_shadow_color 0x7f050030
 int color design_box_stroke_color 0x7f050031
 int color design_dark_default_color_background 0x7f050032

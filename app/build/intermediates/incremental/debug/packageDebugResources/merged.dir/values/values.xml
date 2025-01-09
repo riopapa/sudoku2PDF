@@ -3,6 +3,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
+    <color name="count">#0F665D</color>
     <color name="dotLine">#2A396A</color>
     <color name="innerBox">#16176F</color>
     <color name="line_text">#032C28</color>

@@ -29,6 +29,7 @@ attr? wv_visibleItems
 color colorAccent
 color colorPrimary
 color colorPrimaryDark
+color count
 color dotLine
 color innerBox
 color line_text
