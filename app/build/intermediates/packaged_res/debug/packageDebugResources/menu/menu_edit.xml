@@ -4,13 +4,6 @@
     >
 
     <item
-        android:id="@+id/share_to_one"
-        android:orderInCategory="100"
-        android:icon="@drawable/printer"
-        app:showAsAction="always"
-        android:title="Folder or Print" />
-
-    <item
         android:id="@+id/delete"
         android:orderInCategory="100"
         android:icon="@drawable/delete"

@@ -29,7 +29,7 @@
         android:testOnly="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.riopapa.sudoku2pdf.MainActivity"
+            android:name="com.riopapa.sudoku2pdf.ActivityMain"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

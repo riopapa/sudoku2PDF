@@ -1,12 +1,11 @@
 package com.riopapa.sudoku2pdf;
 
-import static com.riopapa.sudoku2pdf.MainActivity.mActivity;
-import static com.riopapa.sudoku2pdf.MainActivity.onePos;
-import static com.riopapa.sudoku2pdf.MainActivity.sudokus;
+import static com.riopapa.sudoku2pdf.ActivityMain.mActivity;
+import static com.riopapa.sudoku2pdf.ActivityMain.onePos;
+import static com.riopapa.sudoku2pdf.ActivityMain.sudokus;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.riopapa.sudoku2pdf.Model.Sudoku;

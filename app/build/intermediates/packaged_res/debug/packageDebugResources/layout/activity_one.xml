@@ -234,21 +234,32 @@
         android:id="@+id/make_print"
         android:layout_width="0dp"
         app:layout_constraintHorizontal_weight="2"
-        android:layout_height = "60dp"
+        android:layout_height = "140dp"
+        android:orientation="vertical"
         app:layout_constraintLeft_toRightOf="@id/frmCase1"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/frmCase1"
         app:layout_constraintBottom_toBottomOf="@id/frmCase2"
         >
         <ImageButton
-            android:id = "@+id/generate"
+            android:id = "@+id/to_file"
             android:layout_width="match_parent"
-            android:layout_height = "match_parent"
+            android:layout_height = "64dp"
             android:layout_margin = "0dp"
             android:layout_gravity="left"
             android:background="#0FFF"
             android:contentDescription="TODO"
-            android:src = "@drawable/make_pdf"
+            android:src = "@drawable/folder_big"
+            />
+        <ImageButton
+            android:id = "@+id/to_printer"
+            android:layout_width="match_parent"
+            android:layout_height = "64dp"
+            android:layout_margin = "0dp"
+            android:layout_gravity="left"
+            android:background="#0FFF"
+            android:contentDescription="TODO"
+            android:src = "@drawable/printer"
             />
     </LinearLayout>
     <com.riopapa.sudoku2pdf.WheelView

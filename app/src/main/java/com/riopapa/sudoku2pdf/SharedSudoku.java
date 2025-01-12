@@ -1,7 +1,7 @@
 package com.riopapa.sudoku2pdf;
 
-import static com.riopapa.sudoku2pdf.MainActivity.shareTo;
-import static com.riopapa.sudoku2pdf.MainActivity.sudokus;
+import static com.riopapa.sudoku2pdf.ActivityMain.shareTo;
+import static com.riopapa.sudoku2pdf.ActivityMain.sudokus;
 
 import android.content.Context;
 import android.content.SharedPreferences;

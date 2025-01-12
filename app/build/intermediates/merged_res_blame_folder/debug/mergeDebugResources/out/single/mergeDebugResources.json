@@ -52,8 +52,16 @@
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\add_new.xml"
     },
     {
+        "merged": "com.riopapa.sudoku2pdf.app-debug-28:/menu_menu_edit.xml.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-30:/menu/menu_edit.xml"
+    },
+    {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_delete.xml.flat",
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\drawable\\delete.xml"
+    },
+    {
+        "merged": "com.riopapa.sudoku2pdf.app-debug-28:/layout_activity_one.xml.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-30:/layout/activity_one.xml"
     },
     {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_folder_big.xml.flat",
@@ -62,6 +70,10 @@
     {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\layout_one_line.xml.flat",
         "source": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-main-30:\\layout\\one_line.xml"
+    },
+    {
+        "merged": "com.riopapa.sudoku2pdf.app-debug-28:/drawable_printer.xml.flat",
+        "source": "com.riopapa.sudoku2pdf.app-main-30:/drawable/printer.xml"
     },
     {
         "merged": "C:\\Users\\user\\.gradle\\daemon\\8.7\\com.riopapa.sudoku2pdf.app-debug-28:\\drawable_make_pdf.xml.flat",

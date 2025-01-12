@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:2:1-35:12
-INJECTED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:2:1-35:12
-INJECTED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:2:1-35:12
-INJECTED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:2:1-35:12
+ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:2:1-36:12
+INJECTED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:2:1-36:12
+INJECTED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:2:1-36:12
+INJECTED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:2:1-36:12
 MERGED from [com.google.android.material:material:1.9.0] C:\Users\user\.gradle\caches\transforms-4\8240b81af2a6da6efed80ed75e550853\transformed\material-1.9.0\AndroidManifest.xml:17:1-26:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\user\.gradle\caches\transforms-4\92845787989d03cee8d43b745ae0e0df\transformed\constraintlayout-2.1.4\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\user\.gradle\caches\transforms-4\2397582bd506e96dbbfcc2d2d023daf1\transformed\jetified-appcompat-resources-1.6.1\AndroidManifest.xml:17:1-22:12
@@ -59,14 +59,14 @@ ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:5:5-80
 	android:name
 		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:5:22-78
 uses-permission#android.permission.MANAGE_EXTERNAL_STORAGE
-ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:6:5-110
+ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:6:5-7:39
 	tools:ignore
-		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:6:80-108
+		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:7:9-37
 	android:name
 		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:6:22-79
 application
-ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:8:5-34:19
-INJECTED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:8:5-34:19
+ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:9:5-35:19
+INJECTED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:9:5-35:19
 MERGED from [com.google.android.material:material:1.9.0] C:\Users\user\.gradle\caches\transforms-4\8240b81af2a6da6efed80ed75e550853\transformed\material-1.9.0\AndroidManifest.xml:24:5-20
 MERGED from [com.google.android.material:material:1.9.0] C:\Users\user\.gradle\caches\transforms-4\8240b81af2a6da6efed80ed75e550853\transformed\material-1.9.0\AndroidManifest.xml:24:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\user\.gradle\caches\transforms-4\92845787989d03cee8d43b745ae0e0df\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
@@ -86,57 +86,57 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\us
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.9.0] C:\Users\user\.gradle\caches\transforms-4\14ab11b1ba0573291fd7cb7317fffa95\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:13:9-36
+		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:14:9-36
 	android:label
-		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:11:9-41
+		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:12:9-41
 	android:roundIcon
-		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:12:9-52
+		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:13:9-52
 	android:icon
-		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:10:9-47
+		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:11:9-47
 	android:allowBackup
-		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:9:9-35
+		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:10:9-35
 	android:theme
-		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:14:9-40
-activity#com.riopapa.sudoku2pdf.MainActivity
-ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:15:9-23:20
+		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:15:9-40
+activity#com.riopapa.sudoku2pdf.ActivityMain
+ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:16:9-24:20
 	android:exported
-		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:17:13-36
+		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:18:13-36
 	android:name
-		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:16:13-41
+		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:17:13-41
 intent-filter#action:name:android.intent.action.MAIN+action:name:android.intent.action.VIEW+category:name:android.intent.category.LAUNCHER
-ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:18:13-22:29
+ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:19:13-23:29
 action#android.intent.action.MAIN
-ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:19:17-69
-	android:name
-		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:19:25-66
-action#android.intent.action.VIEW
 ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:20:17-69
 	android:name
 		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:20:25-66
+action#android.intent.action.VIEW
+ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:21:17-69
+	android:name
+		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:21:25-66
 category#android.intent.category.LAUNCHER
-ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:21:17-77
+ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:22:17-77
 	android:name
-		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:21:27-74
+		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:22:27-74
 activity#com.riopapa.sudoku2pdf.ActivityOneEdit
-ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:24:9-52
+ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:25:9-52
 	android:name
-		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:24:19-50
+		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:25:19-50
 provider#androidx.core.content.FileProvider
-ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:25:9-33:20
+ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:26:9-34:20
 	android:grantUriPermissions
-		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:29:13-47
+		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:30:13-47
 	android:authorities
-		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:27:13-66
+		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:28:13-66
 	android:exported
-		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:28:13-37
+		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:29:13-37
 	android:name
-		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:26:13-62
+		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:27:13-62
 meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:30:13-32:52
+ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:31:13-33:52
 	android:resource
-		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:32:17-49
+		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:33:17-49
 	android:name
-		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:31:17-67
+		ADDED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml:32:17-67
 uses-sdk
 INJECTED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\@ANDROID\sudoku2PDF\app\src\main\AndroidManifest.xml

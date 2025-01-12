@@ -2953,7 +2953,6 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
-drawable folder
 drawable folder_big
 drawable generate
 drawable ic_arrow_back_black_24
@@ -3044,7 +3043,6 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable printer
-drawable printer_big
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -3255,7 +3253,6 @@ id frmCase1
 id frmCase2
 id frost
 id fullscreen_header
-id generate
 id ghost_view
 id ghost_view_holder
 id gone
@@ -3465,7 +3462,6 @@ id select_dialog_listview
 id selected
 id selection_type
 id share_to_main
-id share_to_one
 id sharedValueSet
 id sharedValueUnset
 id shortcut
@@ -3539,6 +3535,8 @@ id time
 id title
 id titleDividerNoCustom
 id title_template
+id to_file
+id to_printer
 id toggle
 id top
 id topPanel

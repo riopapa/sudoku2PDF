@@ -41,7 +41,6 @@ drawable add_new
 drawable border_folder
 drawable circle
 drawable delete
-drawable folder
 drawable folder_big
 drawable generate
 drawable make_pdf
@@ -49,7 +48,6 @@ drawable mesh0_off
 drawable mesh1_top
 drawable mesh2_on
 drawable printer
-drawable printer_big
 font good_times
 font radioland_regular
 font wyjov
@@ -61,7 +59,6 @@ id delete
 id fill
 id frmCase1
 id frmCase2
-id generate
 id left
 id llAnswer
 id llName
@@ -86,8 +83,9 @@ id progress_circle
 id quizCount
 id right
 id share_to_main
-id share_to_one
 id t_name
+id to_file
+id to_printer
 id two_six
 id wheel_blanks
 id wheel_quiz

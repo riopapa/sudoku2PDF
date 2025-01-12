@@ -1,10 +1,10 @@
 package com.riopapa.sudoku2pdf;
 
 
-import static com.riopapa.sudoku2pdf.MainActivity.oneAdapter;
-import static com.riopapa.sudoku2pdf.MainActivity.onePos;
-import static com.riopapa.sudoku2pdf.MainActivity.shareTo;
-import static com.riopapa.sudoku2pdf.MainActivity.sudokus;
+import static com.riopapa.sudoku2pdf.ActivityMain.oneAdapter;
+import static com.riopapa.sudoku2pdf.ActivityMain.onePos;
+import static com.riopapa.sudoku2pdf.ActivityMain.shareTo;
+import static com.riopapa.sudoku2pdf.ActivityMain.sudokus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -41,7 +41,7 @@ public class ActivityOneEdit extends AppCompatActivity {
     List<String> blankList, pageList;
     final static int MINIMUM_BLANK = 12, MAXIMUM_BLANK = 55;
     final static int MINIMUM_PAGE = 4, MAXIMUM_PAGE = 60;
-    ImageButton btnMesh, generate;
+    ImageButton btnMesh, toPrinter, toFile;
     TextView tv2or6, tMessage;
     EditText eOpacity, eName;    // 255 : real black
     Sudoku su;
@@ -137,24 +137,32 @@ public class ActivityOneEdit extends AppCompatActivity {
         makeAnswer.setChecked(su.answer);
         makeAnswer.setOnCheckedChangeListener((compoundButton, b) ->
             {su.answer = b; sudokus.set(onePos, su);});
-        generate = findViewById(R.id.generate);
-        generate.setImageResource((shareTo == 0) ? R.drawable.folder_big : R.drawable.printer_big);
-        generate.setOnClickListener(new View.OnClickListener() {
+
+        toPrinter = findViewById(R.id.to_printer);
+        toPrinter.setOnClickListener(new View.OnClickListener() {
             boolean isRunning = false;
             @Override
             public void onClick(View view) {
                 if (!isRunning) {
                     isRunning = true;
-                    sudokus.set(onePos, su);
-                    new SharedSudoku().put(getApplicationContext());
                     Snackbar.make(view, "Starting generation", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+                    letUsGo("p");
+                    isRunning = false;
+                }
+            }
+        });
 
-                    new MakeSudoku().make(su, oneContext, oneActivity,
-                            findViewById(R.id.message),
-                            findViewById(R.id.progress_circle),
-                            ResourcesCompat.getDrawable(getResources(), R.drawable.circle, null)
-                    );
+        toFile = findViewById(R.id.to_file);
+        toFile.setOnClickListener(new View.OnClickListener() {
+            boolean isRunning = false;
+            @Override
+            public void onClick(View view) {
+                if (!isRunning) {
+                    isRunning = true;
+                    Snackbar.make(view, "Starting generation", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    letUsGo("f");
                     isRunning = false;
                 }
             }
@@ -173,6 +181,17 @@ public class ActivityOneEdit extends AppCompatActivity {
         buildPageWheel();
 
     }
+    private void letUsGo(String filePrint) {
+        sudokus.set(onePos, su);
+        new SharedSudoku().put(getApplicationContext());
+
+        new MakeSudoku().make(su, filePrint,
+                findViewById(R.id.message),
+                findViewById(R.id.progress_circle),
+                ResourcesCompat.getDrawable(getResources(), R.drawable.circle, null)
+        );
+    }
+
 
     private void showMesh(int mesh) {
         if (mesh == 0)
@@ -215,8 +234,6 @@ public class ActivityOneEdit extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_edit, menu);
-        shareToMenu = menu.findItem(R.id.share_to_one);
-        shareToMenu.setIcon((shareTo == 0)? R.drawable.folder:R.drawable.printer);
         return true;
     }
 
@@ -230,10 +247,6 @@ public class ActivityOneEdit extends AppCompatActivity {
             oneAdapter.notifyItemRemoved(onePos);
             finish();
             return true;
-        } else if (menuItem == R.id.share_to_one) {
-            shareTo = ++shareTo % 2;
-            shareToMenu.setIcon((shareTo == 0)? R.drawable.folder:R.drawable.printer);
-            generate.setImageResource((shareTo == 0) ? R.drawable.folder_big : R.drawable.printer_big);
         }
         return super.onOptionsItemSelected(item);
     }

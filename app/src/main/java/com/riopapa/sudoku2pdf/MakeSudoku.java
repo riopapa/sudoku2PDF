@@ -4,20 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.core.content.res.ResourcesCompat;
-
 import com.riopapa.sudoku2pdf.Model.Sudoku;
 
-import org.w3c.dom.Text;
-
-import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 class MakeSudoku {
@@ -29,10 +22,11 @@ class MakeSudoku {
     TextView tvStatus;
     ProgressBar progressBar;
     Drawable drawable;
-
-    public void make(Sudoku sudoku, Context context, Activity activity,
+    String filePrint;
+    public void make(Sudoku sudoku, String filePrint,
                      TextView tvStat, ProgressBar progress, Drawable draw) {
         this.su = sudoku;
+        this.filePrint = filePrint;
         quizCount = sudoku.quiz;
         blankCount = sudoku.blank;
         tvStatus = tvStat;
@@ -145,61 +139,13 @@ class MakeSudoku {
         @Override
         protected void onPostExecute(String statistics ) {
 
-//            Toast.makeText(ActivityOneEdit.,statistics, Toast.LENGTH_LONG).show();
             Log.w("DONE", statistics);
             progressBar.setVisibility(View.INVISIBLE);
             tvStatus.setText(statistics);
             tvStatus.invalidate();
 
-            new MakePDF(blankTables, answerTables, su, tvStatus.getContext());
+            new Save2PDF(blankTables, answerTables, su, tvStatus.getContext(), filePrint);
 
         }
     }
 }
-
-//        private void dumpTable(String s, int [][] tbl) {
-//            Log.w("r",s);
-//            String bar0  = "\n   0  1  2 | 3  4  5 | 6  7  8";
-//            String bar   = "\n   -  -  - | -  -  - | -  -  -";
-//            StringBuilder suTableResult = new StringBuilder("  "+bar0+bar);
-//            for (int y = 0; y < 9; y++) {
-//                StringBuilder str = new StringBuilder("\n"+y+" ");
-//                for (int x = 0; x < 9; x++) {
-//                    String sx = " "+tbl[x][y] + " ";
-//                    str.append(sx);
-//                    if (x ==2 || x == 5)
-//                        str.append("|");
-//                }
-//                suTableResult.append(str);
-//                if (y ==2 || y == 5)
-//                    suTableResult.append(bar);
-//            }
-//            suTableResult.append(bar);
-//            suTableResult.append(bar0);
-//            Log.w("r",suTableResult.toString());
-//        }
-
-
-//        private void dumpUsed(String memo) {
-//            Log.w("d",memo);
-//            String s = " .";
-//            for (int x = 0; x < 9; x++) {
-//                s += "~" + x + "~|";
-//            }
-//            Log.w("s",s);
-//            for (int y = 0; y < 9; y++) {
-//                String [] garo = new String [3];
-//                garo[0] = " |";garo[1] = y+"|";garo[2] = " |";
-//                for (int x = 0; x < 9; x++) {
-//                    for (int z = 0; z < 9; z++) {
-//                        if (usedTable[x][y][z] == 0)
-//                            garo[z/3] += "o";
-//                        else
-//                            garo[z/3] += (z+1);
-//                        if (z == 2 || z == 5) {
-//                        }
-//                    }
-//                    garo[0] += "|";garo[1] += "|";garo[2] += "|";
-//                }
-//            }
-//        }
