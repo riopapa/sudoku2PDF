@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 public class ActivityMain extends AppCompatActivity {
 
-    public static Context mContext;
     public static Activity mActivity;
     public static ArrayList<Sudoku> sudokus;
     public static int shareTo = 0;   // 0 : folder, 1: printer
@@ -27,6 +26,7 @@ public class ActivityMain extends AppCompatActivity {
     static MenuItem shareToMenu;
     RecyclerView oneRecyclerView;
     public static OneAdapter oneAdapter;
+    String downloadFolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +40,11 @@ public class ActivityMain extends AppCompatActivity {
             intent.setData(uri);
             startActivity(intent);
         }
-        mContext = this;
+
         mActivity = this;
-        new SharedSudoku().get(mContext);   // read sudokus
-        new DeleteOldFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
+        new SharedSudoku().get(this);   // read sudokus
+        downloadFolder = Environment.getExternalStorageDirectory().getPath()+"/download";
+        new DeleteOldFile(downloadFolder, "", "su_", 2 * 24 * 60 * 60 * 1000);
 
         oneAdapter = new OneAdapter();
         oneRecyclerView = findViewById(R.id.one_list);

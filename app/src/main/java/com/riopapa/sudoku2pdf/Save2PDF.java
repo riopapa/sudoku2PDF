@@ -1,7 +1,5 @@
 package com.riopapa.sudoku2pdf;
 
-import static com.riopapa.sudoku2pdf.ActivityMain.shareTo;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -41,7 +39,7 @@ class Save2PDF {
         final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
         fileDate = sdfDate.format(System.currentTimeMillis());
         fileInfo = "b"+su.blank +"p"+su.quiz;
-        outFolder = new File(downLoadFolder, "sudoku");
+        outFolder = new File(downLoadFolder);
         if (!outFolder.exists())
             if (outFolder.mkdirs())
                 Log.i("folder","Sudoku Folder");
@@ -220,7 +218,6 @@ class Save2PDF {
         } catch (Exception e) {
             Log.e("PDF2Printer", "error " + e);
         }
-
     }
 
     //         Create Answer Page ------------
@@ -232,9 +229,8 @@ class Save2PDF {
         Canvas canvas;
 
         document = new PdfDocument();
-
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(pgWidth, pgHeight, 1).create();
-        // start a page
+
         page = document.startPage(pageInfo);
         canvas = page.getCanvas();
 
