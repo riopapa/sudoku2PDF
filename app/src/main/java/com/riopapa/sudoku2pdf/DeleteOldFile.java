@@ -1,5 +1,11 @@
 package com.riopapa.sudoku2pdf;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.Settings;
 import android.util.Log;
 
 import java.io.File;
@@ -16,7 +22,16 @@ public class DeleteOldFile {
     // prefix : maze_
     // backTime : 2 * 24 * 60 * 60 * 1000 (2 days)
 
-    public DeleteOldFile(String downloadFolder, String subFolder,
+    public DeleteOldFile(Activity activity) {
+        if (!Environment.isExternalStorageManager()) {
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+            Uri uri = Uri.fromParts("package", activity.getPackageName(), null);
+            intent.setData(uri);
+            activity.startActivity(intent);
+        }
+    }
+    public void del(String downloadFolder, String subFolder,
                          String prefix, long backTime) {
         final SimpleDateFormat sdfDate = new SimpleDateFormat(FORMAT_DATE, Locale.US);
         String oldFileName = prefix

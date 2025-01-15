@@ -33,18 +33,11 @@ public class ActivityMain extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (!Environment.isExternalStorageManager()) {
-            Intent intent = new Intent();
-            intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-            Uri uri = Uri.fromParts("package", this.getPackageName(), null);
-            intent.setData(uri);
-            startActivity(intent);
-        }
 
         mActivity = this;
         new SharedSudoku().get(this);   // read sudokus
         downloadFolder = Environment.getExternalStorageDirectory().getPath()+"/download";
-        new DeleteOldFile(downloadFolder, "", "su_", 2 * 24 * 60 * 60 * 1000);
+        new DeleteOldFile(this).del(downloadFolder, "", "su_", 2 * 24 * 60 * 60 * 1000);
 
         oneAdapter = new OneAdapter();
         oneRecyclerView = findViewById(R.id.one_list);

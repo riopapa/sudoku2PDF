@@ -29,7 +29,7 @@ class Save2PDF {
     String fileDate, fileInfo;
     Bitmap sigMap;
     Paint pBoxIn, pBoxOut, pDotted, pNumb, pMemo, pSig, pCount;
-    int pgWidth = 210*5, pgHeight = 297*5;  // A4 size
+    int pgWidth = 210*10, pgHeight = 297*10;  // A4 size
     int meshType, twoSix, boxWidth, boxWidth3, space, pageNbr;
 
     public Save2PDF(String [] blankTables, String [] answerTables, Sudoku su,
@@ -45,8 +45,8 @@ class Save2PDF {
                 Log.i("folder","Sudoku Folder");
         outFile = new File(outFolder, "su_" + fileDate + " " + fileInfo + " " + su.name);
         sigMap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.my_sign_yellow);
-        sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 5,
-                sigMap.getHeight() / 5, false);
+        sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 3,
+                sigMap.getHeight() / 3, false);
         meshType = su.mesh;
         twoSix = su.nbrPage;
         if (twoSix == 2)
@@ -54,7 +54,7 @@ class Save2PDF {
         else if (twoSix == 6)
             boxWidth = pgHeight / (11*3-1);
         else
-            boxWidth = (pgWidth - 200) / 10;
+            boxWidth = (pgWidth - 400) / 10;
         boxWidth3 = boxWidth / 3;
         space = boxWidth*2/8;  // space = 2 : 24, 3:
         pageNbr = 0;
@@ -65,18 +65,18 @@ class Save2PDF {
         pBoxIn = new Paint();      // inner box    (quiz)
         pBoxIn.setColor(context.getColor(R.color.innerBox));
         pBoxIn.setStyle(Paint.Style.STROKE);
-        pBoxIn.setStrokeWidth(1);
+        pBoxIn.setStrokeWidth(2);
         pBoxIn.setAlpha(su.opacity *3/4);
-        pBoxIn.setPathEffect(new DashPathEffect(new float[] {2,2}, 0));
+        pBoxIn.setPathEffect(new DashPathEffect(new float[] {3,3}, 0));
 
         pBoxOut = new Paint();     // outer box
         pBoxOut.setColor(Color.BLACK);
         pBoxOut.setStyle(Paint.Style.STROKE);
-        pBoxOut.setStrokeWidth(2);
+        pBoxOut.setStrokeWidth(3);
         pBoxOut.setAlpha(su.opacity);
 
         pDotted = new Paint();        // inner dotted box
-        pDotted.setPathEffect(new DashPathEffect(new float[] {2, 3}, 0));
+        pDotted.setPathEffect(new DashPathEffect(new float[] {3, 4}, 0));
         pDotted.setColor(context.getColor(R.color.dotLine));
         pDotted.setStrokeWidth(1);
         pDotted.setAlpha(su.opacity*2/3);
@@ -84,7 +84,7 @@ class Save2PDF {
         pNumb = new Paint();        // number
         pNumb.setColor(context.getResources().getColor(R.color.number));
         pNumb.setAlpha(su.opacity);
-        pNumb.setStrokeWidth(1);
+        pNumb.setStrokeWidth(2);
         pNumb.setTypeface(context.getResources().getFont(R.font.good_times));
         pNumb.setTextSize((float) boxWidth * 8 / 10);
         pNumb.setTextAlign(Paint.Align.CENTER);
@@ -104,7 +104,7 @@ class Save2PDF {
         pMemo.setStrokeWidth(0);
         pMemo.setTextAlign(Paint.Align.CENTER);
         pMemo.setStyle(Paint.Style.FILL_AND_STROKE);
-        pMemo.setTextSize(32);
+        pMemo.setTextSize(64);
 
         pSig = new Paint();
         pSig.setColor(Color.BLUE);
@@ -113,7 +113,7 @@ class Save2PDF {
         pSig.setStrokeWidth(0);
         pSig.setAlpha(su.opacity *3/4);
         pSig.setStyle(Paint.Style.FILL_AND_STROKE);
-        pSig.setTextSize(18);
+        pSig.setTextSize(36);
 
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(pgWidth, pgHeight, pageNbr).create();
         page = document.startPage(pageInfo);
@@ -234,16 +234,19 @@ class Save2PDF {
         page = document.startPage(pageInfo);
         canvas = page.getCanvas();
 
-        boxWidth = (pgWidth - 30) / 40;    // 4 answer for 1 line
+        boxWidth = (pgWidth - 60) / 40;    // 4 answer for 1 line
         pBoxIn.setStrokeWidth(1);
         pNumb.setTextSize(boxWidth/2.3f); // pNumb : answer number
         pNumb.setAlpha(su.opacity);
         pMemo.setTextSize(boxWidth/2f);  // pMemo : given number
         pMemo.setColor(Color.DKGRAY);
         pMemo.setAlpha(su.opacity);
+        pCount.setTextSize((float) boxWidth * 5 / 10);
+
         pageNbr = 0;
         for (int nbrQz = 0; nbrQz < answerTables.length; nbrQz++) {
-            if (nbrQz > 19 && nbrQz % 20 == 0) {
+            int y20 = nbrQz % 20;    // 20 answers per page
+            if (nbrQz > 19 && y20 == 0) {
                 pageNbr++;
                 addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, false);
                 document.finishPage(page);
@@ -255,8 +258,8 @@ class Save2PDF {
 
             int [][] ansTable = str2suArray(answerTables[nbrQz]);
             int [][] blankTable = str2suArray(blankTables[nbrQz]);
-            int xBase = 30 + (nbrQz % 4) * boxWidth * 95 / 10;
-            int yBase = 50 + ((nbrQz > 19) ? nbrQz-20 : nbrQz-2) / 4 * boxWidth * 11;
+            int xBase = 50 + (nbrQz % 4) * boxWidth * 95 / 10;
+            int yBase = 80 + (int) (y20 / 4) * boxWidth * 11;
             int xGap = boxWidth/2;
             int yGap = boxWidth*3/4;
             for (int row = 0; row < 9; row++) {
@@ -297,32 +300,32 @@ class Save2PDF {
         int xPos;
         int yPos;
         Paint p = new Paint();
-        p.setTextSize(16);
-        p.setColor(0xFFAF4844);
+        p.setColor(0xFF4488FF);
+        p.setTextSize(28);
         p.setTextAlign(Paint.Align.RIGHT);
         p.setStyle(Paint.Style.STROKE);
         p.setStyle(Paint.Style.FILL_AND_STROKE);
         int inc = (int) p.getTextSize() * 5 / 3;
         if (top) {
-            xPos = pgWidth - 10;
+            xPos = pgWidth - 20;
             yPos = 50;
             canvas.drawText(fileDate.substring(0,8),xPos, yPos, p);
             yPos += inc;
-            p.setColor(0xFF4488FF);
+            p.setColor(0xFFAF4844);
             canvas.drawText(fileDate.substring(9),xPos, yPos, p);
             yPos += inc+inc/2;
-            p.setTextSize(28);
+            p.setTextSize(44);
             canvas.drawText("□"+su.blank,xPos, yPos, p);
             yPos += inc/2;
             xPos -= sigMap.getWidth();
         } else {
             xPos = pgWidth / 2;
-            yPos = pgHeight - 50;
+            yPos = pgHeight - 80;
             paint.setTextAlign(Paint.Align.RIGHT);
             canvas.drawText(fileDate, xPos, yPos, paint);
             paint.setTextAlign(Paint.Align.LEFT);
-            canvas.drawText(fileInfo, xPos + 24, yPos, paint);
-            xPos += 70 + inc;
+            canvas.drawText(fileInfo, xPos + 30, yPos, paint);
+            xPos += 120 + inc;
             yPos -= sigMap.getHeight()/2;
         }
         p.setAlpha(paint.getAlpha()*3/4);
