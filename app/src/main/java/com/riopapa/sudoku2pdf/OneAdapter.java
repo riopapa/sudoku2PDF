@@ -55,16 +55,17 @@ public class OneAdapter extends RecyclerView.Adapter<OneAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
+        String s;
         Sudoku su = sudokus.get(position);
-        holder.tName.setText("팀명 : " + su.name);
-        holder.tBlank.setText("빈칸 수 : " + su.blank);
-        holder.tQuiz.setText("전체 문제 수 : " + su.quiz);
-        holder.tAnswer.setText((su.answer) ? "답안지 만듬" : "답안지 안 만듬");
-        holder.tOpacity.setText("인쇄 강도 : " + su.opacity);
+        s =  "팀명 : " + su.name; holder.tName.setText(s);
+        s = "빈칸 수 : " + su.blank; holder.tBlank.setText(s);
+        s = "전체 문제 수 : " + su.quiz; holder.tQuiz.setText(s);
+        s = (su.answer) ? "답안지 만듬" : "답안지 안 만듬"; holder.tAnswer.setText(s);
+        s = "인쇄 강도 : " + su.opacity; holder.tOpacity.setText(s);
         holder.iMesh.setImageResource((su.mesh == 0) ? R.drawable.mesh0_off :
                             (su.mesh == 1) ? R.drawable.mesh1_top :
                                     (su.mesh == 2) ? R.drawable.mesh2_on :R.drawable.mesh3_top);
-        holder.tNbrPage.setText("페이지당 문제 수 : " + su.nbrPage);
+        s = "페이지당 문제 수 : " + su.nbrPage; holder.tNbrPage.setText(s);
         holder.tLine.setOnClickListener(v -> {
             onePos = holder.getAdapterPosition();
             Intent intent = new Intent(holder.context, ActivityOneEdit.class);
