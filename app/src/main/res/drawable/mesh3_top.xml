@@ -8,8 +8,7 @@
         android:strokeWidth="1"
         android:pathData="
             M3,14v-12h18v12
-            M3,8h18
-            M9,2v12
-            M15,2v12
+            M3,9h18
+            M12,2v12
            "/>
 </vector>

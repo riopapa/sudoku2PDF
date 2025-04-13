@@ -30,7 +30,7 @@ class Save2PDF {
     Bitmap sigMap;
     Paint pBoxIn, pBoxOut, pDotted, pNumb, pMemo, pSig, pCount;
     int pgWidth = 210*10, pgHeight = 297*10;  // A4 size
-    int meshType, twoSix, boxWidth, boxWidth3, space, pageNbr;
+    int meshType, twoSix, boxWidth, boxWidth3, boxWidth2, space, pageNbr;
 
     public Save2PDF(String [] blankTables, String [] answerTables, Sudoku su,
                     Context context, String filePrint) {
@@ -50,12 +50,13 @@ class Save2PDF {
         meshType = su.mesh;
         twoSix = su.nbrPage;
         if (twoSix == 2)
-            boxWidth = pgHeight / (11*2-1);
+            boxWidth = (pgHeight-60) / (10 + 1 + 10);
         else if (twoSix == 6)
             boxWidth = pgHeight / (11*3-1);
         else
-            boxWidth = (pgWidth - 400) / 10;
+            boxWidth = (pgWidth - 300) / 10;
         boxWidth3 = boxWidth / 3;
+        boxWidth2 = boxWidth / 2;
         space = boxWidth*2/8;  // space = 2 : 24, 3:
         pageNbr = 0;
         PdfDocument document = new PdfDocument();
@@ -95,7 +96,7 @@ class Save2PDF {
         pCount.setAlpha(su.opacity*2/3);
         pCount.setStrokeWidth(1);
         pCount.setTypeface(context.getResources().getFont(R.font.good_times));
-        pCount.setTextSize((float) boxWidth * 5 / 10);
+        pCount.setTextSize((float) boxWidth * 3 / 10);
         pCount.setStyle(Paint.Style.FILL);
 
         pMemo = new Paint();
@@ -146,9 +147,9 @@ class Save2PDF {
 
             int yBase;
             if (twoSix == 2) {
-                yBase = boxWidth + (nbrQz % 2) * boxWidth * 105 / 10;
+                yBase = boxWidth/4 + (nbrQz % 2) * boxWidth * 100 / 10;
             } else if (twoSix == 6) {
-                yBase = boxWidth + ((nbrQz%6) / 2) * boxWidth * 105 / 10;
+                yBase = boxWidth + ((nbrQz%6) / 2) * boxWidth * 100 / 10;
             } else {
                 yBase = boxWidth;
             }
@@ -176,6 +177,10 @@ class Save2PDF {
                                 xPos + boxWidth, yPos + boxWidth3, pDotted);
                         canvas.drawLine(xPos, yPos + boxWidth3 + boxWidth3,
                                 xPos + boxWidth, yPos + boxWidth3 + boxWidth3, pDotted);
+                    } else if (meshType == 3){
+                        canvas.drawLine(xPos + boxWidth2, yPos, xPos + boxWidth2, yPos + boxWidth3, pDotted);
+                        canvas.drawLine(xPos, yPos + boxWidth3,
+                                xPos + boxWidth, yPos + boxWidth3, pDotted);
                     }
                 }
             }
@@ -234,7 +239,7 @@ class Save2PDF {
         page = document.startPage(pageInfo);
         canvas = page.getCanvas();
 
-        boxWidth = (pgWidth - 60) / 40;    // 4 answer for 1 line
+        boxWidth = (pgWidth - 50) / 40;    // 4 answer for 1 line
         pBoxIn.setStrokeWidth(1);
         pNumb.setTextSize(boxWidth/2.3f); // pNumb : answer number
         pNumb.setAlpha(su.opacity);
@@ -301,20 +306,20 @@ class Save2PDF {
         int yPos;
         Paint p = new Paint();
         p.setColor(0xFF4488FF);
-        p.setTextSize(28);
+        p.setTextSize(40);
         p.setTextAlign(Paint.Align.RIGHT);
         p.setStyle(Paint.Style.STROKE);
         p.setStyle(Paint.Style.FILL_AND_STROKE);
         int inc = (int) p.getTextSize() * 5 / 3;
         if (top) {
-            xPos = pgWidth - 20;
+            xPos = pgWidth - 40;
             yPos = 50;
             canvas.drawText(fileDate.substring(0,8),xPos, yPos, p);
             yPos += inc;
             p.setColor(0xFFAF4844);
             canvas.drawText(fileDate.substring(9),xPos, yPos, p);
             yPos += inc+inc/2;
-            p.setTextSize(44);
+            p.setTextSize(48);
             canvas.drawText("□"+su.blank,xPos, yPos, p);
             yPos += inc/2;
             xPos -= sigMap.getWidth();

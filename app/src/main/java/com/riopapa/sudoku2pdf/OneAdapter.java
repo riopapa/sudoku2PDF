@@ -62,7 +62,8 @@ public class OneAdapter extends RecyclerView.Adapter<OneAdapter.ViewHolder> {
         holder.tAnswer.setText((su.answer) ? "답안지 만듬" : "답안지 안 만듬");
         holder.tOpacity.setText("인쇄 강도 : " + su.opacity);
         holder.iMesh.setImageResource((su.mesh == 0) ? R.drawable.mesh0_off :
-                            (su.mesh == 1) ? R.drawable.mesh1_top : R.drawable.mesh2_on);
+                            (su.mesh == 1) ? R.drawable.mesh1_top :
+                                    (su.mesh == 2) ? R.drawable.mesh2_on :R.drawable.mesh3_top);
         holder.tNbrPage.setText("페이지당 문제 수 : " + su.nbrPage);
         holder.tLine.setOnClickListener(v -> {
             onePos = holder.getAdapterPosition();

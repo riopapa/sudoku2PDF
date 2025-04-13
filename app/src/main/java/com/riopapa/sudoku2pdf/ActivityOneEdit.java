@@ -69,7 +69,7 @@ public class ActivityOneEdit extends AppCompatActivity {
         su = sudokus.get(onePos);
         btnMesh = findViewById(R.id.mesh);
         btnMesh.setOnClickListener(view -> {
-            su.mesh = (su.mesh +1) % 3;
+            su.mesh = (su.mesh +1) % 4;
             showMesh(su.mesh);
             sudokus.set(onePos, su);
         });
@@ -181,11 +181,11 @@ public class ActivityOneEdit extends AppCompatActivity {
         buildPageWheel();
 
     }
-    private void letUsGo(String filePrint) {
+    private void letUsGo(String fileOrPrint) {
         sudokus.set(onePos, su);
         new SharedSudoku().put(getApplicationContext());
 
-        new MakeSudoku().make(su, filePrint,
+        new MakeSudoku().make(su, fileOrPrint,
                 findViewById(R.id.message),
                 findViewById(R.id.progress_circle),
                 ResourcesCompat.getDrawable(getResources(), R.drawable.circle, null)
@@ -198,8 +198,10 @@ public class ActivityOneEdit extends AppCompatActivity {
             btnMesh.setImageResource(R.drawable.mesh0_off);
         else if (mesh == 1)
             btnMesh.setImageResource(R.drawable.mesh1_top);
-        else
+        else if (mesh == 2)
             btnMesh.setImageResource(R.drawable.mesh2_on);
+        else
+            btnMesh.setImageResource(R.drawable.mesh3_top);
     }
 
     private void buildBlankWheel() {
