@@ -14,6 +14,8 @@ import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
 import android.util.Log;
 
+import androidx.core.content.ContextCompat;
+
 import com.riopapa.sudoku2pdf.Model.Sudoku;
 
 import java.io.File;
@@ -83,7 +85,7 @@ class Save2PDF {
         pDotted.setAlpha(su.opacity*2/3);
 
         pNumb = new Paint();        // number
-        pNumb.setColor(context.getResources().getColor(R.color.number));
+        pNumb.setColor( ContextCompat.getColor(context,R.color.number));
         pNumb.setAlpha(su.opacity);
         pNumb.setStrokeWidth(2);
         pNumb.setTypeface(context.getResources().getFont(R.font.good_times));
@@ -92,7 +94,7 @@ class Save2PDF {
         pNumb.setStyle(Paint.Style.FILL_AND_STROKE);
 
         pCount = new Paint();        // number
-        pCount.setColor(context.getResources().getColor(R.color.count));
+        pCount.setColor( ContextCompat.getColor(context,R.color.count));
         pCount.setAlpha(su.opacity*2/3);
         pCount.setStrokeWidth(1);
         pCount.setTypeface(context.getResources().getFont(R.font.good_times));
@@ -122,12 +124,12 @@ class Save2PDF {
 
         for (int nbrQz = 0; nbrQz < blankTables.length; nbrQz++) {
             if (nbrQz == 0)
-                addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
+                addSignature(su, sigMap, pgWidth, canvas);
             else if ((twoSix == 2 && nbrQz % 2 == 0) ||
                     (twoSix == 6 && nbrQz > 5 && nbrQz % 6 == 0) ||
                     twoSix == 1) {
                 pageNbr++;
-                addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
+                addSignature(su, sigMap, pgWidth,  canvas);
                 document.finishPage(page);
                 pageInfo = new PdfDocument.PageInfo.Builder(pgWidth, pgHeight, pageNbr).create();
                 // start a page
@@ -136,22 +138,18 @@ class Save2PDF {
             }
 
             int [][] xyTable = str2suArray(blankTables[nbrQz]);
-            int xBase;
+            int xBase =  boxWidth + 10;
             if (twoSix == 2) {
                 xBase = boxWidth + 10;
             } else if (twoSix == 6) {
                 xBase = boxWidth + 5 + ((nbrQz % 6) % 2) * 10 * boxWidth;
-            } else {
-                xBase = boxWidth + 10;
             }
 
-            int yBase;
+            int yBase = boxWidth;   // twoSix = 1
             if (twoSix == 2) {
                 yBase = boxWidth/4 + (nbrQz % 2) * boxWidth * 100 / 10;
             } else if (twoSix == 6) {
                 yBase = boxWidth + ((nbrQz%6) / 2) * boxWidth * 100 / 10;
-            } else {
-                yBase = boxWidth;
             }
 
             int xGap = boxWidth/2;
@@ -193,7 +191,7 @@ class Save2PDF {
                 }
             canvas.drawText("{"+(nbrQz+1)+"}", xBase + 4 + boxWidth*9, yBase+10, pCount);
         }
-        addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, true);
+        addSignature(su, sigMap, pgWidth,  canvas);
 
         document.finishPage(page);
 
@@ -253,7 +251,7 @@ class Save2PDF {
             int y20 = nbrQz % 20;    // 20 answers per page
             if (nbrQz > 19 && y20 == 0) {
                 pageNbr++;
-                addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, false);
+                addSignature(su, sigMap, pgWidth,  canvas);
                 document.finishPage(page);
                 pageInfo = new PdfDocument.PageInfo.Builder(pgWidth, pgHeight, pageNbr).create();
                 // start a page
@@ -264,7 +262,7 @@ class Save2PDF {
             int [][] ansTable = str2suArray(answerTables[nbrQz]);
             int [][] blankTable = str2suArray(blankTables[nbrQz]);
             int xBase = 50 + (nbrQz % 4) * boxWidth * 95 / 10;
-            int yBase = 80 + (int) (y20 / 4) * boxWidth * 11;
+            int yBase = 80 +  (y20 / 4) * boxWidth * 11;
             int xGap = boxWidth/2;
             int yGap = boxWidth*3/4;
             for (int row = 0; row < 9; row++) {
@@ -288,7 +286,7 @@ class Save2PDF {
                 }
         }
 
-        addSignature(su, sigMap, pgWidth, pgHeight, canvas, pSig, false);
+        addSignature(su, sigMap, pgWidth,  canvas);
         document.finishPage(page);
 
         filePath = new File(outFile+" Sol.pdf");
@@ -300,8 +298,7 @@ class Save2PDF {
         document.close();
     }
 
-    void addSignature(Sudoku su, Bitmap sigMap, int pgWidth, int pgHeight,
-                                     Canvas canvas, Paint paint, boolean top) {
+    void addSignature(Sudoku su, Bitmap sigMap, int pgWidth, Canvas canvas) {
         float xPos,  yPos;
 
         canvas.save();
@@ -310,7 +307,6 @@ class Save2PDF {
         nPaint.setTextSize(40);
         nPaint.setStyle(Paint.Style.STROKE);
         nPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        int inc = (int) nPaint.getTextSize() * 5 / 3;
         xPos =  pgWidth - 100;
         yPos = 100;
         canvas.rotate(90, xPos, yPos);
@@ -321,7 +317,7 @@ class Save2PDF {
         xPos += nPaint.getTextSize() * 5;
         nPaint.setTextSize(48);
         nPaint.setColor(0xFF4FBF24);
-        canvas.drawText("□"+su.blank,xPos, yPos, nPaint);
+        canvas.drawText("□ "+su.blank,xPos, yPos, nPaint);
         xPos += nPaint.getTextSize() * 3;
         canvas.drawBitmap(sigMap, xPos, yPos/2, nPaint);
         canvas.restore();
