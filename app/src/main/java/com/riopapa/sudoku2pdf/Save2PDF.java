@@ -302,39 +302,29 @@ class Save2PDF {
 
     void addSignature(Sudoku su, Bitmap sigMap, int pgWidth, int pgHeight,
                                      Canvas canvas, Paint paint, boolean top) {
-        int xPos;
-        int yPos;
-        Paint p = new Paint();
-        p.setColor(0xFF4488FF);
-        p.setTextSize(40);
-        p.setTextAlign(Paint.Align.RIGHT);
-        p.setStyle(Paint.Style.STROKE);
-        p.setStyle(Paint.Style.FILL_AND_STROKE);
-        int inc = (int) p.getTextSize() * 5 / 3;
-        if (top) {
-            xPos = pgWidth - 40;
-            yPos = 50;
-            canvas.drawText(fileDate.substring(0,8),xPos, yPos, p);
-            yPos += inc;
-            p.setColor(0xFFAF4844);
-            canvas.drawText(fileDate.substring(9),xPos, yPos, p);
-            yPos += inc+inc/2;
-            p.setTextSize(48);
-            canvas.drawText("□"+su.blank,xPos, yPos, p);
-            yPos += inc/2;
-            xPos -= sigMap.getWidth();
-        } else {
-            xPos = pgWidth / 2;
-            yPos = pgHeight - 80;
-            paint.setTextAlign(Paint.Align.RIGHT);
-            canvas.drawText(fileDate, xPos, yPos, paint);
-            paint.setTextAlign(Paint.Align.LEFT);
-            canvas.drawText(fileInfo, xPos + 30, yPos, paint);
-            xPos += 120 + inc;
-            yPos -= sigMap.getHeight()/2;
-        }
-        p.setAlpha(paint.getAlpha()*3/4);
-        canvas.drawBitmap(sigMap, xPos, yPos, p);
+        float xPos,  yPos;
+
+        canvas.save();
+        Paint nPaint = new Paint();
+        nPaint.setColor(0xFF4488FF);
+        nPaint.setTextSize(40);
+        nPaint.setStyle(Paint.Style.STROKE);
+        nPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        int inc = (int) nPaint.getTextSize() * 5 / 3;
+        xPos =  pgWidth - 100;
+        yPos = 100;
+        canvas.rotate(90, xPos, yPos);
+        canvas.drawText(fileDate.substring(0,8), xPos, yPos, nPaint);
+        xPos += nPaint.getTextSize() * 5;
+        nPaint.setColor(0xFFAF4844);
+        canvas.drawText(fileDate.substring(9), xPos, yPos, nPaint);
+        xPos += nPaint.getTextSize() * 5;
+        nPaint.setTextSize(48);
+        nPaint.setColor(0xFF4FBF24);
+        canvas.drawText("□"+su.blank,xPos, yPos, nPaint);
+        xPos += nPaint.getTextSize() * 3;
+        canvas.drawBitmap(sigMap, xPos, yPos/2, nPaint);
+        canvas.restore();
     }
 
     int [][] str2suArray(String str) {

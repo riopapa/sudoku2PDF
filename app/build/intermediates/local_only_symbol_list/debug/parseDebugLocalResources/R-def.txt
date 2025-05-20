@@ -47,6 +47,7 @@ drawable make_pdf
 drawable mesh0_off
 drawable mesh1_top
 drawable mesh2_on
+drawable mesh3_top
 drawable printer
 font good_times
 font radioland_regular

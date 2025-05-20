@@ -2991,6 +2991,7 @@ int drawable material_ic_menu_arrow_up_black_24dp 0x7f0700ae
 int drawable mesh0_off 0x7f0700af
 int drawable mesh1_top 0x7f0700b0
 int drawable mesh2_on 0x7f0700b1
+int drawable mesh3_top 0x7f0700e9
 int drawable mtrl_bottomsheet_drag_handle 0x7f0700b2
 int drawable mtrl_checkbox_button 0x7f0700b3
 int drawable mtrl_checkbox_button_checked_unchecked 0x7f0700b4

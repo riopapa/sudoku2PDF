@@ -2992,6 +2992,7 @@ drawable material_ic_menu_arrow_up_black_24dp
 drawable mesh0_off
 drawable mesh1_top
 drawable mesh2_on
+drawable mesh3_top
 drawable mtrl_bottomsheet_drag_handle
 drawable mtrl_checkbox_button
 drawable mtrl_checkbox_button_checked_unchecked
