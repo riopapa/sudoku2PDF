@@ -33,10 +33,11 @@ class Save2PDF {
     Paint pBoxIn, pBoxOut, pDotted, pNumb, pMemo, pSig, pCount;
     int pgWidth = 210*10, pgHeight = 297*10;  // A4 size
     int meshType, twoSix, boxWidth, boxWidth3, boxWidth2, space, pageNbr;
-
+    Context context;
     public Save2PDF(String [] blankTables, String [] answerTables, Sudoku su,
                     Context context, String filePrint) {
 
+        this.context = context;
         downLoadFolder = Environment.getExternalStorageDirectory().getPath()+"/download";
         final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
         fileDate = sdfDate.format(System.currentTimeMillis());
@@ -145,12 +146,13 @@ class Save2PDF {
                 xBase = boxWidth + 5 + ((nbrQz % 6) % 2) * 10 * boxWidth;
             }
 
-            int yBase = boxWidth;   // twoSix = 1
+            int yBase;
             if (twoSix == 2) {
                 yBase = boxWidth/4 + (nbrQz % 2) * boxWidth * 100 / 10;
             } else if (twoSix == 6) {
                 yBase = boxWidth + ((nbrQz%6) / 2) * boxWidth * 100 / 10;
-            }
+            } else // == 1
+                yBase = boxWidth;
 
             int xGap = boxWidth/2;
             int yGap = boxWidth3+boxWidth3+boxWidth3/3;
@@ -300,26 +302,29 @@ class Save2PDF {
 
     void addSignature(Sudoku su, Bitmap sigMap, int pgWidth, Canvas canvas) {
         float xPos,  yPos;
-
-        canvas.save();
         Paint nPaint = new Paint();
-        nPaint.setColor(0xFF4488FF);
-        nPaint.setTextSize(40);
+        nPaint.setTextSize(36);
         nPaint.setStyle(Paint.Style.STROKE);
         nPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        xPos =  pgWidth - 100;
-        yPos = 100;
+
+        nPaint.setColor(ContextCompat.getColor(context, R.color.pdf_date));
+        xPos = pgWidth - 50;
+        yPos = 50;
+        canvas.save();
         canvas.rotate(90, xPos, yPos);
         canvas.drawText(fileDate.substring(0,8), xPos, yPos, nPaint);
+
         xPos += nPaint.getTextSize() * 5;
-        nPaint.setColor(0xFFAF4844);
+        nPaint.setColor(ContextCompat.getColor(context, R.color.pdf_time));
         canvas.drawText(fileDate.substring(9), xPos, yPos, nPaint);
+
         xPos += nPaint.getTextSize() * 5;
-        nPaint.setTextSize(48);
-        nPaint.setColor(0xFF4FBF24);
+        nPaint.setTextSize(40);
+        nPaint.setColor(ContextCompat.getColor(context, R.color.pdf_blanks));
         canvas.drawText("□ "+su.blank,xPos, yPos, nPaint);
+
         xPos += nPaint.getTextSize() * 3;
-        canvas.drawBitmap(sigMap, xPos, yPos/2, nPaint);
+        canvas.drawBitmap(sigMap, xPos, 0, nPaint);
         canvas.restore();
     }
 

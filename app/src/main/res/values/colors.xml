@@ -12,5 +12,7 @@
 
     <color name="line_text">#032C28</color>
 
-
+    <color name="pdf_date">#FF4488FF</color>
+    <color name="pdf_time">#FFF4483F</color>
+    <color name="pdf_blanks">#FF4FBF24</color>
 </resources>
