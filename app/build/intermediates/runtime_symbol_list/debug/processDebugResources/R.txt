@@ -2055,6 +2055,9 @@ int color mtrl_textinput_hovered_box_stroke_color 0x7f0502d1
 int color notification_action_color_filter 0x7f0502d2
 int color notification_icon_bg_color 0x7f0502d3
 int color number 0x7f0502eb
+int color pdf_blanks 0x7f0502ed
+int color pdf_date 0x7f0502ee
+int color pdf_time 0x7f0502ef
 int color primary_dark_material_dark 0x7f0502d4
 int color primary_dark_material_light 0x7f0502d5
 int color primary_material_dark 0x7f0502d6

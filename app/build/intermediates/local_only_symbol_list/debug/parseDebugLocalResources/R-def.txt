@@ -35,6 +35,9 @@ color innerBox
 color line_text
 color memoBox
 color number
+color pdf_blanks
+color pdf_date
+color pdf_time
 dimen fab_margin
 dimen line_text
 drawable add_new
