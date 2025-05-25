@@ -47,9 +47,8 @@ class Save2PDF {
             if (outFolder.mkdirs())
                 Log.i("folder","Sudoku Folder");
         outFile = new File(outFolder, "su_" + fileDate + " " + fileInfo + " " + su.name);
-        sigMap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.my_sign_yellow);
-        sigMap = Bitmap.createScaledBitmap(sigMap, sigMap.getWidth() / 3,
-                sigMap.getHeight() / 3, false);
+        sigMap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(),
+                R.mipmap.my_sign_blured), 80, 80,false);
         meshType = su.mesh;
         twoSix = su.nbrPage;
         if (twoSix == 2)
@@ -306,10 +305,9 @@ class Save2PDF {
         nPaint.setTextSize(36);
         nPaint.setStyle(Paint.Style.STROKE);
         nPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-
         nPaint.setColor(ContextCompat.getColor(context, R.color.pdf_date));
-        xPos = pgWidth - 50;
-        yPos = 50;
+        xPos = pgWidth - 70;
+        yPos = 70;
         canvas.save();
         canvas.rotate(90, xPos, yPos);
         canvas.drawText(fileDate.substring(0,8), xPos, yPos, nPaint);
@@ -319,12 +317,12 @@ class Save2PDF {
         canvas.drawText(fileDate.substring(9), xPos, yPos, nPaint);
 
         xPos += nPaint.getTextSize() * 5;
-        nPaint.setTextSize(40);
+        nPaint.setTextSize(nPaint.getTextSize() * 12 / 10);
         nPaint.setColor(ContextCompat.getColor(context, R.color.pdf_blanks));
         canvas.drawText("□ "+su.blank,xPos, yPos, nPaint);
 
         xPos += nPaint.getTextSize() * 3;
-        canvas.drawBitmap(sigMap, xPos, 0, nPaint);
+        canvas.drawBitmap(sigMap, xPos, yPos - 50, nPaint);
         canvas.restore();
     }
 
