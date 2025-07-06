@@ -4,9 +4,10 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
+    <color name="boxOut">#041347</color>
+    <color name="boxIn">#071443</color>
     <color name="dotLine">#2A396A</color>
     <color name="memoBox">#FF2324A0</color>
-    <color name="innerBox">#16176F</color>
     <color name="number">#170109</color>
     <color name="count">#0F665D</color>
 

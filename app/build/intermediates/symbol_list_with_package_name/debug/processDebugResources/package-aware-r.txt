@@ -1362,6 +1362,8 @@ color background_floating_material_dark
 color background_floating_material_light
 color background_material_dark
 color background_material_light
+color boxIn
+color boxOut
 color bright_foreground_disabled_material_dark
 color bright_foreground_disabled_material_light
 color bright_foreground_inverse_material_dark
@@ -1427,7 +1429,6 @@ color foreground_material_dark
 color foreground_material_light
 color highlighted_text_material_dark
 color highlighted_text_material_light
-color innerBox
 color line_text
 color m3_appbar_overlay_color
 color m3_assist_chip_icon_tint_color

@@ -3,7 +3,6 @@ package com.riopapa.sudoku2pdf;
 
 import static com.riopapa.sudoku2pdf.ActivityMain.oneAdapter;
 import static com.riopapa.sudoku2pdf.ActivityMain.onePos;
-import static com.riopapa.sudoku2pdf.ActivityMain.shareTo;
 import static com.riopapa.sudoku2pdf.ActivityMain.sudokus;
 
 import android.annotation.SuppressLint;

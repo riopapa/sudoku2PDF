@@ -1,7 +1,5 @@
 package com.riopapa.sudoku2pdf;
 
-import android.app.Activity;
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.Log;

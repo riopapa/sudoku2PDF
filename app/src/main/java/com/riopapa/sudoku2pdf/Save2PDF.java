@@ -48,7 +48,7 @@ class Save2PDF {
                 Log.i("folder","Sudoku Folder");
         outFile = new File(outFolder, "su_" + fileDate + " " + fileInfo + " " + su.name);
         sigMap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(),
-                R.mipmap.my_sign_blured), 80, 80,false);
+                R.mipmap.my_sign_blured), 80, 60,false);
         meshType = su.mesh;
         twoSix = su.nbrPage;
         if (twoSix == 2)
@@ -66,14 +66,14 @@ class Save2PDF {
         PdfDocument.Page page;
 
         pBoxIn = new Paint();      // inner box    (quiz)
-        pBoxIn.setColor(context.getColor(R.color.innerBox));
+        pBoxIn.setColor( ContextCompat.getColor(context,R.color.boxIn));
         pBoxIn.setStyle(Paint.Style.STROKE);
         pBoxIn.setStrokeWidth(2);
         pBoxIn.setAlpha(su.opacity *3/4);
         pBoxIn.setPathEffect(new DashPathEffect(new float[] {3,3}, 0));
 
         pBoxOut = new Paint();     // outer box
-        pBoxOut.setColor(Color.BLACK);
+        pBoxOut.setColor( ContextCompat.getColor(context,R.color.boxOut));
         pBoxOut.setStyle(Paint.Style.STROKE);
         pBoxOut.setStrokeWidth(3);
         pBoxOut.setAlpha(su.opacity);
@@ -302,7 +302,7 @@ class Save2PDF {
     void addSignature(Sudoku su, Bitmap sigMap, int pgWidth, Canvas canvas) {
         float xPos,  yPos;
         Paint nPaint = new Paint();
-        nPaint.setTextSize(36);
+        nPaint.setTextSize(40);
         nPaint.setStyle(Paint.Style.STROKE);
         nPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         nPaint.setColor(ContextCompat.getColor(context, R.color.pdf_date));

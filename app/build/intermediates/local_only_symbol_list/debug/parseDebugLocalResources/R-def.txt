@@ -26,12 +26,13 @@ attr? wv_textAlign
 attr? wv_textBoundaryMargin
 attr? wv_textSize
 attr? wv_visibleItems
+color boxIn
+color boxOut
 color colorAccent
 color colorPrimary
 color colorPrimaryDark
 color count
 color dotLine
-color innerBox
 color line_text
 color memoBox
 color number
