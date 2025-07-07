@@ -1,0 +1,6 @@
+com.riopapa.sudoku2pdf.test.app-jetified-core-1.5.0-0 C:\Users\user\.gradle\caches\transforms-4\685a3ab76d64574d991f446a5c9232b7\transformed\jetified-core-1.5.0\res
+com.riopapa.sudoku2pdf.test.app-jetified-annotation-experimental-1.3.0-1 C:\Users\user\.gradle\caches\transforms-4\dc88ecb45502c727f06474c7fa4c8377\transformed\jetified-annotation-experimental-1.3.0\res
+com.riopapa.sudoku2pdf.test.app-androidTest-2 D:\@ANDROID\sudoku2PDF\app\build\generated\res\resValues\androidTest\debug
+com.riopapa.sudoku2pdf.test.app-mergeDebugAndroidTestResources-3 D:\@ANDROID\sudoku2PDF\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+com.riopapa.sudoku2pdf.test.app-mergeDebugAndroidTestResources-4 D:\@ANDROID\sudoku2PDF\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+com.riopapa.sudoku2pdf.test.app-debugAndroidTest-5 D:\@ANDROID\sudoku2PDF\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources

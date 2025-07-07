@@ -1,0 +1,3 @@
+com.riopapa.sudoku2pdf.test
+style WhiteBackgroundDialogTheme
+style WhiteBackgroundTheme
