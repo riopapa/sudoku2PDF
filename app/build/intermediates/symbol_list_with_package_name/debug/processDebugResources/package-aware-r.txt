@@ -3474,6 +3474,7 @@ id showCustom
 id showHome
 id showTitle
 id sin
+id six_nine
 id skipCollapsed
 id skipped
 id slide

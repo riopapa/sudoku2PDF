@@ -41,7 +41,7 @@ class Save2PDF {
         downLoadFolder = Environment.getExternalStorageDirectory().getPath()+"/download";
         final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
         fileDate = sdfDate.format(System.currentTimeMillis());
-        fileInfo = "b"+su.blank +"p"+su.quiz;
+        fileInfo = "b"+su.nbrOfBlank +"p"+su.nbrOfQuiz;
         outFolder = new File(downLoadFolder);
         if (!outFolder.exists())
             if (outFolder.mkdirs())
@@ -319,7 +319,7 @@ class Save2PDF {
         xPos += nPaint.getTextSize() * 5;
         nPaint.setTextSize(nPaint.getTextSize() * 12 / 10);
         nPaint.setColor(ContextCompat.getColor(context, R.color.pdf_blanks));
-        canvas.drawText("□ "+su.blank,xPos, yPos, nPaint);
+        canvas.drawText("□ "+su.nbrOfBlank,xPos, yPos, nPaint);
 
         xPos += nPaint.getTextSize() * 3;
         canvas.drawBitmap(sigMap, xPos, yPos - 50, nPaint);

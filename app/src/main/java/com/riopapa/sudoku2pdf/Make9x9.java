@@ -1,11 +1,21 @@
 package com.riopapa.sudoku2pdf;
 
+import com.riopapa.sudoku2pdf.Model.QuizAnswers;
+import com.riopapa.sudoku2pdf.Model.Sudoku;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class Make9x9 {
+import static com.riopapa.sudoku2pdf.ActivityMain.quizAnswers;
+
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+
+public class Make9x9 implements ISudokuMaker {
 
     /**
      * A utility class for generating 9x9 Sudoku puzzles.
@@ -18,12 +28,46 @@ public class Make9x9 {
      * NOTE: For Android, this generation process, especially for high blank counts,
      * should be run on a background thread to avoid freezing the UI.
      */
-        // Board configuration for a standard 9x9 Sudoku
+    // Board configuration for a standard 9x9 Sudoku
         public static final int BOX_ROWS = 3;
         public static final int BOX_COLS = 3;
         public static final int SIZE = 9; // BOX_ROWS * BOX_COLS
-
         private static final Random random = new Random();
+
+        @Override
+        public void make(int nbrOfQuiz, int nbrOfBlank, OnSudokuGeneratedListener listener) {
+
+            final Handler handler = new Handler(Looper.getMainLooper());
+            final List<int[][]> puzzles = new ArrayList<>();
+            final List<int[][]> answers = new ArrayList<>();
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+
+            executor.execute(() -> {
+
+                for (int i = 0; i < nbrOfQuiz; i++) {
+                    // Generate one puzzle
+                    int[][] solvedBoard = generateSolvedBoard();
+                    int[][] puzzleBoard = pokeHoles(solvedBoard, nbrOfBlank);
+                    final int progress = i + 1;
+                    final int[][] finalPuzzle = puzzleBoard;
+                    final int[][] finalSolution = solvedBoard;
+
+                    // Post a progress update back to the UI thread
+                    handler.post(() -> {
+                        // --- This runs on the UI thread ---
+                        puzzles.add(finalPuzzle);
+                        answers.add(finalSolution);
+                        handler.post(() -> listener.onProgress(progress, nbrOfQuiz));                        // progressBar.setProgress(progress);
+                        // statusTextView.setText("Generated " + progress + "/" + nbrOfQuiz);
+                    });
+                }
+
+                // After the loop finishes, post the completion message
+                handler.post(() -> listener.onComplete(puzzles, answers));
+            });
+
+            executor.shutdown();
+        }
 
         /**
          * Generates a fully solved 9x9 Sudoku board.
@@ -161,41 +205,4 @@ public class Make9x9 {
             }
             return true;
         }
-
-        // --- Example Usage (for testing without Android) ---
-
-        public static void main(String[] args) {
-            System.out.println("Step 1: Generate a fully solved 9x9 board (the answer key).");
-            int[][] solvedBoard = generateSolvedBoard();
-            printBoard(solvedBoard);
-
-            System.out.println("\n-----------------------------------\n");
-
-            // A medium difficulty puzzle might have 45-50 blanks.
-            int difficulty = 45;
-            System.out.println("Step 2: Poke " + difficulty + " holes while ensuring a unique solution.");
-            System.out.println("(This may take a few seconds...)");
-
-            long startTime = System.currentTimeMillis();
-            int[][] puzzleBoard = pokeHoles(solvedBoard, difficulty);
-            long endTime = System.currentTimeMillis();
-
-            printBoard(puzzleBoard);
-            System.out.println("\nGeneration took " + (endTime - startTime) + " ms.");
-        }
-
-        private static void printBoard(int[][] board) {
-            for (int r = 0; r < SIZE; r++) {
-                if (r > 0 && r % BOX_ROWS == 0) {
-                    System.out.println("-------+-------+-------");
-                }
-                for (int c = 0; c < SIZE; c++) {
-                    if (c > 0 && c % BOX_COLS == 0) {
-                        System.out.print("| ");
-                    }
-                    System.out.print(board[r][c] == 0 ? ". " : board[r][c] + " ");
-                }
-                System.out.println();
-            }
-        }
-    }
+}

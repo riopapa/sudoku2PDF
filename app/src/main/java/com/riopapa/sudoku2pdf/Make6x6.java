@@ -1,77 +1,115 @@
 package com.riopapa.sudoku2pdf;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
- * A utility class for generating 6x6 Sudoku puzzles.
- * Follows a clear, multi-step process:
- * 1. Generate a fully solved board.
- * 2. Poke holes in it while verifying a unique solution is maintained.
+ * A Sudoku puzzle generator for 6x6 grids.
+ * This class implements the ISudokuMaker interface, allowing it to be used
+ * polymorphically alongside other generators like Make9x9.
+ * It handles puzzle creation on a background thread and communicates
+ * results via the OnSudokuGeneratedListener.
  */
-public class Make6x6 {
+public class Make6x6 implements ISudokuMaker {
 
-    // Board configuration
-    public static final int BOX_ROWS = 2;
-    public static final int BOX_COLS = 3;
-    public static final int SIZE = BOX_ROWS * BOX_COLS; // This is 6
-
+    // --- Configuration Constants for a 6x6 Grid ---
+    private static final int SIZE = 6;
+    private static final int BOX_ROWS = 2;
+    private static final int BOX_COLS = 3;
     private static final Random random = new Random();
 
     /**
-     * Generates a fully solved 6x6 Sudoku board.
-     * This is the first step in creating a new puzzle.
+     * The main public method required by the ISudokuMaker interface.
+     * It generates a specified number of quizzes on a background thread.
      *
-     * @return A 2D integer array representing a complete and valid Sudoku solution.
+     * @param nbrOfQuiz The total number of puzzles to create.
+     * @param nbrOfBlank The number of empty cells for each puzzle's difficulty.
+     * @param listener The callback listener to report progress, completion, or errors.
      */
-    public static int[][] generateSolvedBoard() {
+
+    @Override
+    public void make(int nbrOfQuiz, int nbrOfBlank, OnSudokuGeneratedListener listener) {
+        final List<int[][]> puzzles = new ArrayList<>();
+        final List<int[][]> solutions = new ArrayList<>();
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executor.execute(() -> {
+            try {
+                // --- This block runs on a background thread ---
+                for (int i = 0; i < nbrOfQuiz; i++) {
+                    int[][] solvedBoard = generateSolvedBoard();
+                    int[][] puzzleBoard = pokeHoles(solvedBoard, nbrOfBlank);
+
+                    puzzles.add(puzzleBoard);
+                    solutions.add(solvedBoard);
+
+                    final int progress = i + 1;
+                    // Post progress update back to the UI thread
+                    handler.post(() -> listener.onProgress(progress, nbrOfQuiz));
+                }
+                // After the loop, post the final successful result
+                handler.post(() -> listener.onComplete(puzzles, solutions));
+
+            } catch (Exception e) {
+                // If any error occurs, post the error back to the UI thread
+                handler.post(() -> listener.onError(e));
+            }
+        });
+
+        // Shut down the executor to release its resources. It will finish its current tasks.
+        executor.shutdown();
+    }
+
+
+    // --- Private Static Helper Methods for Core Logic ---
+
+    /**
+     * Generates a fully solved 6x6 Sudoku board.
+     */
+    private static int[][] generateSolvedBoard() {
         int[][] board = new int[SIZE][SIZE];
         solve(board);
         return board;
     }
 
     /**
-     * Pokes holes in a solved Sudoku board to create a puzzle of a given difficulty.
-     * It guarantees that the resulting puzzle has exactly one unique solution.
-     *
-     * @param solvedBoard A fully solved 6x6 Sudoku board.
-     * @param blankCount The number of empty cells the final puzzle should have.
-     * @return A new 2D array representing the puzzle with holes. The original board is not modified.
+     * Pokes holes in a solved board, ensuring a unique solution is maintained.
      */
-    public static int[][] pokeHoles(int[][] solvedBoard, int blankCount) {
-        // Create a copy to work with, so the original solved board is preserved.
+    private static int[][] pokeHoles(int[][] solvedBoard, int blankCount) {
         int[][] puzzleBoard = new int[SIZE][SIZE];
         for (int i = 0; i < SIZE; i++) {
             System.arraycopy(solvedBoard[i], 0, puzzleBoard[i], 0, SIZE);
         }
 
-        // Get a list of all cell coordinates and shuffle them for random removal.
         List<int[]> cells = new ArrayList<>();
         for (int r = 0; r < SIZE; r++) {
             for (int c = 0; c < SIZE; c++) {
                 cells.add(new int[]{r, c});
             }
         }
-        Collections.shuffle(cells);
+        Collections.shuffle(cells, random);
 
         int holesPoked = 0;
         for (int[] cell : cells) {
             if (holesPoked >= blankCount) {
                 break;
             }
-
             int r = cell[0];
             int c = cell[1];
 
-            int temp = puzzleBoard[r][c]; // Save the original number
-            puzzleBoard[r][c] = 0; // Poke the hole
+            int temp = puzzleBoard[r][c];
+            puzzleBoard[r][c] = 0;
 
-            // Verify if the puzzle still has exactly one solution
             if (countSolutions(puzzleBoard) != 1) {
-                // If not, it's either unsolvable or has multiple solutions.
-                // Revert the change.
+                // Revert if the puzzle is no longer uniquely solvable
                 puzzleBoard[r][c] = temp;
             } else {
                 holesPoked++;
@@ -79,8 +117,6 @@ public class Make6x6 {
         }
         return puzzleBoard;
     }
-
-    // --- Private Helper Methods for Solving and Verification ---
 
     /**
      * Recursive backtracking solver to fill an empty board.
@@ -94,14 +130,12 @@ public class Make6x6 {
 
         List<Integer> numbers = new ArrayList<>();
         for (int i = 1; i <= SIZE; i++) numbers.add(i);
-        Collections.shuffle(numbers);
+        Collections.shuffle(numbers, random);
 
         for (int num : numbers) {
             if (isValidPlacement(board, r, c, num)) {
                 board[r][c] = num;
-                if (solve(board)) {
-                    return true;
-                }
+                if (solve(board)) return true;
                 board[r][c] = 0; // Backtrack
             }
         }
@@ -113,9 +147,7 @@ public class Make6x6 {
      */
     private static int countSolutions(int[][] board) {
         int[] emptyCell = findEmptyCell(board);
-        if (emptyCell == null) {
-            return 1; // Found one complete solution
-        }
+        if (emptyCell == null) return 1; // Found one solution
 
         int r = emptyCell[0];
         int c = emptyCell[1];
@@ -125,24 +157,19 @@ public class Make6x6 {
             if (isValidPlacement(board, r, c, num)) {
                 board[r][c] = num;
                 solutionCount += countSolutions(board);
-                board[r][c] = 0; // Backtrack to find all other possible solutions
+                board[r][c] = 0; // Backtrack
+
+                // Optimization: stop if we already know there isn't a unique solution
+                if (solutionCount > 1) return 2;
             }
         }
         return solutionCount;
     }
 
-    // --- Private Helper Methods for Board Operations ---
-
-    private static int[] findEmptyCell(int[][] board) {
-        for (int r = 0; r < SIZE; r++) {
-            for (int c = 0; c < SIZE; c++) {
-                if (board[r][c] == 0) return new int[]{r, c};
-            }
-        }
-        return null;
-    }
-
-    public static boolean isValidPlacement(int[][] board, int row, int col, int number) {
+    /**
+     * Checks if placing a number in a given cell is valid.
+     */
+    private static boolean isValidPlacement(int[][] board, int row, int col, int number) {
         // Check row
         for (int c = 0; c < SIZE; c++) {
             if (board[row][c] == number) return false;
@@ -162,33 +189,15 @@ public class Make6x6 {
         return true;
     }
 
-    // --- Example Usage (for testing without Android) ---
-
-    public static void main(String[] args) {
-        System.out.println("Step 1: Generate a fully solved board (the answer key).");
-        int[][] solvedBoard = generateSolvedBoard();
-        printBoard(solvedBoard);
-
-        System.out.println("\n-----------------------------------\n");
-
-        int difficulty = 20; // Let's make a hard puzzle with 20 blanks
-        System.out.println("Step 2: Poke " + difficulty + " holes while ensuring a unique solution.");
-        int[][] puzzleBoard = pokeHoles(solvedBoard, difficulty);
-        printBoard(puzzleBoard);
-    }
-
-    private static void printBoard(int[][] board) {
+    /**
+     * Finds the first empty cell (value 0) on the board.
+     */
+    private static int[] findEmptyCell(int[][] board) {
         for (int r = 0; r < SIZE; r++) {
-            if (r > 0 && r % BOX_ROWS == 0) {
-                System.out.println("------+-------");
-            }
             for (int c = 0; c < SIZE; c++) {
-                if (c > 0 && c % BOX_COLS == 0) {
-                    System.out.print("| ");
-                }
-                System.out.print(board[r][c] == 0 ? ". " : board[r][c] + " ");
+                if (board[r][c] == 0) return new int[]{r, c};
             }
-            System.out.println();
         }
+        return null;
     }
 }

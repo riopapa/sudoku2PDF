@@ -88,6 +88,7 @@ id progress_circle
 id quizCount
 id right
 id share_to_main
+id six_nine
 id t_name
 id to_file
 id to_printer

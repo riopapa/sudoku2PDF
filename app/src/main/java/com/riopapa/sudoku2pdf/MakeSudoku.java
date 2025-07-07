@@ -25,8 +25,8 @@ class MakeSudoku {
                      TextView tvStat, ProgressBar progress, Drawable draw) {
         this.su = sudoku;
         this.filePrint = filePrint;
-        quizCount = sudoku.quiz;
-        blankCount = sudoku.blank;
+        quizCount = sudoku.nbrOfQuiz;
+        blankCount = sudoku.nbrOfBlank;
         tvStatus = tvStat;
         progressBar = progress;
         drawable = draw;

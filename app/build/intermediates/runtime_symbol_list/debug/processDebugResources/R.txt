@@ -3473,6 +3473,7 @@ int id showCustom 0x7f0901a0
 int id showHome 0x7f0901a1
 int id showTitle 0x7f0901a2
 int id sin 0x7f0901a3
+int id six_nine 0x7f09020e
 int id skipCollapsed 0x7f0901a4
 int id skipped 0x7f0901a5
 int id slide 0x7f0901a6

@@ -1,18 +1,15 @@
 package com.riopapa.sudoku2pdf;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.riopapa.sudoku2pdf.Model.QuizAnswers;
 import com.riopapa.sudoku2pdf.Model.Sudoku;
 
 import java.util.ArrayList;
@@ -27,6 +24,7 @@ public class ActivityMain extends AppCompatActivity {
     RecyclerView oneRecyclerView;
     public static OneAdapter oneAdapter;
     String downloadFolder;
+    public static QuizAnswers quizAnswers = new QuizAnswers();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +57,10 @@ public class ActivityMain extends AppCompatActivity {
         if (menuItem == R.id.add_new) {
             Sudoku su = new Sudoku();
             su.name = "새로운 분";
-            su.blank = 24;
+            su.nbrOfBlank = 24;
             su.opacity = 255;
             su.mesh = 0;
-            su.quiz = 6;
+            su.nbrOfQuiz = 6;
             su.answer = false;
             su.nbrPage = 2;
             sudokus.add(su);

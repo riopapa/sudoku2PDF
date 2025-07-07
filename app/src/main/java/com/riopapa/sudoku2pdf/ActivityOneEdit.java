@@ -10,12 +10,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +25,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.riopapa.sudoku2pdf.Model.Sudoku;
@@ -38,10 +37,11 @@ public class ActivityOneEdit extends AppCompatActivity {
     Context oneContext;
     Activity oneActivity;
     List<String> blankList, pageList;
-    final static int MINIMUM_BLANK = 12, MAXIMUM_BLANK = 55;
-    final static int MINIMUM_PAGE = 4, MAXIMUM_PAGE = 60;
+    final static int MINIMUM_BLANK_NINE = 12, MAXIMUM_BLANK_NINE = 55;
+    final static int MINIMUM_BLANK_SIX = 5, MAXIMUM_BLANK_SIX = 18;
+    final static int MINIMUM_PAGE = 2, MAXIMUM_PAGE = 60;
     ImageButton btnMesh, toPrinter, toFile;
-    TextView tv2or6, tMessage;
+    TextView tv2or6, tSixNine, tMessage;
     EditText eOpacity, eName;    // 255 : real black
     Sudoku su;
     MenuItem shareToMenu;
@@ -56,14 +56,12 @@ public class ActivityOneEdit extends AppCompatActivity {
         oneActivity = this;
 
         setContentView(R.layout.activity_one);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (!Environment.isExternalStorageManager()){
-                Intent intent = new Intent();
-                intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                Uri uri = Uri.fromParts("package", this.getPackageName(), null);
-                intent.setData(uri);
-                startActivity(intent);
-            }
+        if (!Environment.isExternalStorageManager()){
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+            Uri uri = Uri.fromParts("package", this.getPackageName(), null);
+            intent.setData(uri);
+            startActivity(intent);
         }
         su = sudokus.get(onePos);
         btnMesh = findViewById(R.id.mesh);
@@ -130,6 +128,18 @@ public class ActivityOneEdit extends AppCompatActivity {
         });
         tv2or6.setText(su.nbrPage +"문제");
 
+        tSixNine = findViewById(R.id.six_nine);
+        tSixNine.setOnClickListener(view -> {
+            if (su.gridSize == 6)
+                su.gridSize = 9;
+            else
+                su.gridSize = 6;
+            tSixNine.setText((su.gridSize == 6 ? "6x6" : "9x9"));
+            sudokus.set(onePos, su);
+            buildBlankWheel();
+        });
+        tSixNine.setText((su.gridSize == 6 ? "6x6" : "9x9"));
+
         tMessage = findViewById(R.id.message);
 
         SwitchCompat makeAnswer = findViewById(R.id.makeAnswer);
@@ -167,10 +177,6 @@ public class ActivityOneEdit extends AppCompatActivity {
             }
         });
 
-        blankList = new ArrayList<>();
-        for (int level = MINIMUM_BLANK; level <= MAXIMUM_BLANK; level++) {
-            blankList.add(String.valueOf(level));
-        }
         pageList = new ArrayList<>();
         for (int page = MINIMUM_PAGE; page <= MAXIMUM_PAGE; page++) {
             pageList.add(String.valueOf(page));
@@ -180,17 +186,49 @@ public class ActivityOneEdit extends AppCompatActivity {
         buildPageWheel();
 
     }
+
     private void letUsGo(String fileOrPrint) {
         sudokus.set(onePos, su);
         new SharedSudoku().put(getApplicationContext());
 
-        new MakeSudoku().make(su, fileOrPrint,
-                findViewById(R.id.message),
-                findViewById(R.id.progress_circle),
-                ResourcesCompat.getDrawable(getResources(), R.drawable.circle, null)
-        );
-    }
+        // 1. Declare a variable of the INTERFACE type.
+        ISudokuMaker maker;
+//        int gridSize = su.gridSize; // Assuming su.gridSize is 6 or 9
+        int gridSize = 6;
+        // 2. Use a simple if/else to instantiate the CORRECT concrete class.
+        if (gridSize == 6) {
+            maker = new Make6x6();
+        } else {
+            maker = new Make9x9();
+        }
 
+        // 3. Create your listener ONCE. Its type is the new common interface.
+        OnSudokuGeneratedListener listener = new OnSudokuGeneratedListener() {
+            @Override
+            public void onProgress(int current, int total) {
+                Log.w("OnProgress", "Grid " + gridSize + "x" + gridSize + ": " + current + "/" + total);
+            }
+
+            @Override
+            public void onComplete(List<int[][]> puzzles, List<int[][]> answers) {
+                Log.w("onComplete", "Done generating " + puzzles.size() + " puzzles for grid " + gridSize + "x" + gridSize);
+                Log.w("onComplete", "Target action: " + fileOrPrint);
+                if (gridSize == 9)
+                    new MakePDF9x9(puzzles, answers, su, oneContext, fileOrPrint);
+                else if (gridSize == 6)
+                    new MakePDF6x6(puzzles, answers, su, oneContext, fileOrPrint);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Log.e("SudokuGenerator", "Failed to generate " + gridSize + "x" + gridSize + " puzzles", e);
+            }
+        };
+
+        // 4. Make the single, clean, polymorphic call.
+        // It doesn't matter if 'maker' is a Make6x6 or a Make9x9. It just works.
+        maker.make(su.nbrOfQuiz, su.nbrOfBlank, listener);
+    }
 
     private void showMesh(int mesh) {
         if (mesh == 0)
@@ -205,26 +243,38 @@ public class ActivityOneEdit extends AppCompatActivity {
 
     private void buildBlankWheel() {
 
+        blankList = new ArrayList<>();
+        if (su.gridSize == 6)
+            for (int level = MINIMUM_BLANK_SIX; level <= MAXIMUM_BLANK_SIX; level++) {
+                blankList.add(String.valueOf(level));
+            }
+        else
+            for (int level = MINIMUM_BLANK_NINE; level <= MAXIMUM_BLANK_NINE; level++) {
+                blankList.add(String.valueOf(level));
+            }
+
         final WheelView<String> wheelView = findViewById(R.id.wheel_blanks);
         wheelView.setOnItemSelectedListener((wheelView1, data, position) -> {
-                su.blank = Integer.parseInt(blankList.get(position));
+                su.nbrOfBlank = Integer.parseInt(blankList.get(position));
         });
 
         wheelView.setData(blankList);
-        wheelView.setSelectedItemPosition(su.blank - MINIMUM_BLANK, true);
+        if (su.gridSize == 9)
+            wheelView.setSelectedItemPosition(su.nbrOfBlank - MINIMUM_BLANK_NINE, true);
+        else
+            wheelView.setSelectedItemPosition(su.nbrOfBlank - MINIMUM_BLANK_SIX, true);
         wheelView.setSoundEffect(true);
         wheelView.setSoundEffectResource(R.raw.level_degree);
         wheelView.setPlayVolume(0.04f);
-
     }
 
     private void buildPageWheel() {
 
         final WheelView<String> wheelView = findViewById(R.id.wheel_quiz);
-        wheelView.setOnItemSelectedListener((wheelView1, data, position) -> su.quiz = Integer.parseInt(data));
+        wheelView.setOnItemSelectedListener((wheelView1, data, position) -> su.nbrOfQuiz = Integer.parseInt(data));
 
         wheelView.setData(pageList);
-        wheelView.setSelectedItemPosition((su.quiz - MINIMUM_PAGE), true);
+        wheelView.setSelectedItemPosition((su.nbrOfQuiz - MINIMUM_PAGE), true);
         wheelView.setSoundEffect(true);
         wheelView.setSoundEffectResource(R.raw.page_count);
         wheelView.setPlayVolume(0.04f);

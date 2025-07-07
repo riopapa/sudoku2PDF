@@ -58,8 +58,8 @@ public class OneAdapter extends RecyclerView.Adapter<OneAdapter.ViewHolder> {
         String s;
         Sudoku su = sudokus.get(position);
         s =  "팀명 : " + su.name; holder.tName.setText(s);
-        s = "빈칸 수 : " + su.blank; holder.tBlank.setText(s);
-        s = "전체 문제 수 : " + su.quiz; holder.tQuiz.setText(s);
+        s = "빈칸 수 : " + su.nbrOfBlank; holder.tBlank.setText(s);
+        s = "전체 문제 수 : " + su.nbrOfQuiz; holder.tQuiz.setText(s);
         s = (su.answer) ? "답안지 만듬" : "답안지 안 만듬"; holder.tAnswer.setText(s);
         s = "인쇄 강도 : " + su.opacity; holder.tOpacity.setText(s);
         holder.iMesh.setImageResource((su.mesh == 0) ? R.drawable.mesh0_off :
