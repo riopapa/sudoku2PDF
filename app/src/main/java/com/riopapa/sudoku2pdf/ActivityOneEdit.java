@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,7 +45,7 @@ public class ActivityOneEdit extends AppCompatActivity {
     TextView tv2or6, tSixNine, tMessage;
     EditText eOpacity, eName;    // 255 : real black
     Sudoku su;
-    MenuItem shareToMenu;
+    private ProgressBar customProgressBar;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -191,12 +192,12 @@ public class ActivityOneEdit extends AppCompatActivity {
         sudokus.set(onePos, su);
         new SharedSudoku().put(getApplicationContext());
 
-        // 1. Declare a variable of the INTERFACE type.
+        customProgressBar = findViewById(R.id.customProgressBar);
+        customProgressBar.setMax(su.nbrOfQuiz);
+        customProgressBar.setProgress(0);
+        customProgressBar.setVisibility(View.VISIBLE);
         ISudokuMaker maker;
-//        int gridSize = su.gridSize; // Assuming su.gridSize is 6 or 9
-        int gridSize = 6;
-        // 2. Use a simple if/else to instantiate the CORRECT concrete class.
-        if (gridSize == 6) {
+        if (su.gridSize == 6) {
             maker = new Make6x6();
         } else {
             maker = new Make9x9();
@@ -206,22 +207,23 @@ public class ActivityOneEdit extends AppCompatActivity {
         OnSudokuGeneratedListener listener = new OnSudokuGeneratedListener() {
             @Override
             public void onProgress(int current, int total) {
-                Log.w("OnProgress", "Grid " + gridSize + "x" + gridSize + ": " + current + "/" + total);
+                customProgressBar.setProgress(current);
+                customProgressBar.invalidate();
             }
 
             @Override
             public void onComplete(List<int[][]> puzzles, List<int[][]> answers) {
-                Log.w("onComplete", "Done generating " + puzzles.size() + " puzzles for grid " + gridSize + "x" + gridSize);
-                Log.w("onComplete", "Target action: " + fileOrPrint);
-                if (gridSize == 9)
+                customProgressBar.setVisibility(View.GONE);
+                customProgressBar.invalidate();
+                if (su.gridSize == 9)
                     new MakePDF9x9(puzzles, answers, su, oneContext, fileOrPrint);
-                else if (gridSize == 6)
+                else
                     new MakePDF6x6(puzzles, answers, su, oneContext, fileOrPrint);
             }
 
             @Override
             public void onError(Exception e) {
-                Log.e("SudokuGenerator", "Failed to generate " + gridSize + "x" + gridSize + " puzzles", e);
+                Log.e("SudokuGenerator", "Failed to generate " + su.gridSize + "x" +su. gridSize + " puzzles", e);
             }
         };
 

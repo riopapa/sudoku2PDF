@@ -52,7 +52,7 @@
         android:text=""
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/progress_circle"
+        app:layout_constraintTop_toBottomOf="@id/customProgressBar"
         app:layout_constraintBottom_toTopOf="@id/frmCase1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,19 +60,17 @@
         />
 
     <ProgressBar
-        android:id="@+id/progress_circle"
-        android:visibility="invisible"
+        android:id="@+id/customProgressBar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:indeterminate="false"
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:progressDrawable="@drawable/progress_bar_rounded"
         android:max="100"
-        android:progress="40"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:progressDrawable="@drawable/circle"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:progress="100"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_margin="12dp"
+        app:layout_constraintBottom_toTopOf="@id/frmCase1"
         />
 
     <LinearLayout

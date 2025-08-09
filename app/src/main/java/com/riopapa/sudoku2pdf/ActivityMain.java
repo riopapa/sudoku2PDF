@@ -61,6 +61,7 @@ public class ActivityMain extends AppCompatActivity {
             su.opacity = 255;
             su.mesh = 0;
             su.nbrOfQuiz = 6;
+            su.gridSize = 9;
             su.answer = false;
             su.nbrPage = 2;
             sudokus.add(su);

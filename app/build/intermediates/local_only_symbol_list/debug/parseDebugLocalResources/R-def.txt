@@ -43,16 +43,15 @@ dimen fab_margin
 dimen line_text
 drawable add_new
 drawable border_folder
-drawable circle
 drawable delete
 drawable folder_big
-drawable generate
 drawable make_pdf
 drawable mesh0_off
 drawable mesh1_top
 drawable mesh2_on
 drawable mesh3_top
 drawable printer
+drawable progress_bar_rounded
 font good_times
 font radioland_regular
 font wyjov
@@ -60,6 +59,7 @@ id add_new
 id appBar
 id blankCount
 id center
+id customProgressBar
 id delete
 id fill
 id frmCase1
@@ -84,7 +84,6 @@ id one_nbr_page
 id one_opacity
 id one_quiz
 id opacity
-id progress_circle
 id quizCount
 id right
 id share_to_main
