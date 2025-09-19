@@ -7,12 +7,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.pdf.PdfDocument;
 import android.os.Environment;
-import android.print.PrintAttributes;
-import android.print.PrintDocumentAdapter;
-import android.print.PrintManager;
 import android.util.Log;
 
 import androidx.core.content.ContextCompat;
@@ -61,7 +57,7 @@ class MakePDF9x9 {
         else if (twoSix == 6)
             boxWidth = pgHeight / ((gridSize+2)*3-1);
         else
-            boxWidth = (pgWidth - 300) / (gridSize+1);
+            boxWidth = (pgWidth - 150) / (gridSize+1);
         boxWidth3 = boxWidth / 3;
         boxWidth2 = boxWidth / 2;
         space = boxWidth*2/8;  // space = 2 : 24, 3:
@@ -96,7 +92,7 @@ class MakePDF9x9 {
         pNumb.setTypeface(context.getResources().getFont(R.font.good_times));
         pNumb.setTextAlign(Paint.Align.CENTER);
         pNumb.setStyle(Paint.Style.FILL_AND_STROKE);
-        pNumb.setTextSize(calculateOptimalFontSize(pNumb, boxWidth));
+        pNumb.setTextSize(new OptimalFontSize().calc(pNumb, boxWidth));
 
         pCount = new Paint();        // number
         pCount.setColor( ContextCompat.getColor(context,R.color.count));
@@ -129,12 +125,12 @@ class MakePDF9x9 {
 
         for (int nbrQz = 0; nbrQz < su.nbrOfQuiz; nbrQz++) {
             if (nbrQz == 0)
-                addSignature(su, sigMap, pgWidth, canvas);
+                new Signature().add(context, fileDate, su, sigMap, pgWidth, canvas);
             else if ((twoSix == 2 && nbrQz % 2 == 0) ||
                     (twoSix == 6 && nbrQz > 5 && nbrQz % 6 == 0) ||
                     twoSix == 1) {
                 pageNbr++;
-                addSignature(su, sigMap, pgWidth,  canvas);
+                new Signature().add(context, fileDate, su, sigMap, pgWidth, canvas);
                 document.finishPage(page);
                 pageInfo = new PdfDocument.PageInfo.Builder(pgWidth, pgHeight, pageNbr).create();
                 // start a page
@@ -197,7 +193,7 @@ class MakePDF9x9 {
                 }
             canvas.drawText("{"+(nbrQz+1)+"}", xBase + 4 + boxWidth*9, yBase+10, pCount);
         }
-        addSignature(su, sigMap, pgWidth,  canvas);
+        new Signature().add(context, fileDate, su, sigMap, pgWidth, canvas);
 
         document.finishPage(page);
 
@@ -216,17 +212,7 @@ class MakePDF9x9 {
         if (filePrint.equals("f"))
             new ShareFile().show(context, outFolder.getAbsolutePath());
         else        // "p"
-            PDF2Printer(context, filePath.getPath());
-    }
-
-    void PDF2Printer (Context context, String fullPath) {
-        PrintManager printManager = (PrintManager) context.getSystemService(Context.PRINT_SERVICE);
-        try {
-            PrintDocumentAdapter printAdapter = new PdfDocumentAdapter(context, fullPath);
-            printManager.print("Document", printAdapter, new PrintAttributes.Builder().build());
-        } catch (Exception e) {
-            Log.e("PDF2Printer", "error " + e);
-        }
+            new PDF2Printer().launch(context, filePath.getPath());
     }
 
     //         Create Answer Page ------------
@@ -256,7 +242,7 @@ class MakePDF9x9 {
             int y20 = nbrQz % 20;    // 20 answers per page
             if (nbrQz > 19 && y20 == 0) {
                 pageNbr++;
-                addSignature(su, sigMap, pgWidth,  canvas);
+                new Signature().add(context, fileDate, su, sigMap, pgWidth, canvas);
                 document.finishPage(page);
                 pageInfo = new PdfDocument.PageInfo.Builder(pgWidth, pgHeight, pageNbr).create();
                 // start a page
@@ -291,7 +277,7 @@ class MakePDF9x9 {
                 }
         }
 
-        addSignature(su, sigMap, pgWidth,  canvas);
+        new Signature().add(context, fileDate, su, sigMap, pgWidth, canvas);
         document.finishPage(page);
 
         filePath = new File(outFile+" Sol.pdf");
@@ -303,52 +289,4 @@ class MakePDF9x9 {
         document.close();
     }
 
-    void addSignature(Sudoku su, Bitmap sigMap, int pgWidth, Canvas canvas) {
-        float xPos,  yPos;
-        Paint nPaint = new Paint();
-        nPaint.setTextSize(40);
-        nPaint.setStyle(Paint.Style.STROKE);
-        nPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        nPaint.setColor(ContextCompat.getColor(context, R.color.pdf_date));
-        xPos = pgWidth - 70;
-        yPos = 70;
-        canvas.save();
-        canvas.rotate(90, xPos, yPos);
-        canvas.drawText(fileDate.substring(0,8), xPos, yPos, nPaint);
-
-        xPos += nPaint.getTextSize() * 5;
-        nPaint.setColor(ContextCompat.getColor(context, R.color.pdf_time));
-        canvas.drawText(fileDate.substring(9), xPos, yPos, nPaint);
-
-        xPos += nPaint.getTextSize() * 5;
-        nPaint.setTextSize(nPaint.getTextSize() * 12 / 10);
-        nPaint.setColor(ContextCompat.getColor(context, R.color.pdf_blanks));
-        canvas.drawText("□ "+su.nbrOfBlank,xPos, yPos, nPaint);
-
-        xPos += nPaint.getTextSize() * 3;
-        canvas.drawBitmap(sigMap, xPos, yPos - 50, nPaint);
-        canvas.restore();
-    }
-
-    private float calculateOptimalFontSize(Paint paint, float boxSize) {
-        // We want the text to have a bit of padding inside the box.
-        // 85% is a good starting point, adjust as needed.
-        float targetTextHeight = boxSize * 0.6f;
-
-        // 1. Set an arbitrary text size for measurement
-        paint.setTextSize(100f); // Use a large size like 100px for better precision
-
-        // 2. Measure the bounds of a sample character. '8' is a good choice as it's
-        //    typically one of the tallest and widest digits.
-        Rect textBounds = new Rect();
-        paint.getTextBounds("8", 0, 1, textBounds);
-
-        // 3. Calculate the height of the measured text
-        float measuredTextHeight = textBounds.height();
-
-        // 4. Calculate the new text size by scaling
-        float newTextSize = (targetTextHeight / measuredTextHeight) * 100f;
-
-        return newTextSize;
-    }
 }

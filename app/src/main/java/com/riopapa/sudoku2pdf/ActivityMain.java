@@ -22,7 +22,7 @@ public class ActivityMain extends AppCompatActivity {
     public static int onePos;
     static MenuItem shareToMenu;
     RecyclerView oneRecyclerView;
-    public static OneAdapter oneAdapter;
+    public static TeamAdapter teamAdapter;
     String downloadFolder;
     public static QuizAnswers quizAnswers = new QuizAnswers();
 
@@ -37,9 +37,9 @@ public class ActivityMain extends AppCompatActivity {
         downloadFolder = Environment.getExternalStorageDirectory().getPath()+"/download";
         new DeleteOldFile(this).del(downloadFolder, "", "su_", 2 * 24 * 60 * 60 * 1000);
 
-        oneAdapter = new OneAdapter();
+        teamAdapter = new TeamAdapter();
         oneRecyclerView = findViewById(R.id.one_list);
-        oneRecyclerView.setAdapter(oneAdapter);
+        oneRecyclerView.setAdapter(teamAdapter);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class ActivityMain extends AppCompatActivity {
             su.nbrPage = 2;
             sudokus.add(su);
             mActivity.runOnUiThread(() -> {
-                oneAdapter.notifyDataSetChanged();
+                teamAdapter.notifyDataSetChanged();
             });
             return true;
         }

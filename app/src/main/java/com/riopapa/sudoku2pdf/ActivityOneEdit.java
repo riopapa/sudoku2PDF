@@ -1,7 +1,7 @@
 package com.riopapa.sudoku2pdf;
 
 
-import static com.riopapa.sudoku2pdf.ActivityMain.oneAdapter;
+import static com.riopapa.sudoku2pdf.ActivityMain.teamAdapter;
 import static com.riopapa.sudoku2pdf.ActivityMain.onePos;
 import static com.riopapa.sudoku2pdf.ActivityMain.sudokus;
 
@@ -297,7 +297,7 @@ public class ActivityOneEdit extends AppCompatActivity {
         if (menuItem == R.id.delete) {
             sudokus.remove(onePos);
             new SharedSudoku().put(getApplicationContext());
-            oneAdapter.notifyItemRemoved(onePos);
+            teamAdapter.notifyItemRemoved(onePos);
             finish();
             return true;
         }
@@ -307,7 +307,7 @@ public class ActivityOneEdit extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         new SharedSudoku().put(getApplicationContext());
-        oneAdapter.notifyItemChanged(onePos);
+        teamAdapter.notifyItemChanged(onePos);
         super.onBackPressed();
     }
 }
