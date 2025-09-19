@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 import android.os.Handler;
 import android.os.Looper;
 
-public class Make9x9 implements ISudokuMaker {
+public class Create9x9Puzzle implements ISudokuMaker {
 
     // Board configuration for a standard 9x9 Sudoku
     public static final int BOX_ROWS = 3;

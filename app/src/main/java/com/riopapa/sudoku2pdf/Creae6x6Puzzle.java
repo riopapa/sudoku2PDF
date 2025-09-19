@@ -10,14 +10,7 @@ import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * A Sudoku puzzle generator for 6x6 grids.
- * This class implements the ISudokuMaker interface, allowing it to be used
- * polymorphically alongside other generators like Make9x9.
- * It handles puzzle creation on a background thread and communicates
- * results via the OnSudokuGeneratedListener.
- */
-public class Make6x6 implements ISudokuMaker {
+public class Creae6x6Puzzle implements ISudokuMaker {
 
     // --- Configuration Constants for a 6x6 Grid ---
     private static final int SIZE = 6;

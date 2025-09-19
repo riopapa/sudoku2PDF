@@ -198,9 +198,9 @@ public class ActivityOneEdit extends AppCompatActivity {
         customProgressBar.setVisibility(View.VISIBLE);
         ISudokuMaker maker;
         if (su.gridSize == 6) {
-            maker = new Make6x6();
+            maker = new Creae6x6Puzzle();
         } else {
-            maker = new Make9x9();
+            maker = new Create9x9Puzzle();
         }
 
         // 3. Create your listener ONCE. Its type is the new common interface.
@@ -228,7 +228,7 @@ public class ActivityOneEdit extends AppCompatActivity {
         };
 
         // 4. Make the single, clean, polymorphic call.
-        // It doesn't matter if 'maker' is a Make6x6 or a Make9x9. It just works.
+        // It doesn't matter if 'maker' is a Creae6x6Puzzle or a Create9x9Puzzle. It just works.
         maker.make(su.nbrOfQuiz, su.nbrOfBlank, listener);
     }
 

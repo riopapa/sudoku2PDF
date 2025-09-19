@@ -2,32 +2,24 @@ package com.riopapa.sudoku2pdf;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
-import android.os.Environment;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
 import android.util.Log;
-
-import androidx.core.content.ContextCompat;
 
 import com.riopapa.sudoku2pdf.Model.Sudoku;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 class MakePDF6x6 {
 
-    String downLoadFolder;
     File outFolder, outFile;
     String fileDate, fileInfo;
     Bitmap sigMap;
@@ -42,86 +34,32 @@ class MakePDF6x6 {
         int gridSize = su.gridSize;
 
         this.context = context;
-        downLoadFolder = Environment.getExternalStorageDirectory().getPath()+"/download";
-        final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
-        fileDate = sdfDate.format(System.currentTimeMillis());
-        fileInfo = "b"+su.nbrOfBlank +"p"+su.nbrOfQuiz;
-        outFolder = new File(downLoadFolder);
-        if (!outFolder.exists())
-            if (outFolder.mkdirs())
-                Log.i("folder","Sudoku Folder");
-        outFile = new File(outFolder, "su_" + fileDate + " " + fileInfo + " " + su.name);
-        sigMap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(),
-                R.mipmap.my_sign_blured), 80, 60,false);
-        meshType = su.mesh;
-        twoSix = su.nbrPage;
-        if (twoSix == 2)
-            boxWidth = (pgHeight-60) / (gridSize + 1 + gridSize);
-        else if (twoSix == 6)
-            boxWidth = pgHeight / ((gridSize+2)*3-1);
-        else
-            boxWidth = (pgWidth - 150) / (gridSize+1);
-        boxWidth3 = boxWidth / 3;
-        boxWidth2 = boxWidth / 2;
-        space = boxWidth*2/8;  // space = 2 : 24, 3:
+        SudokuSetUp setup = new SudokuSetUp(context, su, pgWidth, pgHeight, gridSize);
+        outFolder = setup.outFolder;
+        outFile = setup.outFile;
+        fileDate = setup.fileDate;
+        fileInfo = setup.fileInfo;
+        sigMap = setup.sigMap;
+        meshType = setup.meshType;
+        twoSix = setup.twoSix;
+        boxWidth = setup.boxWidth;
+        boxWidth2 = setup.boxWidth2;
+        boxWidth3 = setup.boxWidth3;
+        space = setup.space;
         pageNbr = 0;
+
+        SudokuPaints paints = new SudokuPaints(context, su, boxWidth);
+        pBoxIn = paints.pBoxIn;
+        pBoxOut = paints.pBoxOut;
+        pDotted = paints.pDotted;
+        pNumb = paints.pNumb;
+        pCount = paints.pCount;
+        pMemo = paints.pMemo;
+        pSig = paints.pSig;
+
         PdfDocument document = new PdfDocument();
         Canvas canvas;
         PdfDocument.Page page;
-
-        pBoxIn = new Paint();      // inner box    (quiz)
-        pBoxIn.setColor( ContextCompat.getColor(context,R.color.boxIn));
-        pBoxIn.setStyle(Paint.Style.STROKE);
-        pBoxIn.setStrokeWidth(2);
-        pBoxIn.setAlpha(su.opacity *3/4);
-        pBoxIn.setPathEffect(new DashPathEffect(new float[] {3,3}, 0));
-
-        pBoxOut = new Paint();     // outer box
-        pBoxOut.setColor( ContextCompat.getColor(context,R.color.boxOut));
-        pBoxOut.setStyle(Paint.Style.STROKE);
-        pBoxOut.setStrokeWidth(3);
-        pBoxOut.setAlpha(su.opacity);
-
-        pDotted = new Paint();        // inner dotted box
-        pDotted.setPathEffect(new DashPathEffect(new float[] {3, 4}, 0));
-        pDotted.setColor(context.getColor(R.color.dotLine));
-        pDotted.setStrokeWidth(1);
-        pDotted.setAlpha(su.opacity*2/3);
-
-        pNumb = new Paint();        // number
-        pNumb.setColor( ContextCompat.getColor(context,R.color.number));
-        pNumb.setAlpha(su.opacity);
-        pNumb.setStrokeWidth(2);
-        pNumb.setTypeface(context.getResources().getFont(R.font.good_times));
-        pNumb.setTextAlign(Paint.Align.CENTER);
-        pNumb.setStyle(Paint.Style.FILL_AND_STROKE);
-        pNumb.setTextSize(new OptimalFontSize().calc(pNumb, boxWidth));
-
-        pCount = new Paint();        // number
-        pCount.setColor( ContextCompat.getColor(context,R.color.count));
-        pCount.setAlpha(su.opacity*2/3);
-        pCount.setStrokeWidth(1);
-        pCount.setTypeface(context.getResources().getFont(R.font.good_times));
-        pCount.setTextSize((float) boxWidth * 3 / 10);
-        pCount.setStyle(Paint.Style.FILL);
-
-        pMemo = new Paint();
-        pMemo.setColor(context.getColor(R.color.memoBox));
-        pMemo.setStyle(Paint.Style.STROKE);
-        pMemo.setStrokeWidth(0);
-        pMemo.setTextAlign(Paint.Align.CENTER);
-        pMemo.setStyle(Paint.Style.FILL_AND_STROKE);
-        pMemo.setTextSize(64);
-
-        pSig = new Paint();
-        pSig.setColor(Color.BLUE);
-        pSig.setTextAlign(Paint.Align.RIGHT);
-        pSig.setStyle(Paint.Style.STROKE);
-        pSig.setStrokeWidth(0);
-        pSig.setAlpha(su.opacity *3/4);
-        pSig.setStyle(Paint.Style.FILL_AND_STROKE);
-        pSig.setTextSize(36);
-
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(pgWidth, pgHeight, pageNbr).create();
         page = document.startPage(pageInfo);
         canvas = page.getCanvas();
@@ -217,16 +155,6 @@ class MakePDF6x6 {
             new PDF2Printer().launch(context, filePath.getPath());
     }
 
-    void PDF2Printer (Context context, String fullPath) {
-        PrintManager printManager = (PrintManager) context.getSystemService(Context.PRINT_SERVICE);
-        try {
-            PrintDocumentAdapter printAdapter = new PdfDocumentAdapter(context, fullPath);
-            printManager.print("Document", printAdapter, new PrintAttributes.Builder().build());
-        } catch (Exception e) {
-            Log.e("PDF2Printer", "error " + e);
-        }
-    }
-
     //         Create Answer Page ------------
     void makeAnswer(List<int[][]> puzzles, List<int[][]> answers, Sudoku su) {
         File filePath;
@@ -300,5 +228,4 @@ class MakePDF6x6 {
         }
         document.close();
     }
-
 }
