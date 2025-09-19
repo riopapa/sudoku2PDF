@@ -1,6 +1,5 @@
 package com.riopapa.sudoku2pdf;
 
-import static com.riopapa.sudoku2pdf.ActivityMain.shareTo;
 import static com.riopapa.sudoku2pdf.ActivityMain.sudokus;
 
 import android.content.Context;
@@ -15,8 +14,8 @@ import java.util.List;
 
 public class SharedSudoku {
 
-
     final String su ="sudoku";
+
     void initSudokus() {
 
         sudokus = new ArrayList<>();
@@ -41,7 +40,6 @@ public class SharedSudoku {
         Gson gson = new Gson();
         String json = gson.toJson(sudokus);
         prefsEditor.putString(su, json);
-        prefsEditor.putInt("shareTo", shareTo);
         prefsEditor.apply();
     }
 
@@ -57,7 +55,6 @@ public class SharedSudoku {
             }.getType();
             sudokus = gson.fromJson(json, type);
         }
-        shareTo = sharedPref.getInt("shareTo",0);
     }
 
 }

@@ -282,7 +282,6 @@ public class ActivityOneEdit extends AppCompatActivity {
         wheelView.setPlayVolume(0.04f);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

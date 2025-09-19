@@ -18,12 +18,9 @@ public class ActivityMain extends AppCompatActivity {
 
     public static Activity mActivity;
     public static ArrayList<Sudoku> sudokus;
-    public static int shareTo = 0;   // 0 : folder, 1: printer
     public static int onePos;
-    static MenuItem shareToMenu;
     RecyclerView oneRecyclerView;
     public static TeamAdapter teamAdapter;
-    String downloadFolder;
     public static QuizAnswers quizAnswers = new QuizAnswers();
 
     @Override
@@ -34,8 +31,7 @@ public class ActivityMain extends AppCompatActivity {
 
         mActivity = this;
         new SharedSudoku().get(this);   // read sudokus
-        downloadFolder = Environment.getExternalStorageDirectory().getPath()+"/download";
-        new DeleteOldFile(this).del(downloadFolder, "", "su_", 2 * 24 * 60 * 60 * 1000);
+        new DeleteOldFile(this).del( "", "su_", 2 * 24 * 60 * 60 * 1000);
 
         teamAdapter = new TeamAdapter();
         oneRecyclerView = findViewById(R.id.one_list);
@@ -46,7 +42,6 @@ public class ActivityMain extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        shareToMenu = menu.findItem(R.id.share_to_main);
         return true;
     }
 

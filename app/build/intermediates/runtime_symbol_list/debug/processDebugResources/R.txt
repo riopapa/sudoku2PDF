@@ -2937,7 +2937,6 @@ int drawable abc_textfield_search_activated_mtrl_alpha 0x7f070073
 int drawable abc_textfield_search_default_mtrl_alpha 0x7f070074
 int drawable abc_textfield_search_material 0x7f070075
 int drawable abc_vector_test 0x7f070076
-int drawable add_new 0x7f070077
 int drawable avd_hide_password 0x7f070078
 int drawable avd_show_password 0x7f070079
 int drawable border_folder 0x7f07007a
@@ -3046,6 +3045,7 @@ int drawable notification_tile_bg 0x7f0700e0
 int drawable notify_panel_notification_icon_bg 0x7f0700e1
 int drawable printer 0x7f0700e2
 int drawable progress_bar_rounded 0x7f0700e3
+int drawable sign_plus 0x7f0700e7
 int drawable test_level_drawable 0x7f0700e4
 int drawable tooltip_frame_dark 0x7f0700e5
 int drawable tooltip_frame_light 0x7f0700e6
@@ -3464,7 +3464,6 @@ int id search_voice_btn 0x7f090198
 int id select_dialog_listview 0x7f090199
 int id selected 0x7f09019a
 int id selection_type 0x7f09019b
-int id share_to_main 0x7f09019c
 int id sharedValueSet 0x7f09019d
 int id sharedValueUnset 0x7f09019e
 int id shortcut 0x7f09019f

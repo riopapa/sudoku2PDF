@@ -41,7 +41,6 @@ color pdf_date
 color pdf_time
 dimen fab_margin
 dimen line_text
-drawable add_new
 drawable border_folder
 drawable delete
 drawable folder_big
@@ -52,6 +51,7 @@ drawable mesh2_on
 drawable mesh3_top
 drawable printer
 drawable progress_bar_rounded
+drawable sign_plus
 font good_times
 font radioland_regular
 font wyjov
@@ -86,7 +86,6 @@ id one_quiz
 id opacity
 id quizCount
 id right
-id share_to_main
 id six_nine
 id t_name
 id to_file

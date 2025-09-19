@@ -31,11 +31,12 @@ public class DeleteOldFile {
             activity.startActivity(intent);
         }
     }
-    public void del(String downloadFolder, String subFolder,
+    public void del(String subFolder,
                          String prefix, long backTime) {
         final SimpleDateFormat sdfDate = new SimpleDateFormat(FORMAT_DATE, Locale.US);
         String oldFileName = prefix
                 + sdfDate.format(System.currentTimeMillis() - backTime);
+        File downloadFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         File[] filesAndFolders = new File(downloadFolder, subFolder).listFiles();
         if (filesAndFolders != null) {
             Collator myCollator = Collator.getInstance();
