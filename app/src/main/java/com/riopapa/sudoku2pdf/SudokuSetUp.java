@@ -42,7 +42,7 @@ public class SudokuSetUp {
         fileInfo = "b" + su.nbrOfBlank + "p" + su.nbrOfQuiz;
 
         // Output folder
-        outFolder = new File(downLoadFolder);
+        outFolder = new File(downLoadFolder,"temp");
         if (!outFolder.exists()) {
             if (outFolder.mkdirs()) {
                 Log.i("folder", "Sudoku Folder created");

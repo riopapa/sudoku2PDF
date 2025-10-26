@@ -16,11 +16,6 @@ import java.util.Locale;
 
 public class DeleteOldFile {
 
-    final String FORMAT_DATE = "yy-MM-dd";
-
-    // mainFolder : /storage/emulated/0/Download
-    // subFolder : maze
-    // backTime : 2 * 24 * 60 * 60 * 1000 (2 days)
 
     public DeleteOldFile(Activity activity) {
         if (!Environment.isExternalStorageManager()) {
@@ -31,15 +26,15 @@ public class DeleteOldFile {
             activity.startActivity(intent);
         }
     }
-    public void del(String subFolder, long backTime) {
-        final SimpleDateFormat sdfDate = new SimpleDateFormat(FORMAT_DATE, Locale.US);
-        String oldFileName = prefix
-                + sdfDate.format(System.currentTimeMillis() - backTime);
-        File downloadFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        File[] filesAndFolders = new File(downloadFolder, subFolder).listFiles();
-        if (filesAndFolders != null) {
+
+    public void del(long backTime) {
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd", Locale.US);
+        String oldFileName = prefix + sdfDate.format(System.currentTimeMillis() - backTime);
+        File[] folderName = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                "temp").listFiles();
+        if (folderName != null) {
             Collator myCollator = Collator.getInstance();
-            for (File oneFile : filesAndFolders) {      // isFile check required
+            for (File oneFile : folderName) {      // isFile check required
                 String shortFileName = oneFile.getName();
                 if (shortFileName.startsWith(prefix) &&
                         myCollator.compare(shortFileName, oldFileName) < 0) {

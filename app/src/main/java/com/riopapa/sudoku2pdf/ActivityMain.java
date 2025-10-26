@@ -29,7 +29,7 @@ public class ActivityMain extends AppCompatActivity {
 
         mActivity = this;
         new SharedSudoku().get(this);   // read sudokus
-        new DeleteOldFile(this).del( "", 3 * 60 * 60 * 1000);
+        new DeleteOldFile(this).del( 20 /* hour */ * 60 * 60 * 1000);
 
         groupAdapter = new GroupAdapter();
         oneRecyclerView = findViewById(R.id.one_list);
@@ -49,7 +49,7 @@ public class ActivityMain extends AppCompatActivity {
         int menuItem = item.getItemId();
         if (menuItem == R.id.add_new) {
             Sudoku su = new Sudoku();
-            su.group = "새로운 분";
+            su.group = "새 그룹";
             su.nbrOfBlank = 24;
             su.opacity = 255;
             su.mesh = 0;
