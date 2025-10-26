@@ -1,7 +1,7 @@
 package com.riopapa.sudoku2pdf.Model;
 
 public class Sudoku {
-    public String name;
+    public String group;
     public int nbrOfQuiz;
     public int nbrOfBlank;
     public int nbrPage;

@@ -12,6 +12,7 @@
     <color name="number">#170109</color>
     <color name="pdf_blanks">#FF4FBF24</color>
     <color name="pdf_date">#FF4488FF</color>
+    <color name="pdf_group">#1C1FDD</color>
     <color name="pdf_time">#FFF4483F</color>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="line_text">14sp</dimen>

@@ -1,5 +1,7 @@
 package com.riopapa.sudoku2pdf;
 
+import static com.riopapa.sudoku2pdf.ActivityMain.prefix;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -48,7 +50,7 @@ public class SudokuSetUp {
         }
 
         // Output file
-        outFile = new File(outFolder, "su_" + fileDate + " " + fileInfo + " " + su.name);
+        outFile = new File(outFolder, prefix + fileDate + " " + fileInfo + " " + su.group);
 
         // Signature bitmap
         sigMap = Bitmap.createScaledBitmap(

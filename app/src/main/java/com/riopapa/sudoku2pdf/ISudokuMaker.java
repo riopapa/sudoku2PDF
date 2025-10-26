@@ -5,5 +5,5 @@ package com.riopapa.sudoku2pdf;
  * Sudoku puzzles should implement this contract.
  */
 public interface ISudokuMaker {
-    void make(int nbrOfQuiz, int nbrOfBlank, OnSudokuGeneratedListener listener);
+    void make(int nbrOfQuiz, int nbrOfBlank, OnGenerateListener listener);
 }

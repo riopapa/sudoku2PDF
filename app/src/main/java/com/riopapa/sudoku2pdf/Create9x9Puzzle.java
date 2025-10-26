@@ -16,10 +16,9 @@ public class Create9x9Puzzle implements ISudokuMaker {
     public static final int BOX_ROWS = 3;
     public static final int BOX_COLS = 3;
     public static final int SIZE = 9; // BOX_ROWS * BOX_COLS
-    private static final Random random = new Random();
 
     @Override
-    public void make(int nbrOfQuiz, int nbrOfBlank, OnSudokuGeneratedListener listener) {
+    public void make(int nbrOfQuiz, int nbrOfBlank, OnGenerateListener listener) {
 
         final Handler handler = new Handler(Looper.getMainLooper());
         final List<int[][]> puzzles = new ArrayList<>();

@@ -2,14 +2,12 @@ package com.riopapa.sudoku2pdf;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.riopapa.sudoku2pdf.Model.QuizAnswers;
 import com.riopapa.sudoku2pdf.Model.Sudoku;
 
 import java.util.ArrayList;
@@ -20,8 +18,8 @@ public class ActivityMain extends AppCompatActivity {
     public static ArrayList<Sudoku> sudokus;
     public static int onePos;
     RecyclerView oneRecyclerView;
-    public static TeamAdapter teamAdapter;
-    public static QuizAnswers quizAnswers = new QuizAnswers();
+    public static GroupAdapter groupAdapter;
+    public static String prefix = "_su$_";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +29,11 @@ public class ActivityMain extends AppCompatActivity {
 
         mActivity = this;
         new SharedSudoku().get(this);   // read sudokus
-        new DeleteOldFile(this).del( "", "su_", 2 * 24 * 60 * 60 * 1000);
+        new DeleteOldFile(this).del( "", 3 * 60 * 60 * 1000);
 
-        teamAdapter = new TeamAdapter();
+        groupAdapter = new GroupAdapter();
         oneRecyclerView = findViewById(R.id.one_list);
-        oneRecyclerView.setAdapter(teamAdapter);
+        oneRecyclerView.setAdapter(groupAdapter);
     }
 
     @Override
@@ -51,7 +49,7 @@ public class ActivityMain extends AppCompatActivity {
         int menuItem = item.getItemId();
         if (menuItem == R.id.add_new) {
             Sudoku su = new Sudoku();
-            su.name = "새로운 분";
+            su.group = "새로운 분";
             su.nbrOfBlank = 24;
             su.opacity = 255;
             su.mesh = 0;
@@ -61,7 +59,7 @@ public class ActivityMain extends AppCompatActivity {
             su.nbrPage = 2;
             sudokus.add(su);
             mActivity.runOnUiThread(() -> {
-                teamAdapter.notifyDataSetChanged();
+                groupAdapter.notifyDataSetChanged();
             });
             return true;
         }

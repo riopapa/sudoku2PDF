@@ -2059,6 +2059,7 @@ color notification_icon_bg_color
 color number
 color pdf_blanks
 color pdf_date
+color pdf_group
 color pdf_time
 color primary_dark_material_dark
 color primary_dark_material_light

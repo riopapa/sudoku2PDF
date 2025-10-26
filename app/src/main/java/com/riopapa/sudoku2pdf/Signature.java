@@ -22,17 +22,21 @@ public class Signature {
         canvas.save();
         canvas.rotate(90, xPos, yPos);
         canvas.drawText(fileDate.substring(0,8), xPos, yPos, nPaint);
-
         xPos += nPaint.getTextSize() * 5;
+
         nPaint.setColor(ContextCompat.getColor(context, R.color.pdf_time));
         canvas.drawText(fileDate.substring(9), xPos, yPos, nPaint);
-
         xPos += nPaint.getTextSize() * 5;
+
+        nPaint.setColor(ContextCompat.getColor(context, R.color.pdf_group));
+        canvas.drawText(su.group, xPos, yPos, nPaint);
+        xPos += nPaint.getTextSize() * su.group.length();
+
         nPaint.setTextSize(nPaint.getTextSize() * 12 / 10);
         nPaint.setColor(ContextCompat.getColor(context, R.color.pdf_blanks));
         canvas.drawText("□ "+su.nbrOfBlank,xPos, yPos, nPaint);
-
         xPos += nPaint.getTextSize() * 3;
+
         canvas.drawBitmap(sigMap, xPos, yPos - 50, nPaint);
         canvas.restore();
     }

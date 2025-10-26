@@ -1,7 +1,8 @@
 package com.riopapa.sudoku2pdf;
 
+import static com.riopapa.sudoku2pdf.ActivityMain.prefix;
+
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
@@ -19,7 +20,6 @@ public class DeleteOldFile {
 
     // mainFolder : /storage/emulated/0/Download
     // subFolder : maze
-    // prefix : maze_
     // backTime : 2 * 24 * 60 * 60 * 1000 (2 days)
 
     public DeleteOldFile(Activity activity) {
@@ -31,8 +31,7 @@ public class DeleteOldFile {
             activity.startActivity(intent);
         }
     }
-    public void del(String subFolder,
-                         String prefix, long backTime) {
+    public void del(String subFolder, long backTime) {
         final SimpleDateFormat sdfDate = new SimpleDateFormat(FORMAT_DATE, Locale.US);
         String oldFileName = prefix
                 + sdfDate.format(System.currentTimeMillis() - backTime);

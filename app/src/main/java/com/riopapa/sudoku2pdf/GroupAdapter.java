@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.riopapa.sudoku2pdf.Model.Sudoku;
 
-public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder> {
+public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
@@ -57,7 +57,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder> {
 
         String s;
         Sudoku su = sudokus.get(position);
-        s =  "팀명 : " + su.name; holder.tName.setText(s);
+        s =  "팀명 : " + su.group; holder.tName.setText(s);
         s = ((su.gridSize == 9) ? "9x9" : "6x6") + " 빈칸 수 : " + su.nbrOfBlank; holder.tBlank.setText(s);
         s = "전체 문제 수 : " + su.nbrOfQuiz; holder.tQuiz.setText(s);
         s = (su.answer) ? "답안지 만듬" : "답안지 안 만듬"; holder.tAnswer.setText(s);

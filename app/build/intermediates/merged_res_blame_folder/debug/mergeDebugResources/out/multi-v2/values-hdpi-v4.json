@@ -4,7 +4,7 @@
             "outputFile": "com.riopapa.sudoku2pdf.app-mergeDebugResources-26:/values-hdpi-v4/values-hdpi-v4.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\user\\.gradle\\caches\\transforms-4\\523e6cb4aa80ca6b29f9ea4b1eb23e06\\transformed\\appcompat-1.6.1\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
+                    "source": "C:\\Users\\user\\.gradle\\caches\\8.13\\transforms\\6b7c0fec4201df2f114c6acb9de0c91a\\transformed\\appcompat-1.6.1\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

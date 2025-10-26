@@ -20,16 +20,16 @@ public class SharedSudoku {
 
         sudokus = new ArrayList<>();
         Sudoku su;
-        su = new Sudoku(); su.name = "이정도야"; su.nbrOfBlank = 16; su.nbrOfQuiz = 4; su.mesh = 0;
+        su = new Sudoku(); su.group = "이정도야"; su.nbrOfBlank = 16; su.nbrOfQuiz = 4; su.mesh = 0;
         su.nbrPage = 2; su.opacity = 255; su.answer = true; sudokus.add(su);
 
-        su = new Sudoku(); su.name = "할만하네"; su.nbrOfBlank = 28; su.nbrOfQuiz = 6; su.mesh = 0;
+        su = new Sudoku(); su.group = "할만하네"; su.nbrOfBlank = 28; su.nbrOfQuiz = 6; su.mesh = 0;
         su.nbrPage = 2; su.opacity = 255; su.answer = true; sudokus.add(su);
 
-        su = new Sudoku(); su.name = "어렵군"; su.nbrOfBlank = 40; su.nbrOfQuiz = 12; su.mesh = 1;
+        su = new Sudoku(); su.group = "어렵군"; su.nbrOfBlank = 40; su.nbrOfQuiz = 12; su.mesh = 1;
         su.nbrPage = 6; su.opacity = 255; su.answer = true; sudokus.add(su);
 
-        su = new Sudoku(); su.name = "풀리긴 함"; su.nbrOfBlank = 50; su.nbrOfQuiz = 6; su.mesh = 2;
+        su = new Sudoku(); su.group = "풀리긴 함"; su.nbrOfBlank = 50; su.nbrOfQuiz = 6; su.mesh = 2;
         su.nbrPage = 6; su.opacity = 255; su.answer = true; sudokus.add(su);
 
     }

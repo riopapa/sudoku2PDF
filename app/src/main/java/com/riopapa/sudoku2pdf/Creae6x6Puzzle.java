@@ -28,7 +28,7 @@ public class Creae6x6Puzzle implements ISudokuMaker {
      */
 
     @Override
-    public void make(int nbrOfQuiz, int nbrOfBlank, OnSudokuGeneratedListener listener) {
+    public void make(int nbrOfQuiz, int nbrOfBlank, OnGenerateListener listener) {
         final List<int[][]> puzzles = new ArrayList<>();
         final List<int[][]> solutions = new ArrayList<>();
         ExecutorService executor = Executors.newSingleThreadExecutor();

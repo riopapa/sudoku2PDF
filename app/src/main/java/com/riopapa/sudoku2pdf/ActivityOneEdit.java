@@ -1,7 +1,7 @@
 package com.riopapa.sudoku2pdf;
 
 
-import static com.riopapa.sudoku2pdf.ActivityMain.teamAdapter;
+import static com.riopapa.sudoku2pdf.ActivityMain.groupAdapter;
 import static com.riopapa.sudoku2pdf.ActivityMain.onePos;
 import static com.riopapa.sudoku2pdf.ActivityMain.sudokus;
 
@@ -98,7 +98,7 @@ public class ActivityOneEdit extends AppCompatActivity {
         });
 
         eName = findViewById(R.id.name);
-        eName.setText(String.valueOf(su.name));
+        eName.setText(String.valueOf(su.group));
         eName.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {}
@@ -110,7 +110,7 @@ public class ActivityOneEdit extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
                 if (s.length() > 0) {
-                    su.name = s.toString();
+                    su.group = s.toString();
                     sudokus.set(onePos, su);
                 }
             }
@@ -204,7 +204,7 @@ public class ActivityOneEdit extends AppCompatActivity {
         }
 
         // 3. Create your listener ONCE. Its type is the new common interface.
-        OnSudokuGeneratedListener listener = new OnSudokuGeneratedListener() {
+        OnGenerateListener listener = new OnGenerateListener() {
             @Override
             public void onProgress(int current, int total) {
                 customProgressBar.setProgress(current);
@@ -296,7 +296,7 @@ public class ActivityOneEdit extends AppCompatActivity {
         if (menuItem == R.id.delete) {
             sudokus.remove(onePos);
             new SharedSudoku().put(getApplicationContext());
-            teamAdapter.notifyItemRemoved(onePos);
+            groupAdapter.notifyItemRemoved(onePos);
             finish();
             return true;
         }
@@ -306,7 +306,7 @@ public class ActivityOneEdit extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         new SharedSudoku().put(getApplicationContext());
-        teamAdapter.notifyItemChanged(onePos);
+        groupAdapter.notifyItemChanged(onePos);
         super.onBackPressed();
     }
 }
