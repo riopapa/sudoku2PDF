@@ -3807,7 +3807,6 @@ int string abc_searchview_description_voice 0x7f120017
 int string abc_shareactionprovider_share_with 0x7f120018
 int string abc_shareactionprovider_share_with_application 0x7f120019
 int string abc_toolbar_collapse_description 0x7f12001a
-int string action_settings 0x7f12001b
 int string androidx_startup 0x7f12001c
 int string app_name 0x7f12001d
 int string appbar_scrolling_view_behavior 0x7f12001e

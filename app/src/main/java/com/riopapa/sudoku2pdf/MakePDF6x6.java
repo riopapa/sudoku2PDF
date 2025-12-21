@@ -6,9 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
-import android.print.PrintAttributes;
-import android.print.PrintDocumentAdapter;
-import android.print.PrintManager;
 import android.util.Log;
 
 import com.riopapa.sudoku2pdf.Model.Sudoku;
@@ -20,8 +17,6 @@ import java.util.List;
 
 class MakePDF6x6 {
 
-    File outFolder, outFile;
-    String fileDate, fileInfo;
     Bitmap sigMap;
     Paint pBoxIn, pBoxOut, pDotted, pNumb, pMemo, pSig, pCount;
     int pgWidth = 210*10, pgHeight = 297*10;  // A4 size
@@ -35,10 +30,6 @@ class MakePDF6x6 {
 
         this.context = context;
         SudokuSetUp setup = new SudokuSetUp(context, su, pgWidth, pgHeight, gridSize);
-        outFolder = setup.outFolder;
-        outFile = setup.outFile;
-        fileDate = setup.fileDate;
-        fileInfo = setup.fileInfo;
         sigMap = setup.sigMap;
         meshType = setup.meshType;
         twoSix = setup.twoSix;
@@ -66,12 +57,12 @@ class MakePDF6x6 {
 
         for (int nbrQz = 0; nbrQz < su.nbrOfQuiz; nbrQz++) {
             if (nbrQz == 0)
-                new Signature().add(context, fileDate, su, sigMap, pgWidth, canvas);
+                new Signature().add(context, setup.fileDate, su, sigMap, pgWidth, canvas);
             else if ((twoSix == 2 && nbrQz % 2 == 0) ||
                     (twoSix == 6 && nbrQz > 5 && nbrQz % 6 == 0) ||
                     twoSix == 1) {
                 pageNbr++;
-                new Signature().add(context, fileDate, su, sigMap, pgWidth, canvas);
+                new Signature().add(context, setup.fileDate, su, sigMap, pgWidth, canvas);
                 document.finishPage(page);
                 pageInfo = new PdfDocument.PageInfo.Builder(pgWidth, pgHeight, pageNbr).create();
                 // start a page
@@ -133,11 +124,11 @@ class MakePDF6x6 {
                 }
             canvas.drawText("{"+(nbrQz+1)+"}", xBase + 14 + boxWidth*gridSize, yBase+10, pCount);
         }
-        new Signature().add(context, fileDate, su, sigMap, pgWidth, canvas);
+        new Signature().add(context, setup.fileDate, su, sigMap, pgWidth, canvas);
 
         document.finishPage(page);
 
-        File filePath = new File(outFile+" Quiz.pdf");
+        File filePath = new File(setup.outFile+" Quiz.pdf");
         try {
             document.writeTo(Files.newOutputStream(filePath.toPath()));
         } catch (IOException e) {
@@ -147,16 +138,19 @@ class MakePDF6x6 {
         document.close();
 
         if (su.answer)
-            makeAnswer(puzzles, answers, su);
+            makeAnswer(puzzles, answers, su, setup);
 
         if (filePrint.equals("f"))
-            new ShareFile().show(context, outFolder.getAbsolutePath());
+            new ShareFile().show(context, setup.outFolder.getAbsolutePath());
         else        // "p"
             new PDF2Printer().launch(context, filePath.getPath());
     }
 
     //         Create Answer Page ------------
-    void makeAnswer(List<int[][]> puzzles, List<int[][]> answers, Sudoku su) {
+    void makeAnswer(List<int[][]> puzzles, List<int[][]> answers, Sudoku su, SudokuSetUp setup) {
+        int GARO = 3;
+        int SERO = 4;
+
         File filePath;
         PdfDocument.Page page;
         PdfDocument document;
@@ -168,7 +162,7 @@ class MakePDF6x6 {
         canvas = page.getCanvas();
 
         int gridSize = su.gridSize;
-        boxWidth = (pgWidth - 80) / (gridSize*5);    // 4 answer for 1 line
+        boxWidth = (pgWidth - 50) / ((gridSize+1)*GARO);
         pBoxIn.setStrokeWidth(1);
         pNumb.setTextSize(boxWidth/2.3f); // pNumb : answer number
         pNumb.setAlpha(su.opacity);
@@ -179,10 +173,10 @@ class MakePDF6x6 {
 
         pageNbr = 0;
         for (int nbrQz = 0; nbrQz < answers.size(); nbrQz++) {
-            int y20 = nbrQz % 24;    // 20 answers per page
-            if (nbrQz > 19 && y20 == 0) {
+            int y20 = nbrQz % (GARO * SERO);    // 20 answers per page
+            if (nbrQz >= GARO * SERO && y20 == 0) {
                 pageNbr++;
-                new Signature().add(context, fileDate, su, sigMap, pgWidth, canvas);
+                new Signature().add(context, setup.fileDate, su, sigMap, pgWidth, canvas);
                 document.finishPage(page);
                 pageInfo = new PdfDocument.PageInfo.Builder(pgWidth, pgHeight, pageNbr).create();
                 // start a page
@@ -192,8 +186,8 @@ class MakePDF6x6 {
 
             int [][] ansTable = answers.get(nbrQz);
             int [][] blankTable = puzzles.get(nbrQz);
-            int xBase = 50 + (nbrQz % 4) * boxWidth * (gridSize+1);
-            int yBase = 80 +  (y20 / 4) * boxWidth * (gridSize+1);
+            int xBase = 50 + (nbrQz % GARO) * boxWidth * (gridSize+1);
+            int yBase = 80 +  (y20 / GARO) * boxWidth * (gridSize+1);
             int xGap = boxWidth/2;
             int yGap = boxWidth*3/4;
             for (int row = 0; row < gridSize ; row++) {
@@ -217,10 +211,10 @@ class MakePDF6x6 {
                 }
         }
 
-        new Signature().add(context, fileDate, su, sigMap, pgWidth, canvas);
+        new Signature().add(context, setup.fileDate, su, sigMap, pgWidth, canvas);
         document.finishPage(page);
 
-        filePath = new File(outFile+" Sol.pdf");
+        filePath = new File(setup.outFile+" Sol.pdf");
         try {
             document.writeTo(Files.newOutputStream(filePath.toPath()));
         } catch (IOException e) {

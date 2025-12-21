@@ -18,7 +18,6 @@ public class SudokuSetUp {
     public final File outFolder;
     public final File outFile;
     public final String fileDate;
-    public final String fileInfo;
     public final Bitmap sigMap;
     public final int meshType;
     public final int twoSix;
@@ -33,30 +32,23 @@ public class SudokuSetUp {
         this.pgWidth = pgWidth;
         this.pgHeight = pgHeight;
 
-        // Download folder
-        String downLoadFolder = Environment.getExternalStorageDirectory().getPath() + "/download";
-
         // File date / info
         final SimpleDateFormat sdfDate = new SimpleDateFormat("yy-MM-dd HH.mm.ss", Locale.US);
         fileDate = sdfDate.format(System.currentTimeMillis());
-        fileInfo = "b" + su.nbrOfBlank + "p" + su.nbrOfQuiz;
 
         // Output folder
-        outFolder = new File(downLoadFolder,"temp");
+        outFolder = new File(Environment.getExternalStorageDirectory().getPath() + "/download","temp");
         if (!outFolder.exists()) {
-            if (outFolder.mkdirs()) {
-                Log.i("folder", "Sudoku Folder created");
-            }
+            outFolder.mkdirs();
         }
 
         // Output file
-        outFile = new File(outFolder, prefix + fileDate + " " + fileInfo + " " + su.group);
+        outFile = new File(outFolder, prefix + fileDate + " " + su.group);
 
         // Signature bitmap
         sigMap = Bitmap.createScaledBitmap(
                 BitmapFactory.decodeResource(context.getResources(), R.mipmap.my_sign_blured),
-                80, 60, false
-        );
+                100, 60, false);
 
         // Layout parameters
         meshType = su.mesh;

@@ -13,12 +13,12 @@ public class Signature {
     void add(Context context, String fileDate, Sudoku su, Bitmap sigMap, int pgWidth, Canvas canvas) {
         float xPos,  yPos;
         Paint nPaint = new Paint();
-        nPaint.setTextSize(40);
+        nPaint.setTextSize(44);
         nPaint.setStyle(Paint.Style.STROKE);
         nPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         nPaint.setColor(ContextCompat.getColor(context, R.color.pdf_date));
         xPos = pgWidth - 60;
-        yPos = 40;
+        yPos = 60;
         canvas.save();
         canvas.rotate(90, xPos, yPos);
         canvas.drawText(fileDate.substring(0,8), xPos, yPos, nPaint);
@@ -30,9 +30,9 @@ public class Signature {
 
         nPaint.setColor(ContextCompat.getColor(context, R.color.pdf_group));
         canvas.drawText(su.group, xPos, yPos, nPaint);
-        xPos += nPaint.getTextSize() * su.group.length();
+        xPos += nPaint.getTextSize() * (su.group.length() + 1);
 
-        nPaint.setTextSize(nPaint.getTextSize() * 12 / 10);
+//        nPaint.setTextSize(nPaint.getTextSize() * 12 / 10);
         nPaint.setColor(ContextCompat.getColor(context, R.color.pdf_blanks));
         canvas.drawText("□ "+su.nbrOfBlank,xPos, yPos, nPaint);
         xPos += nPaint.getTextSize() * 3;

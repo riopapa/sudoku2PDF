@@ -105,7 +105,6 @@ mipmap my_sign_blured
 mipmap my_sign_yellow
 raw level_degree
 raw page_count
-string action_settings
 string app_name
 style AppTheme
 style AppTheme.AppBarOverlay
