@@ -19,7 +19,7 @@ public class ActivityMain extends AppCompatActivity {
     public static int onePos;
     RecyclerView oneRecyclerView;
     public static GroupAdapter groupAdapter;
-    public static String prefix = "_su$_";
+    public static String prefix = "_수독_";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
