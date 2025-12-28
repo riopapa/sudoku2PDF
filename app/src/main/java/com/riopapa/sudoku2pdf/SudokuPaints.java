@@ -1,5 +1,7 @@
 package com.riopapa.sudoku2pdf;
 
+import static com.riopapa.sudoku2pdf.ActivityMain.onePos;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
@@ -19,7 +21,8 @@ public class SudokuPaints {
     public Paint pSig;
 
     public SudokuPaints(Context context, Sudoku su, int boxWidth) {
-        // inner box (quiz)
+
+        int[] colors = { 0xFF3e2e1c, 0xFF13004F, 0xFF132b11,0xFF000000};
         pBoxIn = new Paint();
         pBoxIn.setColor(ContextCompat.getColor(context, R.color.boxIn));
         pBoxIn.setStyle(Paint.Style.STROKE);
@@ -43,7 +46,7 @@ public class SudokuPaints {
 
         // number
         pNumb = new Paint();
-        pNumb.setColor(ContextCompat.getColor(context, R.color.number));
+        pNumb.setColor(colors[onePos % colors.length]);
         pNumb.setAlpha(su.opacity);
         pNumb.setStrokeWidth(2);
         pNumb.setTypeface(context.getResources().getFont(R.font.good_times));
