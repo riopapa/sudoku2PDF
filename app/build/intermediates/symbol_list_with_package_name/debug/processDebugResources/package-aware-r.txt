@@ -1429,6 +1429,10 @@ color foreground_material_dark
 color foreground_material_light
 color highlighted_text_material_dark
 color highlighted_text_material_light
+color idx_color_0
+color idx_color_1
+color idx_color_2
+color idx_color_3
 color line_text
 color m3_appbar_overlay_color
 color m3_assist_chip_icon_tint_color
@@ -2056,6 +2060,10 @@ color mtrl_textinput_focused_box_stroke_color
 color mtrl_textinput_hovered_box_stroke_color
 color notification_action_color_filter
 color notification_icon_bg_color
+color num_color_0
+color num_color_1
+color num_color_2
+color num_color_3
 color number
 color pdf_blanks
 color pdf_date

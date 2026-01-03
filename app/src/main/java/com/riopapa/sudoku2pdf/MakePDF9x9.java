@@ -123,7 +123,7 @@ class MakePDF9x9 {
                     int yPos = yBase + row * boxWidth;
                     canvas.drawRect(xBase, yBase, xPos + boxWidth*3, yPos + boxWidth*3, pBoxOut);
                 }
-            canvas.drawText("{"+(nbrQz+1)+"}", xBase + 4 + boxWidth*9, yBase+10, pCount);
+            canvas.drawText("{"+(nbrQz+1)+"}", xBase + 6 + boxWidth*9, yBase+10, pCount);
         }
         new Signature().add(context, setup.fileDate, su, sigMap, pgWidth, canvas);
 
@@ -215,7 +215,7 @@ class MakePDF9x9 {
         new Signature().add(context, setup.fileDate, su, sigMap, pgWidth, canvas);
         document.finishPage(page);
 
-        filePath = new File(setup.outFile+" Sol.pdf");
+        filePath = new File(setup.outFile+" 답.pdf");
         try {
             document.writeTo(Files.newOutputStream(filePath.toPath()));
         } catch (IOException e) {

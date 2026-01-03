@@ -1428,6 +1428,10 @@ int color foreground_material_dark 0x7f050060
 int color foreground_material_light 0x7f050061
 int color highlighted_text_material_dark 0x7f050062
 int color highlighted_text_material_light 0x7f050063
+int color idx_color_0 0x7f0502f2
+int color idx_color_1 0x7f0502f3
+int color idx_color_2 0x7f0502f4
+int color idx_color_3 0x7f0502f5
 int color line_text 0x7f050064
 int color m3_appbar_overlay_color 0x7f050065
 int color m3_assist_chip_icon_tint_color 0x7f050066
@@ -2055,6 +2059,10 @@ int color mtrl_textinput_focused_box_stroke_color 0x7f0502d3
 int color mtrl_textinput_hovered_box_stroke_color 0x7f0502d4
 int color notification_action_color_filter 0x7f0502d5
 int color notification_icon_bg_color 0x7f0502d6
+int color num_color_0 0x7f0502f6
+int color num_color_1 0x7f0502f7
+int color num_color_2 0x7f0502f8
+int color num_color_3 0x7f0502f9
 int color number 0x7f0502d7
 int color pdf_blanks 0x7f0502d8
 int color pdf_date 0x7f0502d9

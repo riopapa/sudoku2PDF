@@ -22,7 +22,10 @@ public class SudokuPaints {
 
     public SudokuPaints(Context context, Sudoku su, int boxWidth) {
 
-        int[] colors = { 0xFF3e2e1c, 0xFF13004F, 0xFF132b11,0xFF000000};
+        int[] numbColors = { R.color.num_color_0, R.color.num_color_1, R.color.num_color_2, R.color.num_color_3};
+        int[] idxColors = { R.color.idx_color_0, R.color.idx_color_1, R.color.idx_color_2, R.color.idx_color_3};
+
+        // inner box
         pBoxIn = new Paint();
         pBoxIn.setColor(ContextCompat.getColor(context, R.color.boxIn));
         pBoxIn.setStyle(Paint.Style.STROKE);
@@ -46,7 +49,7 @@ public class SudokuPaints {
 
         // number
         pNumb = new Paint();
-        pNumb.setColor(colors[onePos % colors.length]);
+        pNumb.setColor(numbColors[onePos % numbColors.length]);
         pNumb.setAlpha(su.opacity);
         pNumb.setStrokeWidth(2);
         pNumb.setTypeface(context.getResources().getFont(R.font.good_times));
@@ -56,11 +59,11 @@ public class SudokuPaints {
 
         // count
         pCount = new Paint();
-        pCount.setColor(ContextCompat.getColor(context, R.color.count));
+        pCount.setColor(idxColors[onePos % idxColors.length]);
         pCount.setAlpha(su.opacity * 2 / 3);
         pCount.setStrokeWidth(1);
         pCount.setTypeface(context.getResources().getFont(R.font.good_times));
-        pCount.setTextSize((float) boxWidth * 3 / 10);
+        pCount.setTextSize((float) boxWidth * 4 / 10);
         pCount.setStyle(Paint.Style.FILL);
 
         // memo
